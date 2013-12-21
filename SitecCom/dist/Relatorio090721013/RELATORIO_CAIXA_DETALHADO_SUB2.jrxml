@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RELATORIO_CAIXA_DETALHADO_SUB2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="85a9eefb-3c87-499f-95d0-faeabd6ec68b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EMPRESA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATAINICIAL" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATAFINAL" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select tipo,sum(valor) as soma from receber where empresa=$P{EMPRESA} and pg='N' and datavenda between $P{DATAINICIAL} and $P{DATAFINAL} group by tipo]]>
+	</queryString>
+	<field name="tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="soma" class="java.lang.Double"/>
+	<variable name="variable1" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{soma}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b7801a6f-b45f-438c-bda2-4924b47b46b9" x="0" y="5" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[FORMA PAGAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4be5be97-e46a-4fb5-ad3f-84e41661d6f6" x="134" y="5" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement uuid="45faab28-a1a1-4823-bb62-ff0c7e021e42" x="134" y="3" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{soma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b2cf00e-7a2e-4473-941b-b5a869cb0eaa" x="0" y="3" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement uuid="37e44f73-9e62-4776-bd53-30b5d3552ab3" x="0" y="7" width="182" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["TOTAL GERAL A RECEBER: "+$V{variable1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

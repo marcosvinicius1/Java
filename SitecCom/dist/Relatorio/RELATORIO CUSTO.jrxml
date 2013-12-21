@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b781c26-1440-497a-95a0-bd28ce9eac83">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select produto.*,empresa.nome as empresanome
+,empresa.cnpj as cnpjempresa,empresa.endereco as enderecoempresa,empresa.numero as numeroempresa
+,empresa.bairro as bairroempresa,empresa.cidade as cidadeempresa,empresa.telefone as telefoneempresa
+,empresa.cep as cepempresa from produto left join empresa on produto.empresa=empresa.id where $P!{sql}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aliquota" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="grupo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="marca" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pessoa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codbarra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtde" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtdemin" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="localizacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="margemlucro" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precocusto" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precovenda" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="frete" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="acessorio" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ativo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valoraliq" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="custoreal" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="empresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="empresanome" class="java.lang.String"/>
+	<field name="cnpjempresa" class="java.lang.String"/>
+	<field name="enderecoempresa" class="java.lang.String"/>
+	<field name="numeroempresa" class="java.lang.String"/>
+	<field name="bairroempresa" class="java.lang.String"/>
+	<field name="cidadeempresa" class="java.lang.String"/>
+	<field name="telefoneempresa" class="java.lang.String"/>
+	<field name="cepempresa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ad04610d-b2ce-44a9-9010-890d51acd1d2" x="0" y="0" width="173" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{empresanome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d37ff453-bb37-4d45-b218-3046dad8a021" x="0" y="20" width="173" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{enderecoempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5c08172d-499d-4b9f-897c-fde9e55815e2" x="0" y="40" width="173" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cidadeempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c6202704-c07d-4cbd-98eb-adf563427883" x="173" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cnpjempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2f1a5f51-c153-425e-9540-7881e77fb90a" x="173" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numeroempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="43e8cdb4-c548-41bd-aa5d-ba68a48401a5" x="173" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cepempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7db1becc-7dde-4ec0-a111-a824be05b3c9" x="273" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{bairroempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f7a3c00c-8029-415a-b536-b773148a6104" x="273" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{telefoneempresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c1503f7d-84ce-4371-ace5-6fcb7df6e154" x="486" y="0" width="69" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c1843f1c-d44e-422b-81b8-4daedf8bca12" x="455" y="0" width="31" height="20"/>
+				<textElement/>
+				<text><![CDATA[DATA:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="000e5031-d15d-4524-8698-033f3ef52ba4" x="0" y="57" width="555" height="1"/>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement uuid="2b9650a6-eab5-46f1-af89-dc6a78d05bb1" x="455" y="40" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1c2a22d7-4ecf-45b1-bf51-99a5ffcfc0a1" x="0" y="7" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d721f0d8-867e-4bba-8086-6f76eab0570e" x="72" y="7" width="73" height="20"/>
+				<textElement/>
+				<text><![CDATA[DESCRICAO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f58449c8-0be3-46ef-b0cd-6206233ff218" x="227" y="7" width="73" height="20"/>
+				<textElement/>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="70ec0fc9-60b0-4ba3-b739-ccb328ee9ca2" x="300" y="7" width="73" height="20"/>
+				<textElement/>
+				<text><![CDATA[LOCALIZACAO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c1d6372c-17f2-4de5-9d79-5e6675fe6842" x="373" y="7" width="86" height="20"/>
+				<textElement/>
+				<text><![CDATA[CUSTO REAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20c60be5-ca81-44f0-947c-06c46fb4278a" x="459" y="7" width="44" height="20"/>
+				<textElement/>
+				<text><![CDATA[LUCRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0fc9fc5-6ab4-43b9-bd73-c6909cce9aef" x="503" y="7" width="48" height="20"/>
+				<textElement/>
+				<text><![CDATA[VENDA]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="384a89eb-9fda-4664-b7c7-f072b685619b" x="0" y="23" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="40ced46b-1e9b-4a2e-9cde-a86ee60e8762" x="0" y="0" width="72" height="21"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{codbarra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="86f858eb-e346-4055-806c-2bd5cb6e245c" x="72" y="0" width="155" height="21"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d7b6b81d-2b9a-4365-b955-836a2ced5cd5" x="227" y="1" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{qtde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e8a6859-4ad0-4100-b516-34f278b82afb" x="300" y="1" width="73" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{localizacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5937579a-0834-4b41-a235-ba8ee2396c7f" x="459" y="1" width="44" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{margemlucro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="210e7957-f62d-452c-98f8-041e6333999a" x="373" y="1" width="86" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{custoreal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="945a691c-b267-41ef-a875-2dd6050b5bb6" x="503" y="1" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{precovenda}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement uuid="75a8b4f3-348e-4ec0-bd66-71912457b89c" x="455" y="12" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="25342941-775e-4cbe-80cb-b8e7fd1b95d0" x="0" y="13" width="555" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
