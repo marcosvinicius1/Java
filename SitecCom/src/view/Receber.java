@@ -1361,7 +1361,11 @@ public class Receber extends javax.swing.JFrame {
             DadosEmpresaBins de= new DadosEmpresaBins();
             CriaConexao con = new CriaConexao();
             Map map = new HashMap();
-            map.put("campo", jCcampo.getSelectedItem() + " like '%" + jTdpesquisaconta.getText() + "%'");
+            if(jCcampo.getSelectedItem().equals("DATAVENDA") || jCcampo.getSelectedItem().equals("DATAVENCIMENTO")){
+                map.put("campo", "DATE_FORMAT("+jCcampo.getSelectedItem()+", '%d.%m.%Y')"+ " like '%" + jTdpesquisaconta.getText() + "%'");
+            }else{
+                map.put("campo", jCcampo.getSelectedItem() + " like '%" + jTdpesquisaconta.getText() + "%'");
+            }
             map.put("empresa", de.getId());
             map.put("pg", selecaoJRpesquisaReceber());
             JasperPrint jasperPrint = JasperFillManager.fillReport("./Relatorio/receberpesq.jasper", map, con.getConexao());
@@ -1409,7 +1413,11 @@ public class Receber extends javax.swing.JFrame {
         try {
             ReceberDao rd = new ReceberDao();
             DadosEmpresaBins de = new DadosEmpresaBins();
-            lpconta = rd.getlista(jCcampo.getSelectedItem() + " like '%" + jTdpesquisaconta.getText() + "%'", de.getId(),selecaoJRpesquisaReceber());
+            if(jCcampo.getSelectedItem().equals("DATAVENDA") || jCcampo.getSelectedItem().equals("DATAVENCIMENTO")){
+                lpconta = rd.getlista("DATE_FORMAT("+ jCcampo.getSelectedItem() +", '%d.%m.%Y') like '%"+jTdpesquisaconta.getText()+"%'", de.getId(),selecaoJRpesquisaReceber());
+            }else{
+                lpconta = rd.getlista(jCcampo.getSelectedItem() + " like '%" + jTdpesquisaconta.getText() + "%'", de.getId(),selecaoJRpesquisaReceber());
+            }            
 
             mostrapesquisaconta(lpconta);
         } catch (SQLException ex) {
