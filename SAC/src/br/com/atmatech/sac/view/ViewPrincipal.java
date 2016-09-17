@@ -43,7 +43,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         //coloca a tela cheia em cima da barra de tarefa
 //        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();  
 //       this.setSize(d);   
-//       this.setResizable(false);/
+//       this.setResizable(false);
 //       this.setAlwaysOnTop(false);
 //        //this.setAlwaysOnTop(true);  
 //        this.setLocationRelativeTo(null);  
