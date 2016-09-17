@@ -1,0 +1,357 @@
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>Consulta P�blica ao Cadastro - Estado de Goi�s</title>
+	<link rel="stylesheet" type="text/css" href="/FolhaEstilo/formularioCss.css">
+	<script language="javascript" initialize="none" src="/library/components/zion/zion.js"></script>
+	<style>
+	.block_title{
+	font:bold 13px Arial, Helvetica, sans-serif;
+	color:#666666;
+	text-transform:uppercase;
+	border-bottom:1px solid #CCCCCC;
+	padding-bottom:3px;
+	margin-bottom:30px;
+	}
+	td .space{
+	font-size:5px;
+	height:5px;
+	}
+	.label_title{
+	font:bold 11px Arial, Helvetica, sans-serif;
+	text-align:left;
+	text-transform:uppercase;
+	}
+	.label_text{
+	font:normal 11px Arial, Helvetica, sans-serif;
+	text-align:left;
+	text-transform:uppercase;
+	}	
+.style2 {font-size: 18px}
+    </style>
+</head> 
+
+<BODY BACKGROUND="" BGCOLOR="#ffffff" TEXT="#000000" topmargin="50">
+
+  <table border="0" cellpadding="0" cellspacing="0" width="800"  style="font:bold 12px Arial, Helvetica, sans-serif; margin-top:50px;" align="center">
+  <tr><td height="50">&nbsp;</td></tr>  
+  <tr>
+      <td align="center">
+	  
+<table cellspacing="0" width="800" cellpadding="0" height="1">
+  <tr>
+    <td height="1" width="60" ><img SRC="/images/logosintegra.gif" WIDTH="60" HEIGHT="45" BORDER="0"><br>
+    </td>
+    <td height="1" width="329" >
+    <font face="Arial" size="2">Sistema Integrado de Informa��es
+      sobre Opera��es Interestaduais com Mercadorias<br>SINTEGRA / ICMS</font><br>
+    <font face="Arial" size="2"><b>Consulta P�blica ao Cadastro<br>
+      ESTADO DE GOI�S</b></font></td>
+    <td height="1" width="60"  ><img SRC="/images/brasaogoiascolor.gif" BORDER="0"></td>
+  </tr>
+</table>
+
+<a href="nEsclarecimento.asp" target="_blank"><br>
+<img src="img/duvidas.jpg" width="315" height="71" border="0"></a><br>
+<br>
+<br>
+<br>
+
+
+<div align="center">
+  <center>
+	<table border="0" cellpadding="0" cellspacing="0" width="650" >
+	  <tr>
+		<td height="30" align="right">
+		<font face="Arial" size="1"><FONT COLOR="#990000">CADASTRO ATUALIZADO EM :14/09/2016 - 08:50:21</font></font>
+	</td>
+	  </tr>
+	</table>
+  </center>
+</div>
+<div align="center"> 
+  <center>
+	<table border="0" cellpadding="0" cellspacing="0" width="650">
+	  <tr>
+		<td colspan="2" width="650" class="block_title">Identifica��o Contribuinte</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" class="space">&nbsp;</td>
+		</tr>
+	  <tr>
+			<td width="650">
+				
+					
+						<span class="label_title">CNPJ:</span>
+						<br>
+						<span class="label_text">
+							05.728.575/0001-49
+						</span>	
+					
+			</td>
+			<td width="233">
+				<span class="label_title">Inscri��o Estadual - CCE :</span>
+				<br>
+				<span class="label_text">10.364.970-0</span>
+			</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" width="">
+				 
+				<span class="label_title">Nome Empresarial:</span>
+			
+		 <br>
+		 <span class="label_text">ABATEDOURO SAO JOSE LTDA</span>  </td>
+	  </tr>
+	</table>
+  </center>
+</div>
+
+
+<br>
+<div align="center">
+  <center>
+	<table border="0" cellpadding="0" cellspacing="0" width="650">
+	  <tr>
+		<td colspan="2" width="650" class="block_title">Endere�o Estabelecimento </td>
+	  </tr>
+	  <tr>
+		<td colspan="2" class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="650" colspan="2">
+			<span class="label_title">Logradouro:</span>
+			<br>
+			<span class="label_text">ESTRADA&nbsp; SAO SIMAO</span>	</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" class="space">&nbsp; </td>
+	  </tr>
+	  <tr>
+		<td valign="top" colspan="2">
+		
+			<table border="0" cellpadding="0" cellspacing=""="0" width="100%">
+				<tr>
+					<td valign="top" >	
+					  <span class="label_title">N�mero:</span>
+					  <br>
+					  <span class="label_text">S/N</span>
+					</td>
+					<td valign="top" >
+					  <span class="label_title">Quadra:</span>
+					  <br>
+					  <span class="label_text"></span>
+					</td>  
+					<td valign="top" >
+					  <span class="label_title">Lote:</span>
+					  <br>
+					  <span class="label_text"></span>
+					</td>  					
+					<td valign="top" >
+					  <span class="label_title">Complemento:</span>
+					  <br>
+					  <span class="label_text">LAGOA DECANTACAO</span>
+					</td>  					
+				</tr>	
+			</table>		
+		</td>
+		  
+		  
+	  </tr>
+	  <tr>
+		<td colspan="2" class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" width="650">
+		  <span class="label_title">Bairro:</span>
+		 <br>
+		 <span class="label_text">ZONA RURAL</span>   </td>
+	  </tr>
+	</table>
+	  </center>
+	</div>
+	<div align="center">
+	  <center>
+	<table border="0" cellpadding="0" cellspacing="0" width="650">
+	  <tr>
+		<td colspan="2" class="space">&nbsp; </td>
+	  </tr>
+	  <tr>
+		<td width="305">
+			<span class="label_title">Munic�pio:</span>
+			<br>
+			<span class="label_text">SAO SIMAO</span>
+		</td>
+		<td width="156">
+		   <span class="label_title">UF:</span>
+		   <br>
+		   <span class="label_text">GO</span>
+		</td>
+	  </tr>
+	  <tr>
+		<td class="space" colspan="2">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="305" valign="top">
+		  <span class="label_title">CEP:</span>
+		  <br>
+		  <span class="label_text">75890000</span>
+		</td>
+		<td width="156" valign="top">
+		  <span class="label_title">Telefone:</span>
+		  <br>
+		  <span class="label_text">
+			(64) 36583521
+		  </span>
+		</td>
+	  </tr>
+	</table>
+  </center>
+</div>
+
+
+<div align="center">
+  <center>
+  <br>
+	<table border="0" cellpadding="0" cellspacing="0" width="650">
+	  <tr>
+		<td width="650" class="block_title"><p>Informa��es Complementares</p>
+		  </td>
+	  </tr>
+	  <tr>
+		<td class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="650">
+			<span class="label_title">Atividade Econ�mica:</span>
+			<br>
+			<br>
+			
+			
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label_text"><strong>Atividade Principal</strong></span>
+					<br>
+				
+							
+				<span class="label_text" style="display:block;margin-left:50px; margin-top:8px; margin-bottom:8px;">
+				1011201 - Frigor�fico - abate de bovinos
+				</span>
+				
+				
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label_text"><strong>Atividade Secund�ria</strong></span>
+					<br>
+				
+							
+				<span class="label_text" style="display:block;margin-left:50px; margin-top:8px; margin-bottom:8px;">
+				1011205 - Matadouro - abate de reses sob contrato, exceto abate de su�nos
+				</span>
+				
+				
+			<br>
+		</td>
+	  </tr>
+	  <tr>
+		<td class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="650">
+		  <span class="label_title">Regime de Apura��o:</span>
+		  <br>
+		  <span class="label_text">Micro EPP/Simples Nacional</span>	</td>
+	  </tr>  
+	  
+	<tr>  
+	  <td class="space" >&nbsp;</td>
+	</tr>
+	  <tr>
+		<td width="650">
+		  <span class="label_title">Situa��o Cadastral Vigente:</span>
+		  <br>
+		  <span class="label_text">
+			Ativo - HABILITADO
+		</span>	</td>
+	 </tr>
+
+	  <tr>
+		<td class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="">
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td>
+						  <span class="label_title">Data desta Situa��o Cadastral:</span>
+						  <br>
+						  <span class="label_text">18/07/2005</span>	
+					</td>
+					<td>
+						  <span class="label_title">Data de Cadastramento:</span>
+						  <br>
+						  <span class="label_text">19/09/2003</span>	
+					</td>
+				</tr>
+				
+				
+			<tr>  
+	  <td class="space" >&nbsp;</td>
+	</tr>
+	  <tr>
+		<td width="650">
+		  <span class="label_title">Opera��es com NF-E:</span> 
+		  <br>
+		  <span class="label_text">
+		  
+		  Habilitado
+		  
+		  </span>	
+		</td>
+	 </tr>
+	 
+	 	
+			</table>			  
+		</td>
+	</tr>
+	</table>
+  </center>
+</div>
+<br>
+<div align="center">
+  <center>
+	<table border="0" cellpadding="0" cellspacing="0" width="650">
+	  <tr>
+		<td width="650" class="block_title">Observa��es</td>
+	  </tr>
+	  <tr>
+		<td class="space">&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="650">
+		  <p class="label_text">* Os dados acima s�o baseados em informa��es fornecidas pelo &nbsp;&nbsp;&nbsp;&nbsp;contribuinte, estando sujeitos a posterior confirma��o pelo &nbsp;&nbsp;&nbsp;&nbsp;FISCO</p>
+		  <p class="label_text">* O campo data da situa&ccedil;&atilde;o cadastral, refere-se ao per&iacute;odo compreendido entre a &uacute;ltima atualiza&ccedil;&atilde;o cadastral realizada antes de 04/2009 at&eacute; a presente data. </p></td>
+	  </tr>
+	  <tr>
+		<td>&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td width="650">
+		 <span class="label_title">Data da Consulta:</span>
+		 <span class="label_text">14/09/2016 08:50:21</span>	</td>
+	  </tr>
+	</table>
+  </center>
+</div>
+
+<p align="center">
+<span class="style2"><a TARGET="_blank" HREF="http://www.sintegra.gov.br"><br>
+Acessar cadastro de outro Estado</a> - <a href="nEsclarecimento.asp" target="_blank">Nota de esclarecimento ao contribuinte </a></span><br>
+</td>
+    </tr>
+  </table>
+  
+</html>
+</body>
+</html>
+

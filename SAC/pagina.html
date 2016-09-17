@@ -1,0 +1,104 @@
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script language="JavaScript" type="text/javascript" src="js/Mascaras.js"></script><title>ATMA - Softwares</title>
+<title>ATMA - Softwares</title>
+<link href="estilos.css" rel="stylesheet" type="text/css" />
+<script language='javascript'>
+	function deleta(){
+		/*if(confirm("Tem certeza que deseja excluir este cadastro?")){
+			return true;
+		} else {
+			return false;
+		}*/
+		return confirm("Deseja realmente excluir esse boleto?");
+	}
+</script>
+</head>
+
+<body>
+<div class="alinhamento">
+    	<div class="corpo">
+        
+        	<div class="topo">
+				<div class="topo1">
+					<img src="images/atma.png" alt="Logo Atma" align='left'> 
+				</div>
+				<div class="topo2">
+					<a href="deslogar.php" class="link"><img src="images/logoff.png" height="47" width="50"></a>
+      	     	</div>
+            </div>
+			<div class="coluna3">
+            <br/>
+						<form id="form_pesquisa" name="form_pesquisa" method="post" action="lista_baixa.php">
+                     		<label><input name="filtro" type="radio" id="filtro" value="data" />Periodo</label>
+                            <label><input type="text" maxlength="10" onkeyup="Formatadata(this,event)" name="data_ini"  size="7"/></label>
+                            <label>at�</label>
+                            <label><input type="text" maxlength="10" onkeyup="Formatadata(this,event)" name="data_fin"  size="7"/></label>
+                     		<label><input name="filtro" type="radio" id="filtro" value="cliente" />Razao</label>
+                     		<label><input type="text" maxlength="30" name="text_pesquisa"  size="30"/></label>
+							<label><input name="filtro" type="radio" id="filtro" value="cnpj" />CNPJ</label>
+                     		<label><input type="text" maxlength="20" onkeyup="FormataCnpj(this,event)"  name="text_pesquisa_cnpj"  size="18"/></label>
+							<label><input name="filtro" type="radio" id="filtro" value="fantasia" />Fantasia</label>
+                     		<label><input type="text" maxlength="30" name="text_pesquisa_fantasia"  size="30"/></label><br><br>
+							<label><input name="filtro" type="radio" id="filtro" value="doc" />Doc</label>
+                     		<label><input type="text" maxlength="20" name="text_pesquisa_doc"  size="20"/></label><br><br>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							
+							
+                     		<input type="submit" value="" name="button" id="button" class="pesquisar" />
+                    	</form>
+				<br />
+               
+                <div align="center">
+				  <table width="98%" border="1">
+					<tr>
+					  <td colspan="10" class="menu_lista">LISTA DE BAIXA</td>
+					</tr>
+					<tr>
+					  <td width="30" class="menu_lista2"><div align="left">DOC.</div></td>
+					  <td width="300" class="menu_lista2"><div align="left">CLIENTE</div></td>
+                      <td width="50" class="menu_lista2"><div align="left">VALOR</div></td>
+                      <td width="100" class="menu_lista2"><div align="center">VENCIMENTO</div></td>
+                      <td width="150" class="menu_lista2"><div align="center">CONTATO</div></td>
+                      <td width="50" class="menu_lista2"><div align="center">TEL/CEL</div></td>
+                      <td colspan="4" class="menu_lista2"><div align="center">A��O</div></td>
+					</tr>
+					 
+					<tr><td width='30'><div align='left'>40840</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>432.75</td><td width='80'><div align='center'>05/04/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=41929&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>44376</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/05/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=45466&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>44503</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/06/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=45593&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>44630</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/07/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=45720&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>44757</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/08/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=45847&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>44884</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/09/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=45974&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>45011</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/10/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=46101&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>45138</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/11/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=46228&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>45265</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/12/2016</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=46355&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td width='30'><div align='left'>45392</div></td><td width='300'><div align='left'>ABATEDOURO SAO JOSE LTDA</div></td><td width='50' align='center'>440.00</td><td width='80'><div align='center'>05/01/2017</div></td><td width='150'><div align='left'>ABEL</div></td><td width='50'><div align='left'>6436583354</div></td><td align='center'><a href='#' onclick="window.open('teste_boleto_itau.php?id_boleto=46482&id_cliente=1151','Visualizar','width=700,height=500,scrollbars=yes,resizable=no')" title='Clique aqui visualizar a boleta.'>Visualizar</a></td></tr><tr><td colspan='10' align='center'><a href="lista_baixa.php?pag=1">Primeira</a> 1 <a href="lista_baixa.php?pag=1"> �ltima</a></td></tr> 
+					  
+					<tr>
+					  <td colspan="10">Numero de registros:10&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+				  </table>
+              	</div>
+				<br />
+				<br />
+				<div align="center">
+				<a href="cadastro.php" title="P�gina de cadastros" class="link2"><img src="images/voltar.png" height="24" width="80"/></a>
+				</div>
+			</div>
+       		<div class="rodape">
+
+            </div>
+            
+        </div>
+    </div>
+</body>
