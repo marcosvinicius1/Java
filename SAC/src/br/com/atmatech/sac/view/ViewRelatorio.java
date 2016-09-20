@@ -387,7 +387,6 @@ public class ViewRelatorio extends javax.swing.JPanel {
     private void jBalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBalterarActionPerformed
         // TODO add your handling code here:
         if ((jCnomereport.getSelectedIndex() > -0)&&(jTviewcampos.getRowCount()>0)) {
-            System.out.println("foi");
             updateReport(jCnomereport.getSelectedItem().toString(), jTviewnome.getText());
         }
         
