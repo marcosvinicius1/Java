@@ -60,7 +60,8 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             jDfinal.setDate(new Timestamp(new Date().getTime()));            
             buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),"dtabertura");
             permissaoUsuario();
-            inicializaAtalhos();            
+            inicializaAtalhos(); 
+            inicializaTabela();
             //buscaAtendimentoAutomatica();  
             
     }
@@ -329,7 +330,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 .addComponent(jBnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPatendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +349,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPatendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, Short.MAX_VALUE))))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -362,11 +363,11 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
             },
             new String [] {
-                "OS", "CLIENTE", "DATA", "TECNICO", "STATUS", "TIPO"
+                "OS", "CLIENTE", "DATA", "TECNICO", "ABERTURA", "STATUS", "TIPO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -420,7 +421,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -625,7 +626,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         TableCellRenderer renderer = new PintarLinhasTabela();
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
-            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getSTATUS(), ab.getTIPO()});
+            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(),ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
         }
         jDaguarde.setVisible(false);
     }
@@ -859,6 +860,25 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     private String getTipoData() {
         return "dt"+jCtpdata.getSelectedItem().toString();
+    }
+
+    private void inicializaTabela() {
+        if (jTatendimento.getColumnModel().getColumnCount() > 0) {
+            jTatendimento.getColumnModel().getColumn(0).setMinWidth(70);
+            jTatendimento.getColumnModel().getColumn(0).setPreferredWidth(70);
+            jTatendimento.getColumnModel().getColumn(1).setMinWidth(350);
+            jTatendimento.getColumnModel().getColumn(1).setPreferredWidth(350);
+            jTatendimento.getColumnModel().getColumn(2).setMinWidth(150);
+            jTatendimento.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTatendimento.getColumnModel().getColumn(3).setMinWidth(150);
+            jTatendimento.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTatendimento.getColumnModel().getColumn(4).setMinWidth(150);
+            jTatendimento.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTatendimento.getColumnModel().getColumn(5).setMinWidth(100);            
+            jTatendimento.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTatendimento.getColumnModel().getColumn(6).setMinWidth(100);
+            jTatendimento.getColumnModel().getColumn(6).setPreferredWidth(100);
+        }
     }
 
 }
