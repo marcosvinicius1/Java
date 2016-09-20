@@ -63,7 +63,7 @@ public class ViewRelatorio extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         JComboBox combobox=new JComboBox();
-        combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"","=",">","<","<>",">=","<=","CONTEM"}) );
+        combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"","=",">","<","<>",">=","<=","CONTEM","NÃO CONTEM"}) );
         jTviewcampos = new javax.swing.JTable();
         jTviewnome = new javax.swing.JTextField();
         jCnomereport = new javax.swing.JComboBox();
@@ -267,7 +267,7 @@ public class ViewRelatorio extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -447,19 +447,23 @@ public class ViewRelatorio extends javax.swing.JPanel {
                 if (lista2.isEmpty()) {
                     if (jTviewcampos.getValueAt(i, 2).equals("CONTEM")) {
                         lista2.add(jTviewcampos.getValueAt(i, 0).toString() + " like " + "'" + jTviewcampos.getValueAt(i, 3).toString().toUpperCase() + "'");
-                    } else {
+                    } else if (jTviewcampos.getValueAt(i, 2).equals("NÃO CONTEM")) {
+                        lista2.add(jTviewcampos.getValueAt(i, 0).toString() + " not like " + "'" + jTviewcampos.getValueAt(i, 3).toString().toUpperCase() + "'");
+                    }else {
                         lista2.add(jTviewcampos.getValueAt(i, 0).toString() + jTviewcampos.getValueAt(i, 2).toString() + "'" + jTviewcampos.getValueAt(i, 3).toString().toUpperCase() + "'");
                     }
                 } else {
                     if (jTviewcampos.getValueAt(i, 2).equals("CONTEM")) {
                         lista2.add("and " + jTviewcampos.getValueAt(i, 0).toString() + " like " + "'" + jTviewcampos.getValueAt(i, 3).toString().toUpperCase() + "'");
-                    } else {
+                    } else if (jTviewcampos.getValueAt(i, 2).equals("NÃO CONTEM")) {
+                        lista2.add(jTviewcampos.getValueAt(i, 0).toString() + " not like " + "'" + jTviewcampos.getValueAt(i, 3).toString().toUpperCase() + "'");
+                    }else {
                         lista2.add("and " + jTviewcampos.getValueAt(i, 0).toString() + jTviewcampos.getValueAt(i, 2).toString() + "'" + jTviewcampos.getValueAt(i, 3).toString().toUpperCase() + "'");
                     }
                 }
             }
         }
-        String[] condicao = (String[]) lista2.toArray(new String[lista2.size()]);
+        String[] condicao = (String[]) lista2.toArray(new String[lista2.size()]);        
        
 
         //faz a pesquisa do relatorio

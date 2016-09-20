@@ -71,7 +71,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" pref="810" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="808" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -307,7 +307,7 @@
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTviewcamposMousePressed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="JComboBox combobox=new JComboBox();&#xa;combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{&quot;&quot;,&quot;=&quot;,&quot;&gt;&quot;,&quot;&lt;&quot;,&quot;&lt;&gt;&quot;,&quot;&gt;=&quot;,&quot;&lt;=&quot;,&quot;CONTEM&quot;}) );"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="JComboBox combobox=new JComboBox();&#xa;combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{&quot;&quot;,&quot;=&quot;,&quot;&gt;&quot;,&quot;&lt;&quot;,&quot;&lt;&gt;&quot;,&quot;&gt;=&quot;,&quot;&lt;=&quot;,&quot;CONTEM&quot;,&quot;N&#xc3;O CONTEM&quot;}) );"/>
               </AuxValues>
             </Component>
           </SubComponents>

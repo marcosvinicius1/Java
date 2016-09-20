@@ -83,7 +83,7 @@ public class ReportGerencial {
                         .show(false);
             }
 
-        } catch (DRException e) {
+        } catch (DRException e) {            
             JOptionPane.showMessageDialog(null, "Erro ao Gerar Relatorio"+e);
         }
     }
