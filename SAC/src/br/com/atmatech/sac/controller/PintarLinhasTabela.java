@@ -38,7 +38,7 @@ public class PintarLinhasTabela extends DefaultTableCellRenderer {
         if (String.valueOf(table.getValueAt(row, 5)).equals("ABERTO")) {
             result.setFont(new Font("arial", Font.BOLD, 12));
             result.setForeground(Color.BLACK);
-            result.setBackground(Color.orange);
+            result.setBackground(Color.GREEN);
 
         }else if (String.valueOf(table.getValueAt(row, 5)).equals("PENDENTE")){
             result.setFont(new Font("arial", Font.BOLD, 12));
@@ -47,7 +47,7 @@ public class PintarLinhasTabela extends DefaultTableCellRenderer {
         }else if (String.valueOf(table.getValueAt(row, 5)).equals("FECHADO")){
             result.setFont(new Font("arial", Font.BOLD, 12));
             result.setForeground(Color.black);
-            result.setBackground(Color.green);
+            result.setBackground(Color.BLUE);
         }
         else {
             result.setFont(new Font("arial", Font.PLAIN, 12));

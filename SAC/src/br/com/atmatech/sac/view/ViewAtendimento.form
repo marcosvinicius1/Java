@@ -398,7 +398,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" pref="815" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="925" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -444,6 +444,8 @@
                   <Component id="jTidtecnicoanterior" min="-2" pref="77" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTemail" min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jTidtecnicoabertura" min="-2" pref="77" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -460,6 +462,7 @@
                       <Component id="jTidtecnico" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTidtecnicoanterior" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTemail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTidtecnicoabertura" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -516,6 +519,8 @@
         <Component class="javax.swing.JTextField" name="jTidtecnicoanterior">
         </Component>
         <Component class="javax.swing.JTextField" name="jTemail">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTidtecnicoabertura">
         </Component>
       </SubComponents>
     </Container>
@@ -623,7 +628,7 @@
                                       <Component id="jCStatus" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -709,7 +714,7 @@
                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

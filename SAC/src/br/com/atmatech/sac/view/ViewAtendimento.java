@@ -89,7 +89,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jTidtecnicoanterior.setVisible(false);
         jTemail.setVisible(false);
         jTsolicitante.requestFocusInWindow();
-
+        jTidtecnicoabertura.setVisible(false);
     }
 
     /**
@@ -128,6 +128,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jTidtecnico = new javax.swing.JTextField();
         jTidtecnicoanterior = new javax.swing.JTextField();
         jTemail = new javax.swing.JTextField();
+        jTidtecnicoabertura = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -351,7 +352,6 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jDveiculo.setTitle("Veiculo");
         jDveiculo.setMinimumSize(new java.awt.Dimension(218, 220));
         jDveiculo.setModal(true);
-        jDveiculo.setPreferredSize(new java.awt.Dimension(218, 220));
         jDveiculo.setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Veiculo"));
@@ -491,6 +491,8 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addComponent(jTidtecnicoanterior, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTemail, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTidtecnicoabertura, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -507,7 +509,8 @@ public class ViewAtendimento extends javax.swing.JPanel {
                     .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidtecnicoanterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTidtecnicoabertura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -740,7 +743,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
                                         .addComponent(jBtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jCStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel16))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 110, Short.MAX_VALUE))))
                     .addComponent(jLabel1)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14)
@@ -810,7 +813,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDabertura, jDfinal, jDinicial, jFabertura, jFfinal, jFinicial});
@@ -823,7 +826,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -952,7 +955,6 @@ public class ViewAtendimento extends javax.swing.JPanel {
 
     private void ACBclienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ACBclienteKeyPressed
         // TODO add your handling code here:        
-        System.out.println("precionou tecla");
     }//GEN-LAST:event_ACBclienteKeyPressed
 
     private void ACBclienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ACBclienteKeyReleased
@@ -1099,6 +1101,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
     private javax.swing.JTextField jTidatendimento;
     private javax.swing.JTextField jTidcliente;
     private javax.swing.JTextField jTidtecnico;
+    private javax.swing.JTextField jTidtecnicoabertura;
     private javax.swing.JTextField jTidtecnicoanterior;
     private javax.swing.JTextField jTidveiculo;
     private javax.swing.JTextField jTkmfinal;
@@ -1230,8 +1233,8 @@ public class ViewAtendimento extends javax.swing.JPanel {
             AtendimentoBeans ab = new AtendimentoBeans();
             ab.setIDATENDIMENTO(Integer.valueOf(jTidatendimento.getText()));
             ab.setIDPESSOA(Integer.valueOf(jTidcliente.getText()));
-            ab.setIDTECNICO(Integer.valueOf(jTidtecnico.getText()));
-            ab.setIDABERTURA(new UsuarioLogadoBeans().getIdusuario());
+            ab.setIDTECNICO(Integer.valueOf(jTidtecnico.getText()));            
+            ab.setIDABERTURA(Integer.valueOf(jTidtecnicoabertura.getText()));
             ab.setDTABERTURA(dtabertura);
             ab.setDTINICIAL(dtinicial);
             ab.setDTFINAL(dtfinal);
@@ -1304,8 +1307,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
             
             jDinicial.setDate(dtinicial);
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            jFinicial.setText(sdf.format(dtinicial));
-            System.out.println(sdf.format(dtinicial));
+            jFinicial.setText(sdf.format(dtinicial));            
         }
         if (jCStatus.getSelectedItem().toString().equals("FECHADO")) {
             dtfinal = new Timestamp(new Date().getTime());
@@ -1332,6 +1334,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jTidatendimento.setText(ab.getIDATENDIMENTO().toString());
         jTidcliente.setText(ab.getIDPESSOA().toString());
         jTidtecnico.setText(ab.getIDTECNICO().toString());
+        jTidtecnicoabertura.setText(ab.getIDABERTURA().toString());
         jTrazao.setText(ab.getRazao());
         jTfantasia.setText(ab.getFantasia());
         jTresponsavel.setText(ab.getResponsavel());

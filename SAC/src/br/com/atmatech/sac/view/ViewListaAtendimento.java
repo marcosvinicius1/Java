@@ -114,6 +114,11 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDconsulta.setModal(true);
 
         jTparametro1.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(80,true));
+        jTparametro1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTparametro1KeyPressed(evt);
+            }
+        });
 
         jCcondicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "=", ">", "<", "!=", "contem" }));
         jCcondicao.addItemListener(new java.awt.event.ItemListener() {
@@ -146,7 +151,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDconsultaLayout.setVerticalGroup(
             jDconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDconsultaLayout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLcampo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDconsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -349,7 +354,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPatendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE))))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -582,6 +587,10 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),getTipoData());
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
+    private void jTparametro1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTparametro1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTparametro1KeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -640,7 +649,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         TableCellRenderer renderer = new PintarLinhasTabela();
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
-            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getSTATUS(), ab.getTIPO()});
+            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(),ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
         }
         jDconsulta.setVisible(false);
     }
@@ -795,6 +804,9 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }
         if (jTatendimento.getColumnName(coluna).equals("TIPO")) {
             buscaAtendimento("tipo", text, new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados());
+        }
+        if (jTatendimento.getColumnName(coluna).equals("ABERTURA")) {
+            buscaAtendimento("abertura.nome", text, new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados());
         }
         // }
 
