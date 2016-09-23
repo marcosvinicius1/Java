@@ -31,6 +31,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form ViewPrincipal
      */
+    Integer countAtedTecnico = 0;
+
     public ViewPrincipal() {
 
         initComponents();
@@ -77,6 +79,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLpendente = new javax.swing.JLabel();
         jLaberto = new javax.swing.JLabel();
         jLiniciado = new javax.swing.JLabel();
+        jPavisoAtendimento = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAC");
@@ -97,7 +101,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -114,6 +118,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(23, 23));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("MENU");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cadastro");
@@ -137,6 +143,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         jTmenu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTmenu.setMinimumSize(new java.awt.Dimension(90, 48));
         jTmenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTmenuMouseClicked(evt);
@@ -148,13 +155,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTmenu);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("AVISOS"));
+        jPanel4.setMaximumSize(new java.awt.Dimension(207, 253));
+        jPanel4.setMinimumSize(new java.awt.Dimension(207, 253));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Atendimento:"));
 
         jLpendente.setForeground(new java.awt.Color(255, 0, 0));
         jLpendente.setText(" ");
 
-        jLaberto.setForeground(new java.awt.Color(255, 255, 0));
+        jLaberto.setForeground(new java.awt.Color(0, 204, 0));
         jLaberto.setText(" ");
 
         jLiniciado.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,17 +192,42 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addGap(0, 43, Short.MAX_VALUE))
         );
 
+        jPavisoAtendimento.setBackground(new java.awt.Color(255, 0, 0));
+        jPavisoAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPavisoAtendimento.setPreferredSize(new java.awt.Dimension(200, 104));
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("VOCÊ POSSUI UM NOVO CHAMADO");
+
+        javax.swing.GroupLayout jPavisoAtendimentoLayout = new javax.swing.GroupLayout(jPavisoAtendimento);
+        jPavisoAtendimento.setLayout(jPavisoAtendimentoLayout);
+        jPavisoAtendimentoLayout.setHorizontalGroup(
+            jPavisoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+        );
+        jPavisoAtendimentoLayout.setVerticalGroup(
+            jPavisoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPavisoAtendimentoLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel2)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPavisoAtendimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPavisoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,9 +237,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTaabas)
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
@@ -224,7 +258,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 638));
+        setSize(new java.awt.Dimension(816, 706));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -277,6 +311,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLaberto;
     public javax.swing.JLabel jLdata;
     private javax.swing.JLabel jLiniciado;
@@ -285,6 +320,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPavisoAtendimento;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTabbedPane jTaabas;
     private javax.swing.JTree jTmenu;
@@ -292,6 +328,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void inicializaView() {
         jLusuario.setText("Ola " + new UsuarioLogadoBeans().getNome());
+        jPavisoAtendimento.setVisible(false);
 
         new Thread(new Runnable() {
 
@@ -380,8 +417,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
             public void run() {
 
                 while (true) {
-                    try {                        
+                    try {
                         getAtendimentoAberto();
+                        getAtendimentoTecnico();
                         Thread.sleep(1000);
 
                     } catch (InterruptedException ex) {
@@ -398,6 +436,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLpendente.setText("Pendentes: " + String.valueOf(new Avisos().getStatusAtendimento("'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
         jLaberto.setText("Abertos: " + String.valueOf(new Avisos().getStatusAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
         jLiniciado.setText("Iniciado: " + String.valueOf(new Avisos().getStatusAtendimento("'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
+    }
+
+    private void getAtendimentoTecnico() throws InterruptedException {
+        Integer countAtend = 0;
+        countAtend = new Avisos().getStatusAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), false);
+        if ((countAtedTecnico == 0) && (countAtend !=0)) {
+            countAtedTecnico = countAtend;
+            jPavisoAtendimento.setVisible(true);
+            Thread.sleep(3000);
+            jPavisoAtendimento.setVisible(false);
+        }
+        if (countAtedTecnico != countAtend) {            
+            if (countAtedTecnico < countAtend) {
+                countAtedTecnico = countAtend;
+                jPavisoAtendimento.setVisible(true);
+                Thread.sleep(3000);
+                jPavisoAtendimento.setVisible(false);
+            } else if (countAtedTecnico > countAtend) {
+                countAtedTecnico = countAtend;
+            }
+        }
+
     }
 
     private void getTela() {
