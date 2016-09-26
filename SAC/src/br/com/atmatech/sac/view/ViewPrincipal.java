@@ -10,8 +10,12 @@ import br.com.atmatech.sac.controller.Avisos;
 import br.com.atmatech.sac.controller.ButtonTabComponent;
 import br.com.atmatech.sac.controller.NivelAcesso;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.GregorianCalendar;
 import javax.swing.AbstractAction;
@@ -19,6 +23,7 @@ import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
@@ -32,9 +37,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
      * Creates new form ViewPrincipal
      */
     Integer countAtedTecnico = 0;
+    JMenuItem menuitem;
 
     public ViewPrincipal() {
-
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         //this.setUndecorated(true);
@@ -42,19 +47,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         carregaMenu();
         avisos();
         inicializaAtalhos();
-        //coloca a tela cheia em cima da barra de tarefa
-//        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();  
-//       this.setSize(d);   
-//       this.setResizable(false);
-//       this.setAlwaysOnTop(false);
-//        //this.setAlwaysOnTop(true);  
-//        this.setLocationRelativeTo(null);  
-
-//        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();  
-//        GraphicsDevice gd = ge.getDefaultScreenDevice();             
-//       // this.setAlwaysOnTop(true);
-//        gd.setFullScreenWindow(this);
-//        this.validate();
+        
 //
     }
 
@@ -67,10 +60,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopcoes = new javax.swing.JPopupMenu();
+        jMtela01 = new javax.swing.JMenuItem();
+        jMtela02 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLusuario = new javax.swing.JLabel();
         jLdata = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jBopcoes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTmenu = new javax.swing.JTree();
         jTaabas = new javax.swing.JTabbedPane();
@@ -82,8 +81,40 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPavisoAtendimento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
+        jPopcoes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPopcoesKeyPressed(evt);
+            }
+        });
+        jPopcoes.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                jPopcoesMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
+
+        jMtela01.setText("Tela 01");
+        jMtela01.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMtela01ActionPerformed(evt);
+            }
+        });
+        jPopcoes.add(jMtela01);
+
+        jMtela02.setText("Tela 02");
+        jMtela02.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMtela02ActionPerformed(evt);
+            }
+        });
+        jPopcoes.add(jMtela02);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAC");
+        setUndecorated(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(260, 59));
@@ -94,6 +125,35 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/logo.png"))); // NOI18N
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton1.setText("x");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton2.setText("_");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jBopcoes.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jBopcoes.setText("*");
+        jBopcoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBopcoesMouseClicked(evt);
+            }
+        });
+        jBopcoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBopcoesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -102,21 +162,34 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jLdata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(104, 104, 104)
+                            .addComponent(jLdata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBopcoes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jBopcoes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(23, 23));
@@ -247,7 +320,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -258,7 +331,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 706));
+        setSize(new java.awt.Dimension(800, 667));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -272,6 +345,44 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // JOptionPane.showMessageDialog(null, jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()));         
         getTela();
     }//GEN-LAST:event_jTmenuMousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.setState(Frame.ICONIFIED);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jBopcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBopcoesActionPerformed
+        // TODO add your handling code here:        
+        jPopcoes.show(this, jBopcoes.getX(), jBopcoes.getY());
+    }//GEN-LAST:event_jBopcoesActionPerformed
+
+    private void jBopcoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBopcoesMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jBopcoesMouseClicked
+
+    private void jPopcoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPopcoesKeyPressed
+        // TODO add your handling code here:        
+    }//GEN-LAST:event_jPopcoesKeyPressed
+
+    private void jPopcoesMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jPopcoesMenuKeyPressed
+        // TODO add your handling code here:        
+    }//GEN-LAST:event_jPopcoesMenuKeyPressed
+
+    private void jMtela01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMtela01ActionPerformed
+        // TODO add your handling code here:
+        exibeTelaSec(0);
+    }//GEN-LAST:event_jMtela01ActionPerformed
+
+    private void jMtela02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMtela02ActionPerformed
+        // TODO add your handling code here:
+        exibeTelaSec(1);
+    }//GEN-LAST:event_jMtela02ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,6 +421,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBopcoes;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLaberto;
@@ -317,10 +431,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLiniciado;
     private javax.swing.JLabel jLpendente;
     public javax.swing.JLabel jLusuario;
+    private javax.swing.JMenuItem jMtela01;
+    private javax.swing.JMenuItem jMtela02;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPavisoAtendimento;
+    private javax.swing.JPopupMenu jPopcoes;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTabbedPane jTaabas;
     private javax.swing.JTree jTmenu;
@@ -329,6 +446,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void inicializaView() {
         jLusuario.setText("Ola " + new UsuarioLogadoBeans().getNome());
         jPavisoAtendimento.setVisible(false);
+        jMtela01.setVisible(false);
+        jMtela02.setVisible(false);
 
         new Thread(new Runnable() {
 
@@ -348,6 +467,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
             }
         }).start();
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] devices = ge.getScreenDevices();          
+        if (devices.length == 1) {
+            jMtela01.setVisible(true);
+        } else if (devices.length == 2) {
+            jMtela01.setVisible(true);
+            jMtela02.setVisible(true);
+        }
+
     }
 
     private void carregaMenu() {
@@ -441,17 +570,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void getAtendimentoTecnico() throws InterruptedException {
         Integer countAtend = 0;
         countAtend = new Avisos().getStatusAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), false);
-        if ((countAtedTecnico == 0) && (countAtend !=0)) {
+        if ((countAtedTecnico == 0) && (countAtend != 0)) {
             countAtedTecnico = countAtend;
             jPavisoAtendimento.setVisible(true);
-            Thread.sleep(3000);
+            Toolkit.getDefaultToolkit().beep();
+            Thread.sleep(7000);
             jPavisoAtendimento.setVisible(false);
         }
-        if (countAtedTecnico != countAtend) {            
+        if (countAtedTecnico != countAtend) {
             if (countAtedTecnico < countAtend) {
                 countAtedTecnico = countAtend;
                 jPavisoAtendimento.setVisible(true);
-                Thread.sleep(3000);
+                Toolkit.getDefaultToolkit().beep();
+                Thread.sleep(7000);
                 jPavisoAtendimento.setVisible(false);
             } else if (countAtedTecnico > countAtend) {
                 countAtedTecnico = countAtend;
@@ -714,4 +845,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         }
     }
+
+    private void exibeTelaSec(int tela) {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] devices = ge.getScreenDevices();
+
+        devices[tela].setFullScreenWindow(this);
+        int xx = (int) this.getLocation().getX();
+        int yy = (int) this.getLocation().getY();
+        devices[tela].setFullScreenWindow(null);
+        this.setLocation(xx, yy);
+
+    }
+
 }
