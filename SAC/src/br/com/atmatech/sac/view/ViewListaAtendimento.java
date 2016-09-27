@@ -624,8 +624,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
@@ -892,5 +891,8 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             jTatendimento.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
     }
-
+ public void showAguarde() {
+        jDaguarde.setLocationRelativeTo(this);
+        jDaguarde.setVisible(true);
+    }
 }

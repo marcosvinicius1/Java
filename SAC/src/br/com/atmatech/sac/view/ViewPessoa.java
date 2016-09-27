@@ -44,6 +44,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
@@ -63,6 +64,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     List<DistritoBeans> ldb;
     List<PessoaBeans> lpb;
     List<AnexoBeans> lab;
+    JPanel TempViewPessoa = this;
 
     public ViewPessoa() {
         initComponents();
@@ -1358,8 +1360,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         new Thread(new Runnable() {
@@ -1386,8 +1387,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         new Thread(new Runnable() {
@@ -1416,8 +1416,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         new Thread(new Runnable() {
@@ -1446,8 +1445,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         new Thread(new Runnable() {
@@ -1477,8 +1475,7 @@ public class ViewPessoa extends javax.swing.JPanel {
 
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
 
@@ -1531,7 +1528,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     private void jBfinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBfinanceiroActionPerformed
         //TODO add your handling code here:
         JDwebFinanceiro.setLocationRelativeTo(this);
-        JDwebFinanceiro.setVisible(true);        
+        JDwebFinanceiro.setVisible(true);
     }//GEN-LAST:event_jBfinanceiroActionPerformed
 
     private void jMativa3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa3ActionPerformed
@@ -1539,8 +1536,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         new Thread(new Runnable() {
@@ -1568,8 +1564,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
         new Thread(new Runnable() {
@@ -1600,9 +1595,9 @@ public class ViewPessoa extends javax.swing.JPanel {
 //        } catch (IOException ex) {
 //            Logger.getLogger(ViewPessoa.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
+
         DisplayHtml("http://www.google.com.br");
-        
+
     }//GEN-LAST:event_JDwebFinanceiroWindowOpened
 
     private void jMemailmassaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMemailmassaActionPerformed
@@ -1619,37 +1614,37 @@ public class ViewPessoa extends javax.swing.JPanel {
                 showAguarde();
             }
         }).start();
-        UsuarioLogadoBeans ulb=new UsuarioLogadoBeans();
-        List<PessoaBeans> lpb1=new ArrayList<>();
+        UsuarioLogadoBeans ulb = new UsuarioLogadoBeans();
+        List<PessoaBeans> lpb1 = new ArrayList<>();
         try {
-            if(jCclientesativos.isSelected() && jCclientesinativos.isSelected()){
-                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(), 
-                    ulb.getSsl(), ulb.getTls(),lpb,ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
-            }else if(jCclientesativos.isSelected()){
-                for(int i=0;i<lpb.size();i++){
-                    if((lpb.get(i).getIdsituacao()==1)&&(!lpb.get(i).getEmail().equals(""))){                    
+            if (jCclientesativos.isSelected() && jCclientesinativos.isSelected()) {
+                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
+                        ulb.getSsl(), ulb.getTls(), lpb, ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
+            } else if (jCclientesativos.isSelected()) {
+                for (int i = 0; i < lpb.size(); i++) {
+                    if ((lpb.get(i).getIdsituacao() == 1) && (!lpb.get(i).getEmail().equals(""))) {
                         lpb1.add(lpb.get(i));
-                    }                    
+                    }
                 }
-                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(), 
-                    ulb.getSsl(), ulb.getTls(),lpb1,ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
-            }else if(jCclientesinativos.isSelected()){
-                for(int i=0;i<lpb.size();i++){
-                    if((lpb.get(i).getIdsituacao()==2)&&(!lpb.get(i).getEmail().equals(""))){
+                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
+                        ulb.getSsl(), ulb.getTls(), lpb1, ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
+            } else if (jCclientesinativos.isSelected()) {
+                for (int i = 0; i < lpb.size(); i++) {
+                    if ((lpb.get(i).getIdsituacao() == 2) && (!lpb.get(i).getEmail().equals(""))) {
                         lpb1.add(lpb.get(i));
-                        
-                    }                    
+
+                    }
                 }
-                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(), 
-                    ulb.getSsl(), ulb.getTls(),lpb1,ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
+                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
+                        ulb.getSsl(), ulb.getTls(), lpb1, ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
             }
-            
+
         } catch (EmailException ex) {
             jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null,"Erro ao Enviar Email\n"+ex);            
+            JOptionPane.showMessageDialog(null, "Erro ao Enviar Email\n" + ex);
         } catch (MalformedURLException ex) {
             jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null,"Erro de URL ao Enviar Email\n"+ex);            
+            JOptionPane.showMessageDialog(null, "Erro de URL ao Enviar Email\n" + ex);
         }
         jDaguarde.setVisible(false);
     }//GEN-LAST:event_jBemailmassaActionPerformed
@@ -1952,10 +1947,10 @@ public void ativaView() {
             ativaNovoAlterarExcluir();
             buscaPessoa();
         } catch (SQLException | NumberFormatException ex) {
-            if(ex.toString().contains("UNQ1_PESSOA")){
+            if (ex.toString().contains("UNQ1_PESSOA")) {
                 JOptionPane.showMessageDialog(this, "CNPJ Já se Encontra Cadastrado\n", "Salvar", JOptionPane.ERROR_MESSAGE);
-            }else{
-            JOptionPane.showMessageDialog(this, "Erro ao Salvar\n" + ex, "Salvar", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao Salvar\n" + ex, "Salvar", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -2031,10 +2026,10 @@ public void ativaView() {
             ativaNovoAlterarExcluir();
             buscaPessoa();
         } catch (SQLException | NumberFormatException ex) {
-            if(ex.toString().contains("UNQ1_PESSOA")){
+            if (ex.toString().contains("UNQ1_PESSOA")) {
                 JOptionPane.showMessageDialog(this, "CNPJ Já se Encontra Cadastrado\n", "Salvar", JOptionPane.ERROR_MESSAGE);
-            }else{
-            JOptionPane.showMessageDialog(this, "Erro ao Alterar" + ex, "Alterar", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao Alterar" + ex, "Alterar", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -2112,10 +2107,10 @@ public void ativaView() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jDaguarde.setLocationRelativeTo(null);
-                jDaguarde.setVisible(true);
+                showAguarde();
             }
         }).start();
+
         new Thread(new Runnable() {
 
             @Override
@@ -2128,32 +2123,29 @@ public void ativaView() {
         }).start();
 
     }
-    
-    public void DisplayHtml(String urlString){
-    JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    Container con = frame.getContentPane();
-    JEditorPane jep = new JEditorPane();
-    JScrollPane jsp = new JScrollPane(jep);
-    con.add(jsp);
-    jep.setContentType("text/html");
-    try{
-      jep.setPage(urlString);
+
+    public void DisplayHtml(String urlString) {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container con = frame.getContentPane();
+        JEditorPane jep = new JEditorPane();
+        JScrollPane jsp = new JScrollPane(jep);
+        con.add(jsp);
+        jep.setContentType("text/html");
+        try {
+            jep.setPage(urlString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        frame.setBounds(50, 50, 600, 800);
+        frame.setVisible(true);
     }
-    catch (Exception e){
-      e.printStackTrace();
-    }
-    frame.setBounds(50, 50, 600, 800);
-    frame.setVisible(true);
-  }
 //  public static void main(String[] args){
 //    String ustr = "http://homepage1.nifty.com/algafield/";
 //    if (args.length > 0){ // local file URL should begin with file://
 //      ustr = args[0];     // ex.  file:///root/mytest.html
 //    }                     // ex.  file://C:\mytest.html
 //    new DisplayHtml(ustr);
-  
-
 
     private void inicializaAtalhos() {
         //Atalho novo
@@ -2249,11 +2241,10 @@ public void ativaView() {
 //            jBcancelar.doClick();
 //            
 //        }       
-//    };
-    
-    public void showAguarde(){
+//    };marcos
+    public void showAguarde() {
         jDaguarde.setLocationRelativeTo(this);
-                jDaguarde.setVisible(true);
+        jDaguarde.setVisible(true);
     }
-    
+
 }
