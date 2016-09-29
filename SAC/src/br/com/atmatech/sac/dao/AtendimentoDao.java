@@ -42,8 +42,7 @@ public class AtendimentoDao {
             pstm.setString(10, ab.getTIPO());
             pstm.setString(11, ab.getSOLICITACAO());
             pstm.setString(12, ab.getREALIZADO());
-            pstm.setString(13, ab.getPENDENTE());
-            
+            pstm.setString(13, ab.getPENDENTE());            
             if (ab.getIdveiculo() == null) {
                 pstm.setNull(14, java.sql.Types.INTEGER);
             } else {
