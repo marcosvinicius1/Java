@@ -354,7 +354,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPatendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -372,7 +372,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

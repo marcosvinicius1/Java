@@ -472,7 +472,7 @@
                     <Column editable="false" title="CLIENTE" type="java.lang.Object"/>
                     <Column editable="false" title="DATA" type="java.lang.Object"/>
                     <Column editable="false" title="TECNICO" type="java.lang.Object"/>
-                    <Column editable="true" title="ABERTURA" type="java.lang.Object"/>
+                    <Column editable="false" title="ABERTURA" type="java.lang.Object"/>
                     <Column editable="false" title="STATUS" type="java.lang.Object"/>
                     <Column editable="false" title="TIPO" type="java.lang.Object"/>
                   </Table>
