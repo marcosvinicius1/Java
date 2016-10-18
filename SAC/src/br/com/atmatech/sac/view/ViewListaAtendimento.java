@@ -9,8 +9,8 @@ import br.com.atmatech.sac.beans.AtendimentoBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
 import br.com.atmatech.sac.controller.Email;
 import br.com.atmatech.sac.controller.NivelAcesso;
-import br.com.atmatech.sac.dao.AtendimentoDao;
 import br.com.atmatech.sac.controller.PintarLinhasTabela;
+import br.com.atmatech.sac.dao.AtendimentoDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -48,7 +48,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     ViewPrincipal viewprincipal;
     int coluna;
 
-    public ViewListaAtendimento(ViewPrincipal viewprincipal, ViewListaAtendimento viewlatendmento) {
+    public ViewListaAtendimento(ViewPrincipal viewprincipal, Boolean buscaatebdimento) {
         initComponents();      
         jDaguarde.setUndecorated(true);
             this.viewprincipal = viewprincipal;
@@ -57,8 +57,10 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             Calendar c= Calendar.getInstance();
             c.add(Calendar.DAY_OF_YEAR, -30);
             jDinicial.setDate(c.getTime());
-            jDfinal.setDate(new Timestamp(new Date().getTime()));            
-            buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),"dtabertura");
+            jDfinal.setDate(new Timestamp(new Date().getTime()));  
+            if(buscaatebdimento){
+             buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),"dtabertura");   
+            }            
             permissaoUsuario();
             inicializaAtalhos(); 
             inicializaTabela();
@@ -620,7 +622,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private javax.swing.JTextField jTparametro1;
     // End of variables declaration//GEN-END:variables
 
-    private void buscaAtendimento(String status, Integer idtecnico,Date ini,Date fin,String campo) {
+    public void buscaAtendimento(String status, Integer idtecnico,Date ini,Date fin,String campo) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -632,7 +634,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(),ini,fin,getTipoData());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         TableCellRenderer renderer = new PintarLinhasTabela();
-        jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
+        jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);        
         for (AtendimentoBeans ab : lab) {
             tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(),ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
         }

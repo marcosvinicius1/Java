@@ -460,12 +460,12 @@ public class ViewUsuario extends javax.swing.JPanel {
                     desativaView();
                     ativaNovoAlterarExcluir();
                     buscaUsuario();
-                    JOptionPane.showMessageDialog(this,"Registro Excluido","Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Registro Excluido", "Atenção", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this,"Erro ao Excluir Registro\n"+ex,"Atenção",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Erro ao Excluir Registro\n" + ex, "Atenção", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }else {
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione um Registro", "Atenção", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -530,9 +530,9 @@ public class ViewUsuario extends javax.swing.JPanel {
         jCtecnico.setEnabled(true);
         jTtusuario.setEnabled(false);
         jTtusuario.clearSelection();
-        jCvchamados.setEnabled(true);        
+        jCvchamados.setEnabled(true);
         jCalterartecnico.setEnabled(true);
-        
+
         jTsmtp.setEditable(true);
         jTporta.setEditable(true);
         jCssl.setEnabled(true);
@@ -549,9 +549,9 @@ public class ViewUsuario extends javax.swing.JPanel {
         jPsenha.setEditable(false);
         jCtecnico.setEnabled(false);
         jTtusuario.setEnabled(true);
-        jCvchamados.setEnabled(false);        
+        jCvchamados.setEnabled(false);
         jCalterartecnico.setEnabled(false);
-        
+
         jTsmtp.setEditable(false);
         jTporta.setEditable(false);
         jCssl.setEnabled(false);
@@ -568,9 +568,9 @@ public class ViewUsuario extends javax.swing.JPanel {
         jPsenha.setText("");
         jCtecnico.setSelected(false);
         jTidusuario.setText("");
-        jCvchamados.setSelected(false);        
+        jCvchamados.setSelected(false);
         jCalterartecnico.setSelected(false);
-        
+
         jTsmtp.setText("smtp.atmatech.com.br");
         jTporta.setText("587");
         jCssl.setSelected(false);
@@ -626,9 +626,9 @@ public class ViewUsuario extends javax.swing.JPanel {
         if (jPsenha.getText().equals("")) {
             result = false;
         }
-        if(jCtecnico.isSelected()){
-            if((jTemail.getText().equals("")||(jTsmtp.getText().equals("")||(jTporta.getText().equals(""))||(jPsenhaemail.getText().equals(""))))){
-                result=false;
+        if (jCtecnico.isSelected()) {
+            if ((jTemail.getText().equals("") || (jTsmtp.getText().equals("") || (jTporta.getText().equals("")) || (jPsenhaemail.getText().equals(""))))) {
+                result = false;
             }
         }
         return result;
@@ -652,7 +652,7 @@ public class ViewUsuario extends javax.swing.JPanel {
             ub.setSenhaemail(jPsenhaemail.getText());
             ub.setAssinatura(jTassinatura.getText());
             ub.setBconsulta(jCbConsulta.isSelected());
-            
+                          
             new UsuarioDao().setUsuario(ub);
             desativaView();
             limpaView();
@@ -672,7 +672,7 @@ public class ViewUsuario extends javax.swing.JPanel {
             ub.setSenha(new String(jPsenha.getPassword()).trim());
             ub.setTecnico(jCtecnico.isSelected());
             ub.setIdusuario(Integer.valueOf(jTidusuario.getText()));
-             ub.setAtivo(jCativo.isSelected());
+            ub.setAtivo(jCativo.isSelected());
             ub.setVchamados(jCvchamados.isSelected());
             ub.setAlttecnico(jCalterartecnico.isSelected());
             ub.setSmtp(jTsmtp.getText());
@@ -718,20 +718,20 @@ public class ViewUsuario extends javax.swing.JPanel {
     }
 
     private void permissaoUsuario() {
-        int ver=0;
-        if(!new NivelAcesso().getAcesso("ViewUsuario", "cadastrar", false)){
+        int ver = 0;
+        if (!new NivelAcesso().getAcesso("ViewUsuario", "cadastrar", false)) {
             jBnovo.setVisible(false);
             ver++;
         }
-        if(!new NivelAcesso().getAcesso("ViewUsuario", "alterar", false)){
+        if (!new NivelAcesso().getAcesso("ViewUsuario", "alterar", false)) {
             jBalterar.setVisible(false);
             ver++;
         }
-        if(!new NivelAcesso().getAcesso("ViewUsuario", "excluir", false)){
+        if (!new NivelAcesso().getAcesso("ViewUsuario", "excluir", false)) {
             jBexcluir.setVisible(false);
             ver++;
         }
-        if(ver==3){
+        if (ver == 3) {
             jPanel1.setVisible(false);
         }
     }

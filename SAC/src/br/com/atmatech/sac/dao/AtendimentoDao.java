@@ -137,7 +137,7 @@ public class AtendimentoDao {
             }
             pstm.close();
             rs.close();
-            conexao.close();
+            conexao.close();            
             return lab;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);

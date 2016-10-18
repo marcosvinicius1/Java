@@ -20,18 +20,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.Timestamp;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
 import org.apache.commons.mail.EmailException;
 
 /**
@@ -1293,7 +1293,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
             viewprincipal.jTaabas.getSelectedIndex();
             viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), viewlatendimento);
         } else {
-            ViewListaAtendimento view = new ViewListaAtendimento(viewprincipal, viewlatendimento);
+            ViewListaAtendimento view = new ViewListaAtendimento(viewprincipal, true);
             ViewAtendimento.this.setVisible(false);
             viewprincipal.jTaabas.getSelectedIndex();
             viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), view);

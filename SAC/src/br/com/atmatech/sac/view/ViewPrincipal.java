@@ -9,14 +9,16 @@ import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
 import br.com.atmatech.sac.controller.Avisos;
 import br.com.atmatech.sac.controller.ButtonTabComponent;
 import br.com.atmatech.sac.controller.NivelAcesso;
-import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -47,7 +49,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         carregaMenu();
         avisos();
         inicializaAtalhos();
-        
+
 //
     }
 
@@ -235,12 +237,27 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jLpendente.setForeground(new java.awt.Color(255, 0, 0));
         jLpendente.setText(" ");
+        jLpendente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLpendenteMouseClicked(evt);
+            }
+        });
 
         jLaberto.setForeground(new java.awt.Color(0, 204, 0));
         jLaberto.setText(" ");
+        jLaberto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabertoMouseClicked(evt);
+            }
+        });
 
         jLiniciado.setForeground(new java.awt.Color(255, 255, 255));
         jLiniciado.setText(" ");
+        jLiniciado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLiniciadoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -384,6 +401,27 @@ public class ViewPrincipal extends javax.swing.JFrame {
         exibeTelaSec(1);
     }//GEN-LAST:event_jMtela02ActionPerformed
 
+    private void jLpendenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLpendenteMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            chamdoPendente();
+        }
+    }//GEN-LAST:event_jLpendenteMouseClicked
+
+    private void jLabertoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabertoMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount()==2){
+            chamadoAberto();
+        }
+    }//GEN-LAST:event_jLabertoMouseClicked
+
+    private void jLiniciadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLiniciadoMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount()==2){
+            chamadoIniciado();
+        }
+    }//GEN-LAST:event_jLiniciadoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -469,7 +507,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         }).start();
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] devices = ge.getScreenDevices();          
+        GraphicsDevice[] devices = ge.getScreenDevices();
         if (devices.length == 1) {
             jMtela01.setVisible(true);
         } else if (devices.length == 2) {
@@ -537,6 +575,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         }
         return verifica;
+    }
+
+    private Component getJanelaAbertaClass(String titulo) {
+        for (int i = 0; i < jTaabas.getTabCount(); i++) {
+            if (titulo.equals(jTaabas.getTitleAt(i))) {
+                return jTaabas.getComponentAt(i);
+            }
+        }
+        return null;
     }
 
     private void avisos() {
@@ -635,7 +682,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 }
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Atendimento")) {
                 if (!getJanelaAberta("Atendimento")) {
-                    ViewListaAtendimento view = new ViewListaAtendimento(this, null);
+                    ViewListaAtendimento view = new ViewListaAtendimento(this, true);
                     jTaabas.addTab("Atendimento", null, view);
                     jTaabas.setSelectedComponent(view);
                     int j = jTaabas.getSelectedIndex();
@@ -777,7 +824,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public void getAtalhoAtendimento() {
         if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
             if (!getJanelaAberta("Atendimento")) {
-                ViewListaAtendimento view = new ViewListaAtendimento(this, null);
+                ViewListaAtendimento view = new ViewListaAtendimento(this, true);
                 jTaabas.addTab("Atendimento", null, view);
                 jTaabas.setSelectedComponent(view);
                 int j = jTaabas.getSelectedIndex();
@@ -856,6 +903,72 @@ public class ViewPrincipal extends javax.swing.JFrame {
         devices[tela].setFullScreenWindow(null);
         this.setLocation(xx, yy);
 
+    }
+
+    private void chamdoPendente() {
+        if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
+            if (!getJanelaAberta("Atendimento")) {
+                ViewListaAtendimento view = new ViewListaAtendimento(this, false);                
+                jTaabas.addTab("Atendimento", null, view);
+                jTaabas.setSelectedComponent(view);
+                int j = jTaabas.getSelectedIndex();
+                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_YEAR, -360);
+                view.buscaAtendimento("'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+            } else {
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_YEAR, -360);
+                if (getJanelaAbertaClass("Atendimento") instanceof ViewListaAtendimento) {
+                    ViewListaAtendimento view = (ViewListaAtendimento) getJanelaAbertaClass("Atendimento");
+                    view.buscaAtendimento("'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                }
+            }
+        }
+    }
+
+    private void chamadoAberto() {
+        if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
+            if (!getJanelaAberta("Atendimento")) {
+                ViewListaAtendimento view = new ViewListaAtendimento(this, false);                
+                jTaabas.addTab("Atendimento", null, view);
+                jTaabas.setSelectedComponent(view);
+                int j = jTaabas.getSelectedIndex();
+                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_YEAR, -360);
+                view.buscaAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+            } else {
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_YEAR, -360);
+                if (getJanelaAbertaClass("Atendimento") instanceof ViewListaAtendimento) {
+                    ViewListaAtendimento view = (ViewListaAtendimento) getJanelaAbertaClass("Atendimento");
+                    view.buscaAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                }
+            }
+        }
+    }
+
+    private void chamadoIniciado() {
+        if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
+            if (!getJanelaAberta("Atendimento")) {
+                ViewListaAtendimento view = new ViewListaAtendimento(this, false);                
+                jTaabas.addTab("Atendimento", null, view);
+                jTaabas.setSelectedComponent(view);
+                int j = jTaabas.getSelectedIndex();
+                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_YEAR, -360);
+                view.buscaAtendimento("'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+            } else {
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_YEAR, -360);
+                if (getJanelaAbertaClass("Atendimento") instanceof ViewListaAtendimento) {
+                    ViewListaAtendimento view = (ViewListaAtendimento) getJanelaAbertaClass("Atendimento");
+                    view.buscaAtendimento("'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                }
+            }
+        }
     }
 
 }

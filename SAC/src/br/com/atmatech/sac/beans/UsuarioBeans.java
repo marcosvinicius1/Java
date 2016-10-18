@@ -11,7 +11,7 @@ package br.com.atmatech.sac.beans;
  */
 public class UsuarioBeans {
     private Integer idusuario;
-    private String nome;
+    private String nome;    
     private String login;
     private Boolean tecnico;
     private String senha;
