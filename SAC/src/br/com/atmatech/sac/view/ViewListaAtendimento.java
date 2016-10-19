@@ -7,6 +7,7 @@ package br.com.atmatech.sac.view;
 
 import br.com.atmatech.sac.beans.AtendimentoBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
+import br.com.atmatech.sac.connection.ConexaoDb;
 import br.com.atmatech.sac.controller.Email;
 import br.com.atmatech.sac.controller.NivelAcesso;
 import br.com.atmatech.sac.controller.PintarLinhasTabela;
@@ -14,7 +15,9 @@ import br.com.atmatech.sac.dao.AtendimentoDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -22,7 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -33,6 +38,10 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.mail.EmailException;
 
 /**
@@ -49,23 +58,23 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     int coluna;
 
     public ViewListaAtendimento(ViewPrincipal viewprincipal, Boolean buscaatebdimento) {
-        initComponents();      
+        initComponents();
         jDaguarde.setUndecorated(true);
-            this.viewprincipal = viewprincipal;
-            Timestamp dtini=new Timestamp(new Date().getTime());
-            Date dtin=new Date();
-            Calendar c= Calendar.getInstance();
-            c.add(Calendar.DAY_OF_YEAR, -30);
-            jDinicial.setDate(c.getTime());
-            jDfinal.setDate(new Timestamp(new Date().getTime()));  
-            if(buscaatebdimento){
-             buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),"dtabertura");   
-            }            
-            permissaoUsuario();
-            inicializaAtalhos(); 
-            inicializaTabela();
-            //buscaAtendimentoAutomatica();  
-            
+        this.viewprincipal = viewprincipal;
+        Timestamp dtini = new Timestamp(new Date().getTime());
+        Date dtin = new Date();
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_YEAR, -30);
+        jDinicial.setDate(c.getTime());
+        jDfinal.setDate(new Timestamp(new Date().getTime()));
+        if (buscaatebdimento) {
+            buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), "dtabertura");
+        }
+        permissaoUsuario();
+        inicializaAtalhos();
+        inicializaTabela();
+        //buscaAtendimentoAutomatica();  
+
     }
 
     /**
@@ -79,6 +88,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMemail = new javax.swing.JMenuItem();
+        jMreport = new javax.swing.JMenuItem();
         jDconsulta = new javax.swing.JDialog();
         jLcampo = new javax.swing.JLabel();
         jTparametro1 = new javax.swing.JTextField();
@@ -110,6 +120,14 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             }
         });
         jPopupMenu1.add(jMemail);
+
+        jMreport.setText("Imprimir Chamado");
+        jMreport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMreportActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMreport);
 
         jDconsulta.setTitle("Consulta");
         jDconsulta.setMinimumSize(new java.awt.Dimension(400, 130));
@@ -543,7 +561,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         } else {
             coluna = 1;
         }
-        if ((evt.getKeyCode() == KeyEvent.VK_F) && (coluna >= 0)&&(!jTatendimento.getColumnName(coluna).equals("DATA"))) {
+        if ((evt.getKeyCode() == KeyEvent.VK_F) && (coluna >= 0) && (!jTatendimento.getColumnName(coluna).equals("DATA"))) {
             if (evt.isControlDown()) {
                 jLcampo.setText(jTatendimento.getColumnName(coluna));
                 jTparametro1.setText("");
@@ -581,18 +599,34 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     private void jPanel5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel5KeyPressed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jPanel5KeyPressed
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
         // TODO add your handling code here:
-        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),getTipoData());
+        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTparametro1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTparametro1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTparametro1KeyPressed
 
+    private void jMreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMreportActionPerformed
+        // TODO add your handling code here:
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                showAguarde();
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {                
+                getReportChamado();
+            }
+        }).start();
+                
+    }//GEN-LAST:event_jMreportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -612,6 +646,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLcampo;
     private javax.swing.JMenuItem jMemail;
+    private javax.swing.JMenuItem jMreport;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
@@ -622,7 +657,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private javax.swing.JTextField jTparametro1;
     // End of variables declaration//GEN-END:variables
 
-    public void buscaAtendimento(String status, Integer idtecnico,Date ini,Date fin,String campo) {
+    public void buscaAtendimento(String status, Integer idtecnico, Date ini, Date fin, String campo) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -631,12 +666,12 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }).start();
         DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
         tabelaatendimento.setNumRows(0);
-        lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(),ini,fin,getTipoData());
+        lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         TableCellRenderer renderer = new PintarLinhasTabela();
-        jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);        
+        jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
-            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(),ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
         }
         jDaguarde.setVisible(false);
     }
@@ -645,12 +680,12 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
         tabelaatendimento.setNumRows(0);
         //String status=verificaStatus();
-        lab = new AtendimentoDao().getAtendimento(verificaStatus(), campo, parametro, idusuario, supervisor,jDinicial.getDate(),jDfinal.getDate(),getTipoData());
+        lab = new AtendimentoDao().getAtendimento(verificaStatus(), campo, parametro, idusuario, supervisor, jDinicial.getDate(), jDfinal.getDate(), getTipoData());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         TableCellRenderer renderer = new PintarLinhasTabela();
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
-            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(),ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
         }
         jDconsulta.setVisible(false);
     }
@@ -669,7 +704,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private void deleteAtendimento() {
         try {
             new AtendimentoDao().deleteAtendimento((Integer) jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0));
-            buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),getTipoData());
+            buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
             JOptionPane.showMessageDialog(this, "Registro Excluido Com Sucesso", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao Excluir Registro\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
@@ -696,7 +731,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 if (jCpendente.isSelected()) {
                     tipo = tipo + ",'PENDENTE',''";
                 }
-                buscaAtendimento(tipo, new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),getTipoData());
+                buscaAtendimento(tipo, new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
             }
         }).start();
     }
@@ -727,7 +762,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         inputMapJBexcluir.put(keyStrokeJBexcluir, actionNameJBexcluir);
         ActionMap actionMapJBexcluir = jBexcluir.getActionMap();
         actionMapJBexcluir.put(actionNameJBexcluir, acaoJBexcluir);
-        
+
         //Atalho atualizar
         KeyStroke keyStrokeJBatualizar = KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0);
         String actionNameJBatualizar = "F5";
@@ -771,7 +806,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             jBexcluir.doClick();
         }
     };
-    
+
     //FUNCAO de atalho pesquisa
     Action acaoJBpesquisa = new AbstractAction() {  //funcao da acao do botao
         @Override
@@ -813,7 +848,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     }
 
-    private String verificaParametro(String parametro1,String condicao) {
+    private String verificaParametro(String parametro1, String condicao) {
 
         if (condicao.equals("=")) {
             return "='" + parametro1 + "'";
@@ -826,7 +861,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }
         if (condicao.equals("!=")) {
             return "!='" + parametro1 + "'";
-        }        
+        }
         if (condicao.equals("contem")) {
             return "like '%" + parametro1 + "%'";
         }
@@ -853,26 +888,26 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     }
 
     private void buscaAtendimentoAutomatica() {
-        
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-                while(true){
+                while (true) {
                     try {
                         Thread.sleep(5000);
-                        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),getTipoData());                        
+                        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
                     } catch (InterruptedException ex) {
-                        JOptionPane.showMessageDialog(null,"Erro ao Atualizar Lista de Atendimentos\n"+ex);
+                        JOptionPane.showMessageDialog(null, "Erro ao Atualizar Lista de Atendimentos\n" + ex);
                     }
                 }
             }
         }).start();
-        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(),jDinicial.getDate(),jDfinal.getDate(),getTipoData());
+        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
     }
 
     private String getTipoData() {
-        return "dt"+jCtpdata.getSelectedItem().toString();
+        return "dt" + jCtpdata.getSelectedItem().toString();
     }
 
     private void inicializaTabela() {
@@ -887,14 +922,37 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             jTatendimento.getColumnModel().getColumn(3).setPreferredWidth(150);
             jTatendimento.getColumnModel().getColumn(4).setMinWidth(150);
             jTatendimento.getColumnModel().getColumn(4).setPreferredWidth(150);
-            jTatendimento.getColumnModel().getColumn(5).setMinWidth(100);            
+            jTatendimento.getColumnModel().getColumn(5).setMinWidth(100);
             jTatendimento.getColumnModel().getColumn(5).setPreferredWidth(100);
             jTatendimento.getColumnModel().getColumn(6).setMinWidth(100);
             jTatendimento.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
     }
- public void showAguarde() {
+
+    public void showAguarde() {
         jDaguarde.setLocationRelativeTo(this);
         jDaguarde.setVisible(true);
+    }
+
+    private void getReportChamado() {
+        try(Connection conexao=new ConexaoDb().getConnect()) {
+            Map parametros = new HashMap();
+            AtendimentoBeans at= clickAtendimento();
+            InputStream image = this.getClass().getResourceAsStream("./image/logo.png");
+            parametros.put("idatendimento",at.getIDATENDIMENTO());  
+            parametros.put("imagem","./image/logo.png");
+            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportChamado.jasper", parametros,conexao);            
+            JasperViewer view = new JasperViewer(jasperPrint, false);
+            jDaguarde.setVisible(false);
+            view.setVisible(true);
+            view.toFront();
+            
+        } catch (JRException ex) {
+            jDaguarde.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n"+ex);
+        } catch (SQLException ex) {
+            jDaguarde.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n"+ex);
+        }
     }
 }
