@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportChamado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f1c0d53-143e-47e9-b651-ea599ed9e742">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idatendimento" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="imagem" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\ProjetoJava\\SAC\\src\\br\\com\\atmatech\\sac\\report\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select atendimento.IDATENDIMENTO,
 atendimento.IDPESSOA,
@@ -289,7 +292,7 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 		</band>
 	</title>
 	<detail>
-		<band height="224" splitType="Stretch">
+		<band height="217" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="0" width="555" height="145" uuid="e6ddbff0-5f8f-4e3b-a775-573a0df25096"/>
 				<box>
@@ -367,13 +370,4 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 			</line>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

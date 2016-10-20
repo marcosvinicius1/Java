@@ -404,21 +404,40 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jLpendenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLpendenteMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            chamdoPendente();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    chamdoPendente();
+                }
+            }).start();
+            
         }
     }//GEN-LAST:event_jLpendenteMouseClicked
 
     private void jLabertoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabertoMouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount()==2){
-            chamadoAberto();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    chamadoAberto();
+                }
+            }).start();
+            
+            
         }
     }//GEN-LAST:event_jLabertoMouseClicked
 
     private void jLiniciadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLiniciadoMouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount()==2){
-            chamadoIniciado();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    chamadoIniciado();
+                }
+            }).start();
+            
         }
     }//GEN-LAST:event_jLiniciadoMouseClicked
 

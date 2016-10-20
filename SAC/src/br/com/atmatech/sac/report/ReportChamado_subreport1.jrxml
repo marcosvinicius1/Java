@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportChamado_subreport1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f1c0d53-143e-47e9-b651-ea599ed9e742">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idatendimento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagem" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select atendimento.IDATENDIMENTO,
+atendimento.IDPESSOA,
+atendimento.IDTECNICO,
+atendimento.IDABERTURA,
+DTABERTURA,
+DTINICIAL,
+DTFINAL,
+STATUS,
+atendimento.ATIVO,
+SOLICITANTE,
+TIPO,
+SOLICITACAO,
+REALIZADO,
+PENDENTE,
+atendimento.IDTECNICOANTERIOR,
+atendimento.IDVEICULO,
+KMINICIAL,
+KMFINAL,
+tecnico.nome tecnico,
+abertura.nome tecnicoabertura,
+tecnicoante.nome tecnicoanterior,
+pessoa.*,
+distrito.distrito,
+modulo.descricao modulo,
+placa
+from atendimento
+left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)
+left join usuario tecnico on(atendimento.idtecnico=tecnico.idusuario)
+left join usuario abertura on(atendimento.idabertura=abertura.idusuario)
+left join  usuario tecnicoante on(atendimento.idtecnicoanterior=tecnicoante.idusuario)
+left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)
+inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)
+inner join modulo on(pessoa.idmodulo=modulo.idmodulo)
+where atendimento.idatendimento=$P{idatendimento}]]>
+	</queryString>
+	<field name="IDATENDIMENTO" class="java.lang.Integer"/>
+	<field name="IDPESSOA" class="java.lang.Integer"/>
+	<field name="IDTECNICO" class="java.lang.Integer"/>
+	<field name="IDABERTURA" class="java.lang.Integer"/>
+	<field name="DTABERTURA" class="java.sql.Timestamp"/>
+	<field name="DTINICIAL" class="java.sql.Timestamp"/>
+	<field name="DTFINAL" class="java.sql.Timestamp"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="ATIVO" class="java.lang.String"/>
+	<field name="SOLICITANTE" class="java.lang.String"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="SOLICITACAO" class="java.lang.String"/>
+	<field name="REALIZADO" class="java.lang.String"/>
+	<field name="PENDENTE" class="java.lang.String"/>
+	<field name="IDTECNICOANTERIOR" class="java.lang.Integer"/>
+	<field name="IDVEICULO" class="java.lang.Integer"/>
+	<field name="KMINICIAL" class="java.math.BigDecimal"/>
+	<field name="KMFINAL" class="java.math.BigDecimal"/>
+	<field name="TECNICO" class="java.lang.String"/>
+	<field name="TECNICOABERTURA" class="java.lang.String"/>
+	<field name="TECNICOANTERIOR" class="java.lang.String"/>
+	<field name="RAZAO" class="java.lang.String"/>
+	<field name="FANTASIA" class="java.lang.String"/>
+	<field name="CNPJ" class="java.lang.String"/>
+	<field name="IE" class="java.lang.String"/>
+	<field name="ENDERECO" class="java.lang.String"/>
+	<field name="IDDISTRITO" class="java.lang.Integer"/>
+	<field name="NUMERO" class="java.lang.String"/>
+	<field name="EMAIL" class="java.lang.String"/>
+	<field name="IDMODULO" class="java.lang.Integer"/>
+	<field name="TELEFONE1" class="java.lang.String"/>
+	<field name="TELEFONE2" class="java.lang.String"/>
+	<field name="TELEFONE3" class="java.lang.String"/>
+	<field name="IDSITUACAO" class="java.lang.Integer"/>
+	<field name="OBS" class="java.lang.String"/>
+	<field name="BAIRRO" class="java.lang.String"/>
+	<field name="RESPONSAVEL" class="java.lang.String"/>
+	<field name="NFE" class="java.lang.Integer"/>
+	<field name="ECF" class="java.lang.Integer"/>
+	<field name="DTPLUGIN" class="java.sql.Timestamp"/>
+	<field name="DISTRITO" class="java.lang.String"/>
+	<field name="MODULO" class="java.lang.String"/>
+	<field name="PLACA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="120" uuid="5a1041fd-09d5-49a8-b185-5d3b7705cb83"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<line>
+					<reportElement x="0" y="64" width="555" height="1" uuid="25695745-ca27-4965-bf34-3742ba904afe"/>
+				</line>
+				<textField>
+					<reportElement x="40" y="66" width="215" height="11" uuid="118d30ca-b7fe-4029-89b5-067cce1890b6"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RAZAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="66" width="36" height="11" uuid="d8c68957-c2d9-4955-8398-68db862df968"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Rasão:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="76" width="36" height="11" uuid="c150aa91-d37f-456a-a632-db3b72321f49"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Fantasia:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="40" y="76" width="215" height="11" uuid="a27c17cd-cd9e-408c-a1d4-7186dbc1eb3e"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{FANTASIA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="96" width="36" height="11" uuid="28e79605-4bba-47a4-a50d-545ce9edfec2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Telefone:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="40" y="96" width="96" height="11" uuid="cfa9c4fc-2909-4fa4-ac27-58f1f81330ac"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TELEFONE1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="106" width="54" height="11" uuid="e3a8e743-7144-4ce3-9111-dea926d05797"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Data Abertura:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="54" y="106" width="82" height="11" uuid="dc86412a-ff1b-4c1b-ba03-c24cf647e934"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DTABERTURA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="136" y="106" width="67" height="11" uuid="29ce48ad-a58d-46f4-b247-1086ed8673a0"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Data Atendimento:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="203" y="106" width="60" height="11" uuid="84b7d68f-7397-42f7-ae59-771bfb4373e4"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DTINICIAL} != null ? $F{DTINICIAL} : ""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="136" y="96" width="30" height="11" uuid="70aa2a60-a4d3-464c-9307-7ffdf7e2d6f2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Modulo:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="166" y="96" width="91" height="11" uuid="45fad562-cdad-4836-9757-1fe84bb677ee"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MODULO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="253" y="66" width="40" height="12" uuid="2603878f-8d31-481b-aa62-c16d12c4e967"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Solicitante:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="293" y="66" width="100" height="12" uuid="1a852cbc-e83e-49aa-80cb-0e4012464dfc"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SOLICITANTE}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="0" y="0" width="125" height="38" uuid="a5c3b366-5177-43ff-8e01-9ce9fa1a3210"/>
+					<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="136" y="0" width="214" height="13" uuid="36acc641-39c9-42da-bff0-023437b40462"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ATMATECH - AUTOMAÇÃO COMERCIAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="136" y="11" width="419" height="13" uuid="55d0bf41-8c96-4ae7-90ae-07ee0680b495"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RUA ABEL PEREIRA DE CASTRO - Nº 1449 - CENTRO - RIO VERDE - GO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="136" y="20" width="100" height="13" uuid="fc6b5aeb-8e17-454b-89f5-1460d4b94f27"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fone: 64- 3623-4056]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="36" width="555" height="13" uuid="2c2793a9-5af2-4154-8855-7d493b3f3a49"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[www.atmatech.com.br]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="49" width="555" height="15" uuid="9f96b3e9-1cd6-4d69-a6b9-922ae43fd2bf"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[O.S ATENDIMENTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="86" width="38" height="11" uuid="712fee84-cb10-43c1-be7d-dafa7cef3f9e"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Endereço:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="40" y="86" width="213" height="11" uuid="b2f54035-4d4d-4e97-82c9-5f811b3a08d3"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ENDERECO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="253" y="86" width="10" height="11" uuid="74554ffb-e2b8-432e-8797-c4c33ee039c4"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Nº]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="263" y="86" width="30" height="11" uuid="fc81af10-b2b3-4102-a96e-b3731a8ed458"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NUMERO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="293" y="86" width="24" height="11" uuid="cb916ad2-3ee9-4000-9cd0-07a20b8745e6"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Bairro:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="317" y="86" width="76" height="11" uuid="4ad56ff2-18f8-43c9-aee0-220eb8607687"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BAIRRO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="441" y="64" width="100" height="20" uuid="a5e776a2-5c23-4f98-9884-aedd01b5c3fd"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nº "+$F{IDATENDIMENTO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<detail>
+		<band height="224" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="145" uuid="e6ddbff0-5f8f-4e3b-a775-573a0df25096"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" x="0" y="13" width="555" height="31" uuid="f5616d6d-2f1f-49fc-8b49-f22300955c82"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SOLICITACAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="16" uuid="0e597de6-0775-4671-a587-204d8c490794"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Solicitação do Cliente:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="47" width="100" height="16" uuid="80077fa4-8f3b-46cb-b3bf-883911dffb8d"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ação Realizada:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" x="0" y="60" width="555" height="31" uuid="4b0351ab-2c1a-494c-8075-9353e772d9e5"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{REALIZADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="94" width="100" height="16" uuid="6667b220-6e8e-4f5e-aced-86c6b1cb68e7"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pendencia:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" x="0" y="110" width="555" height="31" uuid="ee8c19cc-d995-4984-abe6-3f696542d093"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PENDENTE}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="150" width="234" height="20" uuid="d627faa1-3672-4fc7-acae-caabbeb74f35"/>
+				<text><![CDATA[Concluido (  )    Pendente (  )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="125" y="192" width="100" height="20" uuid="3c9f94c9-32c0-4a1e-8ee0-059f72ba7725"/>
+				<text><![CDATA[Consultor Técnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="327" y="192" width="100" height="20" uuid="069411e1-64ea-4606-a4f1-274ef2ef754a"/>
+				<text><![CDATA[Cliente Responsável]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="100" y="191" width="153" height="1" uuid="f5a2bed3-05af-471a-8488-36a5c5efd3ef"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="303" y="190" width="153" height="1" uuid="0849286b-4736-42d9-96a0-fa8710cbaf48"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

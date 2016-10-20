@@ -68,7 +68,13 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDinicial.setDate(c.getTime());
         jDfinal.setDate(new Timestamp(new Date().getTime()));
         if (buscaatebdimento) {
-            buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), "dtabertura");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), "dtabertura");
+                }
+            }).start();
+            
         }
         permissaoUsuario();
         inicializaAtalhos();
@@ -94,6 +100,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jTparametro1 = new javax.swing.JTextField();
         jCcondicao = new javax.swing.JComboBox();
         jDaguarde = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
@@ -185,24 +192,35 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDaguarde.setModal(true);
         jDaguarde.setResizable(false);
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         jLabel21.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("AGUARDE....");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel21)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jDaguardeLayout = new javax.swing.GroupLayout(jDaguarde.getContentPane());
         jDaguarde.getContentPane().setLayout(jDaguardeLayout);
         jDaguardeLayout.setHorizontalGroup(
             jDaguardeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDaguardeLayout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDaguardeLayout.setVerticalGroup(
             jDaguardeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDaguardeLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel21)
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setName(""); // NOI18N
@@ -374,7 +392,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPatendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE))))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -604,7 +622,13 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
         // TODO add your handling code here:
-        buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
+            }
+        }).start();
+        
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTparametro1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTparametro1KeyPressed
@@ -621,11 +645,11 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }).start();
         new Thread(new Runnable() {
             @Override
-            public void run() {                
+            public void run() {
                 getReportChamado();
             }
         }).start();
-                
+
     }//GEN-LAST:event_jMreportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -649,6 +673,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMreport;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPatendimento;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -657,23 +682,23 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private javax.swing.JTextField jTparametro1;
     // End of variables declaration//GEN-END:variables
 
-    public void buscaAtendimento(String status, Integer idtecnico, Date ini, Date fin, String campo) {
+    public void buscaAtendimento(final String status, final Integer idtecnico, final Date ini, final Date fin, String campo) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 showAguarde();
             }
         }).start();
-        DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
-        tabelaatendimento.setNumRows(0);
-        lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        TableCellRenderer renderer = new PintarLinhasTabela();
-        jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
-        for (AtendimentoBeans ab : lab) {
-            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
-        }
-        jDaguarde.setVisible(false);
+                DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
+                tabelaatendimento.setNumRows(0);
+                lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                TableCellRenderer renderer = new PintarLinhasTabela();
+                jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
+                for (AtendimentoBeans ab : lab) {
+                    tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+                }
+                jDaguarde.setVisible(false);            
     }
 
     private void buscaAtendimento(String campo, String parametro, Integer idusuario, Boolean supervisor) {
@@ -930,29 +955,29 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     }
 
     public void showAguarde() {
-        jDaguarde.setLocationRelativeTo(this);
+        jDaguarde.setLocationRelativeTo(jPanel2);
         jDaguarde.setVisible(true);
     }
 
     private void getReportChamado() {
-        try(Connection conexao=new ConexaoDb().getConnect()) {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
             Map parametros = new HashMap();
-            AtendimentoBeans at= clickAtendimento();
+            AtendimentoBeans at = clickAtendimento();
             InputStream image = this.getClass().getResourceAsStream("./image/logo.png");
-            parametros.put("idatendimento",at.getIDATENDIMENTO());  
-            parametros.put("imagem","./image/logo.png");
-            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportChamado.jasper", parametros,conexao);            
+            parametros.put("idatendimento", at.getIDATENDIMENTO());
+            parametros.put("imagem", "./image/logo.png");
+            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportChamado.jasper", parametros, conexao);
             JasperViewer view = new JasperViewer(jasperPrint, false);
             jDaguarde.setVisible(false);
             view.setVisible(true);
             view.toFront();
-            
+
         } catch (JRException ex) {
             jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n"+ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
         } catch (SQLException ex) {
             jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n"+ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
         }
     }
 }

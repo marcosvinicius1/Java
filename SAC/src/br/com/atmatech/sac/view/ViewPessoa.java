@@ -120,6 +120,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jDaguarde = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         JDwebFinanceiro = new javax.swing.JDialog();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -505,24 +506,35 @@ public class ViewPessoa extends javax.swing.JPanel {
         jDaguarde.setModal(true);
         jDaguarde.setResizable(false);
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         jLabel21.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("AGUARDE....");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel21)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jDaguardeLayout = new javax.swing.GroupLayout(jDaguarde.getContentPane());
         jDaguarde.getContentPane().setLayout(jDaguardeLayout);
         jDaguardeLayout.setHorizontalGroup(
             jDaguardeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDaguardeLayout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDaguardeLayout.setVerticalGroup(
             jDaguardeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDaguardeLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel21)
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         JDwebFinanceiro.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1152,7 +1164,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         // TODO add your handling code here:
         buscaDistrito();
         jLindice.setText("MUNICIPIO");
-        this.jDcidade.setLocationRelativeTo(null);
+        this.jDcidade.setLocationRelativeTo(jPanel2);
         this.jDcidade.setVisible(true);
 
 
@@ -1254,6 +1266,7 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jTtempresaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTtempresaKeyPressed
         // TODO add your handling code here:
+        
         int coluna = jTtempresa.getSelectedColumn();
         if ((evt.getKeyCode() == KeyEvent.VK_F) && (coluna >= 0)) {
             if (evt.isControlDown()) {
@@ -1357,21 +1370,22 @@ public class ViewPessoa extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMativa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa1ActionPerformed
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
                     jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "1", "30"));
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(null);
+                    jDchave.setLocationRelativeTo(jPanel2);
                     jDchave.setVisible(true);
                 } catch (IOException ex) {
                     jDaguarde.setVisible(false);
@@ -1384,22 +1398,23 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jMativa15diasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa15diasActionPerformed
         // TODO add your handling code here:
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
                     jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "1", "5"));
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(null);
+                    jDchave.setLocationRelativeTo(jPanel2);
                     jDchave.setVisible(true);
                     // JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(),jFcnpj.getText(),"chave_min_nova.php"),"Ativação",JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
@@ -1413,22 +1428,23 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jMativa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa2ActionPerformed
         // TODO add your handling code here:
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here: 
                     DBConfigBeans cb = new DBConfigBeans();
                     jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "2", "30"));
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(null);
+                    jDchave.setLocationRelativeTo(jPanel2);
                     jDchave.setVisible(true);
                     // JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(),jFcnpj.getText(),"chave.php"),"Ativação",JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
@@ -1442,22 +1458,23 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jMativa25diasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa25diasActionPerformed
         // TODO add your handling code here:
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
                     jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "2", "5"));
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(null);
+                    jDchave.setLocationRelativeTo(jPanel2);
                     jDchave.setVisible(true);
                     //JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "chave_min.php"), "Ativação", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
@@ -1475,15 +1492,14 @@ public class ViewPessoa extends javax.swing.JPanel {
 
             @Override
             public void run() {
-                showAguarde();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
                 try {
+                    new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here:
                     PessoaBeans pb = new PessoaBeans();
                     pb = new WebServiceCadastro().postWebService(jFcnpj.getText());
@@ -1533,22 +1549,23 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jMativa3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa3ActionPerformed
         // TODO add your handling code here:
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
                     jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "3", "30"));
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(null);
+                    jDchave.setLocationRelativeTo(jPanel2);
                     jDchave.setVisible(true);
                     //JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "chave_min.php"), "Ativação", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
@@ -1561,22 +1578,23 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jMativa35diasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa35diasActionPerformed
         // TODO add your handling code here:
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAguarde();
+                        }
+                    }).start();
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
                     jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "3", "5"));
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(null);
+                    jDchave.setLocationRelativeTo(jPanel2);
                     jDchave.setVisible(true);
                     //JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "chave_min.php"), "Ativação", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
@@ -1722,6 +1740,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2105,16 +2124,15 @@ public void ativaView() {
     private void carregaPesquisa() {
 
         new Thread(new Runnable() {
-            @Override
-            public void run() {
-                showAguarde();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
 
             @Override
             public void run() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showAguarde();
+                    }
+                }).start();
                 buscaModulo();
                 buscaSituacao();
                 buscaPessoa();
@@ -2243,7 +2261,7 @@ public void ativaView() {
 //        }       
 //    };marcos
     public void showAguarde() {
-        jDaguarde.setLocationRelativeTo(this);
+        jDaguarde.setLocationRelativeTo(jPanel2);
         jDaguarde.setVisible(true);
     }
 
