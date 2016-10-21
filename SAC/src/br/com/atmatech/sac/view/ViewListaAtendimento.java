@@ -955,7 +955,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     }
 
     public void showAguarde() {
-        jDaguarde.setLocationRelativeTo(jPanel2);
+        jDaguarde.setLocationRelativeTo(this.jPanel2);
         jDaguarde.setVisible(true);
     }
 

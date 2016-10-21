@@ -26,7 +26,7 @@ public class AtendimentoDao {
     public Integer setAtendimento(AtendimentoBeans ab) throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "INSERT INTO ATENDIMENTO (IDPESSOA, IDTECNICO, IDABERTURA, DTABERTURA, DTINICIAL, DTFINAL, STATUS, ATIVO, "
-                    + "SOLICITANTE, TIPO, SOLICITACAO, REALIZADO, PENDENTE,idveiculo,kminicial,kmfinal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?) returning idatendimento";
+                    + "SOLICITANTE, TIPO, SOLICITACAO, REALIZADO, PENDENTE,idveiculo,kminicial,kmfinal,anotacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?) returning idatendimento";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, ab.getIDPESSOA());
 
@@ -50,6 +50,7 @@ public class AtendimentoDao {
             }
             pstm.setDouble(15, ab.getKminicial());
             pstm.setDouble(16, ab.getKmfinal());
+            pstm.setString(17, ab.getAnotacao());
             ResultSet rs = pstm.executeQuery();
             Integer idatendimento = 0;
             while (rs.next()) {
@@ -133,6 +134,7 @@ public class AtendimentoDao {
                 ab.setKminicial(rs.getDouble("kminicial"));
                 ab.setKmfinal(rs.getDouble("kmfinal"));
                 ab.setPlaca(rs.getString("placa"));
+                ab.setAnotacao(rs.getString("anotacao"));
                 lab.add(ab);
             }
             pstm.close();
@@ -224,6 +226,7 @@ public class AtendimentoDao {
                 ab.setKminicial(rs.getDouble("kminicial"));
                 ab.setKmfinal(rs.getDouble("kmfinal"));
                 ab.setPlaca(rs.getString("placa"));
+                ab.setAnotacao(rs.getString("anotacao"));
                 lab.add(ab);
             }
             pstm.close();
@@ -258,7 +261,8 @@ public class AtendimentoDao {
                     + "    IDTECNICOANTERIOR = ?,"
                     + "    IDVEICULO= ?,"
                     + "    KMINICIAL= ?,"
-                    + "    KMFINAL= ?"
+                    + "    KMFINAL= ?,"
+                    + "    ANOTACAO= ?"
                     + " WHERE (IDATENDIMENTO = ?)";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, ab.getIDPESSOA());
@@ -288,7 +292,8 @@ public class AtendimentoDao {
             }
             pstm.setDouble(16, ab.getKminicial());
             pstm.setDouble(17, ab.getKmfinal());
-            pstm.setInt(18, ab.getIDATENDIMENTO());
+            pstm.setString(18, ab.getAnotacao());
+            pstm.setInt(19, ab.getIDATENDIMENTO());
             pstm.execute();
             pstm.close();
             conexao.close();
