@@ -105,7 +105,7 @@ public class PessoaDao {
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="select * from pessoa left join distrito on(pessoa.iddistrito=distrito.iddistrito) "
                     + "LEFT JOIN MODULO ON (PESSOA.idmodulo=MODULO.idmodulo) "
-                    + "where ((razao like '%"+parametro+"%') or (fantasia like '%"+parametro+"%')) and idsituacao=1 order by "+ordenar;
+                    + "where ((razao like '%"+parametro+"%') or (fantasia like '%"+parametro+"%') or (cnpj like '%"+parametro+"%')) and idsituacao=1 order by "+ordenar;
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<PessoaBeans>lpb=new ArrayList<>();

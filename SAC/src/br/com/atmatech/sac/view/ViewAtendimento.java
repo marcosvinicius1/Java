@@ -155,24 +155,24 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jTtecnico = new javax.swing.JTextField();
         jBtecnico = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTsolicitacao = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTrealizado = new javax.swing.JTextPane();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTpendente = new javax.swing.JTextPane();
         jLabel15 = new javax.swing.JLabel();
         jTidatendimento = new javax.swing.JTextField();
         jTrazao = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jCStatus = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTanotacao = new javax.swing.JTextPane();
         jLabel20 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTsolicitacao = new javax.swing.JTextArea();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTrealizado = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTpendente = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTanotacao = new javax.swing.JTextArea();
 
         jDcliente.setTitle("Clientes");
         jDcliente.setMinimumSize(new java.awt.Dimension(538, 249));
@@ -444,7 +444,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         );
 
         setName("ViewAtendimento"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(799, 613));
+        setPreferredSize(new java.awt.Dimension(1021, 613));
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -496,7 +496,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addComponent(jTemail, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTidtecnicoabertura, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBalterar, jButton5});
@@ -608,29 +608,12 @@ public class ViewAtendimento extends javax.swing.JPanel {
             }
         });
 
-        jTsolicitacao.setNextFocusableComponent(jTrealizado);
-        jTsolicitacao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTsolicitacaoKeyPressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTsolicitacao);
-
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Solicitação:");
 
         jLabel13.setText("Realizado:");
 
-        jTrealizado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTrealizadoKeyPressed(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTrealizado);
-
         jLabel14.setText("Pendencia:");
-
-        jScrollPane3.setViewportView(jTpendente);
 
         jLabel15.setText("OS:");
 
@@ -670,11 +653,51 @@ public class ViewAtendimento extends javax.swing.JPanel {
 
         jLabel16.setText("Status:");
 
-        jTanotacao.setBorder(null);
-        jTanotacao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane7.setViewportView(jTanotacao);
-
         jLabel20.setText("Anotações:");
+
+        jTsolicitacao.setColumns(20);
+        jTsolicitacao.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(600,true));
+        jTsolicitacao.setLineWrap(true);
+        jTsolicitacao.setRows(5);
+        jTsolicitacao.setTabSize(0);
+        jTsolicitacao.setNextFocusableComponent(jTrealizado);
+        jTsolicitacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTsolicitacaoKeyPressed(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jTsolicitacao);
+
+        jTrealizado.setColumns(20);
+        jTrealizado.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(600,true));
+        jTrealizado.setLineWrap(true);
+        jTrealizado.setRows(5);
+        jTrealizado.setTabSize(0);
+        jTrealizado.setNextFocusableComponent(jTpendente);
+        jTrealizado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTrealizadoKeyPressed(evt);
+            }
+        });
+        jScrollPane8.setViewportView(jTrealizado);
+
+        jTpendente.setColumns(20);
+        jTpendente.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(600,true));
+        jTpendente.setLineWrap(true);
+        jTpendente.setRows(3);
+        jTpendente.setTabSize(0);
+        jTpendente.setNextFocusableComponent(jTrealizado);
+        jTpendente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTpendenteKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTpendente);
+
+        jTanotacao.setColumns(20);
+        jTanotacao.setLineWrap(true);
+        jTanotacao.setRows(5);
+        jScrollPane2.setViewportView(jTanotacao);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -750,21 +773,21 @@ public class ViewAtendimento extends javax.swing.JPanel {
                                         .addComponent(jBtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jCStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel16))
-                                .addGap(0, 270, Short.MAX_VALUE))))
+                                .addGap(0, 186, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                            .addComponent(jScrollPane8)
+                            .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -823,20 +846,19 @@ public class ViewAtendimento extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1, Short.MAX_VALUE))
-                    .addComponent(jScrollPane7))
-                .addContainerGap())
+                        .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDabertura, jDfinal, jDinicial, jFabertura, jFfinal, jFinicial});
@@ -849,7 +871,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -858,8 +880,8 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -999,20 +1021,6 @@ public class ViewAtendimento extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTtdtecnicoKeyPressed
 
-    private void jTsolicitacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTsolicitacaoKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == evt.VK_TAB) {
-            jTrealizado.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_jTsolicitacaoKeyPressed
-
-    private void jTrealizadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrealizadoKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == evt.VK_TAB) {
-            jTpendente.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_jTrealizadoKeyPressed
-
     private void jDclienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDclienteKeyPressed
         // TODO add your handling code here:
         if ((evt.getKeyCode() == KeyEvent.VK_F)) {
@@ -1070,6 +1078,27 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jDveiculo.setVisible(false);
     }//GEN-LAST:event_jBokActionPerformed
 
+    private void jTsolicitacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTsolicitacaoKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+            jTsolicitacao.transferFocus();
+        }
+    }//GEN-LAST:event_jTsolicitacaoKeyPressed
+
+    private void jTrealizadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrealizadoKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+            jTrealizado.transferFocus();
+        }
+    }//GEN-LAST:event_jTrealizadoKeyPressed
+
+    private void jTpendenteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTpendenteKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+            jTsolicitacao.transferFocus();
+        }
+    }//GEN-LAST:event_jTpendenteKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.jidesoft.swing.AutoCompletionComboBox ACBcliente;
@@ -1117,11 +1146,11 @@ public class ViewAtendimento extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextPane jTanotacao;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTextArea jTanotacao;
     private javax.swing.JTextField jTemail;
     private javax.swing.JTextField jTfantasia;
     private javax.swing.JTextField jTidatendimento;
@@ -1133,12 +1162,12 @@ public class ViewAtendimento extends javax.swing.JPanel {
     private javax.swing.JTextField jTkmfinal;
     private javax.swing.JTextField jTkminicial;
     private javax.swing.JTextField jTmodulo;
-    private javax.swing.JTextPane jTpendente;
+    private javax.swing.JTextArea jTpendente;
     private javax.swing.JTextField jTplaca;
     private javax.swing.JTextField jTrazao;
-    private javax.swing.JTextPane jTrealizado;
+    private javax.swing.JTextArea jTrealizado;
     private javax.swing.JTextField jTresponsavel;
-    private javax.swing.JTextPane jTsolicitacao;
+    private javax.swing.JTextArea jTsolicitacao;
     private javax.swing.JTextField jTsolicitante;
     private javax.swing.JTable jTtdcliente;
     private javax.swing.JTable jTtdtecnico;
