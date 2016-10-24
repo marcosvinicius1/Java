@@ -811,8 +811,8 @@ public class ViewLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
         jTusuario.requestFocusInWindow();
-        jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-1.3.11 BETA"));
-        if(!new Versao().verificaVersao(1,3,11)){
+        jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-1.3.12 BETA"));
+        if(!new Versao().verificaVersao(1,3,12)){
             jButton1.setEnabled(false);
             JOptionPane.showMessageDialog(null, "Versão Incompativel com Servidor");
             try {
