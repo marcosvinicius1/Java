@@ -37,11 +37,14 @@ public class ViewLogin extends javax.swing.JFrame {
     /**
      * Creates new form ViewLogin
      */
+    final Integer versao=1;
+    final Integer edicao=3;
+    final Integer seguranca=13;
     
     public ViewLogin() {
         initComponents();
 //        carregaConfig();
-        jTusuario.requestFocus();
+        jTusuario.requestFocus();        
 
     }
 
@@ -811,8 +814,8 @@ public class ViewLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
         jTusuario.requestFocusInWindow();
-        jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-1.3.12 BETA"));
-        if(!new Versao().verificaVersao(1,3,12)){
+        jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-1.3.13 BETA"));
+        if(!new Versao().verificaVersao(1,3,13)){
             jButton1.setEnabled(false);
             JOptionPane.showMessageDialog(null, "Versão Incompativel com Servidor");
             try {

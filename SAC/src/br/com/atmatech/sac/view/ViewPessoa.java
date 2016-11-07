@@ -33,7 +33,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -107,7 +106,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         jMArquivo = new javax.swing.JMenu();
         jMcarregararquivo = new javax.swing.JMenuItem();
         jMexportararquivo = new javax.swing.JMenuItem();
-        jMemailmassa = new javax.swing.JMenuItem();
+        jMemail = new javax.swing.JMenuItem();
         jDfilechoose = new javax.swing.JDialog();
         jFileChooser2 = new javax.swing.JFileChooser();
         jDarquivo = new javax.swing.JDialog();
@@ -125,7 +124,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         JDwebFinanceiro = new javax.swing.JDialog();
         jScrollPane5 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
-        jDemailmassa = new javax.swing.JDialog();
+        jDemail = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jTassunto = new javax.swing.JTextField();
@@ -133,8 +132,6 @@ public class ViewPessoa extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTPconteudo = new javax.swing.JTextPane();
         jBemailmassa = new javax.swing.JButton();
-        jCclientesativos = new javax.swing.JCheckBox();
-        jCclientesinativos = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTtempresa = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -357,13 +354,13 @@ public class ViewPessoa extends javax.swing.JPanel {
 
         jPopupMenu1.add(jMArquivo);
 
-        jMemailmassa.setText("Email em Massa");
-        jMemailmassa.addActionListener(new java.awt.event.ActionListener() {
+        jMemail.setText("Email");
+        jMemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMemailmassaActionPerformed(evt);
+                jMemailActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMemailmassa);
+        jPopupMenu1.add(jMemail);
 
         jDfilechoose.setTitle("Arquivo");
         jDfilechoose.setMinimumSize(new java.awt.Dimension(638, 329));
@@ -562,9 +559,9 @@ public class ViewPessoa extends javax.swing.JPanel {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jDemailmassa.setMinimumSize(new java.awt.Dimension(620, 294));
-        jDemailmassa.setModal(true);
-        jDemailmassa.setResizable(false);
+        jDemail.setMinimumSize(new java.awt.Dimension(620, 294));
+        jDemail.setModal(true);
+        jDemail.setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Email"));
 
@@ -592,27 +589,17 @@ public class ViewPessoa extends javax.swing.JPanel {
             }
         });
 
-        jCclientesativos.setText("Clientes Ativos");
-
-        jCclientesinativos.setText("Clientes Inativos");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTassunto, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBemailmassa))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jCclientesativos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCclientesinativos)))
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTassunto, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBemailmassa)
                 .addGap(0, 46, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -623,22 +610,18 @@ public class ViewPessoa extends javax.swing.JPanel {
                         .addComponent(jLabel22)
                         .addComponent(jTassunto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBemailmassa, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCclientesativos)
-                    .addComponent(jCclientesinativos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jDemailmassaLayout = new javax.swing.GroupLayout(jDemailmassa.getContentPane());
-        jDemailmassa.getContentPane().setLayout(jDemailmassaLayout);
-        jDemailmassaLayout.setHorizontalGroup(
-            jDemailmassaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDemailLayout = new javax.swing.GroupLayout(jDemail.getContentPane());
+        jDemail.getContentPane().setLayout(jDemailLayout);
+        jDemailLayout.setHorizontalGroup(
+            jDemailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jDemailmassaLayout.setVerticalGroup(
-            jDemailmassaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDemailLayout.setVerticalGroup(
+            jDemailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -1266,7 +1249,7 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void jTtempresaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTtempresaKeyPressed
         // TODO add your handling code here:
-        
+
         int coluna = jTtempresa.getSelectedColumn();
         if ((evt.getKeyCode() == KeyEvent.VK_F) && (coluna >= 0)) {
             if (evt.isControlDown()) {
@@ -1618,53 +1601,46 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     }//GEN-LAST:event_JDwebFinanceiroWindowOpened
 
-    private void jMemailmassaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMemailmassaActionPerformed
+    private void jMemailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMemailActionPerformed
         // TODO add your handling code here:
-        jDemailmassa.setLocationRelativeTo(this);
-        jDemailmassa.setVisible(true);
-    }//GEN-LAST:event_jMemailmassaActionPerformed
+        if (jTemail.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Cliente não Possui Email");
+        } else {
+            jDemail.setLocationRelativeTo(this);
+            jDemail.setVisible(true);
+        }
+    }//GEN-LAST:event_jMemailActionPerformed
 
     private void jBemailmassaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBemailmassaActionPerformed
         // TODO add your handling code here:
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 showAguarde();
             }
         }).start();
-        UsuarioLogadoBeans ulb = new UsuarioLogadoBeans();
-        List<PessoaBeans> lpb1 = new ArrayList<>();
-        try {
-            if (jCclientesativos.isSelected() && jCclientesinativos.isSelected()) {
-                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
-                        ulb.getSsl(), ulb.getTls(), lpb, ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
-            } else if (jCclientesativos.isSelected()) {
-                for (int i = 0; i < lpb.size(); i++) {
-                    if ((lpb.get(i).getIdsituacao() == 1) && (!lpb.get(i).getEmail().equals(""))) {
-                        lpb1.add(lpb.get(i));
-                    }
-                }
-                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
-                        ulb.getSsl(), ulb.getTls(), lpb1, ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
-            } else if (jCclientesinativos.isSelected()) {
-                for (int i = 0; i < lpb.size(); i++) {
-                    if ((lpb.get(i).getIdsituacao() == 2) && (!lpb.get(i).getEmail().equals(""))) {
-                        lpb1.add(lpb.get(i));
 
-                    }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UsuarioLogadoBeans ulb = new UsuarioLogadoBeans();                
+                try {
+                    new Email().emai(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
+                            ulb.getSsl(), ulb.getTls(), jTemail.getText(), ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
+                    jDemail.setVisible(false);
+                } catch (EmailException ex) {
+                    jDemail.setVisible(false);
+                    jDaguarde.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Erro ao Enviar Email\n" + ex);
+                } catch (MalformedURLException ex) {
+                    jDemail.setVisible(false);
+                    jDaguarde.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Erro de URL ao Enviar Email\n" + ex);
                 }
-                new Email().emaiMassa(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
-                        ulb.getSsl(), ulb.getTls(), lpb1, ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
+                jDaguarde.setVisible(false);
             }
-
-        } catch (EmailException ex) {
-            jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Erro ao Enviar Email\n" + ex);
-        } catch (MalformedURLException ex) {
-            jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Erro de URL ao Enviar Email\n" + ex);
-        }
-        jDaguarde.setVisible(false);
+        }).start();
     }//GEN-LAST:event_jBemailmassaActionPerformed
 
 
@@ -1681,8 +1657,6 @@ public class ViewPessoa extends javax.swing.JPanel {
     private javax.swing.JButton jBopcao;
     private javax.swing.JButton jBsalvar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCclientesativos;
-    private javax.swing.JCheckBox jCclientesinativos;
     private javax.swing.JCheckBox jCecf;
     private javax.swing.JComboBox jCmodulo;
     private javax.swing.JCheckBox jCnfe;
@@ -1691,7 +1665,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     private javax.swing.JDialog jDarquivo;
     private javax.swing.JDialog jDchave;
     private javax.swing.JDialog jDcidade;
-    private javax.swing.JDialog jDemailmassa;
+    private javax.swing.JDialog jDemail;
     private javax.swing.JDialog jDfilechoose;
     private com.toedter.calendar.JDateChooser jDplugins;
     private javax.swing.JEditorPane jEditorPane1;
@@ -1733,7 +1707,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMativa35dias;
     private javax.swing.JMenu jMativacao;
     private javax.swing.JMenuItem jMcarregararquivo;
-    private javax.swing.JMenuItem jMemailmassa;
+    private javax.swing.JMenuItem jMemail;
     private javax.swing.JMenuItem jMexportararquivo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -2261,7 +2235,7 @@ public void ativaView() {
 //        }       
 //    };marcos
     public void showAguarde() {
-        jDaguarde.setLocationRelativeTo(jPanel2);
+        jDaguarde.setLocationRelativeTo(this.jPanel2);
         jDaguarde.setVisible(true);
     }
 

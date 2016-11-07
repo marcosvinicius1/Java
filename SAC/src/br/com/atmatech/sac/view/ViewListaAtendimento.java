@@ -7,17 +7,15 @@ package br.com.atmatech.sac.view;
 
 import br.com.atmatech.sac.beans.AtendimentoBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
-import br.com.atmatech.sac.connection.ConexaoDb;
 import br.com.atmatech.sac.controller.Email;
 import br.com.atmatech.sac.controller.NivelAcesso;
 import br.com.atmatech.sac.controller.PintarLinhasTabela;
 import br.com.atmatech.sac.dao.AtendimentoDao;
+import br.com.atmatech.sac.report.Report;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -25,9 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -38,10 +34,6 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.mail.EmailException;
 
 /**
@@ -645,9 +637,10 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }).start();
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run() {                
                 getReportChamado();
             }
+           
         }).start();
 
     }//GEN-LAST:event_jMreportActionPerformed
@@ -958,26 +951,13 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDaguarde.setLocationRelativeTo(this.jPanel2);
         jDaguarde.setVisible(true);
     }
-
-    private void getReportChamado() {
-        try (Connection conexao = new ConexaoDb().getConnect()) {
-            Map parametros = new HashMap();
-            AtendimentoBeans at = clickAtendimento();
-            InputStream image = this.getClass().getResourceAsStream("./image/logo.png");
-            parametros.put("idatendimento", at.getIDATENDIMENTO());
-            parametros.put("imagem", "./image/logo.png");
-            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportChamado.jasper", parametros, conexao);
-            JasperViewer view = new JasperViewer(jasperPrint, false);
-            jDaguarde.setVisible(false);
-            view.setVisible(true);
-            view.toFront();
-
-        } catch (JRException ex) {
-            jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
-        } catch (SQLException ex) {
-            jDaguarde.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
-        }
+    
+    public void closeAguarde() {        
+        jDaguarde.setVisible(false);
+    }
+    
+    public void getReportChamado(){
+        AtendimentoBeans at = clickAtendimento();
+        new Report().getReportChamado(at.getIDATENDIMENTO(),this);
     }
 }

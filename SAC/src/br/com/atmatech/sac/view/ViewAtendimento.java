@@ -695,6 +695,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTpendente);
 
         jTanotacao.setColumns(20);
+        jTanotacao.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(600,true));
         jTanotacao.setLineWrap(true);
         jTanotacao.setRows(5);
         jScrollPane2.setViewportView(jTanotacao);

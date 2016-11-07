@@ -220,12 +220,12 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <MenuItem class="javax.swing.JMenuItem" name="jMemailmassa">
+        <MenuItem class="javax.swing.JMenuItem" name="jMemail">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Email em Massa"/>
+            <Property name="text" type="java.lang.String" value="Email"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMemailmassaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMemailActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
@@ -537,7 +537,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JDialog" name="jDemailmassa">
+    <Container class="javax.swing.JDialog" name="jDemail">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[620, 294]"/>
@@ -573,20 +573,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTassunto" min="-2" pref="432" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jBemailmassa" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jCclientesativos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jCclientesinativos" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jTassunto" min="-2" pref="432" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jBemailmassa" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -601,12 +592,7 @@
                           </Group>
                           <Component id="jBemailmassa" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jCclientesativos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCclientesinativos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jPanel5" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -662,16 +648,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBemailmassaActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="jCclientesativos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Clientes Ativos"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="jCclientesinativos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Clientes Inativos"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

@@ -1088,6 +1088,9 @@
             <Component class="javax.swing.JTextArea" name="jTanotacao">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new br.com.atmatech.sac.controller.LimitaCaracterUpper(600,true)" type="code"/>
+                </Property>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>

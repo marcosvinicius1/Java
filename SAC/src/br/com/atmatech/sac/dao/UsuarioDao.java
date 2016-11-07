@@ -97,7 +97,7 @@ public class UsuarioDao {
     //usado na consulta de tecnico no chamado
     public List<UsuarioBeans> getUsuario(String campo,String parametro,String ordenar){
         try(Connection conexao=new ConexaoDb().getConnect()){
-           String sql="select * from usuario where "+campo+" like '%"+parametro+"%' and ativo='true' order by "+ordenar+"";           
+           String sql="select * from usuario where "+campo+" like '%"+parametro+"%' and ativo='true' and tecnico='true' order by "+ordenar+"";           
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<UsuarioBeans>lub=new ArrayList<>();

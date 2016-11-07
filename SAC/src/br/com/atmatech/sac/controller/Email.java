@@ -82,5 +82,23 @@ public class Email {
         }
                
     }
+    public void emai(String smtp, String user, String password, Integer porta, Boolean ssl, Boolean tls,
+           String emailto, String emailfrom, 
+            String conteudo,String assunto) throws EmailException, MalformedURLException {
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(smtp); // o servidor SMTP para envio do e-mail                  
+        email.addTo(emailto);//destinatario            
+        conteudo=conteudo.replaceAll("\n", "<p>");
+        email.setFrom(emailfrom); // remetente        
+        //email.addCc(emailfrom);
+        email.setSubject(assunto);
+        // configura a mensagem para o formato HTML        
+        email.setHtmlMsg("<html><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">"+conteudo+"</html>");
+        email.setAuthentication(user, password);
+        email.setSmtpPort(porta);
+        email.setSSL(ssl);
+        email.setTLS(tls);        
+        email.send();                                                                     
+    }
 
 }

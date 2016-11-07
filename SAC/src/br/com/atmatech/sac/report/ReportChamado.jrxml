@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportChamado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f1c0d53-143e-47e9-b651-ea599ed9e742">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="78"/>
 	<parameter name="idatendimento" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -189,14 +189,14 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 					<textFieldExpression><![CDATA[$F{MODULO}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="253" y="66" width="40" height="12" uuid="2603878f-8d31-481b-aa62-c16d12c4e967"/>
-					<textElement>
+					<reportElement x="253" y="66" width="50" height="11" uuid="2603878f-8d31-481b-aa62-c16d12c4e967"/>
+					<textElement textAlignment="Right">
 						<font size="8"/>
 					</textElement>
 					<text><![CDATA[Solicitante:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="293" y="66" width="100" height="12" uuid="1a852cbc-e83e-49aa-80cb-0e4012464dfc"/>
+					<reportElement x="303" y="66" width="100" height="11" uuid="1a852cbc-e83e-49aa-80cb-0e4012464dfc"/>
 					<textElement>
 						<font size="8"/>
 					</textElement>
@@ -287,6 +287,20 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Nº "+$F{IDATENDIMENTO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="253" y="76" width="50" height="11" uuid="c7f0a97b-78bc-48f7-acf2-4d8830ec2c7b"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Responsável:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="303" y="76" width="100" height="11" uuid="3119818d-17d5-46a0-9116-227895aae644"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RESPONSAVEL}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
