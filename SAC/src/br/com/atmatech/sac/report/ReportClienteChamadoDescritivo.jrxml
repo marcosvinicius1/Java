@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1f25e9d-faec-4fa7-ade1-82825c3af805">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="365"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="14"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="parametro" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from viewatendimento $P!{parametro}]]>
+		<![CDATA[select * from viewatendimentocliente $P!{parametro}]]>
 	</queryString>
 	<field name="IDATENDIMENTO" class="java.lang.Integer"/>
 	<field name="RAZAO" class="java.lang.String"/>
@@ -98,7 +98,7 @@
 					<textElement textAlignment="Right">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[CLIENTES E CHAMADOS SINTETICO]]></text>
+					<text><![CDATA[CLIENTES E CHAMADOS DESCRITIVO]]></text>
 				</staticText>
 			</frame>
 		</band>

@@ -51,6 +51,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     JMenuItem menuitem;
     Boolean consultasintetico = false;
     Boolean consultadescritivo = false;
+    Boolean consultadescritivotecnico = false;
 
     public ViewPrincipal() {
         initComponents();
@@ -90,7 +91,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDaguarde = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jDClienteChamadoDescritivo = new javax.swing.JDialog();
+        jDChamadoDescritivo = new javax.swing.JDialog();
         jLabel6 = new javax.swing.JLabel();
         jTclientedescritivo = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
@@ -163,7 +164,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDClienteChamadoSintetico.setTitle("Cliente Chamado Sintetico");
         jDClienteChamadoSintetico.setMinimumSize(new java.awt.Dimension(322, 210));
         jDClienteChamadoSintetico.setModal(true);
-        jDClienteChamadoSintetico.setPreferredSize(new java.awt.Dimension(322, 210));
         jDClienteChamadoSintetico.setResizable(false);
         jDClienteChamadoSintetico.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -320,14 +320,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jDClienteChamadoDescritivo.setTitle("Cliente Chamado Descritivo");
-        jDClienteChamadoDescritivo.setMinimumSize(new java.awt.Dimension(322, 390));
-        jDClienteChamadoDescritivo.setModal(true);
-        jDClienteChamadoDescritivo.setPreferredSize(new java.awt.Dimension(322, 390));
-        jDClienteChamadoDescritivo.setResizable(false);
-        jDClienteChamadoDescritivo.addWindowListener(new java.awt.event.WindowAdapter() {
+        jDChamadoDescritivo.setMinimumSize(new java.awt.Dimension(322, 390));
+        jDChamadoDescritivo.setModal(true);
+        jDChamadoDescritivo.setPreferredSize(new java.awt.Dimension(322, 390));
+        jDChamadoDescritivo.setResizable(false);
+        jDChamadoDescritivo.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
-                jDClienteChamadoDescritivoWindowOpened(evt);
+                jDChamadoDescritivoWindowOpened(evt);
             }
         });
 
@@ -380,27 +379,27 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Fechado");
 
-        javax.swing.GroupLayout jDClienteChamadoDescritivoLayout = new javax.swing.GroupLayout(jDClienteChamadoDescritivo.getContentPane());
-        jDClienteChamadoDescritivo.getContentPane().setLayout(jDClienteChamadoDescritivoLayout);
-        jDClienteChamadoDescritivoLayout.setHorizontalGroup(
-            jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDClienteChamadoDescritivoLayout.createSequentialGroup()
+        javax.swing.GroupLayout jDChamadoDescritivoLayout = new javax.swing.GroupLayout(jDChamadoDescritivo.getContentPane());
+        jDChamadoDescritivo.getContentPane().setLayout(jDChamadoDescritivoLayout);
+        jDChamadoDescritivoLayout.setHorizontalGroup(
+            jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDChamadoDescritivoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDClienteChamadoDescritivoLayout.createSequentialGroup()
+                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDChamadoDescritivoLayout.createSequentialGroup()
                         .addComponent(jTclientedescritivo, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTidclientedescritivo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDClienteChamadoDescritivoLayout.createSequentialGroup()
-                        .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDClienteChamadoDescritivoLayout.createSequentialGroup()
-                                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jDChamadoDescritivoLayout.createSequentialGroup()
+                        .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDChamadoDescritivoLayout.createSequentialGroup()
+                                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jCstatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jDfechadoini, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                                     .addComponent(jDiniciadoini, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDClienteChamadoDescritivoLayout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDChamadoDescritivoLayout.createSequentialGroup()
                                         .addGap(2, 2, 2)
                                         .addComponent(jLabel6))
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +409,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                                     .addComponent(jDaberturaini, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jCtipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDfechadofin, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDaberturafin, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDiniciadofin, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -418,29 +417,29 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTidtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jDClienteChamadoDescritivoLayout.createSequentialGroup()
+            .addGroup(jDChamadoDescritivoLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jDClienteChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTclientedescritivo, jTtecnico});
+        jDChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTclientedescritivo, jTtecnico});
 
-        jDClienteChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDaberturafin, jDaberturaini, jDfechadofin, jDfechadoini, jDiniciadofin, jDiniciadoini});
+        jDChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDaberturafin, jDaberturaini, jDfechadofin, jDfechadoini, jDiniciadofin, jDiniciadoini});
 
-        jDClienteChamadoDescritivoLayout.setVerticalGroup(
-            jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDClienteChamadoDescritivoLayout.createSequentialGroup()
+        jDChamadoDescritivoLayout.setVerticalGroup(
+            jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDChamadoDescritivoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTclientedescritivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidclientedescritivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel7)
                 .addGap(0, 0, 0)
-                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
@@ -454,19 +453,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jLabel9)
                 .addGap(0, 0, 0)
-                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDaberturaini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDaberturafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel10)
                 .addGap(0, 0, 0)
-                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDiniciadoini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDiniciadofin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel11)
                 .addGap(0, 0, 0)
-                .addGroup(jDClienteChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jDChamadoDescritivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDfechadofin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDfechadoini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -474,7 +473,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jDClienteChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTclientedescritivo, jTtecnico});
+        jDChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTclientedescritivo, jTtecnico});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAC");
@@ -558,6 +557,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(23, 23));
 
+        jTmenu.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("MENU");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cadastro");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Nível de Acesso");
@@ -582,6 +582,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
         javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Descritivo");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Sintetico");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Descritivo");
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
@@ -721,6 +725,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         // JOptionPane.showMessageDialog(null, jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()));         
         getTela();
+        jTmenu.clearSelection();
     }//GEN-LAST:event_jTmenuMousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -838,7 +843,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTidcliente.setText(jTconsulta.getValueAt(jTconsulta.getSelectedRow(), 0).toString());
                 jTcliente.setText(jTconsulta.getValueAt(jTconsulta.getSelectedRow(), 1).toString());
                 jDconsulta.setVisible(false);
-            } else if (jDClienteChamadoDescritivo.isVisible()) {
+            } else if (jDChamadoDescritivo.isVisible()) {
                 if (jTconsulta.getColumnName(0).equals("idpessoa")) {
                     jTidclientedescritivo.setText(jTconsulta.getValueAt(jTconsulta.getSelectedRow(), 0).toString());
                     jTclientedescritivo.setText(jTconsulta.getValueAt(jTconsulta.getSelectedRow(), 1).toString());
@@ -862,7 +867,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jTclientedescritivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTclientedescritivoFocusLost
         // TODO add your handling code here:
-        if (jDClienteChamadoDescritivo.isVisible()) {
+        if (jDChamadoDescritivo.isVisible()) {
             if (!jDconsulta.isVisible()) {
                 if (consultadescritivo) {
                     getCliente(jTclientedescritivo.getText());
@@ -874,30 +879,35 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if (!jDconsulta.isVisible()) {            
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showAguarde();
-                    }
-                }).start();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+        if (!jDconsulta.isVisible()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    showAguarde();
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (jDChamadoDescritivo.getTitle().equals("Cliente Chamado Descritivo")) {
                         getReportClienteChamadoDescritivo();
+                    } else if (jDChamadoDescritivo.getTitle().equals("Tecnico Chamado Descritivo")) {
+                        getReportTecnicoChamadoDescritivo();
                     }
-                }).start();            
+
+                }
+            }).start();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jDClienteChamadoDescritivoWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDClienteChamadoDescritivoWindowOpened
+    private void jDChamadoDescritivoWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDChamadoDescritivoWindowOpened
         // TODO add your handling code here:
         jButton4.requestFocusInWindow();
-    }//GEN-LAST:event_jDClienteChamadoDescritivoWindowOpened
+    }//GEN-LAST:event_jDChamadoDescritivoWindowOpened
 
     private void jTtecnicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTtecnicoFocusLost
         // TODO add your handling code here:
-        if (jDClienteChamadoDescritivo.isVisible()) {
+        if (jDChamadoDescritivo.isVisible()) {
             if (!jDconsulta.isVisible()) {
                 if (consultadescritivo) {
                     getTecnico();
@@ -909,7 +919,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jTclientedescritivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTclientedescritivoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (jDClienteChamadoDescritivo.isVisible()) {
+            if (jDChamadoDescritivo.isVisible()) {
                 if (!jDconsulta.isVisible()) {
                     if (consultadescritivo) {
                         jButton4.requestFocusInWindow();
@@ -924,7 +934,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jTtecnicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTtecnicoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (jDClienteChamadoDescritivo.isVisible()) {
+            if (jDChamadoDescritivo.isVisible()) {
                 if (!jDconsulta.isVisible()) {
                     if (consultadescritivo) {
                         jButton4.requestFocusInWindow();
@@ -995,7 +1005,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jCstatus;
     private javax.swing.JComboBox<String> jCtipo;
-    private javax.swing.JDialog jDClienteChamadoDescritivo;
+    private javax.swing.JDialog jDChamadoDescritivo;
     private javax.swing.JDialog jDClienteChamadoSintetico;
     private com.toedter.calendar.JDateChooser jDaberturafin;
     private com.toedter.calendar.JDateChooser jDaberturaini;
@@ -1127,6 +1137,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
             treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Descritivo");
             treeNode3.add(treeNode4);
             treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Sintetico");
+            treeNode3.add(treeNode4);
+            treeNode2.add(treeNode3);
+            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico");
+            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Descritivo");
             treeNode3.add(treeNode4);
         }
         if (treeNode3 != null) {
@@ -1282,8 +1296,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jDiniciadofin.setDate(null);
                 jDfechadoini.setDate(null);
                 jDfechadofin.setDate(null);
-                jDClienteChamadoDescritivo.setLocationRelativeTo(jTaabas);
-                jDClienteChamadoDescritivo.setVisible(true);
+                jDChamadoDescritivo.setTitle("Cliente Chamado Descritivo");
+                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+                jDChamadoDescritivo.setVisible(true);
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Chamado Sintetico")) {
                 jTcliente.setText("");
                 jTidcliente.setText("");
@@ -1291,6 +1306,22 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jSdias.requestFocusInWindow();
                 jDClienteChamadoSintetico.setLocationRelativeTo(jTaabas);
                 jDClienteChamadoSintetico.setVisible(true);
+            }else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Descritivo")) {
+                jTclientedescritivo.setText("");
+                jTidclientedescritivo.setText("");
+                jTtecnico.setText("");
+                jTidtecnico.setText("");
+                jCtipo.setSelectedIndex(0);
+                jCstatus.setSelectedIndex(0);
+                jDaberturaini.setDate(null);
+                jDaberturafin.setDate(null);
+                jDiniciadoini.setDate(null);
+                jDiniciadofin.setDate(null);
+                jDfechadoini.setDate(null);
+                jDfechadofin.setDate(null);
+                jDChamadoDescritivo.setTitle("Tecnico Chamado Descritivo");
+                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+                jDChamadoDescritivo.setVisible(true);
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Email")) {
                 if (!getJanelaAberta("Gerenciador de Email")) {
                     ViewEmail view = new ViewEmail();
@@ -1603,28 +1634,27 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if ((!jTidcliente.getText().equals(""))) {
             if ((Integer) jSdias.getValue() == 0) {
                 sql = " where dias>=" + jSdias.getValue().toString() + " and idpessoa=" + jTidcliente.getText() + "";
-                new Report().getReport("ReportClienteChamadosSintetico", sql,this);
+                new Report().getReport("ReportClienteChamadosSintetico", sql, this);
             } else {
                 sql = " where dias>=" + jSdias.getValue().toString() + " and dias<0 and idpessoa=" + jTidcliente.getText() + "";
-               new Report(). getReport("ReportClienteChamadosSintetico", sql,this);
+                new Report().getReport("ReportClienteChamadosSintetico", sql, this);
             }
         } else if ((Integer) jSdias.getValue() == 0) {
             sql = " where dias>=" + jSdias.getValue().toString() + "";
-            new Report().getReport("ReportClienteChamadosSintetico", sql,this);
+            new Report().getReport("ReportClienteChamadosSintetico", sql, this);
         } else {
             sql = " where dias>=" + jSdias.getValue().toString() + " and dias<0";
-            new Report().getReport("ReportClienteChamadosSintetico", sql,this);
+            new Report().getReport("ReportClienteChamadosSintetico", sql, this);
         }
 
     }
-
-   
 
     public void showAguarde() {
         jDaguarde.setLocationRelativeTo(this.jTaabas);
         jDaguarde.setVisible(true);
     }
-    public void closeAguarde() {        
+
+    public void closeAguarde() {
         jDaguarde.setVisible(false);
     }
 
@@ -1662,7 +1692,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void getReportClienteChamadoDescritivo() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String sql = "";
-        jDClienteChamadoDescritivo.setVisible(false);
+        jDChamadoDescritivo.setVisible(false);
         if (!jTidclientedescritivo.getText().equals("")) {
             if (sql.equals("")) {
                 sql = "where idpessoa=" + jTidclientedescritivo.getText() + "";
@@ -1677,42 +1707,42 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 sql = sql + " and idtecnico=" + jTidtecnico.getText() + "";
             }
         }
-        if(jCtipo.getSelectedIndex()>0){
-             if (sql.equals("")) {
+        if (jCtipo.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
                 sql = "where tipo='" + jCtipo.getSelectedItem().toString() + "'";
             } else {
                 sql = sql + " and tipo='" + jCtipo.getSelectedItem().toString() + "'";
             }
         }
-        if(jCstatus.getSelectedIndex()>0){
-             if (sql.equals("")) {
+        if (jCstatus.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
                 sql = "where status='" + jCstatus.getSelectedItem().toString() + "'";
             } else {
                 sql = sql + " and status='" + jCstatus.getSelectedItem().toString() + "'";
             }
         }
-        if((jDaberturaini.getDate()!=null)&&(jDaberturafin.getDate()!=null)){
-           if (sql.equals("")) {
-                sql = "where cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate())+ "' and '"+sdf.format(jDaberturafin.getDate())+"'";
+        if ((jDaberturaini.getDate() != null) && (jDaberturafin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
             } else {
-                sql = sql + " and cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate())+ "' and '"+sdf.format(jDaberturafin.getDate())+"'";
-            } 
-        } 
-        if((jDiniciadoini.getDate()!=null)&&(jDiniciadofin.getDate()!=null)){
-           if (sql.equals("")) {
-                sql = "where cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate())+ "' and '"+sdf.format(jDiniciadofin.getDate())+"'";
+                sql = sql + " and cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            }
+        }
+        if ((jDiniciadoini.getDate() != null) && (jDiniciadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
             } else {
-                sql = sql + " and cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate())+ "' and '"+sdf.format(jDiniciadofin.getDate())+"'";
-            } 
-        } 
-        if((jDfechadoini.getDate()!=null)&&(jDfechadofin.getDate()!=null)){
-           if (sql.equals("")) {
-                sql = "where cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate())+ "' and '"+sdf.format(jDfechadofin.getDate())+"'";
+                sql = sql + " and cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            }
+        }
+        if ((jDfechadoini.getDate() != null) && (jDfechadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
             } else {
-                sql = sql + " and cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate())+ "' and '"+sdf.format(jDfechadofin.getDate())+"'";
-            } 
-        } 
-        new Report().getReport("ReportClienteChamadoDescritivo", sql,this);
+                sql = sql + " and cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            }
+        }
+        new Report().getReport("ReportClienteChamadoDescritivo", sql, this);
         //getReport("ReportClienteChamadoDescritivo", sql);
     }
 
@@ -1721,9 +1751,66 @@ public class ViewPrincipal extends javax.swing.JFrame {
             @Override
             public void run() {
                 new Report().inicializaReport("ReportClienteChamadoDescritivo", "where idpessoa=0");
-                new Report(). inicializaReport("ReportClienteChamadosSintetico","where idpessoa=0");
+                new Report().inicializaReport("ReportClienteChamadosSintetico", "where idpessoa=0");
+                new Report().inicializaReport("ReportTecnicoChamadoDescritivo", "where idpessoa=0");
                 new Report().inicializaReportChamado();
             }
         }).start();
+    }
+
+    private void getReportTecnicoChamadoDescritivo() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String sql = "";
+        jDChamadoDescritivo.setVisible(false);
+        if (!jTidclientedescritivo.getText().equals("")) {
+            if (sql.equals("")) {
+                sql = "where idpessoa=" + jTidclientedescritivo.getText() + "";
+            } else {
+                sql = sql + " and idpessoa=" + jTidclientedescritivo.getText() + "";
+            }
+        }
+        if (!jTidtecnico.getText().equals("")) {
+            if (sql.equals("")) {
+                sql = "where idtecnico=" + jTidtecnico.getText() + "";
+            } else {
+                sql = sql + " and idtecnico=" + jTidtecnico.getText() + "";
+            }
+        }
+        if (jCtipo.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
+                sql = "where tipo='" + jCtipo.getSelectedItem().toString() + "'";
+            } else {
+                sql = sql + " and tipo='" + jCtipo.getSelectedItem().toString() + "'";
+            }
+        }
+        if (jCstatus.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
+                sql = "where status='" + jCstatus.getSelectedItem().toString() + "'";
+            } else {
+                sql = sql + " and status='" + jCstatus.getSelectedItem().toString() + "'";
+            }
+        }
+        if ((jDaberturaini.getDate() != null) && (jDaberturafin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            }
+        }
+        if ((jDiniciadoini.getDate() != null) && (jDiniciadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            }
+        }
+        if ((jDfechadoini.getDate() != null) && (jDfechadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            }
+        }
+        new Report().getReport("ReportTecnicoChamadoDescritivo", sql, this);
     }
 }
