@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportChamado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f1c0d53-143e-47e9-b651-ea599ed9e742">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="256"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idatendimento" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="imagem" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\ProjetoJava\\SAC\\src\\br\\com\\atmatech\\sac\\report\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select atendimento.IDATENDIMENTO,
 atendimento.IDPESSOA,
@@ -32,13 +35,24 @@ tecnicoante.nome tecnicoanterior,
 pessoa.*,
 distrito.distrito,
 modulo.descricao modulo,
-placa
+placa,
+empresa.razao emprazao,
+empresa.fantasia empfantasia,
+empresa.endereco empendereco,
+empresa.telefone1 emptele,
+empresa.bairro empbairro,
+empresa.numero empnumero,
+empdist.municipio empmunicipio
+
+
 from atendimento
 left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)
 left join usuario tecnico on(atendimento.idtecnico=tecnico.idusuario)
 left join usuario abertura on(atendimento.idabertura=abertura.idusuario)
 left join  usuario tecnicoante on(atendimento.idtecnicoanterior=tecnicoante.idusuario)
 left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)
+inner join empresa on (atendimento.idempresa=empresa.idempresa)
+inner join distrito empdist on (empresa.iddistrito=empdist.iddistrito)
 inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)
 inner join modulo on(pessoa.idmodulo=modulo.idmodulo)
 where atendimento.idatendimento=$P{idatendimento}]]>
@@ -83,9 +97,17 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 	<field name="NFE" class="java.lang.Integer"/>
 	<field name="ECF" class="java.lang.Integer"/>
 	<field name="DTPLUGIN" class="java.sql.Timestamp"/>
+	<field name="IDEMPRESA" class="java.lang.Integer"/>
 	<field name="DISTRITO" class="java.lang.String"/>
 	<field name="MODULO" class="java.lang.String"/>
 	<field name="PLACA" class="java.lang.String"/>
+	<field name="EMPRAZAO" class="java.lang.String"/>
+	<field name="EMPFANTASIA" class="java.lang.String"/>
+	<field name="EMPENDERECO" class="java.lang.String"/>
+	<field name="EMPTELE" class="java.lang.String"/>
+	<field name="EMPBAIRRO" class="java.lang.String"/>
+	<field name="EMPNUMERO" class="java.lang.String"/>
+	<field name="EMPMUNICIPIO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -186,14 +208,14 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 					<textFieldExpression><![CDATA[$F{MODULO}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="253" y="66" width="40" height="12" uuid="2603878f-8d31-481b-aa62-c16d12c4e967"/>
-					<textElement>
+					<reportElement x="253" y="66" width="50" height="11" uuid="2603878f-8d31-481b-aa62-c16d12c4e967"/>
+					<textElement textAlignment="Right">
 						<font size="8"/>
 					</textElement>
 					<text><![CDATA[Solicitante:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="293" y="66" width="100" height="12" uuid="1a852cbc-e83e-49aa-80cb-0e4012464dfc"/>
+					<reportElement x="303" y="66" width="100" height="11" uuid="1a852cbc-e83e-49aa-80cb-0e4012464dfc"/>
 					<textElement>
 						<font size="8"/>
 					</textElement>
@@ -203,27 +225,6 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 					<reportElement x="0" y="0" width="125" height="38" uuid="a5c3b366-5177-43ff-8e01-9ce9fa1a3210"/>
 					<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
 				</image>
-				<staticText>
-					<reportElement x="136" y="0" width="214" height="13" uuid="36acc641-39c9-42da-bff0-023437b40462"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[ATMATECH - AUTOMAÇÃO COMERCIAL]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="136" y="11" width="419" height="13" uuid="55d0bf41-8c96-4ae7-90ae-07ee0680b495"/>
-					<textElement>
-						<font size="8" isBold="true"/>
-					</textElement>
-					<text><![CDATA[RUA ABEL PEREIRA DE CASTRO - Nº 1449 - CENTRO - RIO VERDE - GO]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="136" y="20" width="100" height="13" uuid="fc6b5aeb-8e17-454b-89f5-1460d4b94f27"/>
-					<textElement>
-						<font size="8" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Fone: 64- 3623-4056]]></text>
-				</staticText>
 				<staticText>
 					<reportElement x="0" y="36" width="555" height="13" uuid="2c2793a9-5af2-4154-8855-7d493b3f3a49"/>
 					<textElement textAlignment="Center"/>
@@ -285,11 +286,46 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 					</textElement>
 					<textFieldExpression><![CDATA["Nº "+$F{IDATENDIMENTO}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="253" y="76" width="50" height="11" uuid="c7f0a97b-78bc-48f7-acf2-4d8830ec2c7b"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Responsável:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="303" y="76" width="100" height="11" uuid="3119818d-17d5-46a0-9116-227895aae644"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RESPONSAVEL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="136" y="0" width="257" height="13" uuid="7480325f-a58f-432b-a7e9-217583cc7d21"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPFANTASIA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="136" y="10" width="338" height="13" uuid="86d12ff8-12ac-4162-bbeb-d49358c63bdf"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPENDERECO}+" - "+$F{EMPNUMERO}+" - "+$F{EMPBAIRRO}+" - "+$F{EMPMUNICIPIO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="136" y="20" width="100" height="13" uuid="f29aa989-feeb-45c8-b312-8de975a30f89"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPTELE}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
 	<detail>
-		<band height="224" splitType="Stretch">
+		<band height="217" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="0" width="555" height="145" uuid="e6ddbff0-5f8f-4e3b-a775-573a0df25096"/>
 				<box>
@@ -367,13 +403,4 @@ where atendimento.idatendimento=$P{idatendimento}]]>
 			</line>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

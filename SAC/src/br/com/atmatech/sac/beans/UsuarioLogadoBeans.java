@@ -9,7 +9,8 @@ package br.com.atmatech.sac.beans;
  *
  * @author MARCOS
  */
-public class UsuarioLogadoBeans{
+public class UsuarioLogadoBeans {
+
     private static Integer idusuario;
     private static String nome;
     private static String login;
@@ -25,6 +26,8 @@ public class UsuarioLogadoBeans{
     private static String senhaemail;
     private static String assinatura;
     private static Boolean bconsulta;
+    private static Integer idempresa;
+    private static String rasaoemp;
 
     public Integer getIdusuario() {
         return idusuario;
@@ -145,6 +148,21 @@ public class UsuarioLogadoBeans{
     public void setBconsulta(Boolean bconsulta) {
         this.bconsulta = bconsulta;
     }
-      
-    
+
+    public Integer getIdempresa() {
+        return idempresa;
+    }
+
+    public void setIdempresa(Integer idempresa) {
+        this.idempresa = idempresa;
+    }
+
+    public String getRasaoemp() {
+        return rasaoemp;
+    }
+
+    public void setRasaoemp(String rasaoemp) {
+        this.rasaoemp = rasaoemp;
+    }
+
 }

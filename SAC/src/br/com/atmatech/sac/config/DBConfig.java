@@ -23,6 +23,7 @@ public class DBConfig {
         Properties prop = getProp();
         DBConfigBeans cxb = new DBConfigBeans();
         cxb.setDirdb(prop.getProperty("dirdb"));//pega o valor da teg local
+        cxb.setDirdbhost(prop.getProperty("dirdbhost"));
         cxb.setPassword(prop.getProperty("password"));//pega o valor da tag senha
         cxb.setUser(prop.getProperty("user"));//pega o valor da tag usuario
         cxb.setCompany(Integer.valueOf(prop.getProperty("company"))); //pega o valor da tag compania    
@@ -75,6 +76,7 @@ public class DBConfig {
         //  prop.load(finput);
         prop.put("password", cb.getPassword());
         prop.put("dirdb", cb.getDirdb());
+        prop.put("dirdbhost", cb.getDirdbhost());
         prop.put("user", cb.getUser());
         prop.put("company", String.valueOf(cb.getCompany()));
         prop.put("login", cb.getLogin());

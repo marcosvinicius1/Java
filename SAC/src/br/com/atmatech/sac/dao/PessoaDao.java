@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.dao;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.PessoaBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
@@ -23,7 +24,8 @@ public class PessoaDao {
     //utilizado na abertura da ViewPessoa
     public List<PessoaBeans> getPessoa(){
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from pessoa left join distrito on(pessoa.iddistrito=distrito.iddistrito) order by razao";
+            String sql="select * from pessoa left join "
+                    + "distrito on(pessoa.iddistrito=distrito.iddistrito) where idempresa="+new DBConfigBeans().getCompany()+" order by razao";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<PessoaBeans>lpb=new ArrayList<>();
@@ -63,7 +65,8 @@ public class PessoaDao {
     //utilizado na consulta da grid da ViewPessoa
     public List<PessoaBeans> getPessoa(String coluna,String parametro,String ordenar){
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from pessoa left join distrito on(pessoa.iddistrito=distrito.iddistrito) where "+coluna+" like '%"+parametro+"%' order by "+ordenar;
+            String sql="select * from pessoa left join "
+                    + "distrito on(pessoa.iddistrito=distrito.iddistrito) where "+coluna+" like '%"+parametro+"%' and idempresa="+new DBConfigBeans().getCompany()+" order by "+ordenar;
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<PessoaBeans>lpb=new ArrayList<>();
@@ -105,7 +108,7 @@ public class PessoaDao {
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="select * from pessoa left join distrito on(pessoa.iddistrito=distrito.iddistrito) "
                     + "LEFT JOIN MODULO ON (PESSOA.idmodulo=MODULO.idmodulo) "
-                    + "where ((razao like '%"+parametro+"%') or (fantasia like '%"+parametro+"%') or (cnpj like '%"+parametro+"%')) and idsituacao=1 order by "+ordenar;
+                    + "where ((razao like '%"+parametro+"%') or (fantasia like '%"+parametro+"%') or (cnpj like '%"+parametro+"%')) and idsituacao=1 and pessoa.idempresa="+new DBConfigBeans().getCompany()+" order by "+ordenar;
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<PessoaBeans>lpb=new ArrayList<>();
@@ -142,8 +145,8 @@ public class PessoaDao {
     }   
     public void setPessoa(PessoaBeans pb) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="insert into pessoa (RAZAO,FANTASIA,CNPJ,IE,ENDERECO,IDDISTRITO,NUMERO,EMAIL,IDMODULO,TELEFONE1,TELEFONE2,TELEFONE3,IDSITUACAO,OBS,BAIRRO,responsavel,nfe,ecf,dtplugin) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql="insert into pessoa (RAZAO,FANTASIA,CNPJ,IE,ENDERECO,IDDISTRITO,NUMERO,EMAIL,IDMODULO,TELEFONE1,TELEFONE2,TELEFONE3,IDSITUACAO,OBS,BAIRRO,responsavel,nfe,ecf,dtplugin,idempresa) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1,pb.getRazao());
             pstm.setString(2, pb.getFantasia());
@@ -164,6 +167,7 @@ public class PessoaDao {
             pstm.setBoolean(17, pb.isNfe());
             pstm.setBoolean(18, pb.isEcf());
             pstm.setDate(19, pb.getPlugins());
+            pstm.setInt(20, new DBConfigBeans().getCompany());
             pstm.execute();
             pstm.close();
         }
@@ -237,7 +241,9 @@ public class PessoaDao {
     
     public PessoaBeans getPessoaAtivo(Integer idpessoa){
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from pessoa left join distrito on(pessoa.iddistrito=distrito.iddistrito) LEFT JOIN MODULO ON (PESSOA.idmodulo=MODULO.idmodulo) where pessoa.idpessoa=? ";
+            String sql="select * from pessoa left join "
+                    + "distrito on(pessoa.iddistrito=distrito.iddistrito) "
+                    + "LEFT JOIN MODULO ON (PESSOA.idmodulo=MODULO.idmodulo) where pessoa.idpessoa=? and pessoa.idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setInt(1, idpessoa);
             ResultSet rs=pstm.executeQuery();

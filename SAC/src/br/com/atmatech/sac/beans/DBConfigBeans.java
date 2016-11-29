@@ -17,6 +17,8 @@ public class DBConfigBeans {
     static private Integer company;
     static private String login;
     static private String senha;
+    static private String dirdbhost;
+    static private String usehost;
 
     static private int primary1r;
     static private int primary1g;
@@ -45,10 +47,20 @@ public class DBConfigBeans {
     static private int menuopacity;
     static private int frameopacity;
 
+    public String getDirdbhost() {
+        return dirdbhost;
+    }
+
+    public void setDirdbhost(String aDirdbhost) {
+        dirdbhost = aDirdbhost;
+    }
+
     public String getDirdb() {
         return dirdb;
     }
 
+    
+    
     public void setDirdb(String dirdb) {
         this.dirdb = dirdb;
     }
@@ -299,6 +311,14 @@ public class DBConfigBeans {
 
     public void setFrameopacity(int frameopacity) {
         DBConfigBeans.frameopacity = frameopacity;
+    }
+
+    public String getUsehost() {
+        return usehost;
+    }
+
+    public void setUsehost(String usehost) {
+        this.usehost = usehost;
     }
 
     

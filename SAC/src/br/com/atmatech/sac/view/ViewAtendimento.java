@@ -80,8 +80,9 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 }
             }).start();
         } else {
-            this.ab = ab;
-            atendimentoSelecionado(ab);
+            //this.ab = ab;
+            this.ab = new AtendimentoDao().getAtendimento(ab.getIDATENDIMENTO());
+            atendimentoSelecionado(this.ab);            
         }
         permissaoUsuario();
         jTidcliente.setVisible(false);
@@ -1351,7 +1352,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
             viewprincipal.jTaabas.getSelectedIndex();
             viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), viewlatendimento);
         } else {
-            ViewListaAtendimento view = new ViewListaAtendimento(viewprincipal, true);
+            ViewListaAtendimento view = new ViewListaAtendimento(viewprincipal, true,true);            
             ViewAtendimento.this.setVisible(false);
             viewprincipal.jTaabas.getSelectedIndex();
             viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), view);

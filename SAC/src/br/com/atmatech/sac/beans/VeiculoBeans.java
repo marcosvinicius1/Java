@@ -20,6 +20,7 @@ public class VeiculoBeans {
     private double km;
     private boolean monitor;
     private boolean ativo;
+    private Integer idempresa;
 
     public Integer getIdveiculo() {
         return idveiculo;
@@ -101,5 +102,12 @@ public class VeiculoBeans {
         this.ativo = ativo;
     }
 
-    
+    public Integer getIdempresa() {
+        return idempresa;
+    }
+
+    public void setIdempresa(Integer idempresa) {
+        this.idempresa = idempresa;
+    }
+        
 }

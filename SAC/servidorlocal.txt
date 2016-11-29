@@ -1,0 +1,6 @@
+open servidor
+atmatech
+ftpp2016
+prompt
+mget /AtualizacaoSAC/SAC/
+by

@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.webService;
 
+import br.com.atmatech.sac.beans.EmpresaBeans;
 import br.com.atmatech.sac.beans.PessoaBeans;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,8 +33,60 @@ public class WebServiceCadastro {
 
     
 
-    public PessoaBeans postWebService(String cnpj) throws IOException {
+    
+public PessoaBeans postWebService(String cnpj) throws IOException {
         PessoaBeans pb = new PessoaBeans();
+        HttpPost post = new HttpPost("http://appasp.sefaz.go.gov.br/Sintegra/Consulta/consultar.asp");
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("rTipoDoc", "2"));
+        nameValuePairs.add(new BasicNameValuePair("tDoc", cnpj));
+        nameValuePairs.add(new BasicNameValuePair("tCCE", ""));
+        nameValuePairs.add(new BasicNameValuePair("tCNPJ", cnpj));
+        nameValuePairs.add(new BasicNameValuePair("tCPF", ""));
+        nameValuePairs.add(new BasicNameValuePair("btCGC", "Consultar"));
+        nameValuePairs.add(new BasicNameValuePair("zion.SystemAction", "consultarSintegra()"));
+        nameValuePairs.add(new BasicNameValuePair("zion.OnSubmited", ""));
+        nameValuePairs.add(new BasicNameValuePair("zion.FormElementPosted", "zionFormID_1"));
+        nameValuePairs.add(new BasicNameValuePair("zionPostMethod", ""));
+        nameValuePairs.add(new BasicNameValuePair("zionRichValidator", "true"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs, Consts.UTF_8));
+        HttpResponse response;
+
+        response = client.execute(post);
+
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        String inputLine;
+        // Grava pagina no arquivo
+       // BufferedWriter out = new BufferedWriter(new FileWriter("./pagina.txt"));
+//        while ((inputLine = rd.readLine()) != null) {
+//            out.write(inputLine);
+//            out.newLine();
+//        }
+                // Grava pagina no arquivo
+        FileWriter out = new FileWriter("./pagina.txt");
+        PrintWriter gravarArq = new PrintWriter(out);
+        while ((inputLine = rd.readLine()) != null) {
+            gravarArq.print(inputLine+"\n");           
+        }
+        out.close();
+        
+        String insc = searchTableWeb("Estadual - CCE :", new BufferedReader(new FileReader("./pagina.txt")));
+        if (insc != null) {
+            pb.setIe(insc.replaceAll("[.-]", ""));
+        }
+        pb.setRazao(searchTableWeb("Nome Empresarial:", new BufferedReader(new FileReader("./pagina.txt"))));
+        pb.setEndereco(searchTableWeb("Logradouro:", new BufferedReader(new FileReader("./pagina.txt"))));
+        pb.setNumero(searchTableWeb("mero:", new BufferedReader(new FileReader("./pagina.txt"))));
+        pb.setBairro(searchTableWeb("Bairro:", new BufferedReader(new FileReader("./pagina.txt"))));
+        pb.setDistrito(searchTableWeb("pio:", new BufferedReader(new FileReader("./pagina.txt"))));
+        String tel = searchTableWeb("Telefone:", new BufferedReader(new FileReader("./pagina.txt")));
+        if (tel != null) {
+            pb.setTelefone1(tel.replaceAll("[()]", "").replaceAll(" ", ""));
+        }
+        return pb;
+    }
+public EmpresaBeans postWebServiceEmp(String cnpj) throws IOException {
+        EmpresaBeans pb = new EmpresaBeans();
         HttpPost post = new HttpPost("http://appasp.sefaz.go.gov.br/Sintegra/Consulta/consultar.asp");
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("rTipoDoc", "2"));

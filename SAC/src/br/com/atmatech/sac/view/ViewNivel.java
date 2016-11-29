@@ -221,7 +221,13 @@ public class ViewNivel extends javax.swing.JPanel {
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Email");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("sim");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmpresa");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("sim");
         treeNode3.add(treeNode4);
@@ -579,10 +585,17 @@ public class ViewNivel extends javax.swing.JPanel {
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        
+
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode(buscaPermissao(lpub, "ViewEmail", "acessar"));
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmpresa");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode(buscaPermissao(lpub, "ViewEmpresa", "acessar"));
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
@@ -728,8 +741,15 @@ public class ViewNivel extends javax.swing.JPanel {
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        
-         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
+
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("sim");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmpresa");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("sim");
         treeNode3.add(treeNode4);

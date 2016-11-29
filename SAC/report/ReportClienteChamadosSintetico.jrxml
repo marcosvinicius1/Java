@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="47fd06a8-b22b-4346-8eb3-87cd83868da9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from viewatendimentosintetico  $P!{parametro}]]>
+	</queryString>
+	<field name="IDPESSOA" class="java.lang.Integer"/>
+	<field name="RAZAO" class="java.lang.String"/>
+	<field name="FANTASIA" class="java.lang.String"/>
+	<field name="CNPJ" class="java.lang.String"/>
+	<field name="IE" class="java.lang.String"/>
+	<field name="ENDERECO" class="java.lang.String"/>
+	<field name="IDDISTRITO" class="java.lang.Integer"/>
+	<field name="NUMERO" class="java.lang.String"/>
+	<field name="EMAIL" class="java.lang.String"/>
+	<field name="IDMODULO" class="java.lang.Integer"/>
+	<field name="TELEFONE1" class="java.lang.String"/>
+	<field name="TELEFONE2" class="java.lang.String"/>
+	<field name="TELEFONE3" class="java.lang.String"/>
+	<field name="IDSITUACAO" class="java.lang.Integer"/>
+	<field name="OBS" class="java.lang.String"/>
+	<field name="BAIRRO" class="java.lang.String"/>
+	<field name="RESPONSAVEL" class="java.lang.String"/>
+	<field name="NFE" class="java.lang.Integer"/>
+	<field name="ECF" class="java.lang.Integer"/>
+	<field name="DTPLUGIN" class="java.sql.Timestamp"/>
+	<field name="DT_ULTIMO_ATENDIMENTO" class="java.lang.String"/>
+	<field name="DIAS" class="java.lang.Long"/>
+	<field name="QTDE_ATENDIMENTO" class="java.lang.Integer"/>
+	<field name="EMPRAZAO" class="java.lang.String"/>
+	<field name="EMPFANTASIA" class="java.lang.String"/>
+	<field name="EMPENDERECO" class="java.lang.String"/>
+	<field name="EMPNUMERO" class="java.lang.String"/>
+	<field name="EMPBAIRRO" class="java.lang.String"/>
+	<field name="EMPTEL" class="java.lang.String"/>
+	<field name="EMPMUNICIPIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="53" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="53" uuid="0d35fbc2-453f-457c-a5b4-642431bd86f5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="455" y="37" width="100" height="12" uuid="cc0de0cf-ecfd-4894-9548-2e5fc431a81d"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="381" y="1" width="174" height="12" uuid="d1a23adc-8546-42c4-a060-384626e2d718"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CLIENTES E CHAMADOS SINTETICO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="0" width="233" height="12" uuid="a8ee207b-d350-469a-929a-498c86156c49"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPFANTASIA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="12" width="555" height="12" uuid="ce0ad1b6-eeb5-431f-b6d8-f2ec5dbeb309"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPENDERECO}+" - "+$F{EMPNUMERO}+" - "+$F{EMPBAIRRO}+" - "+$F{EMPMUNICIPIO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="23" width="233" height="12" uuid="16a106af-157c-4b1e-99d5-219d461f8896"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPTEL}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="14" uuid="94fde733-96ef-455d-9b55-4d4205790c02"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="191" height="12" uuid="45045417-6f09-4a6a-ad94-8dbba054ff97"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RAZAO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="191" y="0" width="190" height="12" uuid="6653f594-9d38-46b4-b81d-6a81dc4734bc"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FANTASIA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="487" y="0" width="68" height="12" uuid="4ea876f3-57ef-4653-b770-3ba6b72f7c6a"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[QTDE. ATEND.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="381" y="0" width="69" height="12" uuid="fc7ff836-57a9-46b7-b01b-f6216cec6600"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DATA ULT.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="450" y="0" width="37" height="12" uuid="27980ec1-21de-45b5-9ac7-7398121e7e28"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DIAS]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="14" uuid="de41ad9a-5447-4db9-afe3-3d2137debf22"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField>
+					<reportElement x="0" y="0" width="191" height="12" uuid="c971dcdb-d585-41de-8934-8fc4a831b820"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RAZAO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="191" y="0" width="190" height="12" uuid="045fd4ff-3cdf-416b-8366-93ea5c7bbc70"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{FANTASIA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="487" y="0" width="68" height="12" uuid="02928730-f5b9-4bbb-9b98-9634095693c0"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{QTDE_ATENDIMENTO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="381" y="0" width="69" height="12" uuid="bd25cbf5-7dcb-45a6-8809-f0b0e451c69d"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DT_ULTIMO_ATENDIMENTO} != null ? $F{DT_ULTIMO_ATENDIMENTO} : ""]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="450" y="0" width="37" height="12" uuid="e90b45b5-7f40-45c5-ac55-8a6629a4d682"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DIAS}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="54" uuid="15355914-ee49-4947-89de-0eb8b7b19c87"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -64,7 +64,7 @@
 	<table border="0" cellpadding="0" cellspacing="0" width="650" >
 	  <tr>
 		<td height="30" align="right">
-		<font face="Arial" size="1"><FONT COLOR="#990000">CADASTRO ATUALIZADO EM :20/10/2016 - 10:05:13</font></font>
+		<font face="Arial" size="1"><FONT COLOR="#990000">CADASTRO ATUALIZADO EM :28/11/2016 - 17:53:46</font></font>
 	</td>
 	  </tr>
 	</table>
@@ -86,14 +86,14 @@
 						<span class="label_title">CNPJ:</span>
 						<br>
 						<span class="label_text">
-							07.637.594/0001-95
+							05.494.804/0001-08
 						</span>	
 					
 			</td>
 			<td width="233">
 				<span class="label_title">Inscri��o Estadual - CCE :</span>
 				<br>
-				<span class="label_text">10.393.986-5</span>
+				<span class="label_text">10.359.235-0</span>
 			</td>
 	  </tr>
 	  <tr>
@@ -105,7 +105,7 @@
 				<span class="label_title">Nome Empresarial:</span>
 			
 		 <br>
-		 <span class="label_text">AC COMERCIO DE ROUPAS LTDA ME</span>  </td>
+		 <span class="label_text">DITRATORE PECAS E MAQUINAS AGRICOLAS LTDA ME</span>  </td>
 	  </tr>
 	</table>
   </center>
@@ -126,7 +126,7 @@
 		<td width="650" colspan="2">
 			<span class="label_title">Logradouro:</span>
 			<br>
-			<span class="label_text">AVENIDA&nbsp; IDELFONSO CARNEIRO</span>	</td>
+			<span class="label_text">RUA&nbsp; SO O AMOR CONSTROI</span>	</td>
 	  </tr>
 	  <tr>
 		<td colspan="2" class="space">&nbsp; </td>
@@ -139,17 +139,17 @@
 					<td valign="top" >	
 					  <span class="label_title">N�mero:</span>
 					  <br>
-					  <span class="label_text">680</span>
+					  <span class="label_text">1</span>
 					</td>
 					<td valign="top" >
 					  <span class="label_title">Quadra:</span>
 					  <br>
-					  <span class="label_text"></span>
+					  <span class="label_text">05</span>
 					</td>  
 					<td valign="top" >
 					  <span class="label_title">Lote:</span>
 					  <br>
-					  <span class="label_text"></span>
+					  <span class="label_text">03</span>
 					</td>  					
 					<td valign="top" >
 					  <span class="label_title">Complemento:</span>
@@ -169,7 +169,7 @@
 		<td colspan="2" width="650">
 		  <span class="label_title">Bairro:</span>
 		 <br>
-		 <span class="label_text">SETOR CENTRAL</span>   </td>
+		 <span class="label_text">ANHANGUERA</span>   </td>
 	  </tr>
 	</table>
 	  </center>
@@ -184,7 +184,7 @@
 		<td width="305">
 			<span class="label_title">Munic�pio:</span>
 			<br>
-			<span class="label_text">CACU</span>
+			<span class="label_text">RIO VERDE</span>
 		</td>
 		<td width="156">
 		   <span class="label_title">UF:</span>
@@ -199,13 +199,13 @@
 		<td width="305" valign="top">
 		  <span class="label_title">CEP:</span>
 		  <br>
-		  <span class="label_text">75813000</span>
+		  <span class="label_text">75904433</span>
 		</td>
 		<td width="156" valign="top">
 		  <span class="label_title">Telefone:</span>
 		  <br>
 		  <span class="label_text">
-			(64) 36562959
+			(64) 36210091
 		  </span>
 		</td>
 	  </tr>
@@ -237,24 +237,11 @@
 				
 							
 				<span class="label_text" style="display:block;margin-left:50px; margin-top:8px; margin-bottom:8px;">
-				4781400 - Com�rcio varejista de artigos do vestu�rio e acess�rios
+				4789099 - Com�rcio varejista de outros produtos n�o especificados anteriormente
 				</span>
 				
 				
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label_text"><strong>Atividade Secund�ria</strong></span>
-					<br>
-				
-							
-				<span class="label_text" style="display:block;margin-left:50px; margin-top:8px; margin-bottom:8px;">
-				4782201 - Com�rcio varejista de cal�ados
-				</span>
-				
-				
-							
-				<span class="label_text" style="display:block;margin-left:50px; margin-top:8px; margin-bottom:8px;">
-				4755502 - Comercio varejista de artigos de armarinho
-				</span>
-				
+					<span class="label_text" style="display:block;margin-left:50px;">(PLACAS E PLAQUETAS PARA VE�CULOS; COM�RCIO VAREJISTA)</span>
 				
 			<br>
 		</td>
@@ -291,12 +278,12 @@
 					<td>
 						  <span class="label_title">Data desta Situa��o Cadastral:</span>
 						  <br>
-						  <span class="label_text">03/11/2005</span>	
+						  <span class="label_text">24/03/2015</span>	
 					</td>
 					<td>
 						  <span class="label_title">Data de Cadastramento:</span>
 						  <br>
-						  <span class="label_text">03/11/2005</span>	
+						  <span class="label_text">20/03/2003</span>	
 					</td>
 				</tr>
 				
@@ -344,7 +331,7 @@
 	  <tr>
 		<td width="650">
 		 <span class="label_title">Data da Consulta:</span>
-		 <span class="label_text">20/10/2016 10:05:13</span>	</td>
+		 <span class="label_text">28/11/2016 17:53:46</span>	</td>
 	  </tr>
 	</table>
   </center>

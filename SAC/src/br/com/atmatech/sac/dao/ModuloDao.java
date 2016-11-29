@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.dao;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.ModuloBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class ModuloDao {
 
     public List<ModuloBeans> getModulo() {
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String sql="select * from modulo";
+            String sql="select * from modulo where idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<ModuloBeans> lmb=new ArrayList<>();            
@@ -47,7 +48,7 @@ public class ModuloDao {
     
     public List<ModuloBeans> getModulo(String coluna,String parametro) {
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String sql="select * from modulo where "+coluna+" like '%"+parametro+"%' order by "+coluna;
+            String sql="select * from modulo where "+coluna+" like '%"+parametro+"%' and idempresa="+new DBConfigBeans().getCompany()+" order by "+coluna;
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<ModuloBeans> lmb=new ArrayList<>();            
@@ -71,12 +72,13 @@ public class ModuloDao {
     
     public void setModulo(ModuloBeans mb) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()) {
-            String sql="insert into modulo(descricao,responsavel,email,ativo)values(?,?,?,?)";
+            String sql="insert into modulo(descricao,responsavel,email,ativo,idempresa)values(?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, mb.getDescricao());
             pstm.setString(2, mb.getResponsavel());
             pstm.setString(3, mb.getEmail());
             pstm.setString(4, String.valueOf(mb.getAtivo()));
+            pstm.setInt(5,new DBConfigBeans().getCompany());
             pstm.execute();
             pstm.close();
         }

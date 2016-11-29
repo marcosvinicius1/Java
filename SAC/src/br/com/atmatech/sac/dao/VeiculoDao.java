@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.dao;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.VeiculoBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class VeiculoDao {
 
     public void setVeiculo(VeiculoBeans vb) throws SQLException {
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="INSERT INTO VEICULO (MODELO, PERIODO, MARCA, TROCAINI, PLACA, TROCAFIN, KM, MONITOR,ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+            String sql="INSERT INTO VEICULO (MODELO, PERIODO, MARCA, TROCAINI, PLACA, TROCAFIN, KM, MONITOR,ativo,idempresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, vb.getModelo());
             pstm.setInt(2, vb.getPeriodo());
@@ -34,6 +35,7 @@ public class VeiculoDao {
             pstm.setDouble(7, vb.getKm());
             pstm.setBoolean(8, vb.isMonitor());
             pstm.setBoolean(9, vb.isAtivo());
+            pstm.setInt(10, vb.getIdempresa());
             pstm.execute();
             pstm.close();
             conexao.close();
@@ -42,7 +44,7 @@ public class VeiculoDao {
 
     public List<VeiculoBeans> getVeiculo() {
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from veiculo";
+            String sql="select * from veiculo where idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<VeiculoBeans> lvb=new ArrayList<>();
@@ -58,6 +60,7 @@ public class VeiculoDao {
                 vb.setKm(rs.getDouble("km"));
                 vb.setMonitor(rs.getBoolean("monitor"));
                 vb.setAtivo(rs.getBoolean("ativo"));
+                vb.setIdempresa(rs.getInt("idempresa"));
                 lvb.add(vb);
             }
             rs.close();
@@ -72,7 +75,7 @@ public class VeiculoDao {
     
     public List<VeiculoBeans> getVeiculoAtivo() {
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from veiculo where ativo='true'";
+            String sql="select * from veiculo where ativo='true' and idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<VeiculoBeans> lvb=new ArrayList<>();
@@ -88,6 +91,7 @@ public class VeiculoDao {
                 vb.setKm(rs.getDouble("km"));
                 vb.setMonitor(rs.getBoolean("monitor"));
                 vb.setAtivo(rs.getBoolean("ativo"));
+                vb.setIdempresa(rs.getInt("idempresa"));
                 lvb.add(vb);
             }
             rs.close();

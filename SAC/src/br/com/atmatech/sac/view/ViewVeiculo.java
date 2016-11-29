@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.view;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.VeiculoBeans;
 import br.com.atmatech.sac.controller.NivelAcesso;
 import br.com.atmatech.sac.dao.VeiculoDao;
@@ -493,6 +494,7 @@ private void ativaView() {
             vb.setPlaca(jTplaca.getText());
             vb.setKm(Double.valueOf(jTkmatual.getText().replace(",", ".")));
             vb.setAtivo(jCativo.isSelected());
+            vb.setIdempresa(new DBConfigBeans().getCompany());
             new VeiculoDao().setVeiculo(vb);
 
             limpaView();
@@ -519,7 +521,7 @@ private void ativaView() {
             vb.setPlaca(jTplaca.getText());
             vb.setKm(Double.valueOf(jTkmatual.getText().replace(",", ".")));
             vb.setAtivo(jCativo.isSelected());
-            vb.setIdveiculo(Integer.valueOf(jTidveiculo.getText()));
+            vb.setIdveiculo(Integer.valueOf(jTidveiculo.getText()));            
             new VeiculoDao().updateVeiculo(vb);
             limpaView();
             desativaView();

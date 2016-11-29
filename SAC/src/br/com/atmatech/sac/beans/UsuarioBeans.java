@@ -26,6 +26,7 @@ public class UsuarioBeans {
     private String senhaemail;
     private String assinatura;
     private Boolean bconsulta;
+    private Integer idempresa;
 
     public Integer getIdusuario() {
         return idusuario;
@@ -153,6 +154,14 @@ public class UsuarioBeans {
 
     public void setBconsulta(Boolean bconsulta) {
         this.bconsulta = bconsulta;
+    }
+
+    public Integer getIdempresa() {
+        return idempresa;
+    }
+
+    public void setIdempresa(Integer idempresa) {
+        this.idempresa = idempresa;
     }
     
     

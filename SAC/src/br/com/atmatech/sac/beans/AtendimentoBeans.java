@@ -35,6 +35,7 @@ public class AtendimentoBeans extends PessoaBeans{
     private double kmfinal;
     private String placa;
     private String anotacao;
+    private Integer idempresa;
 
     public Integer getIDATENDIMENTO() {
         return IDATENDIMENTO;
@@ -218,6 +219,14 @@ public class AtendimentoBeans extends PessoaBeans{
 
     public void setAnotacao(String anotacao) {
         this.anotacao = anotacao;
+    }
+
+    public Integer getIdempresa() {
+        return idempresa;
+    }
+
+    public void setIdempresa(Integer idempresa) {
+        this.idempresa = idempresa;
     }
     
     

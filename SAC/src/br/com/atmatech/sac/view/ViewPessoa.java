@@ -64,6 +64,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     List<PessoaBeans> lpb;
     List<AnexoBeans> lab;
     JPanel TempViewPessoa = this;
+    boolean inicializatela=false;
 
     public ViewPessoa() {
         initComponents();
@@ -75,9 +76,9 @@ public class ViewPessoa extends javax.swing.JPanel {
         jBfinanceiro.setVisible(false);
         // buscaPessoa();
         permissaoUsuario();
-        jDaguarde.setUndecorated(true);
-        carregaPesquisa();
+        jDaguarde.setUndecorated(true);        
         inicializaAtalhos();
+        this.inicializatela=true;
     }
 
     /**
@@ -624,6 +625,12 @@ public class ViewPessoa extends javax.swing.JPanel {
             jDemailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jTtempresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1642,6 +1649,15 @@ public class ViewPessoa extends javax.swing.JPanel {
             }
         }).start();
     }//GEN-LAST:event_jBemailmassaActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        if(inicializatela){
+            carregaPesquisa();
+            inicializatela=false;
+        }
+        
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

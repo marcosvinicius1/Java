@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.dao;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.ReportBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
@@ -24,7 +25,7 @@ public class ReportDao {
     public List<ReportBeans> getReport(String nomeview){
         List<ReportBeans> lrb=new ArrayList<>();
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from report where nomeview=?";
+            String sql="select * from report where nomeview=? and idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, nomeview);
             ResultSet rs=pstm.executeQuery();
@@ -44,10 +45,11 @@ public class ReportDao {
     
     public void setReport(List<ReportBeans> reportbeans,String nomeview,String nomereport) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="insert into report (nomeview,nomereport) values(?,?) returning idreport";
+            String sql="insert into report (nomeview,nomereport,idempresa) values(?,?,?) returning idreport";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, nomeview);
-            pstm.setString(2, nomereport);                        
+            pstm.setString(2, nomereport); 
+            pstm.setInt(3,new DBConfigBeans().getCompany());
             ResultSet rs=pstm.executeQuery();
             int idreport = 0;
             while(rs.next()){
@@ -70,7 +72,7 @@ public class ReportDao {
         List<ReportBeans> lrb=new ArrayList<>();
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="select * from report left join camposreport on(report.idreport=camposreport.idreport)"
-                    + " where nomeview=? and nomereport=?";
+                    + " where nomeview=? and nomereport=? and idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, nomeview);
             pstm.setString(2,nomereport);

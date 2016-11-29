@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1f25e9d-faec-4fa7-ade1-82825c3af805">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from viewatendimentotecnico  $P!{parametro}]]>
+	</queryString>
+	<field name="IDATENDIMENTO" class="java.lang.Integer"/>
+	<field name="IDPESSOA" class="java.lang.Integer"/>
+	<field name="RAZAO" class="java.lang.String"/>
+	<field name="TECNICO" class="java.lang.String"/>
+	<field name="TECNICOABRIU" class="java.lang.String"/>
+	<field name="DTABERTURA" class="java.sql.Timestamp"/>
+	<field name="DTINICIAL" class="java.sql.Timestamp"/>
+	<field name="DTFINAL" class="java.sql.Timestamp"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="ATIVO" class="java.lang.String"/>
+	<field name="SOLICITANTE" class="java.lang.String"/>
+	<field name="TIPO" class="java.lang.String"/>
+	<field name="SOLICITACAO" class="java.lang.String"/>
+	<field name="REALIZADO" class="java.lang.String"/>
+	<field name="PENDENTE" class="java.lang.String"/>
+	<field name="IDTECNICOANTERIOR" class="java.lang.Integer"/>
+	<field name="IDTECNICO" class="java.lang.Integer"/>
+	<field name="EMPRAZAO" class="java.lang.String"/>
+	<field name="EMPFANTASIA" class="java.lang.String"/>
+	<field name="EMPENDERECO" class="java.lang.String"/>
+	<field name="EMPNUMERO" class="java.lang.String"/>
+	<field name="EMPBAIRRO" class="java.lang.String"/>
+	<field name="EMPTEL" class="java.lang.String"/>
+	<field name="EMPMUNICIPIO" class="java.lang.String"/>
+	<variable name="IDATENDIMENTO_1" class="java.lang.Integer" resetType="Group" resetGroup="tecnico" calculation="Count">
+		<variableExpression><![CDATA[$F{IDATENDIMENTO}]]></variableExpression>
+	</variable>
+	<group name="tecnico">
+		<groupExpression><![CDATA[$F{TECNICO}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField>
+					<reportElement x="0" y="2" width="67" height="12" uuid="7a499637-d74d-4532-86fa-a3f2e5f52041"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TECNICO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<textField>
+					<reportElement x="525" y="2" width="28" height="12" uuid="a1179dd4-fb12-4a3c-950b-4d9cb4aeb462"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{IDATENDIMENTO_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="53" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="53" uuid="bc7204cb-5bcd-4b3c-b332-ce54cbb30f8c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="455" y="37" width="100" height="12" uuid="7280be64-a61f-4bf9-9490-2703ee4438cb"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="381" y="1" width="174" height="12" uuid="5c69cd7d-19d7-49d6-bb0c-f30180b2439b"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TECNICOS E CHAMADOS DESCRITIVO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="12" width="553" height="12" uuid="91ef4720-d322-4f03-8c6f-da514f87589c"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPENDERECO}+" - "+$F{EMPNUMERO}+" - "+$F{EMPBAIRRO}+" - "+$F{EMPMUNICIPIO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="1" width="244" height="12" uuid="ecd6fd5e-037e-4844-a582-ff8faf6a388e"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPFANTASIA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="24" width="260" height="12" uuid="c4fd7eeb-ead3-41c6-ba0e-db0b8a958e52"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPTEL}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="12" uuid="191c279c-3f39-49a5-8887-dc8791abccb9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tecnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="12" width="41" height="12" uuid="c556d0ba-1713-4579-a20b-e2fd57998c57"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="12" width="55" height="12" uuid="388d60fd-7c13-4890-a2b0-4059497e0c36"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="12" width="66" height="12" uuid="56f1d7ca-e6fa-43f0-9351-76afdbf009d8"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ABERTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="12" width="66" height="12" uuid="4edb7eaa-fa9d-4aa1-b425-f2e50714abb0"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[INICIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="12" width="66" height="12" uuid="b0369d35-0ccb-46fd-941f-11886c792298"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FECHAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="12" width="66" height="12" uuid="dd81c1d4-81fc-4134-aa1c-0c96e84e3dd2"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="12" width="96" height="12" uuid="ee13da54-1199-44f5-870d-54cf2db07a15"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SOLICITANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="12" width="98" height="12" uuid="971ff5d9-5dad-440e-979b-4485c0b86118"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="41" height="12" uuid="55af77c0-7728-4a49-8f64-0060d5acd050"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IDATENDIMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="0" width="55" height="12" uuid="69751e73-602c-45b3-adce-ebfe53f7bb5c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="0" width="66" height="12" uuid="ca9fc9cc-f1eb-4c96-b725-5413e7e502e0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DTABERTURA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="66" height="12" uuid="446a0182-513f-4232-b132-5663e00933f4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DTINICIAL} != null ? $F{DTINICIAL} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="0" width="66" height="12" uuid="dbb6b141-a604-4282-830d-d6e18a5325b7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DTFINAL} != null ? $F{DTFINAL} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="0" width="66" height="12" uuid="1b0aa4f5-7ae3-47db-9284-e639ba574d4b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="96" height="12" uuid="a02dc0c5-a96c-4469-8bc4-716293711d5a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SOLICITANTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="2" width="98" height="12" uuid="3631abd1-b7a3-4adc-9471-c9b3823b4364"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RAZAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="54" uuid="b2fcbe28-a30c-4985-bdd2-9cd1307de913"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

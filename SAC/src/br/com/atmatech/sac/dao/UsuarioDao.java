@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.dao;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.UsuarioBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
@@ -24,7 +25,7 @@ public class UsuarioDao {
     //usado na consulta de usuario na tela de cadastro
     public List<UsuarioBeans> getUsuario(){
         try(Connection conexao=new ConexaoDb().getConnect()){
-           String sql="select * from usuario order by nome";           
+           String sql="select * from usuario where idempresa="+new DBConfigBeans().getCompany()+" order by nome";           
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
            List<UsuarioBeans>lub=new ArrayList<>();
@@ -59,12 +60,13 @@ public class UsuarioDao {
     }
     
     //usado na tela de login
-    public UsuarioBeans getUsuario(String login,String senha){
+    public UsuarioBeans getUsuario(String login,String senha,Integer idempresa){
         try(Connection conexao=new ConexaoDb().getConnect()){
-           String sql="select * from usuario where login=? and senha=? and ativo='true'";           
+           String sql="select * from usuario where login=? and senha=? and ativo='true'and idempresa=?";           
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, login);
             pstm.setString(2, senha);
+            pstm.setInt(3, idempresa);
             ResultSet rs=pstm.executeQuery();
             UsuarioBeans ub=new UsuarioBeans();
            while(rs.next()){               
@@ -97,7 +99,8 @@ public class UsuarioDao {
     //usado na consulta de tecnico no chamado
     public List<UsuarioBeans> getUsuario(String campo,String parametro,String ordenar){
         try(Connection conexao=new ConexaoDb().getConnect()){
-           String sql="select * from usuario where "+campo+" like '%"+parametro+"%' and ativo='true' and tecnico='true' order by "+ordenar+"";           
+           String sql="select * from usuario where "+campo+" like '%"+parametro+"%' "
+                   + "and ativo='true' and tecnico='true' and idempresa="+new DBConfigBeans().getCompany()+" order by "+ordenar+"";           
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();
             List<UsuarioBeans>lub=new ArrayList<>();
@@ -132,7 +135,7 @@ public class UsuarioDao {
     public void setUsuario(UsuarioBeans ub) throws SQLException {
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="insert into usuario(nome,login,tecnico,senha,ativo,vchamados,alttecnico,"
-                    + "smtp,porta,ssl,tls,email,senhaemail,assinatura,bconsulta)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "smtp,porta,ssl,tls,email,senhaemail,assinatura,bconsulta,idempresa)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, ub.getNome());
             pstm.setString(2, ub.getLogin());
@@ -149,6 +152,7 @@ public class UsuarioDao {
             pstm.setString(13,ub.getSenhaemail());
             pstm.setString(14,ub.getAssinatura()); 
             pstm.setBoolean(15, ub.getBconsulta());
+            pstm.setInt(16, new DBConfigBeans().getCompany());
             pstm.execute();
             pstm.close();
         }

@@ -6,6 +6,7 @@
 package br.com.atmatech.sac.dao;
 
 import br.com.atmatech.sac.beans.AtendimentoBeans;
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class AtendimentoDao {
     public Integer setAtendimento(AtendimentoBeans ab) throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "INSERT INTO ATENDIMENTO (IDPESSOA, IDTECNICO, IDABERTURA, DTABERTURA, DTINICIAL, DTFINAL, STATUS, ATIVO, "
-                    + "SOLICITANTE, TIPO, SOLICITACAO, REALIZADO, PENDENTE,idveiculo,kminicial,kmfinal,anotacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?) returning idatendimento";
+                    + "SOLICITANTE, TIPO, SOLICITACAO, REALIZADO, PENDENTE,idveiculo,kminicial,kmfinal,anotacao,idempresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?) returning idatendimento";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, ab.getIDPESSOA());
 
@@ -42,7 +43,7 @@ public class AtendimentoDao {
             pstm.setString(10, ab.getTIPO());
             pstm.setString(11, ab.getSOLICITACAO());
             pstm.setString(12, ab.getREALIZADO());
-            pstm.setString(13, ab.getPENDENTE());            
+            pstm.setString(13, ab.getPENDENTE());
             if (ab.getIdveiculo() == null) {
                 pstm.setNull(14, java.sql.Types.INTEGER);
             } else {
@@ -51,6 +52,7 @@ public class AtendimentoDao {
             pstm.setDouble(15, ab.getKminicial());
             pstm.setDouble(16, ab.getKmfinal());
             pstm.setString(17, ab.getAnotacao());
+            pstm.setInt(18, new DBConfigBeans().getCompany());
             ResultSet rs = pstm.executeQuery();
             Integer idatendimento = 0;
             while (rs.next()) {
@@ -64,7 +66,7 @@ public class AtendimentoDao {
     }
 
     //usado na abertura da tela de listaatendimento
-    public List<AtendimentoBeans> getAtendimento(String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin,String tpdata) {
+    public List<AtendimentoBeans> getAtendimento(String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
         try (Connection conexao = new ConexaoDb().getConnect()) {
@@ -80,7 +82,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and cast(atendimento."+tpdata+" as date) between '" + dtini + "' and '" + dtfin + "' order by atendimento.idatendimento";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+" order by atendimento.idatendimento";
             } else {
                 sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
                         + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
@@ -90,7 +92,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento."+tpdata+" as date) between '" + dtini + "' and '" + dtfin + "' order by atendimento.idatendimento";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+" order by atendimento.idatendimento";
             }
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -139,7 +141,7 @@ public class AtendimentoDao {
             }
             pstm.close();
             rs.close();
-            conexao.close();            
+            conexao.close();
             return lab;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
@@ -151,7 +153,7 @@ public class AtendimentoDao {
     }
 
     //usado na filtragem de chamao na tela listaatendimento
-    public List<AtendimentoBeans> getAtendimento(String status, String campo, String parametro, Integer idtecnico, Boolean supervisor, Date ini, Date fin,String tpdata) {
+    public List<AtendimentoBeans> getAtendimento(String status, String campo, String parametro, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
         try (Connection conexao = new ConexaoDb().getConnect()) {
@@ -168,7 +170,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and cast(atendimento."+tpdata+" as date) between '" + dtini + "' and '" + dtfin + "'";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+"";
 
             } else {
 
@@ -180,7 +182,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento."+tpdata+" as date) between '" + dtini + "' and '" + dtfin + "'";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+"";
 
             }
 
@@ -233,6 +235,72 @@ public class AtendimentoDao {
             rs.close();
             conexao.close();
             return lab;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no Formato da Data\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+//utilizado na tela de atendimento do atendimento selecionado
+    public AtendimentoBeans getAtendimento(Integer idatendimento) {        
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            String sql;
+            sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
+                    + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
+                    + " left join usuario tecnico on(atendimento.idtecnico=tecnico.idusuario)\n"
+                    + " left join usuario abertura on(atendimento.idabertura=abertura.idusuario)\n"
+                    + " left join  usuario tecnicoante on(atendimento.idtecnicoanterior=tecnicoante.idusuario)\n"
+                    + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
+                    + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
+                    + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
+                    + " where atendimento.idatendimento=? and atendimento.idempresa="+new DBConfigBeans().getCompany()+"";
+
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            pstm.setInt(1, idatendimento);
+            ResultSet rs = pstm.executeQuery();
+            AtendimentoBeans ab = new AtendimentoBeans();
+            while (rs.next()) {                
+                ab.setIDATENDIMENTO(rs.getInt("idatendimento"));
+                ab.setIDPESSOA(rs.getInt("idpessoa"));
+                ab.setIDTECNICO(rs.getInt("idtecnico"));
+                ab.setIDABERTURA(rs.getInt("idabertura"));
+                ab.setDTABERTURA(rs.getTimestamp("dtabertura"));
+                ab.setDTINICIAL(rs.getTimestamp("dtinicial"));
+                ab.setDTFINAL(rs.getTimestamp("dtfinal"));
+                ab.setSTATUS(rs.getString("status"));
+                ab.setATIVO(rs.getBoolean("ativo"));
+                ab.setSOLICITANTE(rs.getString("solicitante"));
+                ab.setTIPO(rs.getString("tipo"));
+                ab.setSOLICITACAO(rs.getString("solicitacao"));
+                ab.setREALIZADO(rs.getString("realizado"));
+                ab.setPENDENTE(rs.getString("pendente"));
+                ab.setIDTECNICOANTERIOR(rs.getInt("idtecnicoanterior"));
+                ab.setTecniconome(rs.getString("tecnico"));
+                ab.setAberturanome(rs.getString("tecnicoabertura"));
+                ab.setTecanteriornome(rs.getString("tecnicoanterior"));
+                ab.setRazao(rs.getString("razao"));
+                ab.setFantasia(rs.getString("fantasia"));
+                ab.setResponsavel(rs.getString("responsavel"));
+                ab.setModulo(rs.getString("modulo"));
+                ab.setTelefone1(rs.getString("telefone1"));
+                ab.setSOLICITANTE(rs.getString("solicitante"));
+                ab.setDistrito(rs.getString("distrito"));
+                ab.setNumero(rs.getString("numero"));
+                ab.setEndereco(rs.getString("endereco"));
+                ab.setBairro(rs.getString("bairro"));
+                ab.setEmail(rs.getString("email"));
+                ab.setIdveiculo(rs.getInt("idveiculo"));
+                ab.setKminicial(rs.getDouble("kminicial"));
+                ab.setKmfinal(rs.getDouble("kmfinal"));
+                ab.setPlaca(rs.getString("placa"));
+                ab.setAnotacao(rs.getString("anotacao"));
+            }
+            pstm.close();
+            rs.close();
+            conexao.close();
+            return ab;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;

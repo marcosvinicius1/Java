@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 public class PerusuarioDao {
     public List<ListPerUsuarioBeans> getPerusuario(Integer idusuario){
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select * from perusuario where idusuario=?";            
+            String sql="select * from perusuario where idusuario=? ";            
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setInt(1, idusuario);
             ResultSet rs=pstm.executeQuery();

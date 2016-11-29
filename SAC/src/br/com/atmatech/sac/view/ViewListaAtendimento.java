@@ -25,6 +25,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -47,31 +49,26 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
      */
     List<AtendimentoBeans> lab;
     ViewPrincipal viewprincipal;
+    Boolean buscaatendimento;
     int coluna;
+    Thread constecnico;
+    Boolean inicializatela = false;
 
-    public ViewListaAtendimento(ViewPrincipal viewprincipal, Boolean buscaatebdimento) {
+    public ViewListaAtendimento(ViewPrincipal viewprincipal, Boolean buscaatebdimento,Boolean buscaautomatica) {
         initComponents();
         jDaguarde.setUndecorated(true);
         this.viewprincipal = viewprincipal;
-        Timestamp dtini = new Timestamp(new Date().getTime());
-        Date dtin = new Date();
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_YEAR, -30);
-        jDinicial.setDate(c.getTime());
-        jDfinal.setDate(new Timestamp(new Date().getTime()));
-        if (buscaatebdimento) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), "dtabertura");
-                }
-            }).start();
-            
-        }
+        this.buscaatendimento = buscaatebdimento;
+        inicializatela = true;
+
         permissaoUsuario();
         inicializaAtalhos();
         inicializaTabela();
-        //buscaAtendimentoAutomatica();  
+        // buscaAtendimentoAutomatica();  
+        if(buscaautomatica){
+            
+            formComponentShown(null);
+        }
 
     }
 
@@ -108,6 +105,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDfinal = new com.toedter.calendar.JDateChooser();
         jBpesquisa = new javax.swing.JButton();
         jCtpdata = new javax.swing.JComboBox();
+        jCtecnico = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTatendimento = new javax.swing.JTable();
@@ -218,6 +216,9 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(799, 613));
         addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
             }
@@ -356,6 +357,19 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jCtecnico.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jCtecnico.setText("Tecnico");
+        jCtecnico.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCtecnicoStateChanged(evt);
+            }
+        });
+        jCtecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCtecnicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -366,6 +380,8 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCtecnico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPatendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,12 +395,13 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                         .addContainerGap(13, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBnovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jBexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCtecnico)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPatendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -456,7 +473,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -489,6 +506,10 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 ViewAtendimento view = new ViewAtendimento(viewprincipal, this, clickAtendimento(), new UsuarioLogadoBeans().getAlttecnico(), false);
                 viewprincipal.jTaabas.getSelectedIndex();
                 viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), view);
+                if(!new UsuarioLogadoBeans().getBconsulta()){
+                    constecnico.stop();
+                }
+                
 
             }
         }
@@ -603,13 +624,38 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
+        if (this.inicializatela) {
+            this.jTatendimento.requestFocusInWindow();
+            Timestamp dtini = new Timestamp(new Date().getTime());
+            Date dtin = new Date();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_YEAR, -30);
+            jDinicial.setDate(c.getTime());
+            jDfinal.setDate(new Timestamp(new Date().getTime()));
+            if (this.buscaatendimento) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), "dtabertura");
+                    }
+                }).start();
 
-        this.jTatendimento.requestFocusInWindow();
+            }
+            if (new UsuarioLogadoBeans().getTecnico()) {
+                if(new UsuarioLogadoBeans().getTecnico()){
+                    jCtecnico.doClick();
+                }
+                
+               // jCtecnico.setSelected(new UsuarioLogadoBeans().getTecnico());
+                desativaPpesquisa();
+            }
+            trocaCor();
+            this.inicializatela = false;
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void jPanel5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel5KeyPressed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_jPanel5KeyPressed
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
@@ -620,7 +666,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 buscaAtendimento(verificaStatus(), new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
             }
         }).start();
-        
+
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTparametro1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTparametro1KeyPressed
@@ -637,13 +683,32 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }).start();
         new Thread(new Runnable() {
             @Override
-            public void run() {                
+            public void run() {
                 getReportChamado();
             }
-           
+
         }).start();
 
     }//GEN-LAST:event_jMreportActionPerformed
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentHidden
+
+    private void jCtecnicoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCtecnicoStateChanged
+        // TODO add your handling code here:
+                
+    }//GEN-LAST:event_jCtecnicoStateChanged
+
+    private void jCtecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCtecnicoActionPerformed
+        // TODO add your handling code here:
+        consultaAutomatica(); 
+        if(jCtecnico.isSelected()){
+            desativaPpesquisa();
+        }else{
+            ativaPpesquisa();
+        }
+    }//GEN-LAST:event_jCtecnicoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -655,6 +720,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCfechado;
     private javax.swing.JCheckBox jCiniciado;
     private javax.swing.JCheckBox jCpendente;
+    private javax.swing.JCheckBox jCtecnico;
     private javax.swing.JComboBox jCtpdata;
     private javax.swing.JDialog jDaguarde;
     private javax.swing.JDialog jDconsulta;
@@ -682,16 +748,41 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 showAguarde();
             }
         }).start();
-                DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
-                tabelaatendimento.setNumRows(0);
-                lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-                TableCellRenderer renderer = new PintarLinhasTabela();
-                jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
-                for (AtendimentoBeans ab : lab) {
-                    tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
-                }
-                jDaguarde.setVisible(false);            
+        DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
+        tabelaatendimento.setNumRows(0);
+        lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        TableCellRenderer renderer = new PintarLinhasTabela(false);
+        jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
+        for (AtendimentoBeans ab : lab) {
+            tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+        }
+        jDaguarde.setVisible(false);
+    }
+//utilizado na atualizacao automatica dos atendimento
+
+    public void buscaAtendimento() {
+        String status = "'ABERTO','INICIADO','PENDENTE'";
+        Integer idtecnico = new UsuarioLogadoBeans().getIdusuario();
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_YEAR, -30);
+        Date ini = c.getTime();
+        Date fin = new Timestamp(new Date().getTime());
+        String campo = "dtabertura";
+
+        List<AtendimentoBeans> labt = new ArrayList<>();
+        labt = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
+        if (!caparaArrayList(labt, lab)) {
+            lab = labt;
+            DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
+            tabelaatendimento.setNumRows(0);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            TableCellRenderer renderer = new PintarLinhasTabela(false);
+            jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
+            for (AtendimentoBeans ab : lab) {
+                tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+            }
+        }
     }
 
     private void buscaAtendimento(String campo, String parametro, Integer idusuario, Boolean supervisor) {
@@ -700,7 +791,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         //String status=verificaStatus();
         lab = new AtendimentoDao().getAtendimento(verificaStatus(), campo, parametro, idusuario, supervisor, jDinicial.getDate(), jDfinal.getDate(), getTipoData());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        TableCellRenderer renderer = new PintarLinhasTabela();
+        TableCellRenderer renderer = new PintarLinhasTabela(false);
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
             tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
@@ -951,13 +1042,162 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         jDaguarde.setLocationRelativeTo(this.jPanel2);
         jDaguarde.setVisible(true);
     }
-    
-    public void closeAguarde() {        
+
+    public void closeAguarde() {
         jDaguarde.setVisible(false);
     }
-    
-    public void getReportChamado(){
+
+    public void getReportChamado() {
         AtendimentoBeans at = clickAtendimento();
-        new Report().getReportChamado(at.getIDATENDIMENTO(),this);
+        new Report().getReportChamado(at.getIDATENDIMENTO(), this);
     }
+
+    public void trocaCor() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    TableCellRenderer renderer = new PintarLinhasTabela(true);
+                    jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
+                    jTatendimento.repaint();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ViewListaAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    renderer = new PintarLinhasTabela(false);
+                    jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
+                    jTatendimento.repaint();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ViewListaAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }).start();
+
+    }
+
+    private boolean caparaArrayList(List<AtendimentoBeans> labt, List<AtendimentoBeans> lab) {
+        if (labt != null) {
+            if (lab != null) {
+                if (labt.size() == lab.size()) {
+                    for (int i = 0; i < lab.size(); i++) {
+//                        System.out.println(labt.get(i).getIDATENDIMENTO()+"|"+lab.get(i).getIDATENDIMENTO());
+//                        System.out.println(labt.get(i).getIDPESSOA()+"|"+lab.get(i).getIDPESSOA());
+//                        System.out.println(labt.get(i).getDTABERTURA()+"|"+lab.get(i).getDTABERTURA());
+//                        System.out.println(labt.get(i).getIDTECNICO()+"|"+lab.get(i).getIDTECNICO());
+//                        System.out.println(labt.get(i).getIDABERTURA()+"|"+lab.get(i).getIDABERTURA());
+//                        System.out.println(labt.get(i).getSTATUS()+"|"+lab.get(i).getSTATUS());
+//                        System.out.println(labt.get(i).getTIPO()+"|"+lab.get(i).getTIPO());
+                        if (!labt.get(i).getIDATENDIMENTO().equals(lab.get(i).getIDATENDIMENTO())) {
+                            return false;
+                        }
+                        if (!labt.get(i).getIDPESSOA().equals(lab.get(i).getIDPESSOA())) {
+                            return false;
+                        }
+                        if (!labt.get(i).getDTABERTURA().equals(lab.get(i).getDTABERTURA())) {
+                            return false;
+                        }
+                        if (!labt.get(i).getIDTECNICO().equals(lab.get(i).getIDTECNICO())) {
+                            return false;
+                        }
+                        if (!labt.get(i).getIDABERTURA().equals(lab.get(i).getIDABERTURA())) {
+                            return false;
+                        }
+                        if (!labt.get(i).getSTATUS().equals(lab.get(i).getSTATUS())) {
+                            return false;
+                        }
+                        if (!labt.get(i).getTIPO().equals(lab.get(i).getTIPO())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void consultaAutomatica() {
+        if (constecnico == null) {
+            constecnico = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        if (!verifcaJpanel()) {
+                            constecnico.stop();
+                            ativaPpesquisa();
+
+                        }
+                        
+                        Calendar c = Calendar.getInstance();
+                        c.add(Calendar.DAY_OF_YEAR, -30);
+                        buscaAtendimento();
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException ex) {
+                            JOptionPane.showMessageDialog(null, "Erro ao Atualizar Chamado" + ex);
+                        }
+                    }
+                }
+            });
+            constecnico.start();
+        } else if (constecnico.isAlive()) {
+            constecnico.stop();
+        } else {
+            constecnico = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        if (!verifcaJpanel()) {
+                            constecnico.stop();
+                            ativaPpesquisa();
+                        }                        
+                        Calendar c = Calendar.getInstance();
+                        c.add(Calendar.DAY_OF_YEAR, -30);
+                        buscaAtendimento();
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException ex) {
+                            JOptionPane.showMessageDialog(null, "Erro ao Atualizar Chamado" + ex);
+                        }
+                    }
+                }
+            });
+            constecnico.start();
+        }
+    }
+
+    private boolean verifcaJpanel() {
+        for (int i = 0; i < viewprincipal.jTaabas.getComponentCount() - 1; i++) {
+            if (viewprincipal.jTaabas.getTitleAt(i).equals("Atendimento")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void ativaPpesquisa() {
+        this.jCtpdata.setEnabled(true);
+        this.jDinicial.setEnabled(true);
+        this.jDfinal.setEnabled(true);
+        this.jCaberto.setEnabled(true);
+        this.jCfechado.setEnabled(true);
+        this.jCpendente.setEnabled(true);
+        this.jCiniciado.setEnabled(true);
+    }
+
+    private void desativaPpesquisa() {
+        this.jCtpdata.setEnabled(false);
+        this.jDinicial.setEnabled(false);
+        this.jDfinal.setEnabled(false);
+        this.jCaberto.setEnabled(false);
+        this.jCfechado.setEnabled(false);
+        this.jCpendente.setEnabled(false);
+        this.jCiniciado.setEnabled(false);
+    }
+
 }

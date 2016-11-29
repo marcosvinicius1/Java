@@ -57,6 +57,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         //this.setUndecorated(true);
+        //funcionalidade
         inicializaView();
         carregaMenu();
         avisos();
@@ -119,6 +120,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jBopcoes = new javax.swing.JButton();
+        jLempresa = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTmenu = new javax.swing.JTree();
         jTaabas = new javax.swing.JTabbedPane();
@@ -322,7 +324,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jDChamadoDescritivo.setMinimumSize(new java.awt.Dimension(322, 390));
         jDChamadoDescritivo.setModal(true);
-        jDChamadoDescritivo.setPreferredSize(new java.awt.Dimension(322, 390));
         jDChamadoDescritivo.setResizable(false);
         jDChamadoDescritivo.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -478,6 +479,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAC");
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(260, 59));
@@ -517,6 +523,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLempresa.setText(" ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -524,19 +532,22 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(104, 104, 104)
-                            .addComponent(jLdata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBopcoes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLempresa, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(jLdata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -544,14 +555,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jBopcoes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLempresa)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)
+                            .addComponent(jBopcoes))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -573,6 +587,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Modulos");
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Email");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Relatórios");
@@ -961,6 +979,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTclienteKeyPressed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -1029,6 +1052,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLaberto;
     public javax.swing.JLabel jLdata;
+    private javax.swing.JLabel jLempresa;
     private javax.swing.JLabel jLiniciado;
     private javax.swing.JLabel jLpendente;
     public javax.swing.JLabel jLusuario;
@@ -1055,6 +1079,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void inicializaView() {
+        jLempresa.setText(new UsuarioLogadoBeans().getRasaoemp());
         jLusuario.setText("Ola " + new UsuarioLogadoBeans().getNome());
         jPavisoAtendimento.setVisible(false);
         jMtela01.setVisible(false);
@@ -1128,6 +1153,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
             treeNode2.add(treeNode3);
         }
         treeNode1.add(treeNode2);
+
+        if (new NivelAcesso().getAcesso("ViewEmpresa", "acessar", false)) {
+            treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
+            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
+            treeNode2.add(treeNode3);
+            treeNode1.add(treeNode2);
+        }
 
         if (new NivelAcesso().getAcesso("ViewRelatorio", "acessar", false)) {
             treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Relatórios");
@@ -1269,7 +1301,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 }
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Atendimento")) {
                 if (!getJanelaAberta("Atendimento")) {
-                    ViewListaAtendimento view = new ViewListaAtendimento(this, true);
+                    ViewListaAtendimento view = new ViewListaAtendimento(this, true, false);
                     jTaabas.addTab("Atendimento", null, view);
                     jTaabas.setSelectedComponent(view);
                     int j = jTaabas.getSelectedIndex();
@@ -1306,7 +1338,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jSdias.requestFocusInWindow();
                 jDClienteChamadoSintetico.setLocationRelativeTo(jTaabas);
                 jDClienteChamadoSintetico.setVisible(true);
-            }else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Descritivo")) {
+            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Descritivo")) {
                 jTclientedescritivo.setText("");
                 jTidclientedescritivo.setText("");
                 jTtecnico.setText("");
@@ -1330,9 +1362,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     int j = jTaabas.getSelectedIndex();
                     jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
                 }
+            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Empresa, Empresa")) {
+                if (!getJanelaAberta("Empresa")) {
+                    ViewEmpresa view = new ViewEmpresa();
+                    jTaabas.addTab("Empresa", null, view);
+                    jTaabas.setSelectedComponent(view);
+                    int j = jTaabas.getSelectedIndex();
+                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+                }
             }
-
         }
+
     }
 
     private void inicializaAtalhos() {
@@ -1450,7 +1490,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public void getAtalhoAtendimento() {
         if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
             if (!getJanelaAberta("Atendimento")) {
-                ViewListaAtendimento view = new ViewListaAtendimento(this, true);
+                ViewListaAtendimento view = new ViewListaAtendimento(this, true, false);
                 jTaabas.addTab("Atendimento", null, view);
                 jTaabas.setSelectedComponent(view);
                 int j = jTaabas.getSelectedIndex();
@@ -1534,7 +1574,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void chamdoPendente() {
         if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
             if (!getJanelaAberta("Atendimento")) {
-                ViewListaAtendimento view = new ViewListaAtendimento(this, false);
+                ViewListaAtendimento view = new ViewListaAtendimento(this, false, false);
                 jTaabas.addTab("Atendimento", null, view);
                 jTaabas.setSelectedComponent(view);
                 int j = jTaabas.getSelectedIndex();
@@ -1556,7 +1596,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void chamadoAberto() {
         if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
             if (!getJanelaAberta("Atendimento")) {
-                ViewListaAtendimento view = new ViewListaAtendimento(this, false);
+                ViewListaAtendimento view = new ViewListaAtendimento(this, false, false);
                 jTaabas.addTab("Atendimento", null, view);
                 jTaabas.setSelectedComponent(view);
                 int j = jTaabas.getSelectedIndex();
@@ -1578,7 +1618,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void chamadoIniciado() {
         if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
             if (!getJanelaAberta("Atendimento")) {
-                ViewListaAtendimento view = new ViewListaAtendimento(this, false);
+                ViewListaAtendimento view = new ViewListaAtendimento(this, false, false);
                 jTaabas.addTab("Atendimento", null, view);
                 jTaabas.setSelectedComponent(view);
                 int j = jTaabas.getSelectedIndex();
