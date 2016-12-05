@@ -97,8 +97,8 @@ public class DBConfig {
         prop.put("secondary2g", String.valueOf(cb.getSecondary2g()));
         prop.put("secondary2b", String.valueOf(cb.getSecondary2b()));
         prop.put("secondary3r", String.valueOf(cb.getSecondary3r()));
-        prop.put("secondary3g", String.valueOf(cb.getSecondary3b()));
-        prop.put("secondary3b", String.valueOf(cb.getSecondary3g()));
+        prop.put("secondary3g", String.valueOf(cb.getSecondary3g()));
+        prop.put("secondary3b", String.valueOf(cb.getSecondary3b()));
         prop.put("whiter", String.valueOf(cb.getWhiter()));
         prop.put("whiteg", String.valueOf(cb.getWhiteg()));
         prop.put("whiteb", String.valueOf(cb.getWhiteb()));

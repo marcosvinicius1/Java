@@ -1246,8 +1246,8 @@ public class ViewLogin extends javax.swing.JFrame {
             cb.setSecondary2g(jPsecundaria2.getBackground().getGreen());
             cb.setSecondary2b(jPsecundaria2.getBackground().getBlue());
             cb.setSecondary3r(jPsecundaria3.getBackground().getRed());
-            cb.setSecondary3b(jPsecundaria3.getBackground().getGreen());
-            cb.setSecondary3g(jPsecundaria3.getBackground().getBlue());
+            cb.setSecondary3b(jPsecundaria3.getBackground().getBlue());
+            cb.setSecondary3g(jPsecundaria3.getBackground().getGreen());
             cb.setWhiter(JPwhite.getBackground().getRed());
             cb.setWhiteg(JPwhite.getBackground().getGreen());
             cb.setWhiteb(JPwhite.getBackground().getBlue());
