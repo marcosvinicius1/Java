@@ -43,7 +43,7 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     final Integer versao = 1;
     final Integer edicao = 4;
-    final Integer seguranca = 1;
+    final Integer seguranca = 2;
     List<EmpresaBeans>leb=new ArrayList<>();
 
     public ViewLogin() {
@@ -1282,6 +1282,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 System.exit(0);
             }
             jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-" + versao + "." + edicao + "." + seguranca + " BETA"));
+            buscaEmpresa(dbcb.getCompany());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Verificar Versão\n" + ex, "Versão", JOptionPane.ERROR_MESSAGE);
             System.exit(0);

@@ -1,29 +1,317 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9daca25c-7c86-454b-991e-eac7f5f2fcbe">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="97"/>
+	<property name="ireport.y" value="81"/>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="par1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="par2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\ProjetoJava\\SAC\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+count(AM.idatendimento) QTDEATEND,
+CAST(count(AM.idatendimento) AS NUMERIC(15,4))/30 MEDIATEND,
+count(AI.idatendimento) QTDEATENDINT,
+count(AE.idatendimento) QTDEATENDEXT,
+count(AP.idatendimento) QTDEATENDPLA,
+COUNT(DISTINCT AM.idPESSOA) QTDEATENDPESSOA,
+(select COUNT(PESSOA.idpessoa) from pessoa WHERE PESSOA.idsituacao=1 $P!{par1} )-COUNT(DISTINCT AM.idPESSOA) QTDESATENDPESSOA,
+COUNT(D1A7.idatendimento) D01A07,
+COUNT(D8A15.idatendimento) D08A15,
+COUNT(D16A23.idatendimento) D16A23,
+COUNT(D24A31.idatendimento) D24A31,
+EMPRESA.idempresa,
+empresa.razao emprazao,
+empresa.fantasia empfantasia,
+empresa.endereco empendereco,
+empresa.numero empnumero,
+empresa.bairro empbairro,
+empresa.telefone1 emptel,
+DEMP.distrito
+FROM PESSOA
+LEFT JOIN ATENDIMENTO AM ON(AM.idpessoa=PESSOA.idpessoa and AM.ativo='true')
+LEFT JOIN ATENDIMENTO AI ON(AM.idatendimento=AI.idatendimento and AI.tipo='INTERNO' AND AI.ativo='true')
+LEFT JOIN ATENDIMENTO AE ON(AM.idatendimento=AE.idatendimento and AE.tipo='EXTERNO' AND AE.ativo='true')
+LEFT JOIN ATENDIMENTO AP ON(AM.idatendimento=AP.idatendimento and AP.tipo='PLANTAO' AND AP.ativo='true')
+LEFT JOIN ATENDIMENTO D1A7 ON (AM.idatendimento=D1A7.idatendimento AND EXTRACT(DAY FROM D1A7.dtabertura) between '01' AND '07')
+LEFT JOIN ATENDIMENTO D8A15 ON (AM.idatendimento=D8A15.idatendimento AND EXTRACT(DAY FROM D8A15.dtabertura) between '08' AND '15')
+LEFT JOIN ATENDIMENTO D16A23 ON (AM.idatendimento=D16A23.idatendimento AND EXTRACT(DAY FROM D16A23.dtabertura) between '16' AND '23')
+LEFT JOIN ATENDIMENTO D24A31 ON (AM.idatendimento=D24A31.idatendimento AND EXTRACT(DAY FROM D24A31.dtabertura) between '24' AND '31')
+LEFT JOIN EMPRESA ON (EMPRESA.idempresa=AM.idempresa)
+inner join distrito DEMP on(empresa.iddistrito=DEMP.iddistrito)
+WHERE PESSOA.idsituacao=1
+AND EXTRACT(month FROM AM.dtabertura)=$P{mes}
+$P!{par2}
+GROUP BY
+EMPRESA.idempresa,
+empresa.razao,
+empresa.fantasia,
+empresa.endereco,
+empresa.numero,
+empresa.bairro,
+empresa.telefone1,
+DEMP.distrito]]>
+	</queryString>
+	<field name="QTDEATEND" class="java.lang.Integer"/>
+	<field name="MEDIATEND" class="java.math.BigDecimal"/>
+	<field name="QTDEATENDINT" class="java.lang.Integer"/>
+	<field name="QTDEATENDEXT" class="java.lang.Integer"/>
+	<field name="QTDEATENDPLA" class="java.lang.Integer"/>
+	<field name="QTDEATENDPESSOA" class="java.lang.Integer"/>
+	<field name="QTDESATENDPESSOA" class="java.lang.Long"/>
+	<field name="D01A07" class="java.lang.Integer"/>
+	<field name="D08A15" class="java.lang.Integer"/>
+	<field name="D16A23" class="java.lang.Integer"/>
+	<field name="D24A31" class="java.lang.Integer"/>
+	<field name="IDEMPRESA" class="java.lang.Integer"/>
+	<field name="EMPRAZAO" class="java.lang.String"/>
+	<field name="EMPFANTASIA" class="java.lang.String"/>
+	<field name="EMPENDERECO" class="java.lang.String"/>
+	<field name="EMPNUMERO" class="java.lang.String"/>
+	<field name="EMPBAIRRO" class="java.lang.String"/>
+	<field name="EMPTEL" class="java.lang.String"/>
+	<field name="DISTRITO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="49" uuid="4fa5e917-0e6c-481b-a405-b11a4d3c810a"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="455" y="36" width="100" height="12" uuid="d49b9992-d417-4d83-b33e-db84f8553428"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="381" y="0" width="174" height="12" uuid="52e3b7ee-5d22-4938-94c5-db37833550e8"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ANALISE MENSAL]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="0" width="272" height="13" uuid="3bc10bcc-908c-4e19-99a2-81b192169238"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPFANTASIA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="11" width="551" height="13" uuid="a5235718-a045-4764-ac74-d6d9544a65d5"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPENDERECO}+" - "+$F{EMPNUMERO}+" - "+$F{EMPBAIRRO}+" - "+$F{DISTRITO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="21" width="551" height="13" uuid="3cbb3fbd-b139-4a10-a8bc-1b43fb2f77bd"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPTEL}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="12" uuid="46e0e776-a7eb-4448-ab7d-27474afcc9e3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Q.ATEND.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="0" width="52" height="12" uuid="feb38066-4b1a-4af7-bd1f-22164ea5a6dd"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[M.ATEND.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="49" height="12" uuid="6d3df56c-6452-4e6e-82ed-104377baf183"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="0" width="49" height="12" uuid="1bb71882-2246-4b4c-aedb-732b41769685"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXTERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="0" width="49" height="12" uuid="ada56115-427f-42b9-8fdb-2c49c85b20c9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLANTÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="0" width="55" height="12" uuid="7bb6ba72-9d14-43d9-b32f-768cd141cb9b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLI.ATEND.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="0" width="58" height="12" uuid="d872704d-fa91-4042-84cf-a39406f76a59"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLI.S.ATEND.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="0" width="30" height="12" uuid="d08c3ff1-e979-4816-ac13-a4fc686c3eba"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[01A07]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="0" width="30" height="12" uuid="d9a6720f-da0f-4edc-83de-f1a8f89affa0"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[08A15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="0" width="30" height="12" uuid="86e58b56-89a4-47ee-875d-909d523c7fd6"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[16A23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="30" height="12" uuid="156d3cc2-2c07-438f-8123-777e8a581f93"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[16A23]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="53" height="12" uuid="193b88d4-a8e5-4408-86f0-acdc3931e2b0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDEATEND}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="0" width="52" height="12" uuid="3219a852-7fda-47b4-8532-2036c58cde35"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MEDIATEND}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="0" width="49" height="12" uuid="59e64be1-428c-4401-988e-34103b374e4f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDEATENDINT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="154" y="0" width="49" height="12" uuid="3350df5e-b3ac-4d39-b085-884cbdc38a0e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDEATENDEXT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="49" height="12" uuid="1fc3d8d6-be77-456e-9eec-a95660f8a38a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDEATENDPLA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="0" width="55" height="12" uuid="1139a51e-a79a-41d5-a25f-f0484677ab4d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDEATENDPESSOA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="0" width="58" height="12" uuid="e425ff07-c9eb-4f82-8afc-fb9b557c72bf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDESATENDPESSOA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="30" height="12" uuid="3269a059-d9d5-47e4-803d-ed50c4b2b058"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D01A07}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="0" width="30" height="12" uuid="cef32aa8-72cc-46b7-863d-581ed15f2234"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D08A15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="30" height="12" uuid="92b3121a-2be5-4e43-a530-a1ded78220c0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D16A23}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="30" height="12" uuid="4f808799-fa68-4762-8ac8-c99546f93f74"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{D24A31}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="50" uuid="65fd5ad0-edcf-427b-8159-4da1b1bd3a32"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="183" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="307" height="183" uuid="107205a1-f179-4946-95c5-5b4f9c6b6fa1"/>
+				<subreportParameter name="MES">
+					<subreportParameterExpression><![CDATA[$P{mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PAR1">
+					<subreportParameterExpression><![CDATA[$P{par1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportAnaliseMensal_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>

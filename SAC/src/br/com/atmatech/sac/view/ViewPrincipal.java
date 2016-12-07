@@ -5,12 +5,14 @@
  */
 package br.com.atmatech.sac.view;
 
+import br.com.atmatech.sac.beans.DistritoBeans;
 import br.com.atmatech.sac.beans.PessoaBeans;
 import br.com.atmatech.sac.beans.UsuarioBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
 import br.com.atmatech.sac.controller.Avisos;
 import br.com.atmatech.sac.controller.ButtonTabComponent;
 import br.com.atmatech.sac.controller.NivelAcesso;
+import br.com.atmatech.sac.dao.DistritoDao;
 import br.com.atmatech.sac.dao.PessoaDao;
 import br.com.atmatech.sac.dao.UsuarioDao;
 import br.com.atmatech.sac.report.Report;
@@ -52,6 +54,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     Boolean consultasintetico = false;
     Boolean consultadescritivo = false;
     Boolean consultadescritivotecnico = false;
+    List<DistritoBeans> ldb;
 
     public ViewPrincipal() {
         initComponents();
@@ -79,7 +82,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPopcoes = new javax.swing.JPopupMenu();
         jMtela01 = new javax.swing.JMenuItem();
         jMtela02 = new javax.swing.JMenuItem();
-        jDClienteChamadoSintetico = new javax.swing.JDialog();
+        jDClienteSemChamados = new javax.swing.JDialog();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTcliente = new javax.swing.JTextField();
@@ -113,6 +116,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDaberturafin = new com.toedter.calendar.JDateChooser();
         jDiniciadofin = new com.toedter.calendar.JDateChooser();
         jDfechadofin = new com.toedter.calendar.JDateChooser();
+        jDAnaliseMensal = new javax.swing.JDialog();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jMmes = new com.toedter.calendar.JMonthChooser();
+        JCCidade = new com.jidesoft.swing.AutoCompletionComboBox();
+        jLabel14 = new javax.swing.JLabel();
+        jCTipo = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLusuario = new javax.swing.JLabel();
         jLdata = new javax.swing.JLabel();
@@ -163,13 +174,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jPopcoes.add(jMtela02);
 
-        jDClienteChamadoSintetico.setTitle("Cliente Chamado Sintetico");
-        jDClienteChamadoSintetico.setMinimumSize(new java.awt.Dimension(322, 210));
-        jDClienteChamadoSintetico.setModal(true);
-        jDClienteChamadoSintetico.setResizable(false);
-        jDClienteChamadoSintetico.addWindowListener(new java.awt.event.WindowAdapter() {
+        jDClienteSemChamados.setTitle("Cliente Sem Chamados");
+        jDClienteSemChamados.setMinimumSize(new java.awt.Dimension(322, 210));
+        jDClienteSemChamados.setModal(true);
+        jDClienteSemChamados.setResizable(false);
+        jDClienteSemChamados.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
-                jDClienteChamadoSinteticoWindowOpened(evt);
+                jDClienteSemChamadosWindowOpened(evt);
             }
         });
 
@@ -198,44 +209,44 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jSdias.setModel(new javax.swing.SpinnerNumberModel(0, null, 0, 1));
 
-        javax.swing.GroupLayout jDClienteChamadoSinteticoLayout = new javax.swing.GroupLayout(jDClienteChamadoSintetico.getContentPane());
-        jDClienteChamadoSintetico.getContentPane().setLayout(jDClienteChamadoSinteticoLayout);
-        jDClienteChamadoSinteticoLayout.setHorizontalGroup(
-            jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
+        javax.swing.GroupLayout jDClienteSemChamadosLayout = new javax.swing.GroupLayout(jDClienteSemChamados.getContentPane());
+        jDClienteSemChamados.getContentPane().setLayout(jDClienteSemChamadosLayout);
+        jDClienteSemChamadosLayout.setHorizontalGroup(
+            jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
+                .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                         .addComponent(jTcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
-                        .addGroup(jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
+                        .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
+                            .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addGroup(jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jSdias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
+            .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addComponent(jButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jDClienteChamadoSinteticoLayout.setVerticalGroup(
-            jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
+        jDClienteSemChamadosLayout.setVerticalGroup(
+            jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addGroup(jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDClienteChamadoSinteticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDClienteChamadoSinteticoLayout.createSequentialGroup()
+                .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jSdias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -368,7 +379,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo");
 
-        jCtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "INTERNO", "EXTERNO", "PLANTAO" }));
+        jCtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "INTERNO", "EXTERNO", "PLANTAO" }));
 
         jLabel8.setText("Status");
 
@@ -475,6 +486,76 @@ public class ViewPrincipal extends javax.swing.JFrame {
         );
 
         jDChamadoDescritivoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTclientedescritivo, jTtecnico});
+
+        jDAnaliseMensal.setTitle("Analise Mensal");
+        jDAnaliseMensal.setMinimumSize(new java.awt.Dimension(450, 220));
+        jDAnaliseMensal.setModal(true);
+        jDAnaliseMensal.setPreferredSize(new java.awt.Dimension(450, 220));
+        jDAnaliseMensal.setResizable(false);
+        jDAnaliseMensal.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                jDAnaliseMensalWindowOpened(evt);
+            }
+        });
+
+        jLabel12.setText("Cidade:");
+
+        jLabel13.setText("Mes:");
+
+        jButton5.setText("OK");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jMmes.setMonth(0);
+
+        jLabel14.setText("Tipo:");
+
+        jCTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "INTERNO", "EXTERNO", "PLANTAO" }));
+
+        javax.swing.GroupLayout jDAnaliseMensalLayout = new javax.swing.GroupLayout(jDAnaliseMensal.getContentPane());
+        jDAnaliseMensal.getContentPane().setLayout(jDAnaliseMensalLayout);
+        jDAnaliseMensalLayout.setHorizontalGroup(
+            jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
+                .addGroup(jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jMmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel13))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(JCCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        jDAnaliseMensalLayout.setVerticalGroup(
+            jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jMmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addGap(0, 0, 0)
+                .addComponent(JCCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addGap(0, 0, 0)
+                .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAC");
@@ -599,11 +680,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
         javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Descritivo");
         treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Sintetico");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamados Sintetico");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes sem Chamados");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Analise Mensal");
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Descritivo");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Sintetico");
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
@@ -825,7 +912,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jTclienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTclienteFocusLost
         // TODO add your handling code here:     
-        if (jDClienteChamadoSintetico.isVisible()) {
+        if (jDClienteSemChamados.isVisible()) {
             if (!jDconsulta.isVisible()) {
                 if (consultasintetico) {
                     getCliente(jTcliente.getText());
@@ -848,7 +935,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    getReportClienteChamadoSintetico();
+                    getReportClienteSemChamados();
                 }
             }).start();
         }
@@ -857,7 +944,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jTconsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTconsultaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (jDClienteChamadoSintetico.isVisible()) {
+            if (jDClienteSemChamados.isVisible()) {
                 jTidcliente.setText(jTconsulta.getValueAt(jTconsulta.getSelectedRow(), 0).toString());
                 jTcliente.setText(jTconsulta.getValueAt(jTconsulta.getSelectedRow(), 1).toString());
                 jDconsulta.setVisible(false);
@@ -878,10 +965,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTconsultaKeyPressed
 
-    private void jDClienteChamadoSinteticoWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDClienteChamadoSinteticoWindowOpened
+    private void jDClienteSemChamadosWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDClienteSemChamadosWindowOpened
         // TODO add your handling code here:  
         jSdias.requestFocusInWindow();
-    }//GEN-LAST:event_jDClienteChamadoSinteticoWindowOpened
+    }//GEN-LAST:event_jDClienteSemChamadosWindowOpened
 
     private void jTclientedescritivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTclientedescritivoFocusLost
         // TODO add your handling code here:
@@ -911,8 +998,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         getReportClienteChamadoDescritivo();
                     } else if (jDChamadoDescritivo.getTitle().equals("Tecnico Chamado Descritivo")) {
                         getReportTecnicoChamadoDescritivo();
+                    } else if (jDChamadoDescritivo.getTitle().equals("Cliente Chamado Sintetico")) {
+                        getReportClienteChamadoSintetico();
+                    } else if (jDChamadoDescritivo.getTitle().equals("Tecnico Chamado Sintetico")) {
+                        getReportTecnicoChamadoSintetico();
+                    } else {
+                        jDaguarde.setVisible(false);
                     }
-
                 }
             }).start();
         }
@@ -966,7 +1058,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jTclienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTclienteKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (jDClienteChamadoSintetico.isVisible()) {
+            if (jDClienteSemChamados.isVisible()) {
                 if (!jDconsulta.isVisible()) {
                     if (consultasintetico) {
                         jButton3.requestFocusInWindow();
@@ -983,6 +1075,29 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        if (!jDconsulta.isVisible()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    showAguarde();
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getReportAnaliseMensal();
+                }
+            }).start();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jDAnaliseMensalWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDAnaliseMensalWindowOpened
+        // TODO add your handling code here:
+        getCidade();
+    }//GEN-LAST:event_jDAnaliseMensalWindowOpened
 
     /**
      * @param args the command line arguments
@@ -1021,15 +1136,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.jidesoft.swing.AutoCompletionComboBox JCCidade;
     private javax.swing.JButton jBopcoes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JComboBox<String> jCstatus;
     private javax.swing.JComboBox<String> jCtipo;
+    private javax.swing.JDialog jDAnaliseMensal;
     private javax.swing.JDialog jDChamadoDescritivo;
-    private javax.swing.JDialog jDClienteChamadoSintetico;
+    private javax.swing.JDialog jDClienteSemChamados;
     private com.toedter.calendar.JDateChooser jDaberturafin;
     private com.toedter.calendar.JDateChooser jDaberturaini;
     private javax.swing.JDialog jDaguarde;
@@ -1041,6 +1160,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -1056,6 +1178,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLiniciado;
     private javax.swing.JLabel jLpendente;
     public javax.swing.JLabel jLusuario;
+    private com.toedter.calendar.JMonthChooser jMmes;
     private javax.swing.JMenuItem jMtela01;
     private javax.swing.JMenuItem jMtela02;
     private javax.swing.JPanel jPanel1;
@@ -1168,11 +1291,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
             treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
             treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Descritivo");
             treeNode3.add(treeNode4);
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Sintetico");
+            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamados Sintetico");;
+            treeNode3.add(treeNode4);
+            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes sem Chamados");
+            treeNode3.add(treeNode4);
+            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Analise Mensal");
             treeNode3.add(treeNode4);
             treeNode2.add(treeNode3);
             treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico");
             treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Descritivo");
+            treeNode3.add(treeNode4);
+            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Sintetico");
             treeNode3.add(treeNode4);
         }
         if (treeNode3 != null) {
@@ -1331,13 +1460,34 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jDChamadoDescritivo.setTitle("Cliente Chamado Descritivo");
                 jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
                 jDChamadoDescritivo.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Chamado Sintetico")) {
+            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Chamados Sintetico")) {
+                jTclientedescritivo.setText("");
+                jTidclientedescritivo.setText("");
+                jTtecnico.setText("");
+                jTidtecnico.setText("");
+                jCtipo.setSelectedIndex(0);
+                jCstatus.setSelectedIndex(0);
+                jDaberturaini.setDate(null);
+                jDaberturafin.setDate(null);
+                jDiniciadoini.setDate(null);
+                jDiniciadofin.setDate(null);
+                jDfechadoini.setDate(null);
+                jDfechadofin.setDate(null);
+                jDChamadoDescritivo.setTitle("Cliente Chamado Sintetico");
+                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+                jDChamadoDescritivo.setVisible(true);
+            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes sem Chamados")) {
                 jTcliente.setText("");
                 jTidcliente.setText("");
                 jSdias.setValue(0);
                 jSdias.requestFocusInWindow();
-                jDClienteChamadoSintetico.setLocationRelativeTo(jTaabas);
-                jDClienteChamadoSintetico.setVisible(true);
+                jDClienteSemChamados.setLocationRelativeTo(jTaabas);
+                jDClienteSemChamados.setVisible(true);
+            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Analise Mensal")) {
+                jMmes.setMonth(0);
+                jCTipo.setSelectedIndex(0);
+                jDAnaliseMensal.setLocationRelativeTo(jTaabas);
+                jDAnaliseMensal.setVisible(true);
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Descritivo")) {
                 jTclientedescritivo.setText("");
                 jTidclientedescritivo.setText("");
@@ -1352,6 +1502,22 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jDfechadoini.setDate(null);
                 jDfechadofin.setDate(null);
                 jDChamadoDescritivo.setTitle("Tecnico Chamado Descritivo");
+                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+                jDChamadoDescritivo.setVisible(true);
+            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Sintetico")) {
+                jTclientedescritivo.setText("");
+                jTidclientedescritivo.setText("");
+                jTtecnico.setText("");
+                jTidtecnico.setText("");
+                jCtipo.setSelectedIndex(0);
+                jCstatus.setSelectedIndex(0);
+                jDaberturaini.setDate(null);
+                jDaberturafin.setDate(null);
+                jDiniciadoini.setDate(null);
+                jDiniciadofin.setDate(null);
+                jDfechadoini.setDate(null);
+                jDfechadofin.setDate(null);
+                jDChamadoDescritivo.setTitle("Tecnico Chamado Sintetico");
                 jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
                 jDChamadoDescritivo.setVisible(true);
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Email")) {
@@ -1668,23 +1834,23 @@ public class ViewPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void getReportClienteChamadoSintetico() {
+    private void getReportClienteSemChamados() {
         String sql = "";
-        jDClienteChamadoSintetico.setVisible(false);
+        jDClienteSemChamados.setVisible(false);
         if ((!jTidcliente.getText().equals(""))) {
             if ((Integer) jSdias.getValue() == 0) {
                 sql = " where dias>=" + jSdias.getValue().toString() + " and idpessoa=" + jTidcliente.getText() + "";
-                new Report().getReport("ReportClienteChamadosSintetico", sql, this);
+                new Report().getReport("ReportClienteSemChamados", sql, this);
             } else {
                 sql = " where dias>=" + jSdias.getValue().toString() + " and dias<0 and idpessoa=" + jTidcliente.getText() + "";
-                new Report().getReport("ReportClienteChamadosSintetico", sql, this);
+                new Report().getReport("ReportClienteSemChamados", sql, this);
             }
         } else if ((Integer) jSdias.getValue() == 0) {
             sql = " where dias>=" + jSdias.getValue().toString() + "";
-            new Report().getReport("ReportClienteChamadosSintetico", sql, this);
+            new Report().getReport("ReportClienteSemChamados", sql, this);
         } else {
             sql = " where dias>=" + jSdias.getValue().toString() + " and dias<0";
-            new Report().getReport("ReportClienteChamadosSintetico", sql, this);
+            new Report().getReport("ReportClienteSemChamados", sql, this);
         }
 
     }
@@ -1786,13 +1952,73 @@ public class ViewPrincipal extends javax.swing.JFrame {
         //getReport("ReportClienteChamadoDescritivo", sql);
     }
 
+    private void getReportClienteChamadoSintetico() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String sql = "";
+        jDChamadoDescritivo.setVisible(false);
+        if (!jTidclientedescritivo.getText().equals("")) {
+            if (sql.equals("")) {
+                sql = "where idpessoa=" + jTidclientedescritivo.getText() + "";
+            } else {
+                sql = sql + " and idpessoa=" + jTidclientedescritivo.getText() + "";
+            }
+        }
+        if (!jTidtecnico.getText().equals("")) {
+            if (sql.equals("")) {
+                sql = "where idtecnico=" + jTidtecnico.getText() + "";
+            } else {
+                sql = sql + " and idtecnico=" + jTidtecnico.getText() + "";
+            }
+        }
+        if (jCtipo.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
+                sql = "where tipo='" + jCtipo.getSelectedItem().toString() + "'";
+            } else {
+                sql = sql + " and tipo='" + jCtipo.getSelectedItem().toString() + "'";
+            }
+        }
+        if (jCstatus.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
+                sql = "where status='" + jCstatus.getSelectedItem().toString() + "'";
+            } else {
+                sql = sql + " and status='" + jCstatus.getSelectedItem().toString() + "'";
+            }
+        }
+        if ((jDaberturaini.getDate() != null) && (jDaberturafin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            }
+        }
+        if ((jDiniciadoini.getDate() != null) && (jDiniciadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            }
+        }
+        if ((jDfechadoini.getDate() != null) && (jDfechadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            }
+        }
+        new Report().getReport("ReportClienteChamadoSintetico", sql, this);
+        //getReport("ReportClienteChamadoDescritivo", sql);
+    }
+
     private void inicializaReport() {
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run() {                
                 new Report().inicializaReport("ReportClienteChamadoDescritivo", "where idpessoa=0");
-                new Report().inicializaReport("ReportClienteChamadosSintetico", "where idpessoa=0");
+                new Report().inicializaReport("ReportClienteChamadoSintetico", "where idpessoa=0");
+                new Report().inicializaReport("ReportClienteSemChamados", "where idpessoa=0");
+                new Report().inicializaReport("ReportAnaliseMensal", "and PESSOA.IDDISTRITO=0","and PESSOA.IDDISTRITO=0",0);
                 new Report().inicializaReport("ReportTecnicoChamadoDescritivo", "where idpessoa=0");
+                new Report().inicializaReport("ReportTecnicoChamadoSintetico", "where idpessoa=0");
                 new Report().inicializaReportChamado();
             }
         }).start();
@@ -1852,5 +2078,94 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         }
         new Report().getReport("ReportTecnicoChamadoDescritivo", sql, this);
+    }
+
+    private void getReportTecnicoChamadoSintetico() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String sql = "";
+        jDChamadoDescritivo.setVisible(false);
+        if (!jTidclientedescritivo.getText().equals("")) {
+            if (sql.equals("")) {
+                sql = "where idpessoa=" + jTidclientedescritivo.getText() + "";
+            } else {
+                sql = sql + " and idpessoa=" + jTidclientedescritivo.getText() + "";
+            }
+        }
+        if (!jTidtecnico.getText().equals("")) {
+            if (sql.equals("")) {
+                sql = "where idtecnico=" + jTidtecnico.getText() + "";
+            } else {
+                sql = sql + " and idtecnico=" + jTidtecnico.getText() + "";
+            }
+        }
+        if (jCtipo.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
+                sql = "where tipo='" + jCtipo.getSelectedItem().toString() + "'";
+            } else {
+                sql = sql + " and tipo='" + jCtipo.getSelectedItem().toString() + "'";
+            }
+        }
+        if (jCstatus.getSelectedIndex() > 0) {
+            if (sql.equals("")) {
+                sql = "where status='" + jCstatus.getSelectedItem().toString() + "'";
+            } else {
+                sql = sql + " and status='" + jCstatus.getSelectedItem().toString() + "'";
+            }
+        }
+        if ((jDaberturaini.getDate() != null) && (jDaberturafin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtabertura as date) between '" + sdf.format(jDaberturaini.getDate()) + "' and '" + sdf.format(jDaberturafin.getDate()) + "'";
+            }
+        }
+        if ((jDiniciadoini.getDate() != null) && (jDiniciadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtinicial as date) between '" + sdf.format(jDiniciadoini.getDate()) + "' and '" + sdf.format(jDiniciadofin.getDate()) + "'";
+            }
+        }
+        if ((jDfechadoini.getDate() != null) && (jDfechadofin.getDate() != null)) {
+            if (sql.equals("")) {
+                sql = "where cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            } else {
+                sql = sql + " and cast(dtfinal as date) between '" + sdf.format(jDfechadoini.getDate()) + "' and '" + sdf.format(jDfechadofin.getDate()) + "'";
+            }
+        }
+        new Report().getReport("ReportTecnicoChamadoSintetico", sql, this);
+    }
+
+    private void getReportAnaliseMensal() {
+        String sql1 = "";
+        String sql2 = "";
+        jDAnaliseMensal.setVisible(false);
+        if (JCCidade.getSelectedIndex() > -1) {
+            for (int i = 0; i < ldb.size(); i++) {
+                if (JCCidade.getSelectedIndex() == i) {
+                    System.out.println(i);
+                    if (i>0) {
+                        sql1 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();
+                        sql2 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();                        
+                    }
+                    
+                }
+            }
+        }
+        if (jCTipo.getSelectedIndex() > 0) {
+            sql2 = " and AM.TIPO='" + jCTipo.getSelectedItem().toString()+"'";
+        }
+        new Report().getReport("ReportAnaliseMensal", sql1, sql2, (jMmes.getMonth() + 1), this);
+        
+    }
+
+    private void getCidade() {
+        ldb = new DistritoDao().getDistrito();
+        JCCidade.removeAllItems();
+        JCCidade.addItem("");
+        for (int i = 0; i < ldb.size(); i++) {
+            JCCidade.addItem(ldb.get(i).getDistrito() + " | " + ldb.get(i).getUf());
+        }
+
     }
 }

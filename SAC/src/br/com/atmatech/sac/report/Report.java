@@ -40,6 +40,24 @@ public class Report {
             JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
         }
     }
+    //*metodo utilizado na viewprincipal analise mensal
+    public void getReport(String nomeReport, String parametro1,String parametro2,Integer mes,ViewPrincipal frame) {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            Map parametros = new HashMap();
+            parametros.put("par1", parametro1);
+            parametros.put("par2", parametro2);
+            parametros.put("mes", mes);
+            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
+            frame.closeAguarde();
+            JasperViewer view = new JasperViewer(jasperPrint, false);                
+            view.setVisible(true);
+            view.toFront();
+        } catch (JRException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
+        } catch (SQLException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
+        }
+    }
     //metodo utilizado na imprenssao do chamado
     public void getReportChamado(Integer idatendimento,ViewListaAtendimento frame) {
         try (Connection conexao = new ConexaoDb().getConnect()) {
@@ -65,6 +83,21 @@ public class Report {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             Map parametros = new HashMap();
             parametros.put("parametro", parametro);
+            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
+          //  JasperViewer view = new JasperViewer(jasperPrint, false);    
+        } catch (JRException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
+        } catch (SQLException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
+        }
+    }
+    //*metodo utilizado na viewprincipal para inicializa
+    public void inicializaReport(String nomeReport, String parametro1,String parametro2,Integer mes) {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            Map parametros = new HashMap();
+            parametros.put("par1", parametro1);
+            parametros.put("par2", parametro2);
+            parametros.put("mes", mes);
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
           //  JasperViewer view = new JasperViewer(jasperPrint, false);    
         } catch (JRException ex) {            

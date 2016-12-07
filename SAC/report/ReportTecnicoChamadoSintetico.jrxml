@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1f25e9d-faec-4fa7-ade1-82825c3af805">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="405"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select tp.tecnico,EMPRAZAO,
+    EMPFANTASIA,
+    EMPENDERECO,
+    EMPNUMERO,
+    EMPBAIRRO,
+    EMPTEL,
+    EMPMUNICIPIO,count(tp.tecnico) from (select * from viewatendimentotecnico $P!{parametro} ) tp
+group by
+tp.tecnico,EMPRAZAO,
+    EMPFANTASIA,
+    EMPENDERECO,
+    EMPNUMERO,
+    EMPBAIRRO,
+    EMPTEL,
+    EMPMUNICIPIO
+order by count(tecnico)]]>
+	</queryString>
+	<field name="TECNICO" class="java.lang.String"/>
+	<field name="EMPRAZAO" class="java.lang.String"/>
+	<field name="EMPFANTASIA" class="java.lang.String"/>
+	<field name="EMPENDERECO" class="java.lang.String"/>
+	<field name="EMPNUMERO" class="java.lang.String"/>
+	<field name="EMPBAIRRO" class="java.lang.String"/>
+	<field name="EMPTEL" class="java.lang.String"/>
+	<field name="EMPMUNICIPIO" class="java.lang.String"/>
+	<field name="COUNT" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="53" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="53" uuid="bc7204cb-5bcd-4b3c-b332-ce54cbb30f8c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="455" y="37" width="100" height="12" uuid="7280be64-a61f-4bf9-9490-2703ee4438cb"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="381" y="1" width="174" height="12" uuid="5c69cd7d-19d7-49d6-bb0c-f30180b2439b"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TECNICOS E CHAMADOS SINTETICO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="12" width="553" height="12" uuid="91ef4720-d322-4f03-8c6f-da514f87589c"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPENDERECO}+" - "+$F{EMPNUMERO}+" - "+$F{EMPBAIRRO}+" - "+$F{EMPMUNICIPIO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="1" width="244" height="12" uuid="ecd6fd5e-037e-4844-a582-ff8faf6a388e"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPFANTASIA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="24" width="260" height="12" uuid="c4fd7eeb-ead3-41c6-ba0e-db0b8a958e52"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EMPTEL}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="216" height="12" uuid="191c279c-3f39-49a5-8887-dc8791abccb9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tecnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="0" width="59" height="12" uuid="2cd28b3c-0d7c-4837-b6e3-712e4c996729"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDE.ATEND.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="216" height="12" uuid="017bd7d3-5a91-4201-b734-c82a09673f88"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TECNICO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="0" width="57" height="12" uuid="a0d4fd4f-590c-43dc-bdee-c0490edfbe0a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="54" uuid="b2fcbe28-a30c-4985-bdd2-9cd1307de913"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

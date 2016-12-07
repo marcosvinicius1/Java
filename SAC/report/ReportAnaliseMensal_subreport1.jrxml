@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportAnaliseMensal_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ad5caf81-4ccd-42ee-a8fa-e77b4f9110ba">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="MES" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PAR1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+distrito.distrito,
+count(AM.idatendimento) QTDEATEND,
+EMPRESA.idempresa,
+empresa.razao emprazao,
+empresa.fantasia empfantasia,
+empresa.endereco empendereco,
+empresa.numero empnumero,
+empresa.bairro empbairro,
+empresa.telefone1 emptel
+from atendimento AM
+left join pessoa on(AM.idpessoa=pessoa.idpessoa)
+left join distrito on(pessoa.iddistrito=distrito.iddistrito)
+left join empresa on (empresa.idempresa=AM.idempresa)
+inner join distrito DEMP on(empresa.iddistrito=DEMP.iddistrito)
+WHERE EXTRACT(month FROM AM.dtabertura)=$P{MES}
+$P!{PAR1}
+group by
+DISTRITO.distrito,
+EMPRESA.idempresa,
+empresa.razao,
+empresa.fantasia,
+empresa.endereco,
+empresa.numero,
+empresa.bairro,
+empresa.telefone1]]>
+	</queryString>
+	<field name="DISTRITO" class="java.lang.String"/>
+	<field name="QTDEATEND" class="java.lang.Integer"/>
+	<field name="IDEMPRESA" class="java.lang.Integer"/>
+	<field name="EMPRAZAO" class="java.lang.String"/>
+	<field name="EMPFANTASIA" class="java.lang.String"/>
+	<field name="EMPENDERECO" class="java.lang.String"/>
+	<field name="EMPNUMERO" class="java.lang.String"/>
+	<field name="EMPBAIRRO" class="java.lang.String"/>
+	<field name="EMPTEL" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="12" uuid="5fdf6d12-d719-411d-8ca7-406e8f6f9072"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISTRITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="12" uuid="129ac079-4d91-41c6-8294-3392d98654c8"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="12" uuid="73d14e93-8bae-4768-a87b-1a9076688d95"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DISTRITO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="12" uuid="9ca2e22e-13cc-483e-9b7f-b665adcc4928"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDEATEND}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="14" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
