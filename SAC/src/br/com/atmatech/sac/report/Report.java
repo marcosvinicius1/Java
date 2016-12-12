@@ -46,6 +46,7 @@ public class Report {
             Map parametros = new HashMap();
             parametros.put("par1", parametro1);
             parametros.put("par2", parametro2);
+            parametros.put("SUBREPORT_DIR", "./report/");
             parametros.put("mes", mes);
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
             frame.closeAguarde();

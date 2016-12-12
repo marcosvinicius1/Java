@@ -26,6 +26,7 @@ left join distrito on(pessoa.iddistrito=distrito.iddistrito)
 left join empresa on (empresa.idempresa=AM.idempresa)
 inner join distrito DEMP on(empresa.iddistrito=DEMP.iddistrito)
 WHERE EXTRACT(month FROM AM.dtabertura)=$P{MES}
+and AM.ATIVO='true'
 $P!{PAR1}
 group by
 DISTRITO.distrito,
@@ -35,7 +36,8 @@ empresa.fantasia,
 empresa.endereco,
 empresa.numero,
 empresa.bairro,
-empresa.telefone1]]>
+empresa.telefone1
+order by count(AM.idatendimento) desc]]>
 	</queryString>
 	<field name="DISTRITO" class="java.lang.String"/>
 	<field name="QTDEATEND" class="java.lang.Integer"/>

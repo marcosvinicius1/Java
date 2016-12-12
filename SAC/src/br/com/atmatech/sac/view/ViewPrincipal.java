@@ -535,7 +535,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
                         .addGap(192, 192, 192)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jDAnaliseMensalLayout.setVerticalGroup(
             jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,7 +554,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -972,6 +972,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jTclientedescritivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTclientedescritivoFocusLost
         // TODO add your handling code here:
+        if(!jTclientedescritivo.getText().equals("")){                   
         if (jDChamadoDescritivo.isVisible()) {
             if (!jDconsulta.isVisible()) {
                 if (consultadescritivo) {
@@ -979,7 +980,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 }
             }
         }
+        }
         consultadescritivo = true;
+        
     }//GEN-LAST:event_jTclientedescritivoFocusLost
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1017,12 +1020,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jTtecnicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTtecnicoFocusLost
         // TODO add your handling code here:
+        if(!jTtecnico.getText().equals("")){
         if (jDChamadoDescritivo.isVisible()) {
             if (!jDconsulta.isVisible()) {
                 if (consultadescritivo) {
                     getTecnico();
                 }
             }
+        }
         }
     }//GEN-LAST:event_jTtecnicoFocusLost
 
@@ -1486,6 +1491,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Analise Mensal")) {
                 jMmes.setMonth(0);
                 jCTipo.setSelectedIndex(0);
+                JCCidade.setSelectedIndex(-1);
                 jDAnaliseMensal.setLocationRelativeTo(jTaabas);
                 jDAnaliseMensal.setVisible(true);
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Descritivo")) {
@@ -1831,6 +1837,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             jDconsulta.setLocationRelativeTo(jTaabas);
             jDconsulta.setVisible(true);
+        }else{
+            jTclientedescritivo.setText("");
+            JOptionPane.showMessageDialog(this, "Cliente Inexistente");
         }
     }
 
@@ -1839,17 +1848,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDClienteSemChamados.setVisible(false);
         if ((!jTidcliente.getText().equals(""))) {
             if ((Integer) jSdias.getValue() == 0) {
-                sql = " where dias>=" + jSdias.getValue().toString() + " and idpessoa=" + jTidcliente.getText() + "";
+                sql = " where dias <=" + jSdias.getValue().toString() + " and idpessoa=" + jTidcliente.getText() + "";
                 new Report().getReport("ReportClienteSemChamados", sql, this);
             } else {
-                sql = " where dias>=" + jSdias.getValue().toString() + " and dias<0 and idpessoa=" + jTidcliente.getText() + "";
+                sql = " where dias < " + jSdias.getValue().toString() + "  and idpessoa=" + jTidcliente.getText() + "";
                 new Report().getReport("ReportClienteSemChamados", sql, this);
             }
         } else if ((Integer) jSdias.getValue() == 0) {
-            sql = " where dias>=" + jSdias.getValue().toString() + "";
+            sql = " where dias<=" + jSdias.getValue().toString() + "";
             new Report().getReport("ReportClienteSemChamados", sql, this);
         } else {
-            sql = " where dias>=" + jSdias.getValue().toString() + " and dias<0";
+            sql = " where dias <" + jSdias.getValue().toString() + " and dias<0";
             new Report().getReport("ReportClienteSemChamados", sql, this);
         }
 
@@ -1885,13 +1894,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
         ub = new UsuarioDao().getUsuario("nome", jTtecnico.getText(), "nome");
         DefaultTableModel tbconsulta = new DefaultTableModel();
         tbconsulta = (DefaultTableModel) jTconsulta.getModel();
-
+        System.out.println(ub.size());
         if (ub.size() > 0) {
             for (UsuarioBeans pb1 : ub) {
                 tbconsulta.addRow(new Object[]{pb1.getIdusuario(), pb1.getNome()});
             }
             jDconsulta.setLocationRelativeTo(jTaabas);
             jDconsulta.setVisible(true);
+        }else{
+            jTtecnico.setText("");
+            JOptionPane.showMessageDialog(this, "Tecnico Inexistente");            
         }
     }
 
@@ -2143,7 +2155,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if (JCCidade.getSelectedIndex() > -1) {
             for (int i = 0; i < ldb.size(); i++) {
                 if (JCCidade.getSelectedIndex() == i) {
-                    System.out.println(i);
                     if (i>0) {
                         sql1 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();
                         sql2 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();                        

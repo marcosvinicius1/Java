@@ -23,7 +23,9 @@ count(AI.idatendimento) QTDEATENDINT,
 count(AE.idatendimento) QTDEATENDEXT,
 count(AP.idatendimento) QTDEATENDPLA,
 COUNT(DISTINCT AM.idPESSOA) QTDEATENDPESSOA,
-(select COUNT(PESSOA.idpessoa) from pessoa WHERE PESSOA.idsituacao=1 $P!{par1} )-COUNT(DISTINCT AM.idPESSOA) QTDESATENDPESSOA,
+(select count(tp1.idpessoa) from (select pessoa.idpessoa from pessoa where idsituacao=1 $P!{par1}
+union
+select AM.idpessoa  from atendimento AM where EXTRACT(month FROM AM.dtabertura)=$P{mes} $P!{par2} group by AM.idpessoa ) tp1 )-COUNT(DISTINCT AM.idPESSOA) QTDESATENDPESSOA,
 COUNT(D1A7.idatendimento) D01A07,
 COUNT(D8A15.idatendimento) D08A15,
 COUNT(D16A23.idatendimento) D16A23,
@@ -47,8 +49,9 @@ LEFT JOIN ATENDIMENTO D16A23 ON (AM.idatendimento=D16A23.idatendimento AND EXTRA
 LEFT JOIN ATENDIMENTO D24A31 ON (AM.idatendimento=D24A31.idatendimento AND EXTRACT(DAY FROM D24A31.dtabertura) between '24' AND '31')
 LEFT JOIN EMPRESA ON (EMPRESA.idempresa=AM.idempresa)
 inner join distrito DEMP on(empresa.iddistrito=DEMP.iddistrito)
-WHERE PESSOA.idsituacao=1
-AND EXTRACT(month FROM AM.dtabertura)=$P{mes}
+--WHERE PESSOA.idsituacao=1
+where EXTRACT(month FROM AM.dtabertura)=$P{mes}
+and AM.ATIVO='true'
 $P!{par2}
 GROUP BY
 EMPRESA.idempresa,
@@ -204,7 +207,7 @@ DEMP.distrito]]>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[16A23]]></text>
+				<text><![CDATA[24A31]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
