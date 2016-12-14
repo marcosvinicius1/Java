@@ -52,6 +52,7 @@ public class PessoaDao {
                 pb.setEcf(rs.getBoolean("ecf"));
                 pb.setNfe(rs.getBoolean("nfe"));
                 pb.setPlugins(rs.getDate("dtplugin"));
+                pb.setNfce(rs.getBoolean("nfce"));
                 lpb.add(pb);
             }
             pstm.close();
@@ -93,6 +94,7 @@ public class PessoaDao {
                 pb.setEcf(rs.getBoolean("ecf"));
                 pb.setNfe(rs.getBoolean("nfe"));
                 pb.setPlugins(rs.getDate("dtplugin"));
+                pb.setNfce(rs.getBoolean("nfce"));
                 lpb.add(pb);
             }
             pstm.close();
@@ -133,6 +135,7 @@ public class PessoaDao {
                 pb.setBairro(rs.getString("bairro"));
                 pb.setResponsavel(rs.getString("responsavel"));
                 pb.setModulo(rs.getString("descricao"));
+                pb.setNfce(rs.getBoolean("nfce"));
                 lpb.add(pb);
             }
             pstm.close();
@@ -145,8 +148,8 @@ public class PessoaDao {
     }   
     public void setPessoa(PessoaBeans pb) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="insert into pessoa (RAZAO,FANTASIA,CNPJ,IE,ENDERECO,IDDISTRITO,NUMERO,EMAIL,IDMODULO,TELEFONE1,TELEFONE2,TELEFONE3,IDSITUACAO,OBS,BAIRRO,responsavel,nfe,ecf,dtplugin,idempresa) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql="insert into pessoa (RAZAO,FANTASIA,CNPJ,IE,ENDERECO,IDDISTRITO,NUMERO,EMAIL,IDMODULO,TELEFONE1,TELEFONE2,TELEFONE3,IDSITUACAO,OBS,BAIRRO,responsavel,nfe,ecf,dtplugin,idempresa,nfce) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1,pb.getRazao());
             pstm.setString(2, pb.getFantasia());
@@ -168,6 +171,7 @@ public class PessoaDao {
             pstm.setBoolean(18, pb.isEcf());
             pstm.setDate(19, pb.getPlugins());
             pstm.setInt(20, new DBConfigBeans().getCompany());
+            pstm.setBoolean(21, pb.isNfce());
             pstm.execute();
             pstm.close();
         }
@@ -186,7 +190,7 @@ public class PessoaDao {
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="update pessoa set RAZAO=?,FANTASIA=?,CNPJ=?,IE=?,ENDERECO=?,IDDISTRITO=?,NUMERO=?,EMAIL=?,"
                     + "IDMODULO=?,TELEFONE1=?,TELEFONE2=?,TELEFONE3=?,IDSITUACAO=?,OBS=?,BAIRRO=?,responsavel=?,"
-                    + "NFE=?,ECF=?,DTPLUGIN=? "
+                    + "NFE=?,ECF=?,DTPLUGIN=?,NFCE=? "
                     + "where idpessoa=?";
                     
             PreparedStatement pstm=conexao.prepareStatement(sql);
@@ -209,7 +213,8 @@ public class PessoaDao {
             pstm.setBoolean(17, pb.isNfe());
             pstm.setBoolean(18, pb.isEcf());
             pstm.setDate(19, pb.getPlugins());
-            pstm.setInt(20, pb.getIdpessoa());
+            pstm.setBoolean(20, pb.isNfce());
+            pstm.setInt(21, pb.getIdpessoa());
             
             pstm.executeUpdate();
             pstm.close();
@@ -268,6 +273,7 @@ public class PessoaDao {
                 pb.setBairro(rs.getString("bairro"));
                 pb.setResponsavel(rs.getString("responsavel"));
                 pb.setModulo(rs.getString("descricao"));
+                pb.setNfce(rs.getBoolean("nfce"));
             }
             pstm.close();
             rs.close();

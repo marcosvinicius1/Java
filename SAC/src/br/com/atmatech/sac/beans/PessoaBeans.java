@@ -38,6 +38,7 @@ public class PessoaBeans extends DistritoBeans{
     private boolean nfe;
     private boolean ecf;
     private Date plugins;
+    private boolean nfce;
 
     public Integer getIdpessoa() {
         return idpessoa;
@@ -207,6 +208,11 @@ public class PessoaBeans extends DistritoBeans{
         this.plugins = plugins;
     }
 
-   
-   
+    public boolean isNfce() {
+        return nfce;
+    }
+
+    public void setNfce(boolean nfce) {
+        this.nfce = nfce;
+    }     
 }

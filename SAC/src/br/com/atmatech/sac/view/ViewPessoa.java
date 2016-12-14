@@ -186,6 +186,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         jCecf = new javax.swing.JCheckBox();
         jLabel20 = new javax.swing.JLabel();
         jDplugins = new com.toedter.calendar.JDateChooser();
+        jCnfce = new javax.swing.JCheckBox();
 
         jDcidade.setTitle("Cidade");
         jDcidade.setMinimumSize(new java.awt.Dimension(635, 270));
@@ -911,6 +912,9 @@ public class ViewPessoa extends javax.swing.JPanel {
 
         jDplugins.setEnabled(false);
 
+        jCnfce.setText("NFCE");
+        jCnfce.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -919,16 +923,18 @@ public class ViewPessoa extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCmodulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDplugins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jCnfe)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCecf))
                             .addComponent(jLabel20))
-                        .addGap(0, 36, Short.MAX_VALUE))
-                    .addComponent(jDplugins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jCnfe)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCecf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCnfce, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -940,7 +946,8 @@ public class ViewPessoa extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCnfe)
-                    .addComponent(jCecf))
+                    .addComponent(jCecf)
+                    .addComponent(jCnfce))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1020,7 +1027,7 @@ public class ViewPessoa extends javax.swing.JPanel {
                                     .addComponent(jTiddistrito))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFtelefone1, jFtelefone2, jFtelefone3, jTcidade});
@@ -1675,6 +1682,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCecf;
     private javax.swing.JComboBox jCmodulo;
+    private javax.swing.JCheckBox jCnfce;
     private javax.swing.JCheckBox jCnfe;
     private javax.swing.JComboBox jCsituacao;
     private javax.swing.JDialog jDaguarde;
@@ -1783,6 +1791,7 @@ public void ativaView() {
         jTresponsavel.setEditable(true);
         jCecf.setEnabled(true);
         jCnfe.setEnabled(true);
+        jCnfce.setEnabled(true);
         jDplugins.setEnabled(true);
     }
 
@@ -1810,6 +1819,7 @@ public void ativaView() {
         jTresponsavel.setEditable(false);
         jCecf.setEnabled(false);
         jCnfe.setEnabled(false);
+        jCnfce.setEnabled(false);
         jDplugins.setEnabled(false);
     }
 
@@ -1886,6 +1896,7 @@ public void ativaView() {
         jTresponsavel.setText("");
         jCecf.setSelected(false);
         jCnfe.setSelected(false);
+        jCnfce.setSelected(false);
         jDplugins.setDate(null);
     }
 
@@ -1945,6 +1956,7 @@ public void ativaView() {
             pb.setResponsavel(jTresponsavel.getText());
             pb.setEcf(jCecf.isSelected());
             pb.setNfe(jCnfe.isSelected());
+            pb.setNfce(jCnfce.isSelected());
             if (jDplugins.getDate() != null) {
                 pb.setPlugins(new Date(jDplugins.getDate().getTime()));
             }
@@ -1985,6 +1997,7 @@ public void ativaView() {
                 jTresponsavel.setText(lpb.get(i).getResponsavel());
                 jCecf.setSelected(lpb.get(i).isEcf());
                 jCnfe.setSelected(lpb.get(i).isNfe());
+                jCnfce.setSelected(lpb.get(i).isNfce());
                 jDplugins.setDate(lpb.get(i).getPlugins());
 
                 for (int j = 0; j < mb.size(); j++) {
@@ -2024,6 +2037,7 @@ public void ativaView() {
             pb.setResponsavel(jTresponsavel.getText());
             pb.setEcf(jCecf.isSelected());
             pb.setNfe(jCnfe.isSelected());
+            pb.setNfce(jCnfce.isSelected());
             if (jDplugins.getDate() != null) {
                 pb.setPlugins(new Date(jDplugins.getDate().getTime()));
             }

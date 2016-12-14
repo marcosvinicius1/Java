@@ -43,12 +43,11 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     final Integer versao = 1;
     final Integer edicao = 4;
-    final Integer seguranca = 4;
+    final Integer seguranca = 6;
     List<EmpresaBeans>leb=new ArrayList<>();
 
     public ViewLogin() {
         initComponents();
-//        carregaConfig();
         jTusuario.requestFocus();
 
     }
@@ -947,7 +946,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 jButton1.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Versão Incompativel com Servidor");
                 try {
-                    Runtime.getRuntime().exec("cmd.exe /c java -jar svr.jar i");
+                    Runtime.getRuntime().exec("cmd.exe /c java -jar srv.jar i");
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao Atualizar\n" + ex);
                 }
