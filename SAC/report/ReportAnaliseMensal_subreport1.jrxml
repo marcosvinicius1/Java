@@ -9,6 +9,9 @@
 	<parameter name="PAR1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="ANO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select
 distrito.distrito,
@@ -26,6 +29,7 @@ left join distrito on(pessoa.iddistrito=distrito.iddistrito)
 left join empresa on (empresa.idempresa=AM.idempresa)
 inner join distrito DEMP on(empresa.iddistrito=DEMP.iddistrito)
 WHERE EXTRACT(month FROM AM.dtabertura)=$P{MES}
+and EXTRACT(year FROM AM.dtabertura)=$P{ANO}
 and AM.ATIVO='true'
 $P!{PAR1}
 group by

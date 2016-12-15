@@ -41,13 +41,14 @@ public class Report {
         }
     }
     //*metodo utilizado na viewprincipal analise mensal
-    public void getReport(String nomeReport, String parametro1,String parametro2,Integer mes,ViewPrincipal frame) {
+    public void getReport(String nomeReport, String parametro1,String parametro2,Integer mes,Integer ano,ViewPrincipal frame) {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             Map parametros = new HashMap();
             parametros.put("par1", parametro1);
             parametros.put("par2", parametro2);
             parametros.put("SUBREPORT_DIR", "./report/");
             parametros.put("mes", mes);
+            parametros.put("ano", ano);
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
             frame.closeAguarde();
             JasperViewer view = new JasperViewer(jasperPrint, false);                
@@ -92,13 +93,14 @@ public class Report {
             JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
         }
     }
-    //*metodo utilizado na viewprincipal para inicializa
-    public void inicializaReport(String nomeReport, String parametro1,String parametro2,Integer mes) {
+    //*metodo utilizado na viewprincipal para inicializa report analisemensal
+    public void inicializaReport(String nomeReport, String parametro1,String parametro2,Integer mes,Integer ano) {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             Map parametros = new HashMap();
             parametros.put("par1", parametro1);
             parametros.put("par2", parametro2);
             parametros.put("mes", mes);
+            parametros.put("ano", ano);
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
           //  JasperViewer view = new JasperViewer(jasperPrint, false);    
         } catch (JRException ex) {            

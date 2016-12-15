@@ -124,6 +124,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         JCCidade = new com.jidesoft.swing.AutoCompletionComboBox();
         jLabel14 = new javax.swing.JLabel();
         jCTipo = new javax.swing.JComboBox<>();
+        jYano = new com.toedter.calendar.JYearChooser();
         jPanel1 = new javax.swing.JPanel();
         jLusuario = new javax.swing.JLabel();
         jLdata = new javax.swing.JLabel();
@@ -490,7 +491,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDAnaliseMensal.setTitle("Analise Mensal");
         jDAnaliseMensal.setMinimumSize(new java.awt.Dimension(450, 220));
         jDAnaliseMensal.setModal(true);
-        jDAnaliseMensal.setPreferredSize(new java.awt.Dimension(450, 220));
         jDAnaliseMensal.setResizable(false);
         jDAnaliseMensal.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -524,7 +524,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jMmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
+                                .addComponent(jMmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jYano, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jDAnaliseMensalLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(jLabel13))
@@ -543,7 +546,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jMmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jDAnaliseMensalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jMmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jYano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addGap(0, 0, 0)
@@ -1204,6 +1209,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTidtecnico;
     private javax.swing.JTree jTmenu;
     private javax.swing.JTextField jTtecnico;
+    private com.toedter.calendar.JYearChooser jYano;
     // End of variables declaration//GEN-END:variables
 
     private void inicializaView() {
@@ -1489,7 +1495,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jDClienteSemChamados.setLocationRelativeTo(jTaabas);
                 jDClienteSemChamados.setVisible(true);
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Analise Mensal")) {
-                jMmes.setMonth(0);
+                SimpleDateFormat sdfa = new SimpleDateFormat("yyyy");
+                SimpleDateFormat sdfm = new SimpleDateFormat("MM");
+                jMmes.setMonth(Integer.valueOf(sdfa.format(new Date().getTime()))-1);                
+                jYano.setYear(Integer.valueOf(sdfa.format(new Date().getTime())));
                 jCTipo.setSelectedIndex(0);
                 JCCidade.setSelectedIndex(-1);
                 jDAnaliseMensal.setLocationRelativeTo(jTaabas);
@@ -2028,7 +2037,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 new Report().inicializaReport("ReportClienteChamadoDescritivo", "where idpessoa=0");
                 new Report().inicializaReport("ReportClienteChamadoSintetico", "where idpessoa=0");
                 new Report().inicializaReport("ReportClienteSemChamados", "where idpessoa=0");
-                new Report().inicializaReport("ReportAnaliseMensal", "and PESSOA.IDDISTRITO=0","and PESSOA.IDDISTRITO=0",0);
+                new Report().inicializaReport("ReportAnaliseMensal", "and PESSOA.IDDISTRITO=0","and PESSOA.IDDISTRITO=0",0,0);
                 new Report().inicializaReport("ReportTecnicoChamadoDescritivo", "where idpessoa=0");
                 new Report().inicializaReport("ReportTecnicoChamadoSintetico", "where idpessoa=0");
                 new Report().inicializaReportChamado();
@@ -2166,7 +2175,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if (jCTipo.getSelectedIndex() > 0) {
             sql2 = " and AM.TIPO='" + jCTipo.getSelectedItem().toString()+"'";
         }
-        new Report().getReport("ReportAnaliseMensal", sql1, sql2, (jMmes.getMonth() + 1), this);
+        new Report().getReport("ReportAnaliseMensal", sql1, sql2, (jMmes.getMonth() + 1),jYano.getYear(), this);
         
     }
 
