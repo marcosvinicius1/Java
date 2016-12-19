@@ -43,7 +43,7 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     final Integer versao = 1;
     final Integer edicao = 4;
-    final Integer seguranca = 6;
+    final Integer seguranca = 7;
     List<EmpresaBeans>leb=new ArrayList<>();
 
     public ViewLogin() {

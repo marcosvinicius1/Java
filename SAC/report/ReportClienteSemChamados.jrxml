@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="47fd06a8-b22b-4346-8eb3-87cd83868da9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="80"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="parametro" class="java.lang.String">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from viewatendimentosemchamados $P!{parametro}  ]]>
+		<![CDATA[select * from viewatendimentosemchamados $P!{parametro}]]>
 	</queryString>
 	<field name="IDPESSOA" class="java.lang.Integer"/>
 	<field name="RAZAO" class="java.lang.String"/>
@@ -29,6 +29,7 @@
 	<field name="NFE" class="java.lang.Integer"/>
 	<field name="ECF" class="java.lang.Integer"/>
 	<field name="DTPLUGIN" class="java.sql.Timestamp"/>
+	<field name="PESSDISTRITO" class="java.lang.String"/>
 	<field name="DT_ULTIMO_ATENDIMENTO" class="java.lang.String"/>
 	<field name="DIAS" class="java.lang.Long"/>
 	<field name="QTDE_ATENDIMENTO" class="java.lang.Integer"/>

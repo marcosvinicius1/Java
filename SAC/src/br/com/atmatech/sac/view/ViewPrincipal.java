@@ -89,6 +89,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jTidcliente = new javax.swing.JTextField();
         jSdias = new javax.swing.JSpinner();
+        JCCidadesemChamdo = new com.jidesoft.swing.AutoCompletionComboBox();
+        jLabel15 = new javax.swing.JLabel();
         jDconsulta = new javax.swing.JDialog();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTconsulta = new javax.swing.JTable();
@@ -176,8 +178,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPopcoes.add(jMtela02);
 
         jDClienteSemChamados.setTitle("Cliente Sem Chamados");
-        jDClienteSemChamados.setMinimumSize(new java.awt.Dimension(322, 210));
+        jDClienteSemChamados.setMinimumSize(new java.awt.Dimension(370, 250));
         jDClienteSemChamados.setModal(true);
+        jDClienteSemChamados.setPreferredSize(new java.awt.Dimension(370, 250));
         jDClienteSemChamados.setResizable(false);
         jDClienteSemChamados.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -210,6 +213,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jSdias.setModel(new javax.swing.SpinnerNumberModel(0, null, 0, 1));
 
+        JCCidadesemChamdo.setMaximumSize(new java.awt.Dimension(123, 20));
+
+        jLabel15.setText("Cidade:");
+
         javax.swing.GroupLayout jDClienteSemChamadosLayout = new javax.swing.GroupLayout(jDClienteSemChamados.getContentPane());
         jDClienteSemChamados.getContentPane().setLayout(jDClienteSemChamadosLayout);
         jDClienteSemChamadosLayout.setHorizontalGroup(
@@ -218,22 +225,24 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
-                        .addComponent(jTcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                         .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jSdias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel5))
+                            .addComponent(jSdias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
+                        .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTcliente)
+                            .addComponent(JCCidadesemChamdo, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jButton3)
+                .addGap(130, 130, 130)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDClienteSemChamadosLayout.setVerticalGroup(
@@ -246,14 +255,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(jTcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jSdias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                .addComponent(jLabel15)
+                .addGap(0, 0, 0)
+                .addComponent(JCCidadesemChamdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jSdias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
 
         jDconsulta.setTitle("Consulta");
@@ -972,22 +983,24 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jDClienteSemChamadosWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDClienteSemChamadosWindowOpened
         // TODO add your handling code here:  
+
         jSdias.requestFocusInWindow();
+        getCidadesemChamdo();
     }//GEN-LAST:event_jDClienteSemChamadosWindowOpened
 
     private void jTclientedescritivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTclientedescritivoFocusLost
         // TODO add your handling code here:
-        if(!jTclientedescritivo.getText().equals("")){                   
-        if (jDChamadoDescritivo.isVisible()) {
-            if (!jDconsulta.isVisible()) {
-                if (consultadescritivo) {
-                    getCliente(jTclientedescritivo.getText());
+        if (!jTclientedescritivo.getText().equals("")) {
+            if (jDChamadoDescritivo.isVisible()) {
+                if (!jDconsulta.isVisible()) {
+                    if (consultadescritivo) {
+                        getCliente(jTclientedescritivo.getText());
+                    }
                 }
             }
         }
-        }
         consultadescritivo = true;
-        
+
     }//GEN-LAST:event_jTclientedescritivoFocusLost
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1025,14 +1038,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jTtecnicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTtecnicoFocusLost
         // TODO add your handling code here:
-        if(!jTtecnico.getText().equals("")){
-        if (jDChamadoDescritivo.isVisible()) {
-            if (!jDconsulta.isVisible()) {
-                if (consultadescritivo) {
-                    getTecnico();
+        if (!jTtecnico.getText().equals("")) {
+            if (jDChamadoDescritivo.isVisible()) {
+                if (!jDconsulta.isVisible()) {
+                    if (consultadescritivo) {
+                        getTecnico();
+                    }
                 }
             }
-        }
         }
     }//GEN-LAST:event_jTtecnicoFocusLost
 
@@ -1147,6 +1160,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.jidesoft.swing.AutoCompletionComboBox JCCidade;
+    private com.jidesoft.swing.AutoCompletionComboBox JCCidadesemChamdo;
     private javax.swing.JButton jBopcoes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1173,6 +1187,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -1490,6 +1505,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes sem Chamados")) {
                 jTcliente.setText("");
                 jTidcliente.setText("");
+                JCCidadesemChamdo.setSelectedIndex(-1);
                 jSdias.setValue(0);
                 jSdias.requestFocusInWindow();
                 jDClienteSemChamados.setLocationRelativeTo(jTaabas);
@@ -1497,7 +1513,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Analise Mensal")) {
                 SimpleDateFormat sdfa = new SimpleDateFormat("yyyy");
                 SimpleDateFormat sdfm = new SimpleDateFormat("MM");
-                jMmes.setMonth(Integer.valueOf(sdfa.format(new Date().getTime()))-1);                
+                jMmes.setMonth(Integer.valueOf(sdfa.format(new Date().getTime())) - 1);
                 jYano.setYear(Integer.valueOf(sdfa.format(new Date().getTime())));
                 jCTipo.setSelectedIndex(0);
                 JCCidade.setSelectedIndex(-1);
@@ -1846,7 +1862,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             jDconsulta.setLocationRelativeTo(jTaabas);
             jDconsulta.setVisible(true);
-        }else{
+        } else {
             jTclientedescritivo.setText("");
             JOptionPane.showMessageDialog(this, "Cliente Inexistente");
         }
@@ -1858,19 +1874,30 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if ((!jTidcliente.getText().equals(""))) {
             if ((Integer) jSdias.getValue() == 0) {
                 sql = " where dias <=" + jSdias.getValue().toString() + " and idpessoa=" + jTidcliente.getText() + "";
-                new Report().getReport("ReportClienteSemChamados", sql, this);
+                //new Report().getReport("ReportClienteSemChamados", sql, this);
             } else {
                 sql = " where dias < " + jSdias.getValue().toString() + "  and idpessoa=" + jTidcliente.getText() + "";
-                new Report().getReport("ReportClienteSemChamados", sql, this);
+                //  new Report().getReport("ReportClienteSemChamados", sql, this);
             }
         } else if ((Integer) jSdias.getValue() == 0) {
             sql = " where dias<=" + jSdias.getValue().toString() + "";
-            new Report().getReport("ReportClienteSemChamados", sql, this);
+            //new Report().getReport("ReportClienteSemChamados", sql, this);
         } else {
             sql = " where dias <" + jSdias.getValue().toString() + " and dias<0";
-            new Report().getReport("ReportClienteSemChamados", sql, this);
+            // new Report().getReport("ReportClienteSemChamados", sql, this);
         }
+        if (JCCidadesemChamdo.getSelectedIndex() > -1) {
+            for (int i = 0; i < ldb.size(); i++) {
+                if (JCCidadesemChamdo.getSelectedIndex() == i) {
+                    if (i > 0) {
+                        sql = sql + " and iddistrito=" + ldb.get(i - 1).getIddistrito();
 
+                    }
+
+                }
+            }
+        }
+        new Report().getReport("ReportClienteSemChamados", sql, this);
     }
 
     public void showAguarde() {
@@ -1910,9 +1937,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             jDconsulta.setLocationRelativeTo(jTaabas);
             jDconsulta.setVisible(true);
-        }else{
+        } else {
             jTtecnico.setText("");
-            JOptionPane.showMessageDialog(this, "Tecnico Inexistente");            
+            JOptionPane.showMessageDialog(this, "Tecnico Inexistente");
         }
     }
 
@@ -2033,11 +2060,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void inicializaReport() {
         new Thread(new Runnable() {
             @Override
-            public void run() {                
+            public void run() {
                 new Report().inicializaReport("ReportClienteChamadoDescritivo", "where idpessoa=0");
                 new Report().inicializaReport("ReportClienteChamadoSintetico", "where idpessoa=0");
                 new Report().inicializaReport("ReportClienteSemChamados", "where idpessoa=0");
-                new Report().inicializaReport("ReportAnaliseMensal", "and PESSOA.IDDISTRITO=0","and PESSOA.IDDISTRITO=0",0,0);
+                new Report().inicializaReport("ReportAnaliseMensal", "and PESSOA.IDDISTRITO=0", "and PESSOA.IDDISTRITO=0", 0, 0);
                 new Report().inicializaReport("ReportTecnicoChamadoDescritivo", "where idpessoa=0");
                 new Report().inicializaReport("ReportTecnicoChamadoSintetico", "where idpessoa=0");
                 new Report().inicializaReportChamado();
@@ -2164,19 +2191,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if (JCCidade.getSelectedIndex() > -1) {
             for (int i = 0; i < ldb.size(); i++) {
                 if (JCCidade.getSelectedIndex() == i) {
-                    if (i>0) {
+                    if (i > 0) {
                         sql1 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();
-                        sql2 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();                        
+                        sql2 = " and pessoa.iddistrito=" + ldb.get(i - 1).getIddistrito();
                     }
-                    
+
                 }
             }
         }
         if (jCTipo.getSelectedIndex() > 0) {
-            sql2 = " and AM.TIPO='" + jCTipo.getSelectedItem().toString()+"'";
+            sql2 = " and AM.TIPO='" + jCTipo.getSelectedItem().toString() + "'";
         }
-        new Report().getReport("ReportAnaliseMensal", sql1, sql2, (jMmes.getMonth() + 1),jYano.getYear(), this);
-        
+        new Report().getReport("ReportAnaliseMensal", sql1, sql2, (jMmes.getMonth() + 1), jYano.getYear(), this);
+
     }
 
     private void getCidade() {
@@ -2185,6 +2212,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
         JCCidade.addItem("");
         for (int i = 0; i < ldb.size(); i++) {
             JCCidade.addItem(ldb.get(i).getDistrito() + " | " + ldb.get(i).getUf());
+        }
+
+    }
+
+    private void getCidadesemChamdo() {
+        ldb = new DistritoDao().getDistrito();
+        JCCidadesemChamdo.removeAllItems();
+        JCCidadesemChamdo.addItem("");
+        for (int i = 0; i < ldb.size(); i++) {
+            JCCidadesemChamdo.addItem(ldb.get(i).getDistrito() + " | " + ldb.get(i).getUf());
         }
 
     }
