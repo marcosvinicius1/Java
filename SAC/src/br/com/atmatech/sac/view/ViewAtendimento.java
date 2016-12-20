@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -58,7 +59,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         inicializaAtalhos();
         jTidveiculo.setVisible(false);
         this.viewprincipal = viewprincipal;
-        
+
         ViewAtendimento.viewlatendimento = viewlatendimento;
         if (!alttecnico) {
             if (jTidtecnico.getText().equals("")) {
@@ -82,7 +83,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         } else {
             //this.ab = ab;
             this.ab = new AtendimentoDao().getAtendimento(ab.getIDATENDIMENTO());
-            atendimentoSelecionado(this.ab);            
+            atendimentoSelecionado(this.ab);
         }
         permissaoUsuario();
         jTidcliente.setVisible(false);
@@ -121,6 +122,10 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jTidveiculo = new javax.swing.JTextField();
         jBok = new javax.swing.JButton();
+        jDajuda = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTbajuda = new javax.swing.JTable();
+        jTajuda = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jBalterar = new javax.swing.JButton();
         jBexcluir = new javax.swing.JButton();
@@ -130,6 +135,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
         jTidtecnicoanterior = new javax.swing.JTextField();
         jTemail = new javax.swing.JTextField();
         jTidtecnicoabertura = new javax.swing.JTextField();
+        jBajuda = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -444,6 +450,57 @@ public class ViewAtendimento extends javax.swing.JPanel {
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jDajuda.setTitle("AJUDA");
+        jDajuda.setMinimumSize(new java.awt.Dimension(693, 449));
+        jDajuda.setModal(true);
+
+        jTbajuda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "SOLICITAÇÃO", "SOLUÇÃO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTbajuda.getTableHeader().setResizingAllowed(false);
+        jTbajuda.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTbajuda);
+        if (jTbajuda.getColumnModel().getColumnCount() > 0) {
+            jTbajuda.getColumnModel().getColumn(0).setResizable(false);
+            jTbajuda.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        jTajuda.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(600,true));
+        jTajuda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTajudaKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDajudaLayout = new javax.swing.GroupLayout(jDajuda.getContentPane());
+        jDajuda.getContentPane().setLayout(jDajudaLayout);
+        jDajudaLayout.setHorizontalGroup(
+            jDajudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+            .addComponent(jTajuda)
+        );
+        jDajudaLayout.setVerticalGroup(
+            jDajudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDajudaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTajuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+        );
+
         setName("ViewAtendimento"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1021, 613));
 
@@ -476,6 +533,14 @@ public class ViewAtendimento extends javax.swing.JPanel {
             }
         });
 
+        jBajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/Knob Help.png"))); // NOI18N
+        jBajuda.setText("AJUDA");
+        jBajuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBajudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -487,7 +552,9 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addComponent(jBexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBajuda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTidtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -497,10 +564,10 @@ public class ViewAtendimento extends javax.swing.JPanel {
                 .addComponent(jTemail, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTidtecnicoabertura, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBalterar, jButton5});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBajuda, jBalterar, jButton5});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -514,7 +581,8 @@ public class ViewAtendimento extends javax.swing.JPanel {
                     .addComponent(jTidtecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTidtecnicoanterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTidtecnicoabertura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTidtecnicoabertura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBajuda))
                 .addContainerGap())
         );
 
@@ -1082,28 +1150,45 @@ public class ViewAtendimento extends javax.swing.JPanel {
 
     private void jTsolicitacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTsolicitacaoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
             jTsolicitacao.transferFocus();
         }
     }//GEN-LAST:event_jTsolicitacaoKeyPressed
 
     private void jTrealizadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrealizadoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
             jTrealizado.transferFocus();
         }
     }//GEN-LAST:event_jTrealizadoKeyPressed
 
     private void jTpendenteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTpendenteKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
             jTsolicitacao.transferFocus();
         }
     }//GEN-LAST:event_jTpendenteKeyPressed
 
+    private void jBajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBajudaActionPerformed
+        // TODO add your handling code here:
+        jTajuda.setText("");   
+        DefaultTableModel tabel = (DefaultTableModel) jTbajuda.getModel();
+            tabel.setNumRows(0);
+        jDajuda.setLocationRelativeTo(this);
+        jDajuda.setVisible(true);
+    }//GEN-LAST:event_jBajudaActionPerformed
+
+    private void jTajudaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTajudaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            consultaAjuda();
+        }
+    }//GEN-LAST:event_jTajudaKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.jidesoft.swing.AutoCompletionComboBox ACBcliente;
+    private javax.swing.JButton jBajuda;
     private javax.swing.JButton jBalterar;
     private javax.swing.JButton jBexcluir;
     private javax.swing.JButton jBok;
@@ -1114,6 +1199,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
     private javax.swing.JComboBox jCtipo;
     private javax.swing.JComboBox jCveiculo;
     private com.toedter.calendar.JDateChooser jDabertura;
+    private javax.swing.JDialog jDajuda;
     private javax.swing.JDialog jDcliente;
     private javax.swing.JDialog jDcombocliente;
     private com.toedter.calendar.JDateChooser jDfinal;
@@ -1148,11 +1234,14 @@ public class ViewAtendimento extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTextField jTajuda;
     private javax.swing.JTextArea jTanotacao;
+    private javax.swing.JTable jTbajuda;
     private javax.swing.JTextField jTemail;
     private javax.swing.JTextField jTfantasia;
     private javax.swing.JTextField jTidatendimento;
@@ -1291,7 +1380,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
             AtendimentoBeans ab = new AtendimentoBeans();
             ab.setIDATENDIMENTO(Integer.valueOf(jTidatendimento.getText()));
             ab.setIDPESSOA(Integer.valueOf(jTidcliente.getText()));
-            ab.setIDTECNICO(Integer.valueOf(jTidtecnico.getText()));            
+            ab.setIDTECNICO(Integer.valueOf(jTidtecnico.getText()));
             ab.setIDABERTURA(Integer.valueOf(jTidtecnicoabertura.getText()));
             ab.setDTABERTURA(dtabertura);
             ab.setDTINICIAL(dtinicial);
@@ -1352,7 +1441,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
             viewprincipal.jTaabas.getSelectedIndex();
             viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), viewlatendimento);
         } else {
-            ViewListaAtendimento view = new ViewListaAtendimento(viewprincipal, true,true);            
+            ViewListaAtendimento view = new ViewListaAtendimento(viewprincipal, true, true);
             ViewAtendimento.this.setVisible(false);
             viewprincipal.jTaabas.getSelectedIndex();
             viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), view);
@@ -1363,10 +1452,10 @@ public class ViewAtendimento extends javax.swing.JPanel {
     public void setDataInicialFinal() {
         if ((!jCStatus.getSelectedItem().toString().equals("ABERTO")) && (jFinicial.getText().equals(""))) {
             dtinicial = new Timestamp(new Date().getTime());
-            
+
             jDinicial.setDate(dtinicial);
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            jFinicial.setText(sdf.format(dtinicial));            
+            jFinicial.setText(sdf.format(dtinicial));
         }
         if (jCStatus.getSelectedItem().toString().equals("FECHADO")) {
             dtfinal = new Timestamp(new Date().getTime());
@@ -1465,7 +1554,7 @@ public class ViewAtendimento extends javax.swing.JPanel {
 
     private void inicializaAtalhos() {
         KeyStroke keyStrokeJBalterar = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
-        String actionNameJBalterar = "TECLA_F1";
+        String actionNameJBalterar = "TECLA_F2";
         InputMap inputMapJBalterar = jBalterar.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         inputMapJBalterar.put(keyStrokeJBalterar, actionNameJBalterar);
@@ -1480,6 +1569,15 @@ public class ViewAtendimento extends javax.swing.JPanel {
         inputMapJBexcluir.put(keyStrokeJBexcluir, actionNameJBexcluir);
         ActionMap actionMapJBexcluir = jBexcluir.getActionMap();
         actionMapJBexcluir.put(actionNameJBexcluir, acaoJBexcluir);
+
+        //aTALHO AJUDA
+        KeyStroke keyStrokeJBajuda = KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0);
+        String actionNameJBajuda = "TECLA_F9";
+        InputMap inputMapJBajuda = jBajuda.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+        inputMapJBajuda.put(keyStrokeJBajuda, actionNameJBajuda);
+        ActionMap actionMapJBajuda = jBajuda.getActionMap();
+        actionMapJBajuda.put(actionNameJBajuda, acaoJBajuda);
 
         //Atalho enter
         InputMap inputMapJBenter = this.jDcombocliente.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -1512,6 +1610,15 @@ public class ViewAtendimento extends javax.swing.JPanel {
             //simula o click no botão  
 
             jBexcluir.doClick();
+        }
+    };
+    //FUNCAO de atalho ajuda
+    Action acaoJBajuda = new AbstractAction() {  //funcao da acao do botao
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //simula o click no botão  
+
+            jBajuda.doClick();
         }
     };
 
@@ -1675,113 +1782,100 @@ public class ViewAtendimento extends javax.swing.JPanel {
                     if (JOptionPane.showConfirmDialog(this, "Deseja Colocar Chamado como Pendente?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
                         if ((jTrealizado.getText().equals(""))) {
                             JOptionPane.showMessageDialog(this, "Digite oque Foi Realizado", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (!jTidtecnico.getText().equals("1")) {
+                            setDataInicialFinal();
+                            jCStatus.setSelectedIndex(2);
+                            salvarAtendimento();
                         } else {
-                            if (!jTidtecnico.getText().equals("1")) {
-                                setDataInicialFinal();
-                                jCStatus.setSelectedIndex(2);
-                                salvarAtendimento();
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                            }
+                            JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
                         salvarAtendimento();
                     }
                     //se nao entrou em nenhuma das condicoes salva o atendimento
-                } else {
-                    if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("FECHADO"))) {
-                        JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                    } else if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("INICIADO"))) {
-                        jTidtecnico.setText(new UsuarioLogadoBeans().getIdusuario().toString());
-                        salvarAtendimento();
-                    }else
-                    if ((jCStatus.getSelectedItem().toString().equals("PENDENTE"))) {
-                        if (jTpendente.getText().equals("")) {
-                            JOptionPane.showMessageDialog(this, "Digite a Pendência", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                        } else if (jTrealizado.getText().equals("")) {
-                            JOptionPane.showMessageDialog(this, "Digite a Realização", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            salvarAtendimento();
-                        }
+                } else if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("FECHADO"))) {
+                    JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                } else if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("INICIADO"))) {
+                    jTidtecnico.setText(new UsuarioLogadoBeans().getIdusuario().toString());
+                    salvarAtendimento();
+                } else if ((jCStatus.getSelectedItem().toString().equals("PENDENTE"))) {
+                    if (jTpendente.getText().equals("")) {
+                        JOptionPane.showMessageDialog(this, "Digite a Pendência", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (jTrealizado.getText().equals("")) {
+                        JOptionPane.showMessageDialog(this, "Digite a Realização", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         salvarAtendimento();
                     }
-
+                } else {
+                    salvarAtendimento();
                 }
 
             } else {
                 JOptionPane.showMessageDialog(this, "Há Campos Obrigatorios", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
             }
             //verifica se um chamado existente
-        } else {
-            if (validaCampos()) {
-                //verifica se o tecnico que abril e o mesmo do selecionado e pergunta se quer abrir
-                if ((Integer.valueOf(jTidtecnico.getText()) == new UsuarioLogadoBeans().getIdusuario())
-                        && (jCStatus.getSelectedItem().toString().equals("ABERTO")) && (jTrealizado.getText().equals("")) && (jTpendente.getText().equals(""))) {
-                    if (JOptionPane.showConfirmDialog(this, "Deseja Inicializar o Atendimento?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
-                        setDataInicialFinal();
-                        jCStatus.setSelectedIndex(1);
-                        alterarAtendimento();
-                    } else {
-                        alterarAtendimento();
-                    }
-                    //verifica se o campo realizado esta preenchido e o status esta diferente de fechado e pergunta se quer fechar
-                } else if (!jTrealizado.getText().equals("") && (!jCStatus.getSelectedItem().toString().equals("FECHADO")) && (jTpendente.getText().equals(""))) {
-                    if (JOptionPane.showConfirmDialog(this, "Deseja Finalizar o Atendimento?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
-                        if (!jTidtecnico.getText().equals("1")) {
-                            setDataInicialFinal();
-                            jCStatus.setSelectedIndex(3);
-                            alterarAtendimento();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        alterarAtendimento();
-                    }
-
-                } //verifica se o campo pendente esta preenchido
-                else if ((!jCStatus.getSelectedItem().toString().equals("PENDENTE"))
-                        && (!jTpendente.getText().equals(""))) {
-                    if (JOptionPane.showConfirmDialog(this, "Deseja Colocar Chamado como Pendente?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
-                        if ((jTrealizado.getText().equals(""))) {
-                            JOptionPane.showMessageDialog(this, "Digite oque Foi Realizado", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            if (!jTidtecnico.getText().equals("1")) {
-                                setDataInicialFinal();
-                                jCStatus.setSelectedIndex(2);
-                                alterarAtendimento();
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                        }
-                    } else {
-                        alterarAtendimento();
-                    }
-                    //se nao entrou em nenhuma condicao salva 
+        } else if (validaCampos()) {
+            //verifica se o tecnico que abril e o mesmo do selecionado e pergunta se quer abrir
+            if ((Integer.valueOf(jTidtecnico.getText()) == new UsuarioLogadoBeans().getIdusuario())
+                    && (jCStatus.getSelectedItem().toString().equals("ABERTO")) && (jTrealizado.getText().equals("")) && (jTpendente.getText().equals(""))) {
+                if (JOptionPane.showConfirmDialog(this, "Deseja Inicializar o Atendimento?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
+                    setDataInicialFinal();
+                    jCStatus.setSelectedIndex(1);
+                    alterarAtendimento();
                 } else {
-                    if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("FECHADO"))) {
-                        JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-
-                    } else if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("INICIADO"))) {
-                        jTidtecnico.setText(new UsuarioLogadoBeans().getIdusuario().toString());
+                    alterarAtendimento();
+                }
+                //verifica se o campo realizado esta preenchido e o status esta diferente de fechado e pergunta se quer fechar
+            } else if (!jTrealizado.getText().equals("") && (!jCStatus.getSelectedItem().toString().equals("FECHADO")) && (jTpendente.getText().equals(""))) {
+                if (JOptionPane.showConfirmDialog(this, "Deseja Finalizar o Atendimento?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
+                    if (!jTidtecnico.getText().equals("1")) {
+                        setDataInicialFinal();
+                        jCStatus.setSelectedIndex(3);
                         alterarAtendimento();
-                    }else
-                    if ((jCStatus.getSelectedItem().toString().equals("PENDENTE"))) {
-                        if (jTpendente.getText().equals("")) {
-                            JOptionPane.showMessageDialog(this, "Digite a Pendência", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                        } else if (jTrealizado.getText().equals("")) {
-                            JOptionPane.showMessageDialog(this, "Digite a Realização", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            alterarAtendimento();
-                        }
                     } else {
-                        alterarAtendimento();
+                        JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
                     }
+                } else {
+                    alterarAtendimento();
                 }
 
+            } //verifica se o campo pendente esta preenchido
+            else if ((!jCStatus.getSelectedItem().toString().equals("PENDENTE"))
+                    && (!jTpendente.getText().equals(""))) {
+                if (JOptionPane.showConfirmDialog(this, "Deseja Colocar Chamado como Pendente?", "Atendimento", JOptionPane.YES_NO_OPTION) == 0) {
+                    if ((jTrealizado.getText().equals(""))) {
+                        JOptionPane.showMessageDialog(this, "Digite oque Foi Realizado", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (!jTidtecnico.getText().equals("1")) {
+                        setDataInicialFinal();
+                        jCStatus.setSelectedIndex(2);
+                        alterarAtendimento();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    alterarAtendimento();
+                }
+                //se nao entrou em nenhuma condicao salva 
+            } else if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("FECHADO"))) {
+                JOptionPane.showMessageDialog(this, "Selecione um Tecnico", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+
+            } else if ((jTidtecnico.getText().equals("1")) && (jCStatus.getSelectedItem().toString().equals("INICIADO"))) {
+                jTidtecnico.setText(new UsuarioLogadoBeans().getIdusuario().toString());
+                alterarAtendimento();
+            } else if ((jCStatus.getSelectedItem().toString().equals("PENDENTE"))) {
+                if (jTpendente.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Digite a Pendência", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                } else if (jTrealizado.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Digite a Realização", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    alterarAtendimento();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Há Campos Obrigatorios", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
+                alterarAtendimento();
             }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Há Campos Obrigatorios", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -1800,5 +1894,96 @@ public class ViewAtendimento extends javax.swing.JPanel {
             jCveiculo.addItem(vb1.getModelo());
         }
 
+    }
+
+    private void consultaAjuda() {
+        List<AtendimentoBeans> lab = new ArrayList<>();
+        String sql = "";
+        int count2 = 0;
+
+        if (!jTajuda.getText().equals("")) {
+            String[] sqlt = jTajuda.getText().split(" ");
+            for (int i = 0; i < sqlt.length; i++) {
+                if (!sqlt[i].equals("")) {
+                    //if (sql.equals("")) {
+                    sql = sql + " and solicitacao like('%" + sqlt[i] + "%') ";
+                    //}
+                }
+
+            }
+            if (!sql.equals("")) {
+                sql = sql + "or(";
+            }
+            for (int i = 0; i < sqlt.length; i++) {
+                if (!sqlt[i].equals("")) {
+                    if (count2 == 0) {
+                        sql = sql + " realizado like('%" + sqlt[i] + "%') ";
+                    } else {
+                        sql = sql + " and realizado like('%" + sqlt[i] + "%') ";
+                    }
+                    count2++;
+                }
+
+            }
+            if (!sql.equals("")) {
+                sql = sql + ")";
+            }
+
+        }
+        lab = new AtendimentoDao().getAjuda(sql);
+        if (lab != null) {
+            DefaultTableModel tabel = (DefaultTableModel) jTbajuda.getModel();
+            tabel.setNumRows(0);
+            jTbajuda.setRowHeight(100);
+            for (AtendimentoBeans lab1 : lab) {
+                try{
+                tabel.addRow(new Object[]{adcQuebraPagina(lab1.getSOLICITACAO()), adcQuebraPagina(lab1.getREALIZADO())});
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(this, "Erro \n"+ex);
+                }
+            }
+        }
+    }
+
+    private String adcQuebraPagina(String txt) {
+        //ajusta solicitacao
+        StringBuilder str = new StringBuilder();
+        StringBuilder strt = new StringBuilder();
+        int count = 0;
+        Boolean fin = false;
+        if (txt!=null) {
+            if (txt.length() > 40) {
+                str.delete(0, str.length());
+                str.append("<html>");
+                for (int i = 0, x = 0; i < txt.length(); i++, x++) {
+                    if (x == 40) {
+                        str.append(txt.substring(count, i));
+                        str.append("<br>");
+
+                        count = i;
+                        fin = true;
+                        x = 0;
+                        strt.delete(0, strt.length());
+                    } else {
+                        fin = false;
+                        strt.delete(0, strt.length());
+                        strt.append(txt.substring(count, txt.length()));
+
+                    }
+                }
+                if (fin) {
+                    str.append("</html>");
+                } else {
+                    str.append(strt);
+                    str.append("<br>");
+                    str.append("</html>");
+                }
+
+            } else {
+                str.delete(0, str.length());
+                str.append(txt);
+            }
+        }
+        return str.toString();
     }
 }

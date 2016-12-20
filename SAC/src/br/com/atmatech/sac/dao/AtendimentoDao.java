@@ -82,7 +82,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+" order by atendimento.idatendimento";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
             } else {
                 sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
                         + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
@@ -92,7 +92,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+" order by atendimento.idatendimento";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
             }
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -170,7 +170,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+"";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + "";
 
             } else {
 
@@ -182,7 +182,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa="+new DBConfigBeans().getCompany()+"";
+                        + " where atendimento.ativo='true' and status in( " + status + ") and " + campo + " " + parametro + " and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + "";
 
             }
 
@@ -244,7 +244,8 @@ public class AtendimentoDao {
         }
     }
 //utilizado na tela de atendimento do atendimento selecionado
-    public AtendimentoBeans getAtendimento(Integer idatendimento) {        
+
+    public AtendimentoBeans getAtendimento(Integer idatendimento) {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql;
             sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
@@ -255,13 +256,13 @@ public class AtendimentoDao {
                     + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                     + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                     + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                    + " where atendimento.idatendimento=? and atendimento.idempresa="+new DBConfigBeans().getCompany()+"";
+                    + " where atendimento.idatendimento=? and atendimento.idempresa=" + new DBConfigBeans().getCompany() + "";
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, idatendimento);
             ResultSet rs = pstm.executeQuery();
             AtendimentoBeans ab = new AtendimentoBeans();
-            while (rs.next()) {                
+            while (rs.next()) {
                 ab.setIDATENDIMENTO(rs.getInt("idatendimento"));
                 ab.setIDPESSOA(rs.getInt("idpessoa"));
                 ab.setIDTECNICO(rs.getInt("idtecnico"));
@@ -376,6 +377,30 @@ public class AtendimentoDao {
             pstm.execute();
             pstm.close();
             conexao.close();
+        }
+    }
+
+    public List<AtendimentoBeans> getAjuda(String sql2) {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            String sql;
+            sql = "select solicitacao,realizado from atendimento where atendimento.idempresa=" + new DBConfigBeans().getCompany() + " " + sql2;
+
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            List<AtendimentoBeans> lab = new ArrayList<>();
+            while (rs.next()) {
+                AtendimentoBeans ab = new AtendimentoBeans();
+                ab.setSOLICITACAO(rs.getString("solicitacao").replaceAll("\n", " "));
+                ab.setREALIZADO(rs.getString("realizado").replaceAll("\n", " "));
+                lab.add(ab);
+            }
+            pstm.close();
+            rs.close();
+            conexao.close();
+            return lab;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
     }
 }
