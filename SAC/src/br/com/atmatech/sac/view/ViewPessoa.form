@@ -146,52 +146,12 @@
             <Property name="text" type="java.lang.String" value="Ativa&#xe7;&#xe3;o"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMativa1">
+            <MenuItem class="javax.swing.JMenuItem" name="jMativa">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Chave 1"/>
+                <Property name="text" type="java.lang.String" value="Ativa&#xe7;&#xe3;o"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativa1ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMativa15dias">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Chave 1-5 Dias"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativa15diasActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMativa2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Chave 2"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativa2ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMativa25dias">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Chave 2-5 Dias"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativa25diasActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMativa3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Chave 3"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativa3ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMativa35dias">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Chave 3-5 Dias"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativa35diasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMativaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

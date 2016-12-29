@@ -98,12 +98,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMativacao = new javax.swing.JMenu();
-        jMativa1 = new javax.swing.JMenuItem();
-        jMativa15dias = new javax.swing.JMenuItem();
-        jMativa2 = new javax.swing.JMenuItem();
-        jMativa25dias = new javax.swing.JMenuItem();
-        jMativa3 = new javax.swing.JMenuItem();
-        jMativa35dias = new javax.swing.JMenuItem();
+        jMativa = new javax.swing.JMenuItem();
         jMArquivo = new javax.swing.JMenu();
         jMcarregararquivo = new javax.swing.JMenuItem();
         jMexportararquivo = new javax.swing.JMenuItem();
@@ -281,53 +276,13 @@ public class ViewPessoa extends javax.swing.JPanel {
 
         jMativacao.setText("Ativação");
 
-        jMativa1.setText("Chave 1");
-        jMativa1.addActionListener(new java.awt.event.ActionListener() {
+        jMativa.setText("Ativação");
+        jMativa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMativa1ActionPerformed(evt);
+                jMativaActionPerformed(evt);
             }
         });
-        jMativacao.add(jMativa1);
-
-        jMativa15dias.setText("Chave 1-5 Dias");
-        jMativa15dias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMativa15diasActionPerformed(evt);
-            }
-        });
-        jMativacao.add(jMativa15dias);
-
-        jMativa2.setText("Chave 2");
-        jMativa2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMativa2ActionPerformed(evt);
-            }
-        });
-        jMativacao.add(jMativa2);
-
-        jMativa25dias.setText("Chave 2-5 Dias");
-        jMativa25dias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMativa25diasActionPerformed(evt);
-            }
-        });
-        jMativacao.add(jMativa25dias);
-
-        jMativa3.setText("Chave 3");
-        jMativa3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMativa3ActionPerformed(evt);
-            }
-        });
-        jMativacao.add(jMativa3);
-
-        jMativa35dias.setText("Chave 3-5 Dias");
-        jMativa35dias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMativa35diasActionPerformed(evt);
-            }
-        });
-        jMativacao.add(jMativa35dias);
+        jMativacao.add(jMativa);
 
         jPopupMenu1.add(jMativacao);
 
@@ -1366,7 +1321,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jMativa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa1ActionPerformed
+    private void jMativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativaActionPerformed
 
         new Thread(new Runnable() {
             @Override
@@ -1380,10 +1335,11 @@ public class ViewPessoa extends javax.swing.JPanel {
                     }).start();
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
-                    jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "1", "30"));
+                    //jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/view/index.php?page=CLIENTE", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "1", "30"));
+                    if(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/view/index.php?page=CLIENTE", cb.getLogin(), cb.getSenha(), jFcnpj.getText())){
+                        Runtime.getRuntime().exec("cmd.exe /c ativacao.html");
+                    }
                     jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(jPanel2);
-                    jDchave.setVisible(true);
                 } catch (IOException ex) {
                     jDaguarde.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Erro ao Conectar com Servidor\n" + ex);
@@ -1391,97 +1347,7 @@ public class ViewPessoa extends javax.swing.JPanel {
             }
         }).start();
 
-    }//GEN-LAST:event_jMativa1ActionPerformed
-
-    private void jMativa15diasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa15diasActionPerformed
-        // TODO add your handling code here:
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showAguarde();
-                        }
-                    }).start();
-                    // TODO add your handling code here:
-                    DBConfigBeans cb = new DBConfigBeans();
-                    jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "1", "5"));
-                    jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(jPanel2);
-                    jDchave.setVisible(true);
-                    // JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(),jFcnpj.getText(),"chave_min_nova.php"),"Ativação",JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    jDaguarde.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Erro ao Conectar com Servidor\n" + ex);
-                }
-            }
-        }).start();
-
-    }//GEN-LAST:event_jMativa15diasActionPerformed
-
-    private void jMativa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa2ActionPerformed
-        // TODO add your handling code here:
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showAguarde();
-                        }
-                    }).start();
-                    // TODO add your handling code here: 
-                    DBConfigBeans cb = new DBConfigBeans();
-                    jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "2", "30"));
-                    jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(jPanel2);
-                    jDchave.setVisible(true);
-                    // JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(),jFcnpj.getText(),"chave.php"),"Ativação",JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    jDaguarde.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Erro ao Conectar com Servidor\n" + ex);
-                }
-            }
-        }).start();
-
-    }//GEN-LAST:event_jMativa2ActionPerformed
-
-    private void jMativa25diasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa25diasActionPerformed
-        // TODO add your handling code here:
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showAguarde();
-                        }
-                    }).start();
-                    // TODO add your handling code here:
-                    DBConfigBeans cb = new DBConfigBeans();
-                    jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "2", "5"));
-                    jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(jPanel2);
-                    jDchave.setVisible(true);
-                    //JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "chave_min.php"), "Ativação", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    jDaguarde.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Erro ao Conectar com Servidor\n" + ex);
-                }
-            }
-        }).start();
-
-    }//GEN-LAST:event_jMativa25diasActionPerformed
+    }//GEN-LAST:event_jMativaActionPerformed
 
     private void jBcadcnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcadcnpjActionPerformed
 
@@ -1543,64 +1409,6 @@ public class ViewPessoa extends javax.swing.JPanel {
         JDwebFinanceiro.setLocationRelativeTo(this);
         JDwebFinanceiro.setVisible(true);
     }//GEN-LAST:event_jBfinanceiroActionPerformed
-
-    private void jMativa3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa3ActionPerformed
-        // TODO add your handling code here:
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showAguarde();
-                        }
-                    }).start();
-                    // TODO add your handling code here:
-                    DBConfigBeans cb = new DBConfigBeans();
-                    jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "3", "30"));
-                    jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(jPanel2);
-                    jDchave.setVisible(true);
-                    //JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "chave_min.php"), "Ativação", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    jDaguarde.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Erro ao Conectar com Servidor\n" + ex);
-                }
-            }
-        }).start();
-    }//GEN-LAST:event_jMativa3ActionPerformed
-
-    private void jMativa35diasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMativa35diasActionPerformed
-        // TODO add your handling code here:
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showAguarde();
-                        }
-                    }).start();
-                    // TODO add your handling code here:
-                    DBConfigBeans cb = new DBConfigBeans();
-                    jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "3", "5"));
-                    jDaguarde.setVisible(false);
-                    jDchave.setLocationRelativeTo(jPanel2);
-                    jDchave.setVisible(true);
-                    //JOptionPane.showMessageDialog(this, new WebServiceAtivacao().login("http://atma.serveftp.com/atma/cadastro.php", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "chave_min.php"), "Ativação", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    jDaguarde.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Erro ao Conectar com Servidor\n" + ex);
-                }
-            }
-        }).start();
-    }//GEN-LAST:event_jMativa35diasActionPerformed
 
     private void JDwebFinanceiroWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_JDwebFinanceiroWindowOpened
         // TODO add your handling code here:
@@ -1723,12 +1531,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLindice;
     private javax.swing.JMenu jMArquivo;
-    private javax.swing.JMenuItem jMativa1;
-    private javax.swing.JMenuItem jMativa15dias;
-    private javax.swing.JMenuItem jMativa2;
-    private javax.swing.JMenuItem jMativa25dias;
-    private javax.swing.JMenuItem jMativa3;
-    private javax.swing.JMenuItem jMativa35dias;
+    private javax.swing.JMenuItem jMativa;
     private javax.swing.JMenu jMativacao;
     private javax.swing.JMenuItem jMcarregararquivo;
     private javax.swing.JMenuItem jMemail;
