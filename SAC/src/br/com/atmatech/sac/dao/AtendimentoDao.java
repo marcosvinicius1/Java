@@ -137,6 +137,10 @@ public class AtendimentoDao {
                 ab.setKmfinal(rs.getDouble("kmfinal"));
                 ab.setPlaca(rs.getString("placa"));
                 ab.setAnotacao(rs.getString("anotacao"));
+                ab.setEcf(rs.getBoolean("ecf"));
+                ab.setNfe(rs.getBoolean("nfe"));
+                ab.setPlugins(rs.getDate("dtplugin"));
+                ab.setNfce(rs.getBoolean("nfce"));
                 lab.add(ab);
             }
             pstm.close();
@@ -229,6 +233,10 @@ public class AtendimentoDao {
                 ab.setKmfinal(rs.getDouble("kmfinal"));
                 ab.setPlaca(rs.getString("placa"));
                 ab.setAnotacao(rs.getString("anotacao"));
+                ab.setEcf(rs.getBoolean("ecf"));
+                ab.setNfe(rs.getBoolean("nfe"));
+                ab.setPlugins(rs.getDate("dtplugin"));
+                ab.setNfce(rs.getBoolean("nfce"));
                 lab.add(ab);
             }
             pstm.close();
@@ -297,6 +305,10 @@ public class AtendimentoDao {
                 ab.setKmfinal(rs.getDouble("kmfinal"));
                 ab.setPlaca(rs.getString("placa"));
                 ab.setAnotacao(rs.getString("anotacao"));
+                ab.setEcf(rs.getBoolean("ecf"));
+                ab.setNfe(rs.getBoolean("nfe"));
+                ab.setPlugins(rs.getDate("dtplugin"));
+                ab.setNfce(rs.getBoolean("nfce"));
             }
             pstm.close();
             rs.close();
