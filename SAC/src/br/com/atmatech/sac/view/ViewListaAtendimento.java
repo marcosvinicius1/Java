@@ -813,7 +813,10 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private void deleteAtendimento() {
         try {
             new AtendimentoDao().deleteAtendimento((Integer) jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0));
-            buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
+            if(!jCtecnico.isSelected()){
+                buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
+            }
+           // buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
             JOptionPane.showMessageDialog(this, "Registro Excluido Com Sucesso", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao Excluir Registro\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);

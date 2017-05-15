@@ -72,7 +72,7 @@ public class AtendimentoDao {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String dtini = sdf.format(ini);
             String dtfin = sdf.format(fin);
-            String sql;
+            String sql; 
             if (supervisor) {
                 sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
                         + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
@@ -96,6 +96,7 @@ public class AtendimentoDao {
             }
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
+            
             if (!supervisor) {
                 pstm.setInt(1, idtecnico);
             }
@@ -148,10 +149,10 @@ public class AtendimentoDao {
             conexao.close();
             return lab;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento1", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no Formato da Data\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento1", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -247,7 +248,7 @@ public class AtendimentoDao {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no Formato da Data\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -318,7 +319,7 @@ public class AtendimentoDao {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no Formato da Data\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }

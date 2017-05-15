@@ -9,6 +9,7 @@ import br.com.atmatech.sac.beans.DistritoBeans;
 import br.com.atmatech.sac.beans.PessoaBeans;
 import br.com.atmatech.sac.beans.UsuarioBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
+import br.com.atmatech.sac.connection.ConexaoDb;
 import br.com.atmatech.sac.controller.Avisos;
 import br.com.atmatech.sac.controller.ButtonTabComponent;
 import br.com.atmatech.sac.controller.NivelAcesso;
@@ -59,14 +60,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public ViewPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        jPstatus.setVisible(true);
         //this.setUndecorated(true);
         //funcionalidade
-        inicializaView();
-        carregaMenu();
-        avisos();
-        inicializaAtalhos();
-        inicializaReport();
 
+//            inicializaView();
+//            carregaMenu();
+//            avisos();
+//            inicializaAtalhos();
+//            inicializaReport();
 //
     }
 
@@ -135,6 +137,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jBopcoes = new javax.swing.JButton();
         jLempresa = new javax.swing.JLabel();
+        jPstatus = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTmenu = new javax.swing.JTree();
         jTaabas = new javax.swing.JTabbedPane();
@@ -180,7 +183,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDClienteSemChamados.setTitle("Cliente Sem Chamados");
         jDClienteSemChamados.setMinimumSize(new java.awt.Dimension(370, 250));
         jDClienteSemChamados.setModal(true);
-        jDClienteSemChamados.setPreferredSize(new java.awt.Dimension(370, 250));
         jDClienteSemChamados.setResizable(false);
         jDClienteSemChamados.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -237,7 +239,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addGroup(jDClienteSemChamadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTcliente)
                             .addComponent(JCCidadesemChamdo, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addComponent(jTidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jDClienteSemChamadosLayout.createSequentialGroup()
@@ -622,6 +624,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jLempresa.setText(" ");
 
+        jPstatus.setBackground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout jPstatusLayout = new javax.swing.GroupLayout(jPstatus);
+        jPstatus.setLayout(jPstatusLayout);
+        jPstatusLayout.setHorizontalGroup(
+            jPstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPstatusLayout.setVerticalGroup(
+            jPstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -634,17 +649,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBopcoes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLempresa, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addComponent(jLdata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLdata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPstatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -659,11 +674,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(jButton2)
                             .addComponent(jBopcoes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1)
+                                .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPstatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(23, 23));
@@ -860,13 +879,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jBopcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBopcoesActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:   
         jPopcoes.show(this, jBopcoes.getX(), jBopcoes.getY());
     }//GEN-LAST:event_jBopcoesActionPerformed
 
     private void jBopcoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBopcoesMouseClicked
         // TODO add your handling code here:
-
     }//GEN-LAST:event_jBopcoesMouseClicked
 
     private void jPopcoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPopcoesKeyPressed
@@ -1096,7 +1114,24 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-
+        inicializaView();
+        carregaMenu();
+        avisos();
+        inicializaAtalhos();
+        inicializaReport();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {                        
+                        verificaStatusServidor();
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao Pausar Thread\n" + ex);
+                }
+            }
+        }).start();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1212,6 +1247,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPavisoAtendimento;
     private javax.swing.JPopupMenu jPopcoes;
+    private javax.swing.JPanel jPstatus;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSdias;
@@ -1397,6 +1433,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             Toolkit.getDefaultToolkit().beep();
             Thread.sleep(7000);
             jPavisoAtendimento.setVisible(false);
+            this.setState(Frame.NORMAL);
         }
         if (countAtedTecnico != countAtend) {
             if (countAtedTecnico < countAtend) {
@@ -1405,6 +1442,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 Toolkit.getDefaultToolkit().beep();
                 Thread.sleep(7000);
                 jPavisoAtendimento.setVisible(false);
+                this.setState(Frame.NORMAL);
             } else if (countAtedTecnico > countAtend) {
                 countAtedTecnico = countAtend;
             }
@@ -2224,5 +2262,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
             JCCidadesemChamdo.addItem(ldb.get(i).getDistrito() + " | " + ldb.get(i).getUf());
         }
 
+    }
+
+    private void verificaStatusServidor() {
+        this.jPstatus.setBackground(new ConexaoDb().getStatusServer());
+        this.jPstatus.repaint();
     }
 }

@@ -20,7 +20,6 @@ import com.nilo.plaf.nimrod.NimRODTheme;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,7 +42,7 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     final Integer versao = 1;
     final Integer edicao = 4;
-    final Integer seguranca = 10;
+    final Integer seguranca = 12;
     List<EmpresaBeans>leb=new ArrayList<>();
 
     public ViewLogin() {
@@ -718,7 +717,6 @@ public class ViewLogin extends javax.swing.JFrame {
         setTitle("SAC");
         setMinimumSize(new java.awt.Dimension(360, 260));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(360, 260));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -847,7 +845,7 @@ public class ViewLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(514, 246));
@@ -937,12 +935,12 @@ public class ViewLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         try {
             jTusuario.requestFocusInWindow();
             DBConfigBeans dbcb = new DBConfigBeans();
             dbcb.setUsehost("local");
-            if (!new Versao().verificaVersao(versao, edicao, seguranca)) {
+           if (!new Versao().verificaVersao(versao, edicao, seguranca)) {
                 jButton1.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Versão Incompativel com Servidor");
                 try {
@@ -951,13 +949,13 @@ public class ViewLogin extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Erro ao Atualizar\n" + ex);
                 }
                 System.exit(0);
-            }
+           }
             jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-" + versao + "." + edicao + "." + seguranca + " BETA"));
             buscaEmpresa(dbcb.getCompany());
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Verificar Versão\nTentando Conexão Pelo Host Remoto\n" + ex, "Versão", JOptionPane.ERROR_MESSAGE);
-            connectionHostHemoto();
-        }
+            connectionHostHemoto();      
+    }
     }//GEN-LAST:event_formWindowOpened
 
     private void jMconfiguracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMconfiguracaoActionPerformed
@@ -1282,7 +1280,7 @@ public class ViewLogin extends javax.swing.JFrame {
             }
             jPanel1.setBorder(BorderFactory.createTitledBorder("LOGIN V-" + versao + "." + edicao + "." + seguranca + " BETA"));
             buscaEmpresa(dbcb.getCompany());
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Verificar Versão\n" + ex, "Versão", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }

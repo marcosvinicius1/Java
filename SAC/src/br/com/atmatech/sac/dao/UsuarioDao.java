@@ -90,7 +90,7 @@ public class UsuarioDao {
            rs.close();
            pstm.close();           
            return ub;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Consultar Usuario\n"+ex);
             return null;
         }

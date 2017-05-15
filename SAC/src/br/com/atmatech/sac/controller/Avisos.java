@@ -22,7 +22,7 @@ public class Avisos {
         Timestamp dtini=new Timestamp(new Date().getTime());
             Date dtin=new Date();
             Calendar c= Calendar.getInstance();
-            c.add(Calendar.DAY_OF_YEAR, -360);
+            c.add(Calendar.DAY_OF_YEAR, -360);            
         List<AtendimentoBeans> lab = new AtendimentoDao().getAtendimento(status,idtecnico,supervisor,c.getTime(),new Timestamp(new Date().getTime()),"dtabertura");        
         if(lab!=null){
             return lab.size();        
