@@ -5,40 +5,38 @@
  */
 package br.com.atmatech.sac.view;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.DistritoBeans;
+import br.com.atmatech.sac.beans.FinanceiroBeans;
+import br.com.atmatech.sac.beans.LembreteBeans;
 import br.com.atmatech.sac.beans.PessoaBeans;
 import br.com.atmatech.sac.beans.UsuarioBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
-import br.com.atmatech.sac.connection.ConexaoDb;
 import br.com.atmatech.sac.controller.Avisos;
 import br.com.atmatech.sac.controller.ButtonTabComponent;
 import br.com.atmatech.sac.controller.NivelAcesso;
 import br.com.atmatech.sac.dao.DistritoDao;
+import br.com.atmatech.sac.dao.FinanceiroDao;
+import br.com.atmatech.sac.dao.LembreteDao;
 import br.com.atmatech.sac.dao.PessoaDao;
 import br.com.atmatech.sac.dao.UsuarioDao;
 import br.com.atmatech.sac.report.Report;
+import br.com.atmatech.sac.webService.WebServiceFinanceiro;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -55,21 +53,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
     Boolean consultasintetico = false;
     Boolean consultadescritivo = false;
     Boolean consultadescritivotecnico = false;
+    List<String> lslembrete;
     List<DistritoBeans> ldb;
+    Boolean tarefa=true;
 
     public ViewPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        jPstatus.setVisible(true);
-        //this.setUndecorated(true);
-        //funcionalidade
 
-//            inicializaView();
-//            carregaMenu();
-//            avisos();
-//            inicializaAtalhos();
-//            inicializaReport();
-//
     }
 
     /**
@@ -129,25 +120,59 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jCTipo = new javax.swing.JComboBox<>();
         jYano = new com.toedter.calendar.JYearChooser();
-        jPanel1 = new javax.swing.JPanel();
-        jLusuario = new javax.swing.JLabel();
-        jLdata = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jBopcoes = new javax.swing.JButton();
-        jLempresa = new javax.swing.JLabel();
-        jPstatus = new javax.swing.JPanel();
+        jPLembrete = new javax.swing.JPopupMenu();
+        jMLNovo = new javax.swing.JMenuItem();
+        jMLExcluir = new javax.swing.JMenuItem();
+        jDLembreteNovo = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTmenu = new javax.swing.JTree();
+        jTmensagem = new javax.swing.JTextPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTusuario = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jTtitulo = new javax.swing.JTextField();
+        jDLembrete = new javax.swing.JDialog();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTmensagem1 = new javax.swing.JTextPane();
+        jTtitulo1 = new javax.swing.JTextField();
+        jTremetente = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jTaabas = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLpendente = new javax.swing.JLabel();
         jLaberto = new javax.swing.JLabel();
         jLiniciado = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLAfinanceiro = new javax.swing.JLabel();
         jPavisoAtendimento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jLLembrete = new javax.swing.JList<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMCadastro = new javax.swing.JMenu();
+        jMCNiveldeAcesso = new javax.swing.JMenuItem();
+        jMCUsuario = new javax.swing.JMenuItem();
+        jMCVeiculos = new javax.swing.JMenuItem();
+        jMCEmpresas = new javax.swing.JMenuItem();
+        jMCAtendimento = new javax.swing.JMenuItem();
+        jMCModulos = new javax.swing.JMenuItem();
+        jMCFinanceiro = new javax.swing.JMenuItem();
+        jMEmpresa = new javax.swing.JMenu();
+        jMEEmpresa = new javax.swing.JMenuItem();
+        jMRelatorio = new javax.swing.JMenu();
+        jMRGerencial = new javax.swing.JMenuItem();
+        jMRClientes = new javax.swing.JMenu();
+        jMRCClientesChamadoDescritivo = new javax.swing.JMenuItem();
+        jMRCClientesChamadoSintetico = new javax.swing.JMenuItem();
+        jMRCClientesSemChamado = new javax.swing.JMenuItem();
+        jMRCClientesAnaliseMensal = new javax.swing.JMenuItem();
+        jMRTecnicos = new javax.swing.JMenu();
+        jMRTTecnicosChamadoDescritivo = new javax.swing.JMenuItem();
+        jMRTTecnicoChamadoSintetico = new javax.swing.JMenuItem();
+        jMTela = new javax.swing.JMenu();
+        jMMinimizar = new javax.swing.JMenu();
+        jMFechar = new javax.swing.JMenu();
 
         jPopcoes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -575,6 +600,131 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
+        jMLNovo.setText("Novo");
+        jMLNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMLNovoActionPerformed(evt);
+            }
+        });
+        jPLembrete.add(jMLNovo);
+
+        jMLExcluir.setText("Excluir");
+        jMLExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMLExcluirActionPerformed(evt);
+            }
+        });
+        jPLembrete.add(jMLExcluir);
+
+        jDLembreteNovo.setTitle("Novo Lembrete");
+        jDLembreteNovo.setMinimumSize(new java.awt.Dimension(405, 333));
+        jDLembreteNovo.setModal(true);
+        jDLembreteNovo.setResizable(false);
+
+        jScrollPane1.setViewportView(jTmensagem);
+
+        jTusuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "IDUSUARIO", "USUARIO", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTusuario.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane4.setViewportView(jTusuario);
+        if (jTusuario.getColumnModel().getColumnCount() > 0) {
+            jTusuario.getColumnModel().getColumn(0).setResizable(false);
+            jTusuario.getColumnModel().getColumn(1).setResizable(false);
+            jTusuario.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jButton1.setText("ENVIAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTtitulo.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(20,true));
+        jTtitulo.setText("TITULO");
+
+        javax.swing.GroupLayout jDLembreteNovoLayout = new javax.swing.GroupLayout(jDLembreteNovo.getContentPane());
+        jDLembreteNovo.getContentPane().setLayout(jDLembreteNovoLayout);
+        jDLembreteNovoLayout.setHorizontalGroup(
+            jDLembreteNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jDLembreteNovoLayout.setVerticalGroup(
+            jDLembreteNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDLembreteNovoLayout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jTtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+        );
+
+        jDLembrete.setTitle("Novo Lembrete");
+        jDLembrete.setMinimumSize(new java.awt.Dimension(415, 200));
+        jDLembrete.setModal(true);
+        jDLembrete.setResizable(false);
+
+        jTmensagem1.setEditable(false);
+        jScrollPane5.setViewportView(jTmensagem1);
+
+        jTtitulo1.setEditable(false);
+        jTtitulo1.setDocument(new br.com.atmatech.sac.controller.LimitaCaracterUpper(20,true));
+        jTtitulo1.setText("TITULO");
+
+        jTremetente.setEditable(false);
+
+        jLabel1.setText("Remetente:");
+
+        javax.swing.GroupLayout jDLembreteLayout = new javax.swing.GroupLayout(jDLembrete.getContentPane());
+        jDLembrete.getContentPane().setLayout(jDLembreteLayout);
+        jDLembreteLayout.setHorizontalGroup(
+            jDLembreteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDLembreteLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTremetente, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+            .addComponent(jScrollPane5)
+            .addComponent(jTtitulo1)
+        );
+        jDLembreteLayout.setVerticalGroup(
+            jDLembreteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDLembreteLayout.createSequentialGroup()
+                .addGroup(jDLembreteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTremetente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTtitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAC");
         setUndecorated(true);
@@ -583,160 +733,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setPreferredSize(new java.awt.Dimension(260, 59));
-
-        jLusuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        jLdata.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/logo.png"))); // NOI18N
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton1.setText("x");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton2.setText("_");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jBopcoes.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jBopcoes.setText("*");
-        jBopcoes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBopcoesMouseClicked(evt);
-            }
-        });
-        jBopcoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBopcoesActionPerformed(evt);
-            }
-        });
-
-        jLempresa.setText(" ");
-
-        jPstatus.setBackground(new java.awt.Color(255, 0, 0));
-
-        javax.swing.GroupLayout jPstatusLayout = new javax.swing.GroupLayout(jPstatus);
-        jPstatus.setLayout(jPstatusLayout);
-        jPstatusLayout.setHorizontalGroup(
-            jPstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPstatusLayout.setVerticalGroup(
-            jPstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBopcoes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLempresa, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLdata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPstatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLempresa)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jBopcoes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jLdata, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPstatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(23, 23));
-
-        jTmenu.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("MENU");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cadastro");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Nível de Acesso");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Usuários");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Veiculos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresas");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Atendimento");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Modulos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Email");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Relatórios");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Gerencial");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Descritivo");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamados Sintetico");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes sem Chamados");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Analise Mensal");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Descritivo");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Sintetico");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        jTmenu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTmenu.setMinimumSize(new java.awt.Dimension(90, 48));
-        jTmenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTmenuMousePressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTmenu);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("AVISOS"));
         jPanel4.setMaximumSize(new java.awt.Dimension(207, 253));
@@ -787,8 +783,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLaberto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLiniciado)
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addComponent(jLiniciado))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Financeiro"));
+
+        jLAfinanceiro.setForeground(new java.awt.Color(255, 0, 0));
+        jLAfinanceiro.setText(" ");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLAfinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLAfinanceiro)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPavisoAtendimento.setBackground(new java.awt.Color(255, 0, 0));
@@ -804,30 +820,240 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPavisoAtendimento.setLayout(jPavisoAtendimentoLayout);
         jPavisoAtendimentoLayout.setHorizontalGroup(
             jPavisoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPavisoAtendimentoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPavisoAtendimentoLayout.setVerticalGroup(
             jPavisoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPavisoAtendimentoLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPavisoAtendimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPavisoAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPavisoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPavisoAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addGap(8, 8, 8))
         );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("LEMBRETES"));
+
+        jLLembrete.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLLembrete.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jLLembrete.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jLLembrete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLLembreteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jLLembrete);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+        );
+
+        jMCadastro.setText("Cadastro");
+
+        jMCNiveldeAcesso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        jMCNiveldeAcesso.setText("Nível de Acesso");
+        jMCNiveldeAcesso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCNiveldeAcessoActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCNiveldeAcesso);
+
+        jMCUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        jMCUsuario.setText("Usuário");
+        jMCUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCUsuarioActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCUsuario);
+
+        jMCVeiculos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jMCVeiculos.setText("Veiculos");
+        jMCVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCVeiculosActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCVeiculos);
+
+        jMCEmpresas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
+        jMCEmpresas.setText("Empresas");
+        jMCEmpresas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCEmpresasActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCEmpresas);
+
+        jMCAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jMCAtendimento.setText("Atendimento");
+        jMCAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCAtendimentoActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCAtendimento);
+
+        jMCModulos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
+        jMCModulos.setText("Modulos");
+        jMCModulos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCModulosActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCModulos);
+
+        jMCFinanceiro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
+        jMCFinanceiro.setText("Financeiro");
+        jMCFinanceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCFinanceiroActionPerformed(evt);
+            }
+        });
+        jMCadastro.add(jMCFinanceiro);
+
+        jMenuBar1.add(jMCadastro);
+
+        jMEmpresa.setText("Empresa");
+
+        jMEEmpresa.setText("Empresa");
+        jMEEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMEEmpresaActionPerformed(evt);
+            }
+        });
+        jMEmpresa.add(jMEEmpresa);
+
+        jMenuBar1.add(jMEmpresa);
+
+        jMRelatorio.setText("Relatório");
+
+        jMRGerencial.setText("Gerencial");
+        jMRGerencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRGerencialActionPerformed(evt);
+            }
+        });
+        jMRelatorio.add(jMRGerencial);
+
+        jMRClientes.setText("Clientes");
+
+        jMRCClientesChamadoDescritivo.setText("Clientes Chamado Descritivo");
+        jMRCClientesChamadoDescritivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRCClientesChamadoDescritivoActionPerformed(evt);
+            }
+        });
+        jMRClientes.add(jMRCClientesChamadoDescritivo);
+
+        jMRCClientesChamadoSintetico.setText("Clientes Chamado Sintetico");
+        jMRCClientesChamadoSintetico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRCClientesChamadoSinteticoActionPerformed(evt);
+            }
+        });
+        jMRClientes.add(jMRCClientesChamadoSintetico);
+
+        jMRCClientesSemChamado.setText("Clientes Sem Chamado");
+        jMRCClientesSemChamado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRCClientesSemChamadoActionPerformed(evt);
+            }
+        });
+        jMRClientes.add(jMRCClientesSemChamado);
+
+        jMRCClientesAnaliseMensal.setText("Clientes Analise Mensal");
+        jMRCClientesAnaliseMensal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRCClientesAnaliseMensalActionPerformed(evt);
+            }
+        });
+        jMRClientes.add(jMRCClientesAnaliseMensal);
+
+        jMRelatorio.add(jMRClientes);
+
+        jMRTecnicos.setText("Tecnicos");
+
+        jMRTTecnicosChamadoDescritivo.setText("Tecnico Chamado Descritivo");
+        jMRTTecnicosChamadoDescritivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRTTecnicosChamadoDescritivoActionPerformed(evt);
+            }
+        });
+        jMRTecnicos.add(jMRTTecnicosChamadoDescritivo);
+
+        jMRTTecnicoChamadoSintetico.setText("Tecnico Chamado Sintetico");
+        jMRTTecnicoChamadoSintetico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRTTecnicoChamadoSinteticoActionPerformed(evt);
+            }
+        });
+        jMRTecnicos.add(jMRTTecnicoChamadoSintetico);
+
+        jMRelatorio.add(jMRTecnicos);
+
+        jMenuBar1.add(jMRelatorio);
+
+        jMTela.setText("Tela");
+        jMTela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMTelaMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMTela);
+
+        jMMinimizar.setText("Minimizar");
+        jMMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMMinimizarMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMMinimizar);
+
+        jMFechar.setText("Fechar");
+        jMFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMFecharMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMFechar);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -836,56 +1062,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTaabas)
+                .addComponent(jTaabas, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTaabas)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTaabas))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(800, 667));
+        setSize(new java.awt.Dimension(957, 738));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTmenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTmenuMousePressed
-        // TODO add your handling code here:
-        // JOptionPane.showMessageDialog(null, jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()));         
-        getTela();
-        jTmenu.clearSelection();
-    }//GEN-LAST:event_jTmenuMousePressed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.setState(Frame.ICONIFIED);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jBopcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBopcoesActionPerformed
-        // TODO add your handling code here:   
-        jPopcoes.show(this, jBopcoes.getX(), jBopcoes.getY());
-    }//GEN-LAST:event_jBopcoesActionPerformed
-
-    private void jBopcoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBopcoesMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBopcoesMouseClicked
 
     private void jPopcoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPopcoesKeyPressed
         // TODO add your handling code here:        
@@ -1115,23 +1313,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         inicializaView();
+        desativaMenu();
         carregaMenu();
         avisos();
-        inicializaAtalhos();
         inicializaReport();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {                        
-                        verificaStatusServidor();
-                        Thread.sleep(1000);
-                    }
-                } catch (InterruptedException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao Pausar Thread\n" + ex);
-                }
-            }
-        }).start();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1156,6 +1341,277 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         getCidade();
     }//GEN-LAST:event_jDAnaliseMensalWindowOpened
+
+    private void jMCNiveldeAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCNiveldeAcessoActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Nível de Acesso")) {
+            ViewNivel viewnivel = new ViewNivel();
+            jTaabas.addTab("Nível de Acesso", null, viewnivel);
+            jTaabas.setSelectedComponent(viewnivel);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCNiveldeAcessoActionPerformed
+
+    private void jMCEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCEmpresasActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Cadastro de Empresas")) {
+            ViewPessoa viewcadpessoa = new ViewPessoa();
+            jTaabas.addTab("Cadastro de Empresas", null, viewcadpessoa);
+            jTaabas.setSelectedComponent(viewcadpessoa);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCEmpresasActionPerformed
+
+    private void jMEEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMEEmpresaActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Empresa")) {
+            ViewEmpresa view = new ViewEmpresa();
+            jTaabas.addTab("Empresa", null, view);
+            jTaabas.setSelectedComponent(view);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMEEmpresaActionPerformed
+
+    private void jMTelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMTelaMouseClicked
+        // TODO add your handling code here:
+        jPopcoes.show(jMenuBar1, jMTela.getX(), jMTela.getY());
+    }//GEN-LAST:event_jMTelaMouseClicked
+
+    private void jMMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMMinimizarMouseClicked
+        // TODO add your handling code here:
+        this.setState(Frame.ICONIFIED);
+    }//GEN-LAST:event_jMMinimizarMouseClicked
+
+    private void jMFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMFecharMouseClicked
+        // TODO add your handling code here:
+        if(tarefa){
+        System.exit(0);    
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Aguarde a Finalização de Todos os Processos");
+        }
+        
+    }//GEN-LAST:event_jMFecharMouseClicked
+
+    private void jMCUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCUsuarioActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Cadastro de Usuários")) {
+            ViewUsuario viewusuario = new ViewUsuario();
+            jTaabas.addTab("Cadastro de Usuários", null, viewusuario);
+            jTaabas.setSelectedComponent(viewusuario);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCUsuarioActionPerformed
+
+    private void jMCFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCFinanceiroActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Financeiro")) {
+            ViewFinanceiro view = new ViewFinanceiro();
+            jTaabas.addTab("Financeiro", null, view);
+            jTaabas.setSelectedComponent(view);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCFinanceiroActionPerformed
+
+    private void jMRCClientesChamadoSinteticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRCClientesChamadoSinteticoActionPerformed
+        // TODO add your handling code here:
+        jTclientedescritivo.setText("");
+        jTidclientedescritivo.setText("");
+        jTtecnico.setText("");
+        jTidtecnico.setText("");
+        jCtipo.setSelectedIndex(0);
+        jCstatus.setSelectedIndex(0);
+        jDaberturaini.setDate(null);
+        jDaberturafin.setDate(null);
+        jDiniciadoini.setDate(null);
+        jDiniciadofin.setDate(null);
+        jDfechadoini.setDate(null);
+        jDfechadofin.setDate(null);
+        jDChamadoDescritivo.setTitle("Cliente Chamado Sintetico");
+        jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+        jDChamadoDescritivo.setVisible(true);
+    }//GEN-LAST:event_jMRCClientesChamadoSinteticoActionPerformed
+
+    private void jMCModulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCModulosActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Cadastro de Modulos")) {
+            ViewModulo viewmodulo = new ViewModulo();
+            jTaabas.addTab("Cadastro de Modulos", null, viewmodulo);
+            jTaabas.setSelectedComponent(viewmodulo);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCModulosActionPerformed
+
+    private void jMCVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCVeiculosActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Cadastro de Veiculos")) {
+            ViewVeiculo view = new ViewVeiculo();
+            jTaabas.addTab("Cadastro de Veiculos", null, view);
+            jTaabas.setSelectedComponent(view);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCVeiculosActionPerformed
+
+    private void jMCAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCAtendimentoActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Atendimento")) {
+            ViewListaAtendimento view = new ViewListaAtendimento(this, true, false);
+            jTaabas.addTab("Atendimento", null, view);
+            jTaabas.setSelectedComponent(view);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMCAtendimentoActionPerformed
+
+    private void jMRGerencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRGerencialActionPerformed
+        // TODO add your handling code here:
+        if (!getJanelaAberta("Relatório Gerencial")) {
+            ViewRelatorio view = new ViewRelatorio();
+            jTaabas.addTab("Relatório Gerencial", null, view);
+            jTaabas.setSelectedComponent(view);
+            int j = jTaabas.getSelectedIndex();
+            jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+        }
+    }//GEN-LAST:event_jMRGerencialActionPerformed
+
+    private void jMRCClientesChamadoDescritivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRCClientesChamadoDescritivoActionPerformed
+        // TODO add your handling code here:
+        jTclientedescritivo.setText("");
+        jTidclientedescritivo.setText("");
+        jTtecnico.setText("");
+        jTidtecnico.setText("");
+        jCtipo.setSelectedIndex(0);
+        jCstatus.setSelectedIndex(0);
+        jDaberturaini.setDate(null);
+        jDaberturafin.setDate(null);
+        jDiniciadoini.setDate(null);
+        jDiniciadofin.setDate(null);
+        jDfechadoini.setDate(null);
+        jDfechadofin.setDate(null);
+        jDChamadoDescritivo.setTitle("Cliente Chamado Descritivo");
+        jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+        jDChamadoDescritivo.setVisible(true);
+    }//GEN-LAST:event_jMRCClientesChamadoDescritivoActionPerformed
+
+    private void jMRCClientesSemChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRCClientesSemChamadoActionPerformed
+        // TODO add your handling code here:
+        jTcliente.setText("");
+        jTidcliente.setText("");
+        JCCidadesemChamdo.setSelectedIndex(-1);
+        jSdias.setValue(0);
+        jSdias.requestFocusInWindow();
+        jDClienteSemChamados.setLocationRelativeTo(jTaabas);
+        jDClienteSemChamados.setVisible(true);
+    }//GEN-LAST:event_jMRCClientesSemChamadoActionPerformed
+
+    private void jMRCClientesAnaliseMensalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRCClientesAnaliseMensalActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat sdfa = new SimpleDateFormat("yyyy");
+        SimpleDateFormat sdfm = new SimpleDateFormat("MM");
+        jMmes.setMonth(Integer.valueOf(sdfa.format(new Date().getTime())) - 1);
+        jYano.setYear(Integer.valueOf(sdfa.format(new Date().getTime())));
+        jCTipo.setSelectedIndex(0);
+        JCCidade.setSelectedIndex(-1);
+        jDAnaliseMensal.setLocationRelativeTo(jTaabas);
+        jDAnaliseMensal.setVisible(true);
+    }//GEN-LAST:event_jMRCClientesAnaliseMensalActionPerformed
+
+    private void jMRTTecnicosChamadoDescritivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRTTecnicosChamadoDescritivoActionPerformed
+        // TODO add your handling code here:
+        jTclientedescritivo.setText("");
+        jTidclientedescritivo.setText("");
+        jTtecnico.setText("");
+        jTidtecnico.setText("");
+        jCtipo.setSelectedIndex(0);
+        jCstatus.setSelectedIndex(0);
+        jDaberturaini.setDate(null);
+        jDaberturafin.setDate(null);
+        jDiniciadoini.setDate(null);
+        jDiniciadofin.setDate(null);
+        jDfechadoini.setDate(null);
+        jDfechadofin.setDate(null);
+        jDChamadoDescritivo.setTitle("Tecnico Chamado Descritivo");
+        jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+        jDChamadoDescritivo.setVisible(true);
+    }//GEN-LAST:event_jMRTTecnicosChamadoDescritivoActionPerformed
+
+    private void jMRTTecnicoChamadoSinteticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRTTecnicoChamadoSinteticoActionPerformed
+        // TODO add your handling code here:
+        jTclientedescritivo.setText("");
+        jTidclientedescritivo.setText("");
+        jTtecnico.setText("");
+        jTidtecnico.setText("");
+        jCtipo.setSelectedIndex(0);
+        jCstatus.setSelectedIndex(0);
+        jDaberturaini.setDate(null);
+        jDaberturafin.setDate(null);
+        jDiniciadoini.setDate(null);
+        jDiniciadofin.setDate(null);
+        jDfechadoini.setDate(null);
+        jDfechadofin.setDate(null);
+        jDChamadoDescritivo.setTitle("Tecnico Chamado Sintetico");
+        jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
+        jDChamadoDescritivo.setVisible(true);
+    }//GEN-LAST:event_jMRTTecnicoChamadoSinteticoActionPerformed
+
+    private void jLLembreteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLembreteMouseClicked
+        // TODO add your handling code here:        
+        if ((evt.getModifiers() & evt.BUTTON3_MASK) != 0) {
+            jPLembrete.show(jLLembrete, evt.getX(), evt.getY());
+        }
+        if (evt.getClickCount() == 2) {
+            selecionaLembrete();
+        }
+    }//GEN-LAST:event_jLLembreteMouseClicked
+
+    private void jMLNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMLNovoActionPerformed
+        // TODO add your handling code here:        
+        buscaUsuario();
+        jTmensagem.setText("");
+        jTtitulo.setText("TITULO");
+        jDLembreteNovo.setLocationRelativeTo(this);
+        jDLembreteNovo.setVisible(true);
+    }//GEN-LAST:event_jMLNovoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Boolean enviou = false;
+        if (jTtitulo.getText().length() > 1) {
+            if (jTmensagem.getText().length() > 1) {
+                if (jTmensagem.getText().length() <= 600) {
+                    for (int i = 0; i < jTusuario.getRowCount(); i++) {
+                        if (jTusuario.getValueAt(i, 2).equals(true)) {
+                            enviou = true;
+                            adicionarMensagem((Integer) jTusuario.getValueAt(i, 0), jTtitulo.getText(), jTmensagem.getText());
+                        }
+                    }
+                    if (enviou) {
+                        jDLembreteNovo.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Selecione 1 Destinatario");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mensagem Muito Grande Reduza a 600 Caracteres");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Informe a Mensagem");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Informe o Titulo");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMLExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMLExcluirActionPerformed
+        // TODO add your handling code here:                
+        removeLembrete();
+    }//GEN-LAST:event_jMLExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1196,9 +1652,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.jidesoft.swing.AutoCompletionComboBox JCCidade;
     private com.jidesoft.swing.AutoCompletionComboBox JCCidadesemChamdo;
-    private javax.swing.JButton jBopcoes;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1208,6 +1662,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JDialog jDAnaliseMensal;
     private javax.swing.JDialog jDChamadoDescritivo;
     private javax.swing.JDialog jDClienteSemChamados;
+    private javax.swing.JDialog jDLembrete;
+    private javax.swing.JDialog jDLembreteNovo;
     private com.toedter.calendar.JDateChooser jDaberturafin;
     private com.toedter.calendar.JDateChooser jDaberturaini;
     private javax.swing.JDialog jDaguarde;
@@ -1216,6 +1672,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDfechadoini;
     private com.toedter.calendar.JDateChooser jDiniciadofin;
     private com.toedter.calendar.JDateChooser jDiniciadoini;
+    private javax.swing.JLabel jLAfinanceiro;
+    private javax.swing.JList<String> jLLembrete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1233,23 +1691,50 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLaberto;
-    public javax.swing.JLabel jLdata;
-    private javax.swing.JLabel jLempresa;
     private javax.swing.JLabel jLiniciado;
     private javax.swing.JLabel jLpendente;
-    public javax.swing.JLabel jLusuario;
+    private javax.swing.JMenuItem jMCAtendimento;
+    private javax.swing.JMenuItem jMCEmpresas;
+    private javax.swing.JMenuItem jMCFinanceiro;
+    private javax.swing.JMenuItem jMCModulos;
+    private javax.swing.JMenuItem jMCNiveldeAcesso;
+    private javax.swing.JMenuItem jMCUsuario;
+    private javax.swing.JMenuItem jMCVeiculos;
+    private javax.swing.JMenu jMCadastro;
+    private javax.swing.JMenuItem jMEEmpresa;
+    private javax.swing.JMenu jMEmpresa;
+    private javax.swing.JMenu jMFechar;
+    private javax.swing.JMenuItem jMLExcluir;
+    private javax.swing.JMenuItem jMLNovo;
+    private javax.swing.JMenu jMMinimizar;
+    private javax.swing.JMenuItem jMRCClientesAnaliseMensal;
+    private javax.swing.JMenuItem jMRCClientesChamadoDescritivo;
+    private javax.swing.JMenuItem jMRCClientesChamadoSintetico;
+    private javax.swing.JMenuItem jMRCClientesSemChamado;
+    private javax.swing.JMenu jMRClientes;
+    private javax.swing.JMenuItem jMRGerencial;
+    private javax.swing.JMenuItem jMRTTecnicoChamadoSintetico;
+    private javax.swing.JMenuItem jMRTTecnicosChamadoDescritivo;
+    private javax.swing.JMenu jMRTecnicos;
+    private javax.swing.JMenu jMRelatorio;
+    private javax.swing.JMenu jMTela;
+    private javax.swing.JMenuBar jMenuBar1;
     private com.toedter.calendar.JMonthChooser jMmes;
     private javax.swing.JMenuItem jMtela01;
     private javax.swing.JMenuItem jMtela02;
+    private javax.swing.JPopupMenu jPLembrete;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPavisoAtendimento;
     private javax.swing.JPopupMenu jPopcoes;
-    private javax.swing.JPanel jPstatus;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSdias;
     public javax.swing.JTabbedPane jTaabas;
     private javax.swing.JTextField jTcliente;
@@ -1258,39 +1743,35 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTidcliente;
     private javax.swing.JTextField jTidclientedescritivo;
     private javax.swing.JTextField jTidtecnico;
-    private javax.swing.JTree jTmenu;
+    private javax.swing.JTextPane jTmensagem;
+    private javax.swing.JTextPane jTmensagem1;
+    private javax.swing.JTextField jTremetente;
     private javax.swing.JTextField jTtecnico;
+    private javax.swing.JTextField jTtitulo;
+    private javax.swing.JTextField jTtitulo1;
+    private javax.swing.JTable jTusuario;
     private com.toedter.calendar.JYearChooser jYano;
     // End of variables declaration//GEN-END:variables
 
     private void inicializaView() {
-        jLempresa.setText(new UsuarioLogadoBeans().getRasaoemp());
-        jLusuario.setText("Ola " + new UsuarioLogadoBeans().getNome());
         jPavisoAtendimento.setVisible(false);
         jMtela01.setVisible(false);
         jMtela02.setVisible(false);
         jTidcliente.setVisible(false);
         jTidclientedescritivo.setVisible(false);
         jTidtecnico.setVisible(false);
+        //redimenciona colunas da tabela usuario do jdlembrete
+        jTusuario.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTusuario.getColumnModel().getColumn(0).setMinWidth(0);
+        jTusuario.getColumnModel().getColumn(0).setPreferredWidth(0);
 
-        new Thread(new Runnable() {
+        jTusuario.getColumnModel().getColumn(1).setMaxWidth(325);
+        jTusuario.getColumnModel().getColumn(1).setMinWidth(325);
+        jTusuario.getColumnModel().getColumn(1).setPreferredWidth(325);
 
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        GregorianCalendar x;
-                        x = new GregorianCalendar();
-                        jLdata.setText(String.valueOf(x.getTime()));
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao Sincronizar Data", "Data", JOptionPane.ERROR_MESSAGE);
-                        System.exit(0);
-                    }
-                }
-
-            }
-        }).start();
+        jTusuario.getColumnModel().getColumn(2).setMaxWidth(48);
+        jTusuario.getColumnModel().getColumn(2).setMinWidth(48);
+        jTusuario.getColumnModel().getColumn(2).setPreferredWidth(48);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = ge.getScreenDevices();
@@ -1304,77 +1785,43 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void carregaMenu() {
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("MENU");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cadastro");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = null;
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = null;
-
         if (new NivelAcesso().getAcesso("ViewNivel", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Nível de Acesso");
-            treeNode2.add(treeNode3);
+            jMCNiveldeAcesso.setVisible(true);
+            jMCadastro.setVisible(true);
         }
         if (new NivelAcesso().getAcesso("ViewUsuario", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Usuários");
-            treeNode2.add(treeNode3);
+            jMCUsuario.setVisible(true);
+            jMCadastro.setVisible(true);
         }
         if (new NivelAcesso().getAcesso("ViewVeiculo", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Veiculos");
-            treeNode2.add(treeNode3);
+            jMCVeiculos.setVisible(true);
+            jMCadastro.setVisible(true);
         }
         if (new NivelAcesso().getAcesso("ViewPessoa", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresas");
-            treeNode2.add(treeNode3);
+            jMCEmpresas.setVisible(true);
+            jMCadastro.setVisible(true);
         }
         if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Atendimento");
-            treeNode2.add(treeNode3);
+            jMCAtendimento.setVisible(true);
+            jMCadastro.setVisible(true);
         }
         if (new NivelAcesso().getAcesso("ViewModulo", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Modulos");
-            treeNode2.add(treeNode3);
+            jMCModulos.setVisible(true);
+            jMCadastro.setVisible(true);
         }
-        if (new NivelAcesso().getAcesso("ViewEmail", "acessar", false)) {
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Email");
-            treeNode2.add(treeNode3);
+        if (new NivelAcesso().getAcesso("ViewFinanceiro", "acessar", false)) {
+            jMCFinanceiro.setVisible(true);
+            jMCadastro.setVisible(true);
+            jPanel5.setVisible(true);
         }
-        treeNode1.add(treeNode2);
-
         if (new NivelAcesso().getAcesso("ViewEmpresa", "acessar", false)) {
-            treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
-            treeNode2.add(treeNode3);
-            treeNode1.add(treeNode2);
+            jMEEmpresa.setVisible(true);
+            jMEmpresa.setVisible(true);
         }
 
         if (new NivelAcesso().getAcesso("ViewRelatorio", "acessar", false)) {
-            treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Relatórios");
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Gerencial");
-            treeNode2.add(treeNode3);
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamado Descritivo");
-            treeNode3.add(treeNode4);
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Chamados Sintetico");;
-            treeNode3.add(treeNode4);
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes sem Chamados");
-            treeNode3.add(treeNode4);
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes Analise Mensal");
-            treeNode3.add(treeNode4);
-            treeNode2.add(treeNode3);
-            treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico");
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Descritivo");
-            treeNode3.add(treeNode4);
-            treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tecnico Chamado Sintetico");
-            treeNode3.add(treeNode4);
+            jMRelatorio.setVisible(true);
         }
-        if (treeNode3 != null) {
-            treeNode2.add(treeNode3);
-        }
-        // if (treeNode2 != null) {
-        treeNode1.add(treeNode2);
-        // }
-
-        jTmenu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-
     }
 
     private Boolean getJanelaAberta(String titulo) {
@@ -1397,24 +1844,71 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void avisos() {
-        new Thread(new Runnable() {
 
+        new Thread(new Runnable() {
             @Override
             public void run() {
-
                 while (true) {
                     try {
                         getAtendimentoAberto();
                         getAtendimentoTecnico();
                         Thread.sleep(1000);
-
                     } catch (InterruptedException ex) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Avisos\n" + ex);
+                        JOptionPane.showMessageDialog(rootPane, "Consulta de Avisos Interrompida\n" + ex);
                     }
                 }
-
             }
         }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        getLembrete();
+                        jLLembrete.repaint();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "Consulta de Lembretes Interrompida\n" + ex);
+                    }
+                }
+            }
+        }).start();
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    getFinanceiroUpdate();
+                    tarefa=true;
+                    jLAfinanceiro.setText(""); 
+                } catch (Exception ex) {
+                    jLAfinanceiro.setText(""); 
+                    tarefa=true;
+                    if(ex.toString().contains("Duplicate")){                        
+                    }else{
+                    JOptionPane.showMessageDialog(jTaabas, "Erro ao Consultar Financeiro\n" + ex);
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void getLembrete() {
+        try {
+            List<String> llb = new LembreteDao().getLembreteTitulo(new UsuarioLogadoBeans().getIdusuario());
+            if (lslembrete == null) {
+                lslembrete = llb;
+                String[] n = llb.toArray(new String[0]);
+                jLLembrete.setListData(n);
+            } else if (!lslembrete.equals(llb)) {
+                lslembrete = llb;
+                String[] n = llb.toArray(new String[0]);
+                jLLembrete.setListData(n);
+            }
+        } catch (Exception ex) {
+            //JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Lembretes\n" + ex);
+        }
 
     }
 
@@ -1448,350 +1942,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         }
 
-    }
-
-    private void getTela() {
-        if (null != jTmenu.getPathForRow(jTmenu.getLeadSelectionRow())) {
-            if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Empresas")) {
-                if (!getJanelaAberta("Cadastro de Empresas")) {
-                    ViewPessoa viewcadpessoa = new ViewPessoa();
-                    jTaabas.addTab("Cadastro de Empresas", null, viewcadpessoa);
-                    jTaabas.setSelectedComponent(viewcadpessoa);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Modulos")) {
-                if (!getJanelaAberta("Cadastro de Modulos")) {
-                    ViewModulo viewmodulo = new ViewModulo();
-                    jTaabas.addTab("Cadastro de Modulos", null, viewmodulo);
-                    jTaabas.setSelectedComponent(viewmodulo);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Nível de Acesso")) {
-                if (!getJanelaAberta("Nível de Acesso")) {
-                    ViewNivel viewnivel = new ViewNivel();
-                    jTaabas.addTab("Nível de Acesso", null, viewnivel);
-                    jTaabas.setSelectedComponent(viewnivel);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Usuários")) {
-                if (!getJanelaAberta("Cadastro de Usuários")) {
-                    ViewUsuario viewusuario = new ViewUsuario();
-                    jTaabas.addTab("Cadastro de Usuários", null, viewusuario);
-                    jTaabas.setSelectedComponent(viewusuario);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Veiculos")) {
-                if (!getJanelaAberta("Cadastro de Veiculos")) {
-                    ViewVeiculo view = new ViewVeiculo();
-                    jTaabas.addTab("Cadastro de Veiculos", null, view);
-                    jTaabas.setSelectedComponent(view);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Atendimento")) {
-                if (!getJanelaAberta("Atendimento")) {
-                    ViewListaAtendimento view = new ViewListaAtendimento(this, true, false);
-                    jTaabas.addTab("Atendimento", null, view);
-                    jTaabas.setSelectedComponent(view);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Gerencial")) {
-                if (!getJanelaAberta("Relatório Gerencial")) {
-                    ViewRelatorio view = new ViewRelatorio();
-                    jTaabas.addTab("Relatório Gerencial", null, view);
-                    jTaabas.setSelectedComponent(view);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Chamado Descritivo")) {
-                jTclientedescritivo.setText("");
-                jTidclientedescritivo.setText("");
-                jTtecnico.setText("");
-                jTidtecnico.setText("");
-                jCtipo.setSelectedIndex(0);
-                jCstatus.setSelectedIndex(0);
-                jDaberturaini.setDate(null);
-                jDaberturafin.setDate(null);
-                jDiniciadoini.setDate(null);
-                jDiniciadofin.setDate(null);
-                jDfechadoini.setDate(null);
-                jDfechadofin.setDate(null);
-                jDChamadoDescritivo.setTitle("Cliente Chamado Descritivo");
-                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
-                jDChamadoDescritivo.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Chamados Sintetico")) {
-                jTclientedescritivo.setText("");
-                jTidclientedescritivo.setText("");
-                jTtecnico.setText("");
-                jTidtecnico.setText("");
-                jCtipo.setSelectedIndex(0);
-                jCstatus.setSelectedIndex(0);
-                jDaberturaini.setDate(null);
-                jDaberturafin.setDate(null);
-                jDiniciadoini.setDate(null);
-                jDiniciadofin.setDate(null);
-                jDfechadoini.setDate(null);
-                jDfechadofin.setDate(null);
-                jDChamadoDescritivo.setTitle("Cliente Chamado Sintetico");
-                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
-                jDChamadoDescritivo.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes sem Chamados")) {
-                jTcliente.setText("");
-                jTidcliente.setText("");
-                JCCidadesemChamdo.setSelectedIndex(-1);
-                jSdias.setValue(0);
-                jSdias.requestFocusInWindow();
-                jDClienteSemChamados.setLocationRelativeTo(jTaabas);
-                jDClienteSemChamados.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Clientes, Clientes Analise Mensal")) {
-                SimpleDateFormat sdfa = new SimpleDateFormat("yyyy");
-                SimpleDateFormat sdfm = new SimpleDateFormat("MM");
-                jMmes.setMonth(Integer.valueOf(sdfa.format(new Date().getTime())) - 1);
-                jYano.setYear(Integer.valueOf(sdfa.format(new Date().getTime())));
-                jCTipo.setSelectedIndex(0);
-                JCCidade.setSelectedIndex(-1);
-                jDAnaliseMensal.setLocationRelativeTo(jTaabas);
-                jDAnaliseMensal.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Descritivo")) {
-                jTclientedescritivo.setText("");
-                jTidclientedescritivo.setText("");
-                jTtecnico.setText("");
-                jTidtecnico.setText("");
-                jCtipo.setSelectedIndex(0);
-                jCstatus.setSelectedIndex(0);
-                jDaberturaini.setDate(null);
-                jDaberturafin.setDate(null);
-                jDiniciadoini.setDate(null);
-                jDiniciadofin.setDate(null);
-                jDfechadoini.setDate(null);
-                jDfechadofin.setDate(null);
-                jDChamadoDescritivo.setTitle("Tecnico Chamado Descritivo");
-                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
-                jDChamadoDescritivo.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Relatórios, Tecnico, Tecnico Chamado Sintetico")) {
-                jTclientedescritivo.setText("");
-                jTidclientedescritivo.setText("");
-                jTtecnico.setText("");
-                jTidtecnico.setText("");
-                jCtipo.setSelectedIndex(0);
-                jCstatus.setSelectedIndex(0);
-                jDaberturaini.setDate(null);
-                jDaberturafin.setDate(null);
-                jDiniciadoini.setDate(null);
-                jDiniciadofin.setDate(null);
-                jDfechadoini.setDate(null);
-                jDfechadofin.setDate(null);
-                jDChamadoDescritivo.setTitle("Tecnico Chamado Sintetico");
-                jDChamadoDescritivo.setLocationRelativeTo(jTaabas);
-                jDChamadoDescritivo.setVisible(true);
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Cadastro, Email")) {
-                if (!getJanelaAberta("Gerenciador de Email")) {
-                    ViewEmail view = new ViewEmail();
-                    jTaabas.addTab("Gerenciador de Email", null, view);
-                    jTaabas.setSelectedComponent(view);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            } else if (jTmenu.getPathForRow(jTmenu.getLeadSelectionRow()).toString().contains("[MENU, Empresa, Empresa")) {
-                if (!getJanelaAberta("Empresa")) {
-                    ViewEmpresa view = new ViewEmpresa();
-                    jTaabas.addTab("Empresa", null, view);
-                    jTaabas.setSelectedComponent(view);
-                    int j = jTaabas.getSelectedIndex();
-                    jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-                }
-            }
-        }
-
-    }
-
-    private void inicializaAtalhos() {
-
-        //Atalho Atendimento
-        KeyStroke keyStrokeAtendimento = KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.ALT_DOWN_MASK);
-        String actionNameAtendimento = "Alt+A";
-        InputMap inputMapAtendimento = jTmenu.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        inputMapAtendimento.put(keyStrokeAtendimento, actionNameAtendimento);
-        ActionMap actionMapAtendimento = jTmenu.getActionMap();
-        actionMapAtendimento.put(actionNameAtendimento, acaoAtendimento);
-
-        //Atalho Nivel de Acesso
-        KeyStroke keyStrokeNivelAcesso = KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.ALT_DOWN_MASK);
-        String actionNameNivelAcesso = "Alt+N";
-        InputMap inputMapNivelAtendimento = jTmenu.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        inputMapNivelAtendimento.put(keyStrokeNivelAcesso, actionNameNivelAcesso);
-        ActionMap actionMapNivelAcesso = jTmenu.getActionMap();
-        actionMapNivelAcesso.put(actionNameNivelAcesso, acaoNivelAcesso);
-
-        //Atalho Usuario
-        KeyStroke keyStrokeUsuario = KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.ALT_DOWN_MASK);
-        String actionNameUsuario = "Alt+U";
-        InputMap inputMapUsuario = jTmenu.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        inputMapUsuario.put(keyStrokeUsuario, actionNameUsuario);
-        ActionMap actionMapUsuario = jTmenu.getActionMap();
-        actionMapUsuario.put(actionNameUsuario, acaoUsuario);
-
-        //Atalho veiculos
-        KeyStroke keyStrokeVeiculo = KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.ALT_DOWN_MASK);
-        String actionNameVeiculo = "Alt+V";
-        InputMap inputMapVeiculo = jTmenu.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        inputMapVeiculo.put(keyStrokeVeiculo, actionNameVeiculo);
-        ActionMap actionMapVeiculo = jTmenu.getActionMap();
-        actionMapUsuario.put(actionNameVeiculo, acaoVeiculo);
-
-        //Atalho empresas
-        KeyStroke keyStrokeEmpresa = KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.ALT_DOWN_MASK);
-        String actionNameEmpresa = "Alt+E";
-        InputMap inputMapEmpresa = jTmenu.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        inputMapEmpresa.put(keyStrokeEmpresa, actionNameEmpresa);
-        ActionMap actionMapEmpresa = jTmenu.getActionMap();
-        actionMapEmpresa.put(actionNameEmpresa, acaoEmpresa);
-
-        //Atalho modulo
-        KeyStroke keyStrokeModulo = KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.ALT_DOWN_MASK);
-        String actionNameModulo = "Alt+M";
-        InputMap inputMapModulo = jTmenu.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        inputMapModulo.put(keyStrokeModulo, actionNameModulo);
-        ActionMap actionMapModulo = jTmenu.getActionMap();
-        actionMapModulo.put(actionNameModulo, acaoModulo);
-
-    }
-
-    //FUNCAO de atalho Atendimento
-    Action acaoAtendimento = new AbstractAction() {  //funcao da acao do botao
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //simula o click no botão  
-            getAtalhoAtendimento();
-        }
-    };
-
-    //FUNCAO de atalho Nivel Acesso
-    Action acaoNivelAcesso = new AbstractAction() {  //funcao da acao do botao
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //simula o click no botão  
-            getAtalhoNivelAcesso();
-        }
-    };
-
-    //FUNCAO de atalho Usuario
-    Action acaoUsuario = new AbstractAction() {  //funcao da acao do botao
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //simula o click no botão  
-            getAtalhoUsuario();
-        }
-    };
-
-    //FUNCAO de atalho Veiculo
-    Action acaoVeiculo = new AbstractAction() {  //funcao da acao do botao
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //simula o click no botão  
-            getAtalhoVeiculos();
-        }
-    };
-
-    //FUNCAO de atalho Empresa
-    Action acaoEmpresa = new AbstractAction() {  //funcao da acao do botao
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //simula o click no botão  
-            getAtalhoEmpresa();
-        }
-    };
-
-    //FUNCAO de atalho modulo
-    Action acaoModulo = new AbstractAction() {  //funcao da acao do botao
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //simula o click no botão  
-            getAtalhoModulos();
-        }
-    };
-
-    public void getAtalhoAtendimento() {
-        if (new NivelAcesso().getAcesso("ViewListaAtendimento", "acessar", false)) {
-            if (!getJanelaAberta("Atendimento")) {
-                ViewListaAtendimento view = new ViewListaAtendimento(this, true, false);
-                jTaabas.addTab("Atendimento", null, view);
-                jTaabas.setSelectedComponent(view);
-                int j = jTaabas.getSelectedIndex();
-                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-            }
-        }
-    }
-
-    public void getAtalhoNivelAcesso() {
-        if (new NivelAcesso().getAcesso("ViewNivel", "acessar", false)) {
-            if (!getJanelaAberta("Nível de Acesso")) {
-                ViewNivel viewnivel = new ViewNivel();
-                jTaabas.addTab("Nível de Acesso", null, viewnivel);
-                jTaabas.setSelectedComponent(viewnivel);
-                int j = jTaabas.getSelectedIndex();
-                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-            }
-        }
-    }
-
-    public void getAtalhoUsuario() {
-        if (new NivelAcesso().getAcesso("ViewUsuario", "acessar", false)) {
-            if (!getJanelaAberta("Cadastro de Usuários")) {
-                ViewUsuario viewusuario = new ViewUsuario();
-                jTaabas.addTab("Cadastro de Usuários", null, viewusuario);
-                jTaabas.setSelectedComponent(viewusuario);
-                int j = jTaabas.getSelectedIndex();
-                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-            }
-        }
-    }
-
-    public void getAtalhoVeiculos() {
-        if (new NivelAcesso().getAcesso("ViewVeiculo", "acessar", false)) {
-            if (!getJanelaAberta("Cadastro de Veiculos")) {
-                ViewVeiculo view = new ViewVeiculo();
-                jTaabas.addTab("Cadastro de Veiculos", null, view);
-                jTaabas.setSelectedComponent(view);
-                int j = jTaabas.getSelectedIndex();
-                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-            }
-        }
-    }
-
-    public void getAtalhoEmpresa() {
-        if (new NivelAcesso().getAcesso("ViewPessoa", "acessar", false)) {
-            if (!getJanelaAberta("Cadastro de Empresas")) {
-                ViewPessoa viewcadpessoa = new ViewPessoa();
-                jTaabas.addTab("Cadastro de Empresas", null, viewcadpessoa);
-                jTaabas.setSelectedComponent(viewcadpessoa);
-                int j = jTaabas.getSelectedIndex();
-                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-            }
-        }
-    }
-
-    public void getAtalhoModulos() {
-        if (new NivelAcesso().getAcesso("ViewModulo", "acessar", false)) {
-            if (!getJanelaAberta("Cadastro de Modulos")) {
-                ViewModulo viewmodulo = new ViewModulo();
-                jTaabas.addTab("Cadastro de Modulos", null, viewmodulo);
-                jTaabas.setSelectedComponent(viewmodulo);
-                int j = jTaabas.getSelectedIndex();
-                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
-            }
-        }
     }
 
     private void exibeTelaSec(int tela) {
@@ -1982,7 +2132,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void getReportClienteChamadoDescritivo() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String sql = "";
         jDChamadoDescritivo.setVisible(false);
         if (!jTidclientedescritivo.getText().equals("")) {
@@ -2039,7 +2189,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void getReportClienteChamadoSintetico() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String sql = "";
         jDChamadoDescritivo.setVisible(false);
         if (!jTidclientedescritivo.getText().equals("")) {
@@ -2111,7 +2261,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void getReportTecnicoChamadoDescritivo() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String sql = "";
         jDChamadoDescritivo.setVisible(false);
         if (!jTidclientedescritivo.getText().equals("")) {
@@ -2167,7 +2317,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void getReportTecnicoChamadoSintetico() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String sql = "";
         jDChamadoDescritivo.setVisible(false);
         if (!jTidclientedescritivo.getText().equals("")) {
@@ -2264,8 +2414,85 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     }
 
-    private void verificaStatusServidor() {
-        this.jPstatus.setBackground(new ConexaoDb().getStatusServer());
-        this.jPstatus.repaint();
+    private void desativaMenu() {
+        jMCadastro.setVisible(false);
+        jMCNiveldeAcesso.setVisible(false);
+        jMCUsuario.setVisible(false);
+        jMCVeiculos.setVisible(false);
+        jMCEmpresas.setVisible(false);
+        jMCAtendimento.setVisible(false);
+        jMCModulos.setVisible(false);
+        jMCFinanceiro.setVisible(false);
+        jMEEmpresa.setVisible(false);
+        jMEmpresa.setVisible(false);
+        jMRelatorio.setVisible(false);
+        jPanel5.setVisible(false);
     }
+
+    private void buscaUsuario() {
+        DefaultTableModel modeljtusuario = (DefaultTableModel) jTusuario.getModel();
+        modeljtusuario.setNumRows(0);
+        List<UsuarioBeans> lub = new UsuarioDao().getUsuarioAtivo();
+        for (UsuarioBeans ub : lub) {
+            modeljtusuario.addRow(new Object[]{ub.getIdusuario(), ub.getNome(), false});
+        }
+    }
+
+    private void adicionarMensagem(Integer idusuario, String titulo, String mensagem) {
+        try {
+            new LembreteDao().setLembrete(idusuario, titulo, mensagem, new UsuarioLogadoBeans().getIdusuario());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao Adicionar Mensagem:" + idusuario + "," + titulo + "," + mensagem + "\n" + ex);
+        }
+    }
+
+    private void removeLembrete() {
+        try {
+            int indexini = jLLembrete.getSelectedValue().indexOf(" ");
+            Integer id = Integer.valueOf(jLLembrete.getSelectedValue().substring(0, indexini));
+            new LembreteDao().delLembrete(id);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao Excluir\n" + ex);
+        }
+    }
+
+    private void selecionaLembrete() {
+        try {
+            int indexini = jLLembrete.getSelectedValue().indexOf(" ");
+            Integer id = Integer.valueOf(jLLembrete.getSelectedValue().substring(0, indexini));
+            LembreteBeans lb = new LembreteDao().getLembrete(id);
+            jTremetente.setText(lb.getNome());
+            jTmensagem1.setText(lb.getMensagem());
+            jTtitulo1.setText(lb.getTitulo());
+            jDLembrete.setLocationRelativeTo(this);
+            jDLembrete.setVisible(true);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao Consultar\n" + ex);
+        }
+    }
+
+    private void getFinanceiroUpdate() throws Exception {
+        DBConfigBeans cb = new DBConfigBeans();        
+        Date atualizacao = new FinanceiroDao().getFinanceiroDate();
+        //List<FinanceiroBeans> lfbt = new FinanceiroDao().getFinanceiro();        
+        if (atualizacao.getDate() != new Date().getDate()) {            
+            List<FinanceiroBeans> lfb = new WebServiceFinanceiro().getFinanceiro("http://atma.serveftp.com", cb.getLogin(), cb.getSenha());
+            //atualizacao = new FinanceiroDao().getFinanceiroDate();
+            if (atualizacao.getDate() != new Date().getDate()) {                
+                tarefa=false;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        jLAfinanceiro.setText("Atualizando Financeiro");                        
+                    }
+                }).start();
+                new FinanceiroDao().dropFinanceiro();
+                for (FinanceiroBeans fb : lfb) {
+                    new FinanceiroDao().setFinanceiro(fb);
+                }
+            }
+        }        
+    }
+
 }

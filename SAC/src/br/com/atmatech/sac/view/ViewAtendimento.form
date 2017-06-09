@@ -594,6 +594,9 @@
         <Component class="javax.swing.JTextField" name="jTidcliente">
         </Component>
         <Component class="javax.swing.JTextField" name="jTidtecnico">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTidtecnicoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTidtecnicoanterior">
         </Component>

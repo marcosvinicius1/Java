@@ -88,9 +88,9 @@ public class Report {
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
           //  JasperViewer view = new JasperViewer(jasperPrint, false);    
         } catch (JRException ex) {            
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report "+nomeReport+"\n" + ex);
         } catch (SQLException ex) {            
-            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta "+nomeReport+"\n" + ex);
         }
     }
     //*metodo utilizado na viewprincipal para inicializa report analisemensal
@@ -104,7 +104,7 @@ public class Report {
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/" + nomeReport + ".jasper", parametros, conexao);
           //  JasperViewer view = new JasperViewer(jasperPrint, false);    
         } catch (JRException ex) {            
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report"+nomeReport+"\n" + ex);
         } catch (SQLException ex) {            
             JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
         }
@@ -117,9 +117,8 @@ public class Report {
             parametros.put("idatendimento", 0);
             parametros.put("imagem", "./image/logo.png");
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportChamado.jasper", parametros, conexao);
-
         } catch (JRException ex) {            
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report ReportChamado\n" + ex);
         } catch (SQLException ex) {            
             JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
         }

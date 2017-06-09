@@ -20,7 +20,7 @@ public class VersaoDao {
     public VersaoBeans getVersao() throws SQLException{
         VersaoBeans vb=new VersaoBeans();
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql=" select * from versao where idversao=(select max(idversao) from versao)";
+            String sql=" select * from VERSAO where idversao=(select max(idversao) from VERSAO)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             ResultSet rs=pstm.executeQuery();  
             while(rs.next()){
@@ -38,7 +38,7 @@ public class VersaoDao {
     
     public void setVersao(Integer versao,Integer edicao,Integer seguranca) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql=" update versao set versao="+versao+",edicao="+edicao+",seguranca="+seguranca+" where idversao=(select max(idversao) from versao)";
+            String sql=" update VERSAO set versao="+versao+",edicao="+edicao+",seguranca="+seguranca+" where idversao=(select max(idversao) from versao)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.execute();
             pstm.close();

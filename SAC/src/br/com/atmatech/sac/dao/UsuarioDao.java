@@ -59,6 +59,43 @@ public class UsuarioDao {
         }
     }
     
+    public List<UsuarioBeans> getUsuarioAtivo(){
+        try(Connection conexao=new ConexaoDb().getConnect()){
+           String sql="select * from usuario where idempresa="+new DBConfigBeans().getCompany()+" and ativo='true' order by nome";           
+            PreparedStatement pstm=conexao.prepareStatement(sql);
+            ResultSet rs=pstm.executeQuery();
+           List<UsuarioBeans>lub=new ArrayList<>();
+           while(rs.next()){
+               UsuarioBeans ub=new UsuarioBeans();
+               ub.setIdusuario(rs.getInt("idusuario"));
+               ub.setLogin(rs.getString("login"));
+               ub.setNome(rs.getString("nome"));
+               ub.setSenha(rs.getString("senha"));
+               ub.setTecnico(rs.getBoolean("tecnico"));
+               ub.setAtivo(rs.getBoolean("ativo"));
+               ub.setVchamados(rs.getBoolean("vchamados"));
+               ub.setAlttecnico(rs.getBoolean("alttecnico"));
+               ub.setSmtp(rs.getString("smtp"));
+               ub.setPorta(rs.getInt("porta"));
+               ub.setSsl(rs.getBoolean("ssl"));
+               ub.setTls(rs.getBoolean("tls"));
+               ub.setEmail(rs.getString("email"));
+               ub.setSenhaemail(rs.getString("senhaemail"));
+               ub.setAssinatura(rs.getString("assinatura"));
+               ub.setBconsulta(rs.getBoolean("bconsulta"));
+               
+               lub.add(ub);
+           }
+           rs.close();
+           pstm.close();           
+           return lub;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Consultar Usuarios\n"+ex);
+            return null;
+        }
+    }
+    
+    
     //usado na tela de login
     public UsuarioBeans getUsuario(String login,String senha,Integer idempresa){
         try(Connection conexao=new ConexaoDb().getConnect()){
@@ -135,23 +172,23 @@ public class UsuarioDao {
     public void setUsuario(UsuarioBeans ub) throws SQLException {
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="insert into usuario(nome,login,tecnico,senha,ativo,vchamados,alttecnico,"
-                    + "smtp,porta,ssl,tls,email,senhaemail,assinatura,bconsulta,idempresa)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "smtp,porta,usuario.ssl,usuario.tls,email,senhaemail,assinatura,bconsulta,idempresa)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, ub.getNome());
             pstm.setString(2, ub.getLogin());
-            pstm.setBoolean(3, ub.getTecnico());
+            pstm.setString(3, Boolean.toString(ub.getTecnico()));
             pstm.setString(4,ub.getSenha());
-            pstm.setBoolean(5, ub.getAtivo());
-            pstm.setBoolean(6, ub.getVchamados());
-            pstm.setBoolean(7, ub.getAlttecnico());
+            pstm.setString(5, Boolean.toString(ub.getAtivo()));
+            pstm.setString(6, Boolean.toString(ub.getVchamados()));
+            pstm.setString(7, Boolean.toString(ub.getAlttecnico()));
             pstm.setString(8,ub.getSmtp());
             pstm.setInt(9,ub.getPorta());
-            pstm.setBoolean(10,ub.getSsl());
-            pstm.setBoolean(11,ub.getTls());
+            pstm.setString(10,Boolean.toString(ub.getSsl()));
+            pstm.setString(11,Boolean.toString(ub.getTls()));
             pstm.setString(12,ub.getEmail());
             pstm.setString(13,ub.getSenhaemail());
             pstm.setString(14,ub.getAssinatura()); 
-            pstm.setBoolean(15, ub.getBconsulta());
+            pstm.setString(15, Boolean.toString(ub.getBconsulta()));
             pstm.setInt(16, new DBConfigBeans().getCompany());
             pstm.execute();
             pstm.close();
@@ -162,23 +199,23 @@ public class UsuarioDao {
     public void updateUsuario(UsuarioBeans ub) throws SQLException {
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="update usuario set nome=?,login=?,tecnico=?,senha=?,ativo=?,vchamados=?,alttecnico=?,"
-                    + "smtp=?,porta=?,ssl=?,tls=?,email=?,senhaemail=?,assinatura=?,bconsulta=? where idusuario=?";
+                    + "smtp=?,porta=?,usuario.ssl=?,usuario.tls=?,email=?,senhaemail=?,assinatura=?,bconsulta=? where idusuario=?";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, ub.getNome());
             pstm.setString(2, ub.getLogin());
-            pstm.setBoolean(3, ub.getTecnico());
+            pstm.setString(3, Boolean.toString(ub.getTecnico()));
             pstm.setString(4,ub.getSenha());
-            pstm.setBoolean(5, ub.getAtivo());
-            pstm.setBoolean(6, ub.getVchamados());
-            pstm.setBoolean(7, ub.getAlttecnico());
+            pstm.setString(5, Boolean.toString(ub.getAtivo()));
+            pstm.setString(6, Boolean.toString(ub.getVchamados()));
+            pstm.setString(7, Boolean.toString(ub.getAlttecnico()));
             pstm.setString(8,ub.getSmtp());
             pstm.setInt(9,ub.getPorta());
-            pstm.setBoolean(10,ub.getSsl());
-            pstm.setBoolean(11,ub.getTls());
+            pstm.setString(10,Boolean.toString(ub.getSsl()));
+            pstm.setString(11,Boolean.toString(ub.getTls()));
             pstm.setString(12,ub.getEmail());
             pstm.setString(13,ub.getSenhaemail());
             pstm.setString(14,ub.getAssinatura());
-            pstm.setBoolean(15, ub.getBconsulta());
+            pstm.setString(15, Boolean.toString(ub.getBconsulta()));
             pstm.setInt(16, ub.getIdusuario());
             
             pstm.execute();

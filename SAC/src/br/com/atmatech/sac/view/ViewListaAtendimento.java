@@ -9,7 +9,7 @@ import br.com.atmatech.sac.beans.AtendimentoBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
 import br.com.atmatech.sac.controller.Email;
 import br.com.atmatech.sac.controller.NivelAcesso;
-import br.com.atmatech.sac.controller.PintarLinhasTabela;
+import br.com.atmatech.sac.controller.PintarLinhasTabelaAtend;
 import br.com.atmatech.sac.dao.AtendimentoDao;
 import br.com.atmatech.sac.report.Report;
 import java.awt.event.ActionEvent;
@@ -54,7 +54,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     Thread constecnico;
     Boolean inicializatela = false;
 
-    public ViewListaAtendimento(ViewPrincipal viewprincipal, Boolean buscaatebdimento,Boolean buscaautomatica) {
+    public ViewListaAtendimento(ViewPrincipal viewprincipal, Boolean buscaatebdimento, Boolean buscaautomatica) {
         initComponents();
         jDaguarde.setUndecorated(true);
         this.viewprincipal = viewprincipal;
@@ -65,8 +65,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         inicializaAtalhos();
         inicializaTabela();
         // buscaAtendimentoAutomatica();  
-        if(buscaautomatica){
-            
+        if (buscaautomatica) {
             formComponentShown(null);
         }
 
@@ -506,10 +505,9 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 ViewAtendimento view = new ViewAtendimento(viewprincipal, this, clickAtendimento(), new UsuarioLogadoBeans().getAlttecnico(), false);
                 viewprincipal.jTaabas.getSelectedIndex();
                 viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), view);
-                if(!new UsuarioLogadoBeans().getBconsulta()){
+                if (!new UsuarioLogadoBeans().getBconsulta()) {
                     constecnico.stop();
                 }
-                
 
             }
         }
@@ -525,7 +523,9 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (jTatendimento.getSelectedRow() >= 0) {
             if ((Integer) jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0) > 0) {
-                deleteAtendimento();
+                if (JOptionPane.showConfirmDialog(this, "Deseja Excluir o Atendimento: "+jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0), "Atendimento", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                    deleteAtendimento();
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um Registro Para Excluir", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -642,11 +642,11 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
             }
             if (new UsuarioLogadoBeans().getTecnico()) {
-                if(new UsuarioLogadoBeans().getTecnico()){
+                if (new UsuarioLogadoBeans().getTecnico()) {
                     jCtecnico.doClick();
                 }
-                
-               // jCtecnico.setSelected(new UsuarioLogadoBeans().getTecnico());
+
+                // jCtecnico.setSelected(new UsuarioLogadoBeans().getTecnico());
                 desativaPpesquisa();
             }
             trocaCor();
@@ -697,15 +697,15 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     private void jCtecnicoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCtecnicoStateChanged
         // TODO add your handling code here:
-                
+
     }//GEN-LAST:event_jCtecnicoStateChanged
 
     private void jCtecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCtecnicoActionPerformed
         // TODO add your handling code here:
-        consultaAutomatica(); 
-        if(jCtecnico.isSelected()){
+        consultaAutomatica();
+        if (jCtecnico.isSelected()) {
             desativaPpesquisa();
-        }else{
+        } else {
             ativaPpesquisa();
         }
     }//GEN-LAST:event_jCtecnicoActionPerformed
@@ -752,7 +752,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         tabelaatendimento.setNumRows(0);
         lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        TableCellRenderer renderer = new PintarLinhasTabela(false);
+        TableCellRenderer renderer = new PintarLinhasTabelaAtend(false);
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
             tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
@@ -777,7 +777,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
             tabelaatendimento.setNumRows(0);
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-            TableCellRenderer renderer = new PintarLinhasTabela(false);
+            TableCellRenderer renderer = new PintarLinhasTabelaAtend(false);
             jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
             for (AtendimentoBeans ab : lab) {
                 tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
@@ -791,7 +791,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         //String status=verificaStatus();
         lab = new AtendimentoDao().getAtendimento(verificaStatus(), campo, parametro, idusuario, supervisor, jDinicial.getDate(), jDfinal.getDate(), getTipoData());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        TableCellRenderer renderer = new PintarLinhasTabela(false);
+        TableCellRenderer renderer = new PintarLinhasTabelaAtend(false);
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
         for (AtendimentoBeans ab : lab) {
             tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
@@ -813,10 +813,10 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
     private void deleteAtendimento() {
         try {
             new AtendimentoDao().deleteAtendimento((Integer) jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0));
-            if(!jCtecnico.isSelected()){
+            if (!jCtecnico.isSelected()) {
                 buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
             }
-           // buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
+            // buscaAtendimento("'ABERTO','INICIADO','PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), jDinicial.getDate(), jDfinal.getDate(), getTipoData());
             JOptionPane.showMessageDialog(this, "Registro Excluido Com Sucesso", "Atendimento", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao Excluir Registro\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
@@ -1060,7 +1060,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             @Override
             public void run() {
                 while (true) {
-                    TableCellRenderer renderer = new PintarLinhasTabela(true);
+                    TableCellRenderer renderer = new PintarLinhasTabelaAtend(true);
                     jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
                     jTatendimento.repaint();
                     try {
@@ -1068,7 +1068,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ViewListaAtendimento.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    renderer = new PintarLinhasTabela(false);
+                    renderer = new PintarLinhasTabelaAtend(false);
                     jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
                     jTatendimento.repaint();
                     try {
@@ -1135,7 +1135,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                             ativaPpesquisa();
 
                         }
-                        
+
                         Calendar c = Calendar.getInstance();
                         c.add(Calendar.DAY_OF_YEAR, -30);
                         buscaAtendimento();
@@ -1158,7 +1158,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                         if (!verifcaJpanel()) {
                             constecnico.stop();
                             ativaPpesquisa();
-                        }                        
+                        }
                         Calendar c = Calendar.getInstance();
                         c.add(Calendar.DAY_OF_YEAR, -30);
                         buscaAtendimento();

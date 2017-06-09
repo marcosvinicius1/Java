@@ -40,9 +40,9 @@ public class ViewLogin extends javax.swing.JFrame {
     /**
      * Creates new form ViewLogin
      */
-    final Integer versao = 1;
-    final Integer edicao = 4;
-    final Integer seguranca = 12;
+    final Integer versao = 2;
+    final Integer edicao = 1;
+    final Integer seguranca = 5;
     List<EmpresaBeans>leb=new ArrayList<>();
 
     public ViewLogin() {

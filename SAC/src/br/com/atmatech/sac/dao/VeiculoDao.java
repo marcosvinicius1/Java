@@ -33,8 +33,8 @@ public class VeiculoDao {
             pstm.setString(5, vb.getPlaca());
             pstm.setDouble(6, vb.getTrocafin());
             pstm.setDouble(7, vb.getKm());
-            pstm.setBoolean(8, vb.isMonitor());
-            pstm.setBoolean(9, vb.isAtivo());
+            pstm.setString(8, Boolean.toString(vb.isMonitor()));
+            pstm.setString(9, Boolean.toString(vb.isAtivo()));
             pstm.setInt(10, vb.getIdempresa());
             pstm.execute();
             pstm.close();
@@ -115,8 +115,8 @@ public class VeiculoDao {
             pstm.setString(5, vb.getPlaca());
             pstm.setDouble(6, vb.getTrocafin());
             pstm.setDouble(7, vb.getKm());
-            pstm.setBoolean(8, vb.isMonitor());
-            pstm.setBoolean(9, vb.isAtivo());
+            pstm.setString(8, Boolean.toString(vb.isMonitor()));
+            pstm.setString(9, Boolean.toString(vb.isAtivo()));
             pstm.setInt(10, vb.getIdveiculo());
             pstm.execute();
             pstm.close();

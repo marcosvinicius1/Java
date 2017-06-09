@@ -5,6 +5,7 @@
  */
 package br.com.atmatech.sac.dao;
 
+import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.ViewsBeans;
 import br.com.atmatech.sac.connection.ConexaoDb;
 import java.sql.Connection;
@@ -20,44 +21,45 @@ import javax.swing.JOptionPane;
  * @author marcos
  */
 public class ViewsDao {
-    public List<ViewsBeans> getViews(){
-        try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="SELECT RDB$DESCRIPTION DESCRICAO,RDB$RELATION_NAME NOME FROM RDB$RELATIONS WHERE NOT RDB$VIEW_BLR IS NULL";
-            PreparedStatement pstm=conexao.prepareStatement(sql);
-            ResultSet rs=pstm.executeQuery();
-            List<ViewsBeans>lvb=new ArrayList<>();
-            while(rs.next()){
-                ViewsBeans vb=new ViewsBeans();
-                vb.setNome(rs.getString("nome"));
-                vb.setDescricao(rs.getString("descricao"));
+
+    public List<ViewsBeans> getViews() {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            DBConfigBeans dbcb = new DBConfigBeans();
+            String sql = "SELECT * FROM information_schema.views where table_schema='" + new DBConfigBeans().getDirdb().replace("jdbc:mysql://192.168.25.195:3306/", "") + "'";            
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            List<ViewsBeans> lvb = new ArrayList<>();
+            while (rs.next()) {
+                ViewsBeans vb = new ViewsBeans();
+                vb.setNome(rs.getString("TABLE_NAME"));
+                vb.setDescricao(rs.getString("TABLE_NAME"));
                 lvb.add(vb);
             }
             return lvb;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Consultar Relatorios\n" + ex);
             return null;
-        }           
+        }
     }
-    public List<ViewsBeans> getViewsCampos(String view){
-        try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="select  r.RDB$RELATION_NAME nome,RDB$FIELD_NAME campos,RDB$FIELD_SOURCE tamanho\n" +
-" from rdb$relation_fields f\n" +
-"join rdb$relations r on f.rdb$relation_name = r.rdb$relation_name AND f.rdb$relation_name LIKE'VIEW%'\n" +
-" AND r.RDB$DESCRIPTION=?";
-            PreparedStatement pstm=conexao.prepareStatement(sql);
-            pstm.setString(1,view);
-            ResultSet rs=pstm.executeQuery();
-            List<ViewsBeans>lvb=new ArrayList<>();
-            while(rs.next()){
-                ViewsBeans vb=new ViewsBeans();
-                vb.setNome(rs.getString("nome"));
-                vb.setCampos(rs.getString("campos"));                
+
+    public List<ViewsBeans> getViewsCampos(String view) {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            String sql = "SELECT * FROM information_schema.COLUMNS where table_schema='" + new DBConfigBeans().getDirdb().replace("jdbc:mysql://192.168.25.195:3306/", "") + "' "
+                    + " and table_name=?";
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, view);
+            ResultSet rs = pstm.executeQuery();
+            List<ViewsBeans> lvb = new ArrayList<>();
+            while (rs.next()) {
+                ViewsBeans vb = new ViewsBeans();
+                vb.setNome(rs.getString("TABLE_NAME"));
+                vb.setCampos(rs.getString("COLUMN_NAME"));
                 lvb.add(vb);
             }
             return lvb;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Consultar Relatorios\n" + ex);
             return null;
-        }           
+        }
     }
 }

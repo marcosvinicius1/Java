@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 public class AnexoDao {
     public void setAnexo(AnexoBeans ab) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="insert into anexo(descricao,extensao,arquivo,idpessoa,data)values(?,?,?,?,(select Current_Date from RDB$Database))";
+            String sql="insert into anexo(descricao,extensao,arquivo,idpessoa,data)values(?,?,?,?,NOW())";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setString(1, ab.getDescricao());
             pstm.setString(2, ab.getExtensao());

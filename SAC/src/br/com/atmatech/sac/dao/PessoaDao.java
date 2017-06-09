@@ -174,11 +174,11 @@ public class PessoaDao {
             pstm.setString(14, pb.getObs());
             pstm.setString(15, pb.getBairro());
             pstm.setString(16, pb.getResponsavel());
-            pstm.setBoolean(17, pb.isNfe());
-            pstm.setBoolean(18, pb.isEcf());
+            pstm.setString(17, Boolean.toString(pb.isNfe()));
+            pstm.setString(18, Boolean.toString(pb.isEcf()));
             pstm.setDate(19, pb.getPlugins());
             pstm.setInt(20, new DBConfigBeans().getCompany());
-            pstm.setBoolean(21, pb.isNfce());
+            pstm.setString(21, Boolean.toString(pb.isNfce()));
             pstm.execute();
             pstm.close();
         }
@@ -218,10 +218,10 @@ public class PessoaDao {
             pstm.setString(14, pb.getObs());
             pstm.setString(15, pb.getBairro());
             pstm.setString(16, pb.getResponsavel());
-            pstm.setBoolean(17, pb.isNfe());
-            pstm.setBoolean(18, pb.isEcf());
+            pstm.setString(17, Boolean.toString(pb.isNfe()));
+            pstm.setString(18, Boolean.toString(pb.isEcf()));
             pstm.setDate(19, pb.getPlugins());
-            pstm.setBoolean(20, pb.isNfce());
+            pstm.setString(20, Boolean.toString(pb.isNfce()));
             pstm.setInt(21, pb.getIdpessoa());
 
             pstm.executeUpdate();

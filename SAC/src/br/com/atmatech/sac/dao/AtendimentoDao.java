@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,22 +24,36 @@ import javax.swing.JOptionPane;
  * @author marcos
  */
 public class AtendimentoDao {
+    SimpleDateFormat sdfb = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat sdfbH = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    SimpleDateFormat sdfa = new SimpleDateFormat("yyyy.MM.dd");
+    SimpleDateFormat sdfah = new SimpleDateFormat("yyyy.MM.dd  HH:mm:ss");
 
     public Integer setAtendimento(AtendimentoBeans ab) throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "INSERT INTO ATENDIMENTO (IDPESSOA, IDTECNICO, IDABERTURA, DTABERTURA, DTINICIAL, DTFINAL, STATUS, ATIVO, "
-                    + "SOLICITANTE, TIPO, SOLICITACAO, REALIZADO, PENDENTE,idveiculo,kminicial,kmfinal,anotacao,idempresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?) returning idatendimento";
-            PreparedStatement pstm = conexao.prepareStatement(sql);
+                    + "SOLICITANTE, TIPO, SOLICITACAO, REALIZADO, PENDENTE,idveiculo,kminicial,kmfinal,anotacao,idempresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)";
+            PreparedStatement pstm = conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, ab.getIDPESSOA());
-
             pstm.setInt(2, ab.getIDTECNICO());
-
             pstm.setInt(3, ab.getIDABERTURA());
-            pstm.setTimestamp(4, ab.getDTABERTURA());
-            pstm.setTimestamp(5, ab.getDTINICIAL());
-            pstm.setTimestamp(6, ab.getDTFINAL());
+            if(ab.getDTABERTURA()!=null){
+            pstm.setString(4, sdfah.format(ab.getDTABERTURA()));    
+            }else{
+                pstm.setString(4, null);
+            }
+            if(ab.getDTINICIAL()!=null){
+            pstm.setString(5, sdfah.format(ab.getDTINICIAL()));    
+            }else{
+                pstm.setString(5, null);
+            }
+            if(ab.getDTFINAL()!=null){
+                pstm.setString(6, sdfah.format(ab.getDTFINAL()));
+            }else{
+                pstm.setString(6, null);
+            }            
             pstm.setString(7, ab.getSTATUS());
-            pstm.setBoolean(8, ab.getATIVO());
+            pstm.setString(8, Boolean.toString(ab.getATIVO()));
             pstm.setString(9, ab.getSOLICITANTE());
             pstm.setString(10, ab.getTIPO());
             pstm.setString(11, ab.getSOLICITACAO());
@@ -53,10 +68,11 @@ public class AtendimentoDao {
             pstm.setDouble(16, ab.getKmfinal());
             pstm.setString(17, ab.getAnotacao());
             pstm.setInt(18, new DBConfigBeans().getCompany());
-            ResultSet rs = pstm.executeQuery();
+            pstm.execute();            
+            ResultSet rs =pstm.getGeneratedKeys();
             Integer idatendimento = 0;
             while (rs.next()) {
-                idatendimento = rs.getInt("idatendimento");
+                idatendimento = rs.getInt(1);
             }
             pstm.close();
             conexao.close();
@@ -67,11 +83,11 @@ public class AtendimentoDao {
 
     //usado na abertura da tela de listaatendimento
     public List<AtendimentoBeans> getAtendimento(String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+       
 
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String dtini = sdf.format(ini);
-            String dtfin = sdf.format(fin);
+            String dtini = sdfa.format(ini);
+            String dtfin = sdfa.format(fin);
             String sql; 
             if (supervisor) {
                 sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
@@ -94,9 +110,7 @@ public class AtendimentoDao {
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
                         + " where atendimento.ativo='true' and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
             }
-
-            PreparedStatement pstm = conexao.prepareStatement(sql);
-            
+            PreparedStatement pstm = conexao.prepareStatement(sql);            
             if (!supervisor) {
                 pstm.setInt(1, idtecnico);
             }
@@ -149,21 +163,21 @@ public class AtendimentoDao {
             conexao.close();
             return lab;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento1", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento1", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
 
     //usado na filtragem de chamao na tela listaatendimento
     public List<AtendimentoBeans> getAtendimento(String status, String campo, String parametro, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        
 
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String dtini = sdf.format(ini);
-            String dtfin = sdf.format(fin);
+            String dtini = sdfa.format(ini);
+            String dtfin = sdfa.format(fin);
             String sql;
             if (supervisor) {
 
@@ -350,11 +364,23 @@ public class AtendimentoDao {
             pstm.setInt(1, ab.getIDPESSOA());
             pstm.setInt(2, ab.getIDTECNICO());
             pstm.setInt(3, ab.getIDABERTURA());
-            pstm.setTimestamp(4, ab.getDTABERTURA());
-            pstm.setTimestamp(5, ab.getDTINICIAL());
-            pstm.setTimestamp(6, ab.getDTFINAL());
+            if(ab.getDTABERTURA()!=null){
+            pstm.setString(4, sdfah.format(ab.getDTABERTURA()));    
+            }else{
+                pstm.setString(4, null);
+            }
+            if(ab.getDTINICIAL()!=null){
+            pstm.setString(5, sdfah.format(ab.getDTINICIAL()));    
+            }else{
+                pstm.setString(5, null);
+            }
+            if(ab.getDTFINAL()!=null){
+                pstm.setString(6, sdfah.format(ab.getDTFINAL()));
+            }else{
+                pstm.setString(6, null);
+            }
             pstm.setString(7, ab.getSTATUS());
-            pstm.setBoolean(8, ab.getATIVO());
+            pstm.setString(8, Boolean.toString(ab.getATIVO()));
             pstm.setString(9, ab.getSOLICITANTE());
             pstm.setString(10, ab.getTIPO());
             pstm.setString(11, ab.getSOLICITACAO());
@@ -397,7 +423,6 @@ public class AtendimentoDao {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql;
             sql = "select solicitacao,realizado from atendimento where atendimento.idempresa=" + new DBConfigBeans().getCompany() + " " + sql2;
-
             PreparedStatement pstm = conexao.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             List<AtendimentoBeans> lab = new ArrayList<>();

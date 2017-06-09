@@ -221,7 +221,7 @@ public class ViewNivel extends javax.swing.JPanel {
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewFinanceiro");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("sim");
         treeNode3.add(treeNode4);
@@ -586,9 +586,9 @@ public class ViewNivel extends javax.swing.JPanel {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
 
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewFinanceiro");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode(buscaPermissao(lpub, "ViewEmail", "acessar"));
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode(buscaPermissao(lpub, "ViewFinanceiro", "acessar"));
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
@@ -742,7 +742,7 @@ public class ViewNivel extends javax.swing.JPanel {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
 
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewEmail");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("ViewFinanceiro");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("acessar");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("sim");
         treeNode3.add(treeNode4);

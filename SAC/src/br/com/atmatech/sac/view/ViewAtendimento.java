@@ -536,6 +536,12 @@ public class ViewAtendimento extends javax.swing.JPanel {
             }
         });
 
+        jTidtecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTidtecnicoActionPerformed(evt);
+            }
+        });
+
         jBajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/Knob Help.png"))); // NOI18N
         jBajuda.setText("AJUDA");
         jBajuda.addActionListener(new java.awt.event.ActionListener() {
@@ -1090,7 +1096,9 @@ public class ViewAtendimento extends javax.swing.JPanel {
     private void jBexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBexcluirActionPerformed
         // TODO add your handling code here:
         if (Integer.valueOf(jTidatendimento.getText()) > 0) {
-            deleteAtendimento();
+            if (JOptionPane.showConfirmDialog(this, "Deseja Excluir o Atendimento", "Atendimento", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                deleteAtendimento();
+            }
         }
     }//GEN-LAST:event_jBexcluirActionPerformed
 
@@ -1210,6 +1218,10 @@ public class ViewAtendimento extends javax.swing.JPanel {
             consultaAjuda();
         }
     }//GEN-LAST:event_jTajudaKeyPressed
+
+    private void jTidtecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTidtecnicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTidtecnicoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

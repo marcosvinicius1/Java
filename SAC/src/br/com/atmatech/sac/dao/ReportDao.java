@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -45,22 +46,23 @@ public class ReportDao {
     
     public void setReport(List<ReportBeans> reportbeans,String nomeview,String nomereport) throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
-            String sql="insert into report (nomeview,nomereport,idempresa) values(?,?,?) returning idreport";
-            PreparedStatement pstm=conexao.prepareStatement(sql);
+            String sql="insert into report (nomeview,nomereport,idempresa) values(?,?,?)";
+            PreparedStatement pstm=conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, nomeview);
             pstm.setString(2, nomereport); 
             pstm.setInt(3,new DBConfigBeans().getCompany());
-            ResultSet rs=pstm.executeQuery();
+            pstm.execute();
+            ResultSet rs =pstm.getGeneratedKeys();
             int idreport = 0;
             while(rs.next()){
-                idreport=rs.getInt("idreport");
+                idreport=rs.getInt(1);
             }
             sql="INSERT INTO CAMPOSREPORT (IDREPORT, CAMPOS, AGRUPAR, CONDICAO, VALOR) VALUES (?, ?, ?, ?, ?);";
             pstm=conexao.prepareStatement(sql);
             for (ReportBeans reportbean : reportbeans) {
                 pstm.setInt(1, idreport);
                 pstm.setString(2, reportbean.getCampos());
-                pstm.setBoolean(3, reportbean.getAgrupar());
+                pstm.setString(3, Boolean.toString(reportbean.getAgrupar()));
                 pstm.setString(4, reportbean.getCondicao());
                 pstm.setString(5, reportbean.getValor());
                 pstm.execute();

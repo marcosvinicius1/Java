@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9daca25c-7c86-454b-991e-eac7f5f2fcbe">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="209"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="mes" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -21,14 +21,17 @@
 	<queryString>
 		<![CDATA[SELECT
 count(AM.idatendimento) QTDEATEND,
-CAST(count(AM.idatendimento) AS NUMERIC(15,4))/30 MEDIATEND,
+CAST(count(AM.idatendimento) AS decimal(15,4))/30 MEDIATEND,
 count(AI.idatendimento) QTDEATENDINT,
 count(AE.idatendimento) QTDEATENDEXT,
 count(AP.idatendimento) QTDEATENDPLA,
 COUNT(DISTINCT AM.idPESSOA) QTDEATENDPESSOA,
 (select count(tp1.idpessoa) from (select pessoa.idpessoa from pessoa where idsituacao=1 $P!{par1}
 union
-select AM.idpessoa  from atendimento AM where EXTRACT(month FROM AM.dtabertura)=$P{mes} and EXTRACT(year FROM AM.dtabertura)=$P{ano} $P!{par2} group by AM.idpessoa ) tp1 )-COUNT(DISTINCT AM.idPESSOA) QTDESATENDPESSOA,
+select AM.idpessoa  from atendimento AM
+left join PESSOA on(AM.IDPESSOA=PESSOA.IDPESSOA)
+left join distrito on (distrito.DISTRITO=pessoa.IDDISTRITO)
+ where EXTRACT(month FROM AM.dtabertura)=$P{mes} and EXTRACT(year FROM AM.dtabertura)=$P{ano} $P!{par2} group by AM.idpessoa ) tp1 )-COUNT(DISTINCT AM.idPESSOA) QTDESATENDPESSOA,
 COUNT(D1A7.idatendimento) D01A07,
 COUNT(D8A15.idatendimento) D08A15,
 COUNT(D16A23.idatendimento) D16A23,
@@ -52,7 +55,6 @@ LEFT JOIN ATENDIMENTO D16A23 ON (AM.idatendimento=D16A23.idatendimento AND EXTRA
 LEFT JOIN ATENDIMENTO D24A31 ON (AM.idatendimento=D24A31.idatendimento AND EXTRACT(DAY FROM D24A31.dtabertura) between '24' AND '31')
 LEFT JOIN EMPRESA ON (EMPRESA.idempresa=AM.idempresa)
 inner join distrito DEMP on(empresa.iddistrito=DEMP.iddistrito)
---WHERE PESSOA.idsituacao=1
 where EXTRACT(month FROM AM.dtabertura)=$P{mes}
 and EXTRACT(year FROM AM.dtabertura)=$P{ano}
 and AM.ATIVO='true'
