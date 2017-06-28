@@ -82,13 +82,13 @@ public class AtendimentoDao {
     }
 
     //usado na abertura da tela de listaatendimento
-    public List<AtendimentoBeans> getAtendimento(String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) {
+    public List<AtendimentoBeans> getAtendimento(String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) throws SQLException {
        
 
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String dtini = sdfa.format(ini);
             String dtfin = sdfa.format(fin);
-            String sql; 
+            String sql;             
             if (supervisor) {
                 sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
                         + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
@@ -162,13 +162,13 @@ public class AtendimentoDao {
             rs.close();
             conexao.close();
             return lab;
-        } catch (SQLException ex) {
+        }/* catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
             return null;
-        }
+        }*/
     }
 
     //usado na filtragem de chamao na tela listaatendimento

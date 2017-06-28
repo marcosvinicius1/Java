@@ -6,6 +6,7 @@
 package br.com.atmatech.sac.report;
 
 import br.com.atmatech.sac.connection.ConexaoDb;
+import br.com.atmatech.sac.view.ViewFinanceiro;
 import br.com.atmatech.sac.view.ViewListaAtendimento;
 import br.com.atmatech.sac.view.ViewPrincipal;
 import java.io.InputStream;
@@ -119,6 +120,22 @@ public class Report {
             JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportChamado.jasper", parametros, conexao);
         } catch (JRException ex) {            
             JOptionPane.showMessageDialog(null, "Erro ao Buscar Report ReportChamado\n" + ex);
+        } catch (SQLException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
+        }
+    }
+
+    public void getReportFinanceiroGrade(String parametro, ViewFinanceiro frame) {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            Map parametros = new HashMap();
+            parametros.put("FILTRO", parametro);            
+            JasperPrint jasperPrint = JasperFillManager.fillReport("./report/ReportFinanceiroGrade.jasper", parametros, conexao);
+            frame.closeAguarde();
+            JasperViewer view = new JasperViewer(jasperPrint, false);                
+            view.setVisible(true);
+            view.toFront();
+        } catch (JRException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Report\n" + ex);
         } catch (SQLException ex) {            
             JOptionPane.showMessageDialog(null, "Erro ao Fazer Consulta\n" + ex);
         }

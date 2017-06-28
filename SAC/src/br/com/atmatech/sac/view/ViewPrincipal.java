@@ -26,7 +26,6 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -55,7 +54,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     Boolean consultadescritivotecnico = false;
     List<String> lslembrete;
     List<DistritoBeans> ldb;
-    Boolean tarefa=true;
+    Boolean tarefa = true;
+    //variavel verifica para nao deixar click no botao enviar do lembrete mais de uma vez na mesma chamada de tela
+    Boolean botlembrete = true;
+    Date data;
 
     public ViewPrincipal() {
         initComponents();
@@ -143,7 +145,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLaberto = new javax.swing.JLabel();
         jLiniciado = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLAfinanceiro = new javax.swing.JLabel();
+        jLAFAbertoMes = new javax.swing.JLabel();
+        jLAFVencidoMes = new javax.swing.JLabel();
+        jLAFVencidos = new javax.swing.JLabel();
         jPavisoAtendimento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -788,23 +792,49 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Financeiro"));
 
-        jLAfinanceiro.setForeground(new java.awt.Color(255, 0, 0));
-        jLAfinanceiro.setText(" ");
+        jLAFAbertoMes.setForeground(new java.awt.Color(255, 255, 0));
+        jLAFAbertoMes.setText(" ");
+        jLAFAbertoMes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAFAbertoMesMouseClicked(evt);
+            }
+        });
+
+        jLAFVencidoMes.setForeground(new java.awt.Color(255, 0, 0));
+        jLAFVencidoMes.setText(" ");
+        jLAFVencidoMes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAFVencidoMesMouseClicked(evt);
+            }
+        });
+
+        jLAFVencidos.setForeground(new java.awt.Color(255, 0, 0));
+        jLAFVencidos.setText(" ");
+        jLAFVencidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAFVencidosMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLAfinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLAFVencidoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLAFAbertoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLAFVencidos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLAfinanceiro)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jLAFAbertoMes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLAFVencidoMes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLAFVencidos))
         );
 
         jPavisoAtendimento.setBackground(new java.awt.Color(255, 0, 0));
@@ -1387,12 +1417,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jMFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMFecharMouseClicked
         // TODO add your handling code here:
-        if(tarefa){
-        System.exit(0);    
-        }else{
+        if (tarefa) {
+            System.exit(0);
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Aguarde a Finalização de Todos os Processos");
         }
-        
+
     }//GEN-LAST:event_jMFecharMouseClicked
 
     private void jMCUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCUsuarioActionPerformed
@@ -1409,7 +1439,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jMCFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCFinanceiroActionPerformed
         // TODO add your handling code here:
         if (!getJanelaAberta("Financeiro")) {
-            ViewFinanceiro view = new ViewFinanceiro();
+            ViewFinanceiro view = new ViewFinanceiro("Financeiro");
             jTaabas.addTab("Financeiro", null, view);
             jTaabas.setSelectedComponent(view);
             int j = jTaabas.getSelectedIndex();
@@ -1566,52 +1596,114 @@ public class ViewPrincipal extends javax.swing.JFrame {
             jPLembrete.show(jLLembrete, evt.getX(), evt.getY());
         }
         if (evt.getClickCount() == 2) {
-            selecionaLembrete();
+            if (jLLembrete.getSelectedValue().length() > 0) {
+                selecionaLembrete();
+            }
         }
     }//GEN-LAST:event_jLLembreteMouseClicked
 
     private void jMLNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMLNovoActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:     
+        data=new Date();
         buscaUsuario();
         jTmensagem.setText("");
         jTtitulo.setText("TITULO");
         jDLembreteNovo.setLocationRelativeTo(this);
         jDLembreteNovo.setVisible(true);
+        botlembrete = true;
     }//GEN-LAST:event_jMLNovoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:  
         Boolean enviou = false;
-        if (jTtitulo.getText().length() > 1) {
-            if (jTmensagem.getText().length() > 1) {
-                if (jTmensagem.getText().length() <= 600) {
-                    for (int i = 0; i < jTusuario.getRowCount(); i++) {
-                        if (jTusuario.getValueAt(i, 2).equals(true)) {
-                            enviou = true;
-                            adicionarMensagem((Integer) jTusuario.getValueAt(i, 0), jTtitulo.getText(), jTmensagem.getText());
+        if (botlembrete == true) {
+            botlembrete = false;
+            if (jTtitulo.getText().length() > 1) {
+                if (jTmensagem.getText().length() > 1) {
+                    if (jTmensagem.getText().length() <= 600) {
+                        for (int i = 0; i < jTusuario.getRowCount(); i++) {
+                            if (jTusuario.getValueAt(i, 2).equals(true)) {
+                                enviou = true;
+                                adicionarMensagem((Integer) jTusuario.getValueAt(i, 0), jTtitulo.getText(), jTmensagem.getText());
+                            }
                         }
-                    }
-                    if (enviou) {
-                        jDLembreteNovo.setVisible(false);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Selecione 1 Destinatario");
-                    }
+                        if (enviou) {
+                            jDLembreteNovo.setVisible(false);
+                            botlembrete = true;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Selecione 1 Destinatario");
+                        }
 
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Mensagem Muito Grande Reduza a 600 Caracteres");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Mensagem Muito Grande Reduza a 600 Caracteres");
+                    JOptionPane.showMessageDialog(this, "Informe a Mensagem");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Informe a Mensagem");
+                JOptionPane.showMessageDialog(this, "Informe o Titulo");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Informe o Titulo");
+            botlembrete = true;
         }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMLExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMLExcluirActionPerformed
-        // TODO add your handling code here:                
-        removeLembrete();
+        // TODO add your handling code here:  
+        if(jLLembrete.getSelectedValue() !=null){
+        removeLembrete();    
+        }
+        
     }//GEN-LAST:event_jMLExcluirActionPerformed
+
+    private void jLAFAbertoMesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAFAbertoMesMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if (!getJanelaAberta("Financeiro")) {
+                ViewFinanceiro view = new ViewFinanceiro("AbertoMes");
+                jTaabas.addTab("Financeiro", null, view);
+                jTaabas.setSelectedComponent(view);
+                int j = jTaabas.getSelectedIndex();
+                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+            } else if (getJanelaAbertaClass("Financeiro") instanceof ViewFinanceiro) {
+                ViewFinanceiro view = (ViewFinanceiro) getJanelaAbertaClass("Financeiro");
+                view.buscaFinanceiro("AbertoMes");
+            }
+        }
+    }//GEN-LAST:event_jLAFAbertoMesMouseClicked
+
+    private void jLAFVencidoMesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAFVencidoMesMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if (!getJanelaAberta("Financeiro")) {
+                ViewFinanceiro view = new ViewFinanceiro("VencidosMes");
+                jTaabas.addTab("Financeiro", null, view);
+                jTaabas.setSelectedComponent(view);
+                int j = jTaabas.getSelectedIndex();
+                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+            } else if (getJanelaAbertaClass("Financeiro") instanceof ViewFinanceiro) {
+                ViewFinanceiro view = (ViewFinanceiro) getJanelaAbertaClass("Financeiro");
+                view.buscaFinanceiro("VencidosMes");
+            }
+        }
+    }//GEN-LAST:event_jLAFVencidoMesMouseClicked
+
+    private void jLAFVencidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAFVencidosMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if (!getJanelaAberta("Financeiro")) {
+                ViewFinanceiro view = new ViewFinanceiro("Vencidos");
+                jTaabas.addTab("Financeiro", null, view);
+                jTaabas.setSelectedComponent(view);
+                int j = jTaabas.getSelectedIndex();
+                jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
+            } else if (getJanelaAbertaClass("Financeiro") instanceof ViewFinanceiro) {
+                ViewFinanceiro view = (ViewFinanceiro) getJanelaAbertaClass("Financeiro");
+                view.buscaFinanceiro("Vencidos");
+            }
+        }
+    }//GEN-LAST:event_jLAFVencidosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1672,7 +1764,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDfechadoini;
     private com.toedter.calendar.JDateChooser jDiniciadofin;
     private com.toedter.calendar.JDateChooser jDiniciadoini;
-    private javax.swing.JLabel jLAfinanceiro;
+    private javax.swing.JLabel jLAFAbertoMes;
+    private javax.swing.JLabel jLAFVencidoMes;
+    private javax.swing.JLabel jLAFVencidos;
     private javax.swing.JList<String> jLLembrete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1844,7 +1938,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void avisos() {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -1874,20 +1967,22 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 }
             }
         }).start();
-        
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     getFinanceiroUpdate();
-                    tarefa=true;
-                    jLAfinanceiro.setText(""); 
+                    tarefa = true;
+                    jLAFVencidoMes.setText("");
+                    getBuscaFinanceiroStatus();
                 } catch (Exception ex) {
-                    jLAfinanceiro.setText(""); 
-                    tarefa=true;
-                    if(ex.toString().contains("Duplicate")){                        
-                    }else{
-                    JOptionPane.showMessageDialog(jTaabas, "Erro ao Consultar Financeiro\n" + ex);
+                    jLAFVencidoMes.setText("");
+                    tarefa = true;
+                    getBuscaFinanceiroStatus();
+                    if (ex.toString().contains("Duplicate")) {
+                    } else {
+                        // JOptionPane.showMessageDialog(jTaabas, "Erro ao Consultar Financeiro\n" + ex);
                     }
                 }
             }
@@ -1924,7 +2019,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if ((countAtedTecnico == 0) && (countAtend != 0)) {
             countAtedTecnico = countAtend;
             jPavisoAtendimento.setVisible(true);
-            Toolkit.getDefaultToolkit().beep();
+            //Toolkit.getDefaultToolkit().beep();
             Thread.sleep(7000);
             jPavisoAtendimento.setVisible(false);
             this.setState(Frame.NORMAL);
@@ -1933,7 +2028,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             if (countAtedTecnico < countAtend) {
                 countAtedTecnico = countAtend;
                 jPavisoAtendimento.setVisible(true);
-                Toolkit.getDefaultToolkit().beep();
+                //Toolkit.getDefaultToolkit().beep();
                 Thread.sleep(7000);
                 jPavisoAtendimento.setVisible(false);
                 this.setState(Frame.NORMAL);
@@ -2440,9 +2535,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void adicionarMensagem(Integer idusuario, String titulo, String mensagem) {
         try {
-            new LembreteDao().setLembrete(idusuario, titulo, mensagem, new UsuarioLogadoBeans().getIdusuario());
+            new LembreteDao().setLembrete(idusuario, titulo, mensagem, new UsuarioLogadoBeans().getIdusuario(),data);
         } catch (SQLException ex) {
+            if(ex.toString().contains("Duplicate")){
+                
+            }else{
             JOptionPane.showMessageDialog(this, "Erro ao Adicionar Mensagem:" + idusuario + "," + titulo + "," + mensagem + "\n" + ex);
+            }
         }
     }
 
@@ -2473,26 +2572,58 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void getFinanceiroUpdate() throws Exception {
-        DBConfigBeans cb = new DBConfigBeans();        
+        DBConfigBeans cb = new DBConfigBeans();
         Date atualizacao = new FinanceiroDao().getFinanceiroDate();
         //List<FinanceiroBeans> lfbt = new FinanceiroDao().getFinanceiro();        
-        if (atualizacao.getDate() != new Date().getDate()) {            
+        if (atualizacao.getDate() != new Date().getDate()) {
             List<FinanceiroBeans> lfb = new WebServiceFinanceiro().getFinanceiro("http://atma.serveftp.com", cb.getLogin(), cb.getSenha());
             //atualizacao = new FinanceiroDao().getFinanceiroDate();
-            if (atualizacao.getDate() != new Date().getDate()) {                
-                tarefa=false;
+            if (atualizacao.getDate() != new Date().getDate()) {
+                tarefa = false;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        jLAfinanceiro.setText("Atualizando Financeiro");                        
+                        jLAFVencidoMes.setText("Atualizando Financeiro");
                     }
                 }).start();
                 new FinanceiroDao().dropFinanceiro();
                 for (FinanceiroBeans fb : lfb) {
                     new FinanceiroDao().setFinanceiro(fb);
                 }
+
             }
-        }        
+        }
     }
 
+    private void getBuscaFinanceiroStatus() {
+        if (jMCFinanceiro.isVisible()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        getFinanceiroStatus();
+                        try {
+                            Thread.sleep(7000);
+                        } catch (InterruptedException ex) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao Pausar Thread\n" + ex, "Aviso Financeiro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }).start();
+        }
+    }
+
+    private void getFinanceiroStatus() {
+        try {
+            jLAFAbertoMes.setText("Abertos Mês: " + new Avisos().getStatusFinanceiro("AbertoMes"));
+            jLAFVencidoMes.setText("Vencidos Mês: " + new Avisos().getStatusFinanceiro("VencidosMes"));
+            jLAFVencidos.setText("Vencidos: " + new Avisos().getStatusFinanceiro("Vencidos"));
+        } catch (SQLException ex) {
+            // JOptionPane.showMessageDialog(this, "Erro ao Consultar Status Financeiro\n" + ex);
+            jLAFAbertoMes.setText("Abertos Mês: " + 0);
+            jLAFVencidoMes.setText("Vencidos Mês: " + 0);
+            jLAFVencidos.setText("Vencidos: " + 0);
+        }
+
+    }
 }

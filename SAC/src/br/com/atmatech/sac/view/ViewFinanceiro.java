@@ -9,6 +9,7 @@ import br.com.atmatech.sac.beans.DBConfigBeans;
 import br.com.atmatech.sac.beans.FinanceiroBeans;
 import br.com.atmatech.sac.controller.PintarLinhasTabelaFin;
 import br.com.atmatech.sac.dao.FinanceiroDao;
+import br.com.atmatech.sac.report.Report;
 import br.com.atmatech.sac.webService.WebServiceFinanceiro;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -26,9 +27,13 @@ public class ViewFinanceiro extends javax.swing.JPanel {
     /**
      * Creates new form ViewModulo
      */
-    public ViewFinanceiro() {
+    String tipobusca = "";
+    Boolean visivel = false;
+
+    public ViewFinanceiro(String tipobusca) {
         initComponents();
         desativaColunas();
+        this.tipobusca = tipobusca;
 
     }
 
@@ -46,6 +51,8 @@ public class ViewFinanceiro extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jBnovo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jBConsultar = new javax.swing.JButton();
+        jBConsultar1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTVfinanceiro = new javax.swing.JTable();
 
@@ -84,8 +91,8 @@ public class ViewFinanceiro extends javax.swing.JPanel {
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jBnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/Knob Refresh.png"))); // NOI18N
-        jBnovo.setText("Atualizar");
+        jBnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/Knob Download.png"))); // NOI18N
+        jBnovo.setText("Baixar");
         jBnovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBnovoActionPerformed(evt);
@@ -103,6 +110,22 @@ public class ViewFinanceiro extends javax.swing.JPanel {
             .addGap(0, 33, Short.MAX_VALUE)
         );
 
+        jBConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/Knob Refresh.png"))); // NOI18N
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarActionPerformed(evt);
+            }
+        });
+
+        jBConsultar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/sac/icon/Knob Upload.png"))); // NOI18N
+        jBConsultar1.setText("Imprimir");
+        jBConsultar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,20 +133,29 @@ public class ViewFinanceiro extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBnovo)
-                .addGap(348, 348, 348)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBConsultar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBConsultar1)
+                .addGap(122, 122, 122)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBConsultar, jBnovo});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBnovo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBnovo)
+                    .addComponent(jBConsultar)
+                    .addComponent(jBConsultar1))
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jTVfinanceiro.setAutoCreateRowSorter(true);
         jTVfinanceiro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -141,6 +173,8 @@ public class ViewFinanceiro extends javax.swing.JPanel {
             }
         });
         jTVfinanceiro.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTVfinanceiro.getTableHeader().setResizingAllowed(false);
+        jTVfinanceiro.getTableHeader().setReorderingAllowed(false);
         jTVfinanceiro.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(jTVfinanceiro);
         if (jTVfinanceiro.getColumnModel().getColumnCount() > 0) {
@@ -179,6 +213,7 @@ public class ViewFinanceiro extends javax.swing.JPanel {
     private void jBnovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnovoActionPerformed
 
         if (JOptionPane.showConfirmDialog(this, "Consulta Muito Demorado, Deseja Continuar!!!", "Financeiro", JOptionPane.OK_CANCEL_OPTION) == 0) {
+            this.tipobusca = "Financeiro";
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -198,6 +233,27 @@ public class ViewFinanceiro extends javax.swing.JPanel {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
+        if (!visivel) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // TODO add your handling code here:
+                    showAguarde();
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    buscaFinanceiro(null);
+                }
+            }).start();
+        }
+        visivel=true;
+    }//GEN-LAST:event_formComponentShown
+
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        // TODO add your handling code here:
+        this.tipobusca = "Financeiro";
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -208,13 +264,32 @@ public class ViewFinanceiro extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                buscaFinanceiro();
+                buscaFinanceiro(null);
             }
         }).start();
-    }//GEN-LAST:event_formComponentShown
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBConsultar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultar1ActionPerformed
+        // TODO add your handling code here:
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO add your handling code here:
+                showAguarde();
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                imprimirFinanceiro();
+            }
+        }).start();
+    }//GEN-LAST:event_jBConsultar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBConsultar;
+    private javax.swing.JButton jBConsultar1;
     private javax.swing.JButton jBnovo;
     private javax.swing.JDialog jDaguarde;
     private javax.swing.JLabel jLabel21;
@@ -227,6 +302,10 @@ public class ViewFinanceiro extends javax.swing.JPanel {
     public void showAguarde() {
         jDaguarde.setLocationRelativeTo(this.jScrollPane1);
         jDaguarde.setVisible(true);
+    }
+
+    public void closeAguarde() {
+        jDaguarde.setVisible(false);
     }
 
     private void getFinanceiroUpdate() throws Exception {
@@ -306,15 +385,88 @@ public class ViewFinanceiro extends javax.swing.JPanel {
         }
     }
 
-    private void buscaFinanceiro() {
+    public void buscaFinanceiro(String tipobusca) {
+        if (tipobusca == null) {
+            tipobusca = this.tipobusca;
+        } else {
+            this.tipobusca = tipobusca;
+        }
         try {
             // TODO add your handling code here:
-            getFinanceiro();
+            if (tipobusca.equals("Financeiro")) {
+                getFinanceiro();
+            } else if (tipobusca.equals("AbertoMes")) {
+                getFinanceiroAbertoMes();
+            } else if (tipobusca.equals("VencidosMes")) {
+                getFinanceiroVencidosMes();
+            } else if (tipobusca.equals("Vencidos")) {
+                getFinanceiroVencidos();
+            }
+
             jDaguarde.setVisible(false);
         } catch (Exception ex) {
             jDaguarde.setVisible(false);
             JOptionPane.showMessageDialog(this.jScrollPane1, "Erro ao Consultar Financeiro\n" + ex);
         }
+    }
+
+    private void getFinanceiroAbertoMes() throws SQLException {
+        List<FinanceiroBeans> lfb = new FinanceiroDao().getFinanceiroAbertoMes();
+        DefaultTableModel modelfinanceiro = (DefaultTableModel) jTVfinanceiro.getModel();
+        modelfinanceiro.setNumRows(0);
+        TableCellRenderer renderer = new PintarLinhasTabelaFin();
+        jTVfinanceiro.setDefaultRenderer(modelfinanceiro.getColumnClass(0), renderer);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        for (FinanceiroBeans fb : lfb) {
+            modelfinanceiro.addRow(new Object[]{fb.getIdfinanceiro(), fb.getDoc(), fb.getCliente(), fb.getValor(), sdf.format(fb.getVencimento()), fb.getContato(), fb.getTelcel(), sdf.format(fb.getAtualizacao())});
+        }
+    }
+
+    private void getFinanceiroVencidosMes() throws SQLException {
+        List<FinanceiroBeans> lfb = new FinanceiroDao().getFinanceiroVencidosMes();
+        DefaultTableModel modelfinanceiro = (DefaultTableModel) jTVfinanceiro.getModel();
+        modelfinanceiro.setNumRows(0);
+        TableCellRenderer renderer = new PintarLinhasTabelaFin();
+        jTVfinanceiro.setDefaultRenderer(modelfinanceiro.getColumnClass(0), renderer);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        for (FinanceiroBeans fb : lfb) {
+            modelfinanceiro.addRow(new Object[]{fb.getIdfinanceiro(), fb.getDoc(), fb.getCliente(), fb.getValor(), sdf.format(fb.getVencimento()), fb.getContato(), fb.getTelcel(), sdf.format(fb.getAtualizacao())});
+        }
+    }
+
+    private void getFinanceiroVencidos() throws SQLException {
+        List<FinanceiroBeans> lfb = new FinanceiroDao().getFinanceiroVencidos();
+        DefaultTableModel modelfinanceiro = (DefaultTableModel) jTVfinanceiro.getModel();
+        modelfinanceiro.setNumRows(0);
+        TableCellRenderer renderer = new PintarLinhasTabelaFin();
+        jTVfinanceiro.setDefaultRenderer(modelfinanceiro.getColumnClass(0), renderer);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        for (FinanceiroBeans fb : lfb) {
+            modelfinanceiro.addRow(new Object[]{fb.getIdfinanceiro(), fb.getDoc(), fb.getCliente(), fb.getValor(), sdf.format(fb.getVencimento()), fb.getContato(), fb.getTelcel(), sdf.format(fb.getAtualizacao())});
+        }
+    }
+
+    private void imprimirFinanceiro() {
+        try {
+            // TODO add your handling code here:
+            if (tipobusca.equals("Financeiro")) {
+                getReportFinanceiro("");
+            } else if (tipobusca.equals("AbertoMes")) {
+                getReportFinanceiro(" where  MONTH(vencimento)=MONTH(now())  AND Year(vencimento)=Year(now()) order by vencimento,cliente");
+            } else if (tipobusca.equals("VencidosMes")) {
+                getReportFinanceiro(" where MONTH(vencimento)=MONTH(now())  AND Day(vencimento)<Day(now()) order by vencimento,cliente");
+            } else if (tipobusca.equals("Vencidos")) {
+                getReportFinanceiro(" where vencimento<now() order by vencimento,cliente");
+            }
+        } catch (Exception ex) {
+            jDaguarde.setVisible(false);
+            JOptionPane.showMessageDialog(this.jScrollPane1, "Erro ao Imprimir Financeiro\n" + ex);
+        }
+
+    }
+
+    private void getReportFinanceiro(String parametro) {
+        new Report().getReportFinanceiroGrade(parametro, this);
     }
 
 }

@@ -64,7 +64,7 @@ public class ViewPessoa extends javax.swing.JPanel {
     List<PessoaBeans> lpb;
     List<AnexoBeans> lab;
     JPanel TempViewPessoa = this;
-    boolean inicializatela=false;
+    boolean inicializatela = false;
 
     public ViewPessoa() {
         initComponents();
@@ -76,9 +76,9 @@ public class ViewPessoa extends javax.swing.JPanel {
         jBfinanceiro.setVisible(false);
         // buscaPessoa();
         permissaoUsuario();
-        jDaguarde.setUndecorated(true);        
+        jDaguarde.setUndecorated(true);
         inicializaAtalhos();
-        this.inicializatela=true;
+        this.inicializatela = true;
     }
 
     /**
@@ -1336,7 +1336,7 @@ public class ViewPessoa extends javax.swing.JPanel {
                     // TODO add your handling code here:
                     DBConfigBeans cb = new DBConfigBeans();
                     //jTdchave.setText(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/view/index.php?page=CLIENTE", cb.getLogin(), cb.getSenha(), jFcnpj.getText(), "1", "30"));
-                    if(new WebServiceAtivacao().login("http://atma.serveftp.com/atma/view/index.php?page=CLIENTE", cb.getLogin(), cb.getSenha(), jFcnpj.getText())){
+                    if (new WebServiceAtivacao().login("http://atma.serveftp.com/atma/view/index.php?page=CLIENTE", cb.getLogin(), cb.getSenha(), jFcnpj.getText())) {
                         Runtime.getRuntime().exec("cmd.exe /c ativacao.html");
                     }
                     jDaguarde.setVisible(false);
@@ -1446,7 +1446,7 @@ public class ViewPessoa extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UsuarioLogadoBeans ulb = new UsuarioLogadoBeans();                
+                UsuarioLogadoBeans ulb = new UsuarioLogadoBeans();
                 try {
                     new Email().emai(ulb.getSmtp(), ulb.getEmail(), ulb.getSenhaemail(), ulb.getPorta(),
                             ulb.getSsl(), ulb.getTls(), jTemail.getText(), ulb.getEmail(), jTPconteudo.getText(), jTassunto.getText());
@@ -1467,11 +1467,11 @@ public class ViewPessoa extends javax.swing.JPanel {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        if(inicializatela){
+        if (inicializatela) {
             carregaPesquisa();
-            inicializatela=false;
+            inicializatela = false;
         }
-        
+
     }//GEN-LAST:event_formComponentShown
 
 
@@ -1628,18 +1628,28 @@ public void ativaView() {
 
     private void buscaModulo() {
         jCmodulo.removeAllItems();
-        mb = new ModuloDao().getModulo();
-        for (ModuloBeans mb1 : mb) {
-            jCmodulo.addItem(mb1.getDescricao());
+        try {
+            mb = new ModuloDao().getModulo();
+            for (ModuloBeans mb1 : mb) {
+                jCmodulo.addItem(mb1.getDescricao());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Consultar Modulos\n" + ex);
         }
+
     }
 
     private void buscaSituacao() {
         jCsituacao.removeAllItems();
-        lsb = new SituacaoDao().getSituacao();
-        for (SituacaoBeans sb : lsb) {
-            jCsituacao.addItem(sb.getDescricao());
+        try {
+            lsb = new SituacaoDao().getSituacao();
+            for (SituacaoBeans sb : lsb) {
+                jCsituacao.addItem(sb.getDescricao());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Consultar Situação\n" + ex);
         }
+
     }
 
     private void buscaDistrito() {
@@ -1706,10 +1716,15 @@ public void ativaView() {
     private void buscaPessoa() {
         DefaultTableModel tabelapessoa = (DefaultTableModel) jTtempresa.getModel();
         tabelapessoa.setNumRows(0);
-        lpb = new PessoaDao().getPessoa();
-        for (PessoaBeans pb : lpb) {
-            tabelapessoa.addRow(new Object[]{pb.getIdpessoa(), pb.getRazao(), pb.getFantasia(), pb.getCnpj(), pb.getEndereco()});
+        try {
+            lpb = new PessoaDao().getPessoa();
+            for (PessoaBeans pb : lpb) {
+                tabelapessoa.addRow(new Object[]{pb.getIdpessoa(), pb.getRazao(), pb.getFantasia(), pb.getCnpj(), pb.getEndereco()});
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Consultar Clientes\n" + ex);
         }
+
     }
 
     private void buscaPessoa(String coluna, String parametro) {

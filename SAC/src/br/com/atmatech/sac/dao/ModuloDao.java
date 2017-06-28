@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class ModuloDao {
 
-    public List<ModuloBeans> getModulo() {
+    public List<ModuloBeans> getModulo() throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql="select * from modulo where idempresa="+new DBConfigBeans().getCompany()+"";
             PreparedStatement pstm=conexao.prepareStatement(sql);
@@ -40,10 +40,10 @@ public class ModuloDao {
             rs.close();
             pstm.close();
             return lmb;
-        } catch (SQLException ex) {
+        }/* catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Consultar Modulos\n"+ex);
             return null;
-        }        
+        }  */      
     }
     
     public List<ModuloBeans> getModulo(String coluna,String parametro) {

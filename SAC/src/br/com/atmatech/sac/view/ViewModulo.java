@@ -361,7 +361,7 @@ public class ViewModulo extends javax.swing.JPanel {
             if (evt.isControlDown()) {
                 String text = JOptionPane.showInputDialog(this, "Pesquisa: " + jTtmodulo.getColumnName(coluna), "PESQUISA", JOptionPane.WARNING_MESSAGE);
                 if (text != null) {
-                  //DefaultTableModel tabela = (DefaultTableModel) jTtmodulo.getModel();
+                    //DefaultTableModel tabela = (DefaultTableModel) jTtmodulo.getModel();
                     //final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tabela);
                     // jTtmodulo.setRowSorter(sorter);
                     text = text.toUpperCase();
@@ -427,10 +427,15 @@ private void ativaView() {
     private void buscaModulos() {
         DefaultTableModel tabelamodulo = (DefaultTableModel) jTtmodulo.getModel();
         tabelamodulo.setNumRows(0);
-        lmb = new ModuloDao().getModulo();
-        for (ModuloBeans lmd1 : lmb) {
-            tabelamodulo.addRow(new Object[]{lmd1.getIdmodulo(), lmd1.getDescricao(), lmd1.getResponsavel(), lmd1.getEmail()});
+        try {
+            lmb = new ModuloDao().getModulo();
+            for (ModuloBeans lmd1 : lmb) {
+                tabelamodulo.addRow(new Object[]{lmd1.getIdmodulo(), lmd1.getDescricao(), lmd1.getResponsavel(), lmd1.getEmail()});
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Consultar Modulos\n" + ex);
         }
+
     }
 
     private void buscaModulos(String campo, String parametro) {
@@ -440,9 +445,9 @@ private void ativaView() {
         for (ModuloBeans lmd1 : lmb) {
             tabelamodulo.addRow(new Object[]{lmd1.getIdmodulo(), lmd1.getDescricao(), lmd1.getResponsavel(), lmd1.getEmail()});
         }
-        if(tabelamodulo.getRowCount()==0){
-        tabelamodulo.addRow(new Object[]{});
-        
+        if (tabelamodulo.getRowCount() == 0) {
+            tabelamodulo.addRow(new Object[]{});
+
         }
     }
 
@@ -496,20 +501,20 @@ private void ativaView() {
     }
 
     private void premissaoUsuario() {
-        int ver=0;
-        if(!new NivelAcesso().getAcesso("ViewModulo", "cadastrar", false)){
+        int ver = 0;
+        if (!new NivelAcesso().getAcesso("ViewModulo", "cadastrar", false)) {
             jBnovo.setVisible(false);
             ver++;
         }
-        if(!new NivelAcesso().getAcesso("ViewModulo", "alterar", false)){
+        if (!new NivelAcesso().getAcesso("ViewModulo", "alterar", false)) {
             jBalterar.setVisible(false);
             ver++;
         }
-        if(!new NivelAcesso().getAcesso("ViewModulo", "excluir", false)){
+        if (!new NivelAcesso().getAcesso("ViewModulo", "excluir", false)) {
             jBexcluir.setVisible(false);
             ver++;
         }
-        if(ver==3){
+        if (ver == 3) {
             jPanel1.setVisible(false);
         }
     }

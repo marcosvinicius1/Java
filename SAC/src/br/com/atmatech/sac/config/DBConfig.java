@@ -50,6 +50,9 @@ public class DBConfig {
         cxb.setWhiter(Integer.valueOf(prop.getProperty("whiter")));
         cxb.setWhiteg(Integer.valueOf(prop.getProperty("whiteg")));
         cxb.setWhiteb(Integer.valueOf(prop.getProperty("whiteb")));
+        cxb.setBlackr(Integer.valueOf(prop.getProperty("blackr")));
+        cxb.setBlackg(Integer.valueOf(prop.getProperty("blackg")));
+        cxb.setBlackb(Integer.valueOf(prop.getProperty("blackb")));
         cxb.setMenuopacity(Integer.valueOf(prop.getProperty("menuopacity")));
         cxb.setFrameopacity(Integer.valueOf(prop.getProperty("frameopacity")));
 

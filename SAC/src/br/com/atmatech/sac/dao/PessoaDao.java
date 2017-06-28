@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class PessoaDao {
 
     //utilizado na abertura da ViewPessoa
-    public List<PessoaBeans> getPessoa() {
+    public List<PessoaBeans> getPessoa() throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "select * from pessoa left join "
                     + "distrito on(pessoa.iddistrito=distrito.iddistrito) where idempresa=" + new DBConfigBeans().getCompany() + " order by razao";
@@ -59,10 +59,10 @@ public class PessoaDao {
             pstm.close();
             rs.close();
             return lpb;
-        } catch (SQLException ex) {
+        } /*catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Consultar Clientes\n" + ex);
             return null;
-        }
+        }*/
     }
 
     //utilizado na consulta da grid da ViewPessoa

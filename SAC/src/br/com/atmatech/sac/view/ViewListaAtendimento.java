@@ -178,7 +178,6 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
         jDaguarde.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jDaguarde.setMinimumSize(new java.awt.Dimension(247, 90));
-        jDaguarde.setModal(true);
         jDaguarde.setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -505,8 +504,8 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 ViewAtendimento view = new ViewAtendimento(viewprincipal, this, clickAtendimento(), new UsuarioLogadoBeans().getAlttecnico(), false);
                 viewprincipal.jTaabas.getSelectedIndex();
                 viewprincipal.jTaabas.setComponentAt(viewprincipal.jTaabas.getSelectedIndex(), view);
-                if (!new UsuarioLogadoBeans().getBconsulta()) {
-                    constecnico.stop();
+                if (!new UsuarioLogadoBeans().getBconsulta()) {                      
+                        constecnico.stop();                                        
                 }
 
             }
@@ -523,7 +522,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (jTatendimento.getSelectedRow() >= 0) {
             if ((Integer) jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0) > 0) {
-                if (JOptionPane.showConfirmDialog(this, "Deseja Excluir o Atendimento: "+jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0), "Atendimento", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                if (JOptionPane.showConfirmDialog(this, "Deseja Excluir o Atendimento: " + jTatendimento.getValueAt(jTatendimento.getSelectedRow(), 0), "Atendimento", JOptionPane.OK_CANCEL_OPTION) == 0) {
                     deleteAtendimento();
                 }
             } else {
@@ -576,7 +575,9 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "So e Permitido o Envio de Email Para Atendimentos Fechados\n", "Atendimento", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (EmailException ex) {
+        } /*catch (EmailException ex) {
+            Logger.getLogger("\nmarcos  "+ViewListaAtendimento.class.getName()).log(Level.SEVERE, null, ex);*/
+         catch (EmailException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao Enviar Email\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
         } catch (MalformedURLException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao Enviar Email\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
@@ -632,6 +633,16 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
             c.add(Calendar.DAY_OF_YEAR, -30);
             jDinicial.setDate(c.getTime());
             jDfinal.setDate(new Timestamp(new Date().getTime()));
+           
+            if (new UsuarioLogadoBeans().getTecnico()) {
+                if (new UsuarioLogadoBeans().getTecnico()) {
+                    jCtecnico.doClick();
+                }else{
+                // jCtecnico.setSelected(new UsuarioLogadoBeans().getTecnico());
+                desativaPpesquisa();
+                }
+            } else
+             
             if (this.buscaatendimento) {
                 new Thread(new Runnable() {
                     @Override
@@ -641,14 +652,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 }).start();
 
             }
-            if (new UsuarioLogadoBeans().getTecnico()) {
-                if (new UsuarioLogadoBeans().getTecnico()) {
-                    jCtecnico.doClick();
-                }
-
-                // jCtecnico.setSelected(new UsuarioLogadoBeans().getTecnico());
-                desativaPpesquisa();
-            }
+            
             trocaCor();
             this.inicializatela = false;
         }
@@ -750,7 +754,12 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         }).start();
         DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
         tabelaatendimento.setNumRows(0);
-        lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
+        try {
+            lab = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
+            jDaguarde.setVisible(false);
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         TableCellRenderer renderer = new PintarLinhasTabelaAtend(false);
         jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
@@ -771,17 +780,23 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
         String campo = "dtabertura";
 
         List<AtendimentoBeans> labt = new ArrayList<>();
-        labt = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());
-        if (!caparaArrayList(labt, lab)) {
-            lab = labt;
-            DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
-            tabelaatendimento.setNumRows(0);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-            TableCellRenderer renderer = new PintarLinhasTabelaAtend(false);
-            jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);
-            for (AtendimentoBeans ab : lab) {
-                tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+        DefaultTableModel tabelaatendimento = (DefaultTableModel) jTatendimento.getModel();
+        try {            
+            labt = new AtendimentoDao().getAtendimento(status, idtecnico, new UsuarioLogadoBeans().getVchamados(), ini, fin, getTipoData());            
+            if (!caparaArrayList(labt, lab)) {
+                lab = labt;                
+                tabelaatendimento.setNumRows(0);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                TableCellRenderer renderer = new PintarLinhasTabelaAtend(false);
+                jTatendimento.setDefaultRenderer(jTatendimento.getColumnClass(0), renderer);                
+                for (AtendimentoBeans ab : lab) {
+                    tabelaatendimento.addRow(new Object[]{ab.getIDATENDIMENTO(), ab.getRazao(), sdf.format(ab.getDTABERTURA()), ab.getTecniconome(), ab.getAberturanome(), ab.getSTATUS(), ab.getTIPO()});
+                }
             }
+        } catch (SQLException ex) {
+            lab.clear();
+            tabelaatendimento.setNumRows(0);
+            //Logger.getLogger(ViewListaAtendimento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1082,7 +1097,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
 
     }
 
-    private boolean caparaArrayList(List<AtendimentoBeans> labt, List<AtendimentoBeans> lab) {
+    private boolean caparaArrayList(List<AtendimentoBeans> labt, List<AtendimentoBeans> lab) {                
         if (labt != null) {
             if (lab != null) {
                 if (labt.size() == lab.size()) {
@@ -1120,6 +1135,7 @@ public class ViewListaAtendimento extends javax.swing.JPanel {
                 }
                 return false;
             }
+            return false;
         }
         return true;
     }

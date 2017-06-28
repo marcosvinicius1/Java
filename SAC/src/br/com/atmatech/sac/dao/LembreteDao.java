@@ -11,7 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,15 +63,17 @@ public class LembreteDao {
         }
     }
 
-    public void setLembrete(Integer idusuario, String titulo, String mensagem, Integer idusuarioremt) throws SQLException {
+    public void setLembrete(Integer idusuario, String titulo, String mensagem, Integer idusuarioremt,Date data) throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String sql = "insert into lembrete(mensagem,idusuario,status,titulo,idusuarioremt) values(?,?,?,?,?)";
+            SimpleDateFormat sdfah = new SimpleDateFormat("yyyy.MM.dd  HH:mm:ss");
+            String sql = "insert into lembrete(mensagem,idusuario,status,titulo,idusuarioremt,data) values(?,?,?,?,?,?)";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, mensagem);
             pstm.setInt(2, idusuario);
             pstm.setString(3, "true");
             pstm.setString(4, titulo);
             pstm.setInt(5, idusuarioremt);
+            pstm.setString(6, sdfah.format(data));
             pstm.execute();
             pstm.close();
         }

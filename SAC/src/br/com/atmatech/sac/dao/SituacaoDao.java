@@ -13,9 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class SituacaoDao {
     
-    public List<SituacaoBeans> getSituacao(){
+    public List<SituacaoBeans> getSituacao() throws SQLException{
         try(Connection conexao=new ConexaoDb().getConnect()){
             String sql="select * from situacao";
             PreparedStatement pstm=conexao.prepareStatement(sql);
@@ -38,9 +35,9 @@ public class SituacaoDao {
             rs.close();
             pstm.close();
             return lsb;
-        } catch (SQLException ex) {
+        } /*catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Consultar Situação\n"+ex);
             return null;
-        }       
+        }   */    
     }
 }

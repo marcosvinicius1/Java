@@ -21,8 +21,10 @@ public class Email {
             String emailto, String emailfrom, 
             String solicitante,String nchamado,String razao,String data,
             String solicitacao,String realizacao, String tecnico,String imagem) throws EmailException, MalformedURLException {
-        
+        System.err.println(smtp+":\n"+user+":\n"+password+":\n"+porta+":\n"+ssl+":\n"+tls+":\n"+emailto+":\n"+emailfrom+":\n"+solicitante+":\n"+nchamado+":\n"+razao+":\n"+data+":\n"+
+                solicitacao+":\n"+realizacao+":\n"+tecnico+":\n"+imagem);
         HtmlEmail email = new HtmlEmail();
+       // SimpleEmail email = new SimpleEmail();
         email.setHostName(smtp); // o servidor SMTP para envio do e-mail
         email.addTo(emailto); //destinatário
         email.setFrom(emailfrom); // remetente        
@@ -42,11 +44,12 @@ public class Email {
                 + "Atendente<br>"
                 + ""+tecnico+"<p>"
                 + "<b>Atenciosamente</b> Suporte Atmatech<p><p>"+imagem+" </html>");
+        //email.setMsg("Teste");
         email.setAuthentication(user, password);
         email.setSmtpPort(porta);
         email.setSSL(ssl);
         email.setTLS(tls);
-        email.send();
+        email.send();        
     }
     
     public void emaiMassa(String smtp, String user, String password, Integer porta, Boolean ssl, Boolean tls,

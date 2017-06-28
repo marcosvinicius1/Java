@@ -45,22 +45,73 @@ public class FinanceiroDao {
             return lfb;
         }
     }
-    
+
     public Date getFinanceiroDate() throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "select atualizacao from financeiro  group by atualizacao";
             PreparedStatement pstm = conexao.prepareStatement(sql);
-            ResultSet rs = pstm.executeQuery();  
+            ResultSet rs = pstm.executeQuery();
             Date atualizacao = new Date(0, 0, 0);
             while (rs.next()) {
-                atualizacao=rs.getDate("atualizacao");
+                atualizacao = rs.getDate("atualizacao");
             }
             rs.close();
             pstm.close();
             return atualizacao;
         }
     }
-    
+
+    public List<FinanceiroBeans> getFinanceiroVencidos() throws SQLException {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            String sql = "select * from financeiro  where idpessoa is not NULL "
+                    + " AND vencimento<now() order by vencimento,cliente";
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            List<FinanceiroBeans> lfb = new ArrayList<>();
+            while (rs.next()) {
+                FinanceiroBeans fb = new FinanceiroBeans();
+                fb.setIdfinanceiro(rs.getInt("idfinanceiro"));
+                fb.setDoc(rs.getString("doc"));
+                fb.setCliente(rs.getString("cliente"));
+                fb.setValor(rs.getFloat("valor"));
+                fb.setVencimento(rs.getDate("vencimento"));
+                fb.setContato(rs.getString("contato"));
+                fb.setTelcel(rs.getString("telcel"));
+                fb.setAtualizacao(rs.getDate("atualizacao"));
+                fb.setIdpessoa(rs.getInt("idpessoa"));
+                lfb.add(fb);
+            }
+            rs.close();
+            pstm.close();
+            return lfb;
+        }
+    }
+
+    public List<FinanceiroBeans> getFinanceiroAbertoMes() throws SQLException {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            String sql = "select * from financeiro  where idpessoa is not NULL "
+                    + " AND MONTH(vencimento)=MONTH(now())  AND Year(vencimento)=Year(now()) order by vencimento,cliente";
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            List<FinanceiroBeans> lfb = new ArrayList<>();
+            while (rs.next()) {
+                FinanceiroBeans fb = new FinanceiroBeans();
+                fb.setIdfinanceiro(rs.getInt("idfinanceiro"));
+                fb.setDoc(rs.getString("doc"));
+                fb.setCliente(rs.getString("cliente"));
+                fb.setValor(rs.getFloat("valor"));
+                fb.setVencimento(rs.getDate("vencimento"));
+                fb.setContato(rs.getString("contato"));
+                fb.setTelcel(rs.getString("telcel"));
+                fb.setAtualizacao(rs.getDate("atualizacao"));
+                fb.setIdpessoa(rs.getInt("idpessoa"));
+                lfb.add(fb);
+            }
+            rs.close();
+            pstm.close();
+            return lfb;
+        }
+    }
 
     public void setFinanceiro(FinanceiroBeans fb) throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
@@ -73,7 +124,7 @@ public class FinanceiroDao {
             pstm.setDate(4, fb.getVencimento());
             pstm.setString(5, fb.getContato());
             pstm.setString(6, fb.getTelcel());
-            pstm.setString(7, fb.getCliente().substring(fb.getCliente().indexOf("-") + 2, fb.getCliente().length()));
+            pstm.setString(7, fb.getCliente().substring(fb.getCliente().length()-14, fb.getCliente().length()));
             pstm.execute();
             pstm.close();
         }
@@ -81,10 +132,36 @@ public class FinanceiroDao {
 
     public void dropFinanceiro() throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String sql="delete from financeiro where idfinanceiro>0";
+            String sql = "delete from financeiro where idfinanceiro>0";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.execute();
             pstm.close();
+        }
+    }
+
+    public List<FinanceiroBeans> getFinanceiroVencidosMes() throws SQLException {
+        try (Connection conexao = new ConexaoDb().getConnect()) {
+            String sql = "select * from financeiro  where idpessoa is not NULL "
+                    + " AND MONTH(vencimento)=MONTH(now())  AND Day(vencimento)<Day(now()) order by vencimento,cliente";
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            List<FinanceiroBeans> lfb = new ArrayList<>();
+            while (rs.next()) {
+                FinanceiroBeans fb = new FinanceiroBeans();
+                fb.setIdfinanceiro(rs.getInt("idfinanceiro"));
+                fb.setDoc(rs.getString("doc"));
+                fb.setCliente(rs.getString("cliente"));
+                fb.setValor(rs.getFloat("valor"));
+                fb.setVencimento(rs.getDate("vencimento"));
+                fb.setContato(rs.getString("contato"));
+                fb.setTelcel(rs.getString("telcel"));
+                fb.setAtualizacao(rs.getDate("atualizacao"));
+                fb.setIdpessoa(rs.getInt("idpessoa"));
+                lfb.add(fb);
+            }
+            rs.close();
+            pstm.close();
+            return lfb;
         }
     }
 

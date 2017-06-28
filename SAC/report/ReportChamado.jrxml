@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportChamado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f1c0d53-143e-47e9-b651-ea599ed9e742">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="256"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idatendimento" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -29,22 +29,20 @@ atendimento.IDTECNICOANTERIOR,
 atendimento.IDVEICULO,
 KMINICIAL,
 KMFINAL,
-tecnico.nome tecnico,
-abertura.nome tecnicoabertura,
-tecnicoante.nome tecnicoanterior,
+tecnico.nome TECNICO,
+abertura.nome TECNICOABERTURA,
+tecnicoante.nome TECNICOANTERIOR,
 pessoa.*,
 distrito.distrito,
-modulo.descricao modulo,
-placa,
-empresa.razao emprazao,
-empresa.fantasia empfantasia,
-empresa.endereco empendereco,
-empresa.telefone1 emptele,
-empresa.bairro empbairro,
-empresa.numero empnumero,
-empdist.municipio empmunicipio
-
-
+modulo.descricao MODULO,
+PLACA,
+empresa.razao EMPRAZAO,
+empresa.fantasia EMPFANTASIA,
+empresa.endereco EMPENDERECO,
+empresa.telefone1 EMPTELE,
+empresa.bairro EMPBAIRRO,
+empresa.numero EMPNUMERO,
+empdist.municipio EMPMUNICIPIO
 from atendimento
 left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)
 left join usuario tecnico on(atendimento.idtecnico=tecnico.idusuario)
@@ -57,50 +55,135 @@ inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)
 inner join modulo on(pessoa.idmodulo=modulo.idmodulo)
 where atendimento.idatendimento=$P{idatendimento}]]>
 	</queryString>
-	<field name="IDATENDIMENTO" class="java.lang.Integer"/>
-	<field name="IDPESSOA" class="java.lang.Integer"/>
-	<field name="IDTECNICO" class="java.lang.Integer"/>
-	<field name="IDABERTURA" class="java.lang.Integer"/>
-	<field name="DTABERTURA" class="java.sql.Timestamp"/>
-	<field name="DTINICIAL" class="java.sql.Timestamp"/>
-	<field name="DTFINAL" class="java.sql.Timestamp"/>
-	<field name="STATUS" class="java.lang.String"/>
-	<field name="ATIVO" class="java.lang.String"/>
-	<field name="SOLICITANTE" class="java.lang.String"/>
-	<field name="TIPO" class="java.lang.String"/>
-	<field name="SOLICITACAO" class="java.lang.String"/>
-	<field name="REALIZADO" class="java.lang.String"/>
-	<field name="PENDENTE" class="java.lang.String"/>
-	<field name="IDTECNICOANTERIOR" class="java.lang.Integer"/>
-	<field name="IDVEICULO" class="java.lang.Integer"/>
-	<field name="KMINICIAL" class="java.math.BigDecimal"/>
-	<field name="KMFINAL" class="java.math.BigDecimal"/>
-	<field name="TECNICO" class="java.lang.String"/>
+	<field name="IDATENDIMENTO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDPESSOA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDTECNICO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDABERTURA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DTABERTURA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DTINICIAL" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DTFINAL" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ATIVO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SOLICITANTE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TIPO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SOLICITACAO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REALIZADO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PENDENTE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDTECNICOANTERIOR" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDVEICULO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="KMINICIAL" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="KMFINAL" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TECNICO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="TECNICOABERTURA" class="java.lang.String"/>
 	<field name="TECNICOANTERIOR" class="java.lang.String"/>
-	<field name="RAZAO" class="java.lang.String"/>
-	<field name="FANTASIA" class="java.lang.String"/>
-	<field name="CNPJ" class="java.lang.String"/>
-	<field name="IE" class="java.lang.String"/>
-	<field name="ENDERECO" class="java.lang.String"/>
-	<field name="IDDISTRITO" class="java.lang.Integer"/>
-	<field name="NUMERO" class="java.lang.String"/>
-	<field name="EMAIL" class="java.lang.String"/>
-	<field name="IDMODULO" class="java.lang.Integer"/>
-	<field name="TELEFONE1" class="java.lang.String"/>
-	<field name="TELEFONE2" class="java.lang.String"/>
-	<field name="TELEFONE3" class="java.lang.String"/>
-	<field name="IDSITUACAO" class="java.lang.Integer"/>
-	<field name="OBS" class="java.lang.String"/>
-	<field name="BAIRRO" class="java.lang.String"/>
-	<field name="RESPONSAVEL" class="java.lang.String"/>
-	<field name="NFE" class="java.lang.Integer"/>
-	<field name="ECF" class="java.lang.Integer"/>
-	<field name="DTPLUGIN" class="java.sql.Timestamp"/>
-	<field name="IDEMPRESA" class="java.lang.Integer"/>
-	<field name="DISTRITO" class="java.lang.String"/>
+	<field name="RAZAO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FANTASIA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENDERECO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDDISTRITO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDMODULO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDSITUACAO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OBS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BAIRRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RESPONSAVEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NFE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ECF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DTPLUGIN" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IDEMPRESA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NFCE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="distrito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="MODULO" class="java.lang.String"/>
-	<field name="PLACA" class="java.lang.String"/>
+	<field name="PLACA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="EMPRAZAO" class="java.lang.String"/>
 	<field name="EMPFANTASIA" class="java.lang.String"/>
 	<field name="EMPENDERECO" class="java.lang.String"/>

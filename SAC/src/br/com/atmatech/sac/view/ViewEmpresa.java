@@ -40,7 +40,7 @@ public class ViewEmpresa extends javax.swing.JPanel {
     List<DistritoBeans> ldb;
     List<EmpresaBeans> lpb;
     JPanel TempViewPessoa = this;
-    boolean inicializatela=false;
+    boolean inicializatela = false;
 
     public ViewEmpresa() {
         initComponents();
@@ -50,9 +50,9 @@ public class ViewEmpresa extends javax.swing.JPanel {
         jTidempresa.setVisible(false);
         jTiddistrito.setVisible(false);
         // buscaEmpresa();
-        jDaguarde.setUndecorated(true);        
+        jDaguarde.setUndecorated(true);
         inicializaAtalhos();
-        this.inicializatela=true;
+        this.inicializatela = true;
     }
 
     /**
@@ -866,11 +866,11 @@ public class ViewEmpresa extends javax.swing.JPanel {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        if(inicializatela){
+        if (inicializatela) {
             carregaPesquisa();
-            inicializatela=false;
+            inicializatela = false;
         }
-        
+
     }//GEN-LAST:event_formComponentShown
 
 
@@ -979,10 +979,15 @@ public void ativaView() {
 
     private void buscaSituacao() {
         jCsituacao.removeAllItems();
-        lsb = new SituacaoDao().getSituacao();
-        for (SituacaoBeans sb : lsb) {
-            jCsituacao.addItem(sb.getDescricao());
+        try {
+            lsb = new SituacaoDao().getSituacao();
+            for (SituacaoBeans sb : lsb) {
+                jCsituacao.addItem(sb.getDescricao());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Consultar Situação\n" + ex);
         }
+
     }
 
     private void buscaDistrito() {
@@ -1185,7 +1190,6 @@ public void ativaView() {
         return true;
     }
 
-
     private void carregaPesquisa() {
 
         new Thread(new Runnable() {
@@ -1205,8 +1209,6 @@ public void ativaView() {
         }).start();
 
     }
-
-  
 
     private void inicializaAtalhos() {
         //Atalho novo
