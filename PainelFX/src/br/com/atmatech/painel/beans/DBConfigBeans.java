@@ -21,18 +21,26 @@ public class DBConfigBeans {
     static private boolean tabela2;
     static private boolean tabela3;
     static private boolean tabela4;
-    static private Integer linhatabela=1;
+    static private Integer linhatabela = 1;
     static private boolean sequencial;
     static private boolean letreiro;
-    
-   
+    static private String letreirotexto;
+    static private Integer letreirotempo;
+    static private boolean tabelacheia;
+    static private String tipolocalizacao;
+    static private Integer tempotransicao;
+    static private String fundoimagem1;
+    static private String fundoimagem2;
+    static private String fundoimagem3;
+    static private Integer tamanhox;
+    static private Integer tamanhoy;
+    static private String letreirocorfundo;
+    static private String letreirocorfonte;
 
     public String getDirdb() {
         return dirdb;
     }
 
-    
-    
     public void setDirdb(String dirdb) {
         this.dirdb = dirdb;
     }
@@ -132,5 +140,101 @@ public class DBConfigBeans {
     public void setLetreiro(boolean letreiro) {
         this.letreiro = letreiro;
     }
-            
+
+    public String getLetreirotexto() {
+        return letreirotexto;
+    }
+
+    public void setLetreirotexto(String letreirotexto) {
+        this.letreirotexto = letreirotexto;
+    }
+
+    public Integer getLetreirotempo() {
+        return letreirotempo;
+    }
+
+    public void setLetreirotempo(Integer letreirotempo) {
+        this.letreirotempo = letreirotempo;
+    }
+
+    public boolean isTabelacheia() {
+        return tabelacheia;
+    }
+
+    public void setTabelacheia(boolean tabelacheia) {
+        this.tabelacheia = tabelacheia;
+    }
+
+    public String getTipolocalizacao() {
+        return tipolocalizacao;
+    }
+
+    public void setTipolocalizacao(String tipolocalizacao) {
+        this.tipolocalizacao = tipolocalizacao;
+    }
+
+    public Integer getTempotransicao() {
+        return tempotransicao;
+    }
+
+    public void setTempotransicao(Integer tempotransicao) {
+        this.tempotransicao = tempotransicao;
+    }
+
+    public String getFundoimagem1() {
+        return fundoimagem1;
+    }
+
+    public void setFundoimagem1(String fundoimagem1) {
+        this.fundoimagem1 = fundoimagem1;
+    }
+
+    public String getFundoimagem2() {
+        return fundoimagem2;
+    }
+
+    public void setFundoimagem2(String fundoimagem2) {
+        this.fundoimagem2 = fundoimagem2;
+    }
+
+    public String getFundoimagem3() {
+        return fundoimagem3;
+    }
+
+    public void setFundoimagem3(String fundoimagem3) {
+        this.fundoimagem3 = fundoimagem3;
+    }
+
+    public Integer getTamanhox() {
+        return tamanhox;
+    }
+
+    public void setTamanhox(Integer tamanhox) {
+        this.tamanhox = tamanhox;
+    }
+
+    public Integer getTamanhoy() {
+        return tamanhoy;
+    }
+
+    public void setTamanhoy(Integer tamanhoy) {
+        this.tamanhoy = tamanhoy;
+    }
+
+    public String getLetreirocorfundo() {
+        return letreirocorfundo;
+    }
+
+    public void setLetreirocorfundo(String letreirocorfundo) {
+        this.letreirocorfundo = letreirocorfundo;
+    }
+
+    public String getLetreirocorfonte() {
+        return letreirocorfonte;
+    }
+
+    public void setLetreirocorfonte(String letreirocorfonte) {
+        this.letreirocorfonte = letreirocorfonte;
+    }
+
 }

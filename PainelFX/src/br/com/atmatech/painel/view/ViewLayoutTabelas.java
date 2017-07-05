@@ -38,11 +38,16 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jScrollPane3.setVisible(true);
             jScrollPane4.setVisible(true);
         }
-        Color cor=new Color(204, 0, 0);
+        Color cor=new Color(0, 0, 0,0);        
+        
+        this.setBackground(cor);
+        this.repaint();
+        this.validate();
         jScrollPane1.setBackground(cor);
         jScrollPane1.repaint();
         jScrollPane1.validate();        
         jTable1.setBackground(cor);
+        jTable1.getParent().setBackground(cor);
         jTable1.repaint();
         jTable1.validate();
         
@@ -50,6 +55,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jScrollPane2.repaint();
         jScrollPane2.validate();        
         jTable2.setBackground(cor);
+        jTable2.getParent().setBackground(cor);
         jTable2.repaint();
         jTable2.validate();
         
@@ -57,6 +63,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jScrollPane3.repaint();
         jScrollPane3.validate();        
         jTable3.setBackground(cor);
+        jTable3.getParent().setBackground(cor);
         jTable3.repaint();
         jTable3.validate();
         
@@ -64,8 +71,12 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jScrollPane4.repaint();
         jScrollPane4.validate();        
         jTable4.setBackground(cor);
+        jTable4.getParent().setBackground(cor);
         jTable4.repaint();
         jTable4.validate();
+        
+        
+        
     }
 
     /**
