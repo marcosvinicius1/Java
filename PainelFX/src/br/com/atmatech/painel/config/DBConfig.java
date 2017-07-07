@@ -41,6 +41,8 @@ public class DBConfig {
         cxb.setTabelacheia(Boolean.valueOf(prop.getProperty("tabelacheia")));
         cxb.setTipolocalizacao(prop.getProperty("tipolocalizacao"));        
         cxb.setFundoimagem1(prop.getProperty("fundoimagem1"));
+        cxb.setTopoimagem(prop.getProperty("topoimagem"));
+        cxb.setLateralimagem(prop.getProperty("lateralimagem"));
         cxb.setTamanhox(Integer.valueOf(prop.getProperty("tamanhox")));
         cxb.setTamanhoy(Integer.valueOf(prop.getProperty("tamanhoy")));
         cxb.setLetreirocorfundo(prop.getProperty("letreirocorfundo"));
@@ -101,6 +103,8 @@ public class DBConfig {
         prop.put("tamanhoy",String.valueOf(cb.getTamanhoy()));
         prop.put("letreirocorfundo",String.valueOf(cb.getLetreirocorfundo()));
         prop.put("letreirocorfonte",String.valueOf(cb.getLetreirocorfonte()));
+        prop.put("lateralimagem", cb.getLateralimagem());      
+        prop.put("topoimagem", cb.getTopoimagem());       
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 

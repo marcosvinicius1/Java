@@ -30,12 +30,12 @@ public class DBConfigBeans {
     static private String tipolocalizacao;
     static private Integer tempotransicao;
     static private String fundoimagem1;
-    static private String fundoimagem2;
-    static private String fundoimagem3;
     static private Integer tamanhox;
     static private Integer tamanhoy;
     static private String letreirocorfundo;
     static private String letreirocorfonte;
+    static private String lateralimagem;
+    static private String topoimagem;
 
     public String getDirdb() {
         return dirdb;
@@ -188,23 +188,7 @@ public class DBConfigBeans {
     public void setFundoimagem1(String fundoimagem1) {
         this.fundoimagem1 = fundoimagem1;
     }
-
-    public String getFundoimagem2() {
-        return fundoimagem2;
-    }
-
-    public void setFundoimagem2(String fundoimagem2) {
-        this.fundoimagem2 = fundoimagem2;
-    }
-
-    public String getFundoimagem3() {
-        return fundoimagem3;
-    }
-
-    public void setFundoimagem3(String fundoimagem3) {
-        this.fundoimagem3 = fundoimagem3;
-    }
-
+   
     public Integer getTamanhox() {
         return tamanhox;
     }
@@ -235,6 +219,22 @@ public class DBConfigBeans {
 
     public void setLetreirocorfonte(String letreirocorfonte) {
         this.letreirocorfonte = letreirocorfonte;
+    }
+
+    public String getLateralimagem() {
+        return lateralimagem;
+    }
+
+    public void setLateralimagem(String lateralimagem) {
+        this.lateralimagem = lateralimagem;
+    }
+
+    public String getTopoimagem() {
+        return topoimagem;
+    }
+
+    public void setTopoimagem(String topoimagem) {
+        this.topoimagem = topoimagem;
     }
 
 }
