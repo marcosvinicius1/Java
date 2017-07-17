@@ -6,14 +6,28 @@
 package br.com.atmatech.painel.view;
 
 import br.com.atmatech.painel.beans.DBConfigBeans;
+import br.com.atmatech.painel.beans.Tb_ConfigBeans;
+import br.com.atmatech.painel.beans.Tb_ProdBeans;
+import br.com.atmatech.painel.beans.Tb_Prod_PainelBeans;
 import br.com.atmatech.painel.config.DBConfig;
+import br.com.atmatech.painel.controller.CargaController;
+import br.com.atmatech.painel.dao.Tb_ConfigDao;
+import br.com.atmatech.painel.dao.Tb_ProdDao;
+import br.com.atmatech.painel.dao.Tb_Prod_PainelDao;
 import com.towel.swing.img.JImagePanel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -24,6 +38,8 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,9 +50,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form viewPrincipal
      */
-    int x=0;
+    int x = 0;
     Thread vthreadletreiro;
-    boolean ativaletreiro=false;        
+    boolean ativaletreiro = false;
+    JImagePanel configfundo;
+    JImagePanel configlateral;
+    JImagePanel configtopo;
+    int configtabela = 0;
 
     public ViewPrincipal() {
         initComponents();
@@ -48,14 +68,36 @@ public class ViewPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Config \n" + ex);
             System.exit(0);
         }
-        
-        
-//        inicializaGrade();
-//        inicializarAtalhos();
-//        inicializaLetreiro();  
-//        inicializaTipoLayout();
-//        inicializaCorBackground();        
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
+        jFileChooser1.setAcceptAllFileFilterUsed(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    new CargaController().cargaProd();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
+                    }
+                }
+            }
+        }).start();
 
+        //criado procedure para subistituir metodo
+//         new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    new CargaController().cargaProdLocal();
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException ex) {
+//                        new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou cargaProdLocal:\n" + ex + "\n");
+//                    }
+//                }
+//            }
+//        }).start();
     }
 
     /**
@@ -84,16 +126,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTlocalbanco = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jDlayout = new javax.swing.JDialog();
-        jPanel4 = new javax.swing.JPanel();
+        jPConfigTabela = new javax.swing.JPanel();
         jRTabela1 = new javax.swing.JRadioButton();
         jRTabela2 = new javax.swing.JRadioButton();
         jRTabela3 = new javax.swing.JRadioButton();
         jRTabela4 = new javax.swing.JRadioButton();
-        jSLinhaTabela = new javax.swing.JSpinner();
+        jSFonteTabela = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        jRSequencial = new javax.swing.JRadioButton();
+        jRTransparencia = new javax.swing.JRadioButton();
         jRTabelaCheia = new javax.swing.JRadioButton();
-        jPanel5 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jCCTCodigo = new javax.swing.JCheckBox();
+        jCCTProduto = new javax.swing.JCheckBox();
+        jCCTOferta = new javax.swing.JCheckBox();
+        jCCTValor1 = new javax.swing.JCheckBox();
+        jCCTValor2 = new javax.swing.JCheckBox();
+        jTNomeValor2 = new javax.swing.JTextField();
+        jTNomevalor1 = new javax.swing.JTextField();
+        jCCTUnid = new javax.swing.JCheckBox();
+        jPCorFonteTabela = new javax.swing.JPanel();
+        jPCorFundoTabela = new javax.swing.JPanel();
+        jPConfigLetreiro = new javax.swing.JPanel();
         jRletreiro = new javax.swing.JRadioButton();
         jTletreirotexto = new javax.swing.JTextField();
         jStransicaoLetreiro = new javax.swing.JSpinner();
@@ -101,26 +155,44 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPCorFundoLetreiro = new javax.swing.JPanel();
         jPCorFonteLetreiro = new javax.swing.JPanel();
         jBsalvar = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
+        jPConfigImagem = new javax.swing.JPanel();
         jCTipoLocalizacao = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jSTamanhox = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
         jSTamanhoy = new javax.swing.JSpinner();
-        jTFileImagemFundo = new javax.swing.JTextField();
         jBImagem1 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jTImagemTopo = new javax.swing.JTextField();
         jBImagemTopo = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jTImagemLateral = new javax.swing.JTextField();
         jBImagemLateral = new javax.swing.JButton();
+        jPCImagemFundo = new javax.swing.JPanel();
+        jPCImagemTopo = new javax.swing.JPanel();
+        jPCImagemLateral = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         GroupTabelas = new javax.swing.ButtonGroup();
         jDFileImagem = new javax.swing.JDialog();
         jFileChooser1 = new javax.swing.JFileChooser();
         jDColorLetreiro = new javax.swing.JDialog();
         jColorChooser1 = new javax.swing.JColorChooser();
+        jDLayoutTabelas = new javax.swing.JDialog();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTCTable1 = new javax.swing.JTable();
+        jPanel18 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTCTable2 = new javax.swing.JTable();
+        jPanel19 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTCTable3 = new javax.swing.JTable();
+        jPanel20 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTCTable4 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jDConsultaProduto = new javax.swing.JDialog();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTConsultaProduto = new javax.swing.JTable();
         jPbackground = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPImagemTopo = new javax.swing.JPanel();
@@ -278,11 +350,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jDlayout.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDlayout.setTitle("Layout");
-        jDlayout.setMinimumSize(new java.awt.Dimension(600, 500));
+        jDlayout.setMinimumSize(new java.awt.Dimension(900, 550));
+        jDlayout.setModal(true);
+        jDlayout.setPreferredSize(new java.awt.Dimension(900, 550));
         jDlayout.setResizable(false);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabelas"));
-        jPanel4.setToolTipText("");
+        jPConfigTabela.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabelas"));
+        jPConfigTabela.setToolTipText("");
 
         GroupTabelas.add(jRTabela1);
         jRTabela1.setText("1 Tabela");
@@ -296,56 +370,179 @@ public class ViewPrincipal extends javax.swing.JFrame {
         GroupTabelas.add(jRTabela4);
         jRTabela4.setText("4 Tabelas");
 
-        jSLinhaTabela.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSFonteTabela.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        jLabel8.setText("Linhas Por Tabelas");
+        jLabel8.setText("Fonte Tabela");
 
-        jRSequencial.setText("Tabelas Sequenciais");
+        jRTransparencia.setText("Transparencia");
 
         jRTabelaCheia.setText("Tabelas Cheias");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jButton2.setText("Produtos Tabelas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Campos Tabela"));
+
+        jCCTCodigo.setText("Codigo");
+
+        jCCTProduto.setText("Produto");
+
+        jCCTOferta.setText("Oferta");
+
+        jCCTValor1.setText("Valor1");
+
+        jCCTValor2.setText("Valor 2");
+
+        jTNomevalor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTNomevalor1ActionPerformed(evt);
+            }
+        });
+
+        jCCTUnid.setText("UNID");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCCTCodigo)
+                    .addComponent(jCCTProduto))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCCTUnid)
+                    .addComponent(jCCTOferta))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jCCTValor2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTNomeValor2))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addComponent(jCCTValor1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTNomevalor1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCCTCodigo)
+                    .addComponent(jCCTOferta)
+                    .addComponent(jCCTValor2)
+                    .addComponent(jTNomeValor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCCTProduto)
+                    .addComponent(jCCTValor1)
+                    .addComponent(jTNomevalor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCCTUnid))
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+
+        jPCorFonteTabela.setBorder(javax.swing.BorderFactory.createTitledBorder("Cor Fonte"));
+        jPCorFonteTabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPCorFonteTabelaMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPCorFonteTabelaLayout = new javax.swing.GroupLayout(jPCorFonteTabela);
+        jPCorFonteTabela.setLayout(jPCorFonteTabelaLayout);
+        jPCorFonteTabelaLayout.setHorizontalGroup(
+            jPCorFonteTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+        jPCorFonteTabelaLayout.setVerticalGroup(
+            jPCorFonteTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        jPCorFundoTabela.setBorder(javax.swing.BorderFactory.createTitledBorder("Cor Fundo"));
+        jPCorFundoTabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPCorFundoTabelaMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPCorFundoTabelaLayout = new javax.swing.GroupLayout(jPCorFundoTabela);
+        jPCorFundoTabela.setLayout(jPCorFundoTabelaLayout);
+        jPCorFundoTabelaLayout.setHorizontalGroup(
+            jPCorFundoTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+        jPCorFundoTabelaLayout.setVerticalGroup(
+            jPCorFundoTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPConfigTabelaLayout = new javax.swing.GroupLayout(jPConfigTabela);
+        jPConfigTabela.setLayout(jPConfigTabelaLayout);
+        jPConfigTabelaLayout.setHorizontalGroup(
+            jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRTabela1)
                     .addComponent(jRTabela2)
                     .addComponent(jRTabela3)
                     .addComponent(jRTabela4))
                 .addGap(61, 61, 61)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jSLinhaTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                        .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jRTabelaCheia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRSequencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel8)
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton2))
+                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRTransparencia)
+                            .addComponent(jRTabelaCheia, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRTabela1)
-                    .addComponent(jSLinhaTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRTabela2)
-                    .addComponent(jRSequencial))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRTabela3)
-                    .addComponent(jRTabelaCheia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRTabela4)
-                .addGap(0, 8, Short.MAX_VALUE))
+        jPConfigTabelaLayout.setVerticalGroup(
+            jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRTabela1)
+                            .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRTabela2)
+                                    .addComponent(jRTabelaCheia))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRTabela3)
+                                    .addComponent(jRTransparencia))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRTabela4))
+                            .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Letreiro"));
+        jPConfigLetreiro.setBorder(javax.swing.BorderFactory.createTitledBorder("Letreiro"));
 
         jRletreiro.setText("Letreiro");
         jRletreiro.addActionListener(new java.awt.event.ActionListener() {
@@ -396,40 +593,40 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPConfigLetreiroLayout = new javax.swing.GroupLayout(jPConfigLetreiro);
+        jPConfigLetreiro.setLayout(jPConfigLetreiroLayout);
+        jPConfigLetreiroLayout.setHorizontalGroup(
+            jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
+                .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
                             .addComponent(jRletreiro)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTletreirotexto, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
                             .addComponent(jStransicaoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
                         .addComponent(jPCorFundoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPCorFonteLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 311, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jPConfigLetreiroLayout.setVerticalGroup(
+            jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRletreiro)
                     .addComponent(jTletreirotexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jStransicaoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPCorFundoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPCorFonteLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -442,7 +639,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Plano de Fundo"));
+        jPConfigImagem.setBorder(javax.swing.BorderFactory.createTitledBorder("Plano de Fundo"));
 
         jCTipoLocalizacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RESIZE", "CENTER", "SIDE_BY_SIDE" }));
         jCTipoLocalizacao.addActionListener(new java.awt.event.ActionListener() {
@@ -459,25 +656,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jSTamanhoy.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        jTFileImagemFundo.setEditable(false);
-        jTFileImagemFundo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFileImagemFundoActionPerformed(evt);
-            }
-        });
-
         jBImagem1.setText("...");
         jBImagem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBImagem1ActionPerformed(evt);
             }
         });
-
-        jLabel10.setText("Fundo:");
-
-        jLabel12.setText("Topo:");
-
-        jTImagemTopo.setEditable(false);
 
         jBImagemTopo.setText("...");
         jBImagemTopo.addActionListener(new java.awt.event.ActionListener() {
@@ -486,10 +670,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Lateral:");
-
-        jTImagemLateral.setEditable(false);
-
         jBImagemLateral.setText("...");
         jBImagemLateral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,95 +677,155 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        jPCImagemFundo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPCImagemFundoLayout = new javax.swing.GroupLayout(jPCImagemFundo);
+        jPCImagemFundo.setLayout(jPCImagemFundoLayout);
+        jPCImagemFundoLayout.setHorizontalGroup(
+            jPCImagemFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPCImagemFundoLayout.setVerticalGroup(
+            jPCImagemFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 85, Short.MAX_VALUE)
+        );
+
+        jPCImagemTopo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPCImagemTopoLayout = new javax.swing.GroupLayout(jPCImagemTopo);
+        jPCImagemTopo.setLayout(jPCImagemTopoLayout);
+        jPCImagemTopoLayout.setHorizontalGroup(
+            jPCImagemTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPCImagemTopoLayout.setVerticalGroup(
+            jPCImagemTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 85, Short.MAX_VALUE)
+        );
+
+        jPCImagemLateral.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPCImagemLateralLayout = new javax.swing.GroupLayout(jPCImagemLateral);
+        jPCImagemLateral.setLayout(jPCImagemLateralLayout);
+        jPCImagemLateralLayout.setHorizontalGroup(
+            jPCImagemLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPCImagemLateralLayout.setVerticalGroup(
+            jPCImagemLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 85, Short.MAX_VALUE)
+        );
+
+        jLabel14.setText("Imagem Fundo");
+
+        jLabel15.setText("Imagem Topo");
+
+        jLabel16.setText("Imagem Lateral");
+
+        javax.swing.GroupLayout jPConfigImagemLayout = new javax.swing.GroupLayout(jPConfigImagem);
+        jPConfigImagem.setLayout(jPConfigImagemLayout);
+        jPConfigImagemLayout.setHorizontalGroup(
+            jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigImagemLayout.createSequentialGroup()
                         .addComponent(jSTamanhox, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSTamanhoy, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(129, 129, 129)
-                        .addComponent(jLabel13))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                            .addComponent(jCTipoLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel10))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTFileImagemFundo, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBImagem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBImagemTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBImagemLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCTipoLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTFileImagemFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBImagem1)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jSTamanhoy, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jTImagemTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBImagemTopo))
+                    .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                        .addComponent(jCTipoLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jPCImagemFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBImagem1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPCImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jBImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSTamanhox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSTamanhoy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(jTImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBImagemLateral))
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jPCImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPConfigImagemLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPCImagemFundo, jPCImagemLateral, jPCImagemTopo});
+
+        jPConfigImagemLayout.setVerticalGroup(
+            jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCTipoLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSTamanhox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSTamanhoy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                        .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPCImagemLateral, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPCImagemTopo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBImagemTopo)
+                            .addComponent(jBImagemLateral)))
+                    .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                        .addComponent(jPCImagemFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBImagem1)))
+                .addGap(0, 21, Short.MAX_VALUE))
+        );
+
+        jPConfigImagemLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPCImagemFundo, jPCImagemLateral, jPCImagemTopo});
 
         javax.swing.GroupLayout jDlayoutLayout = new javax.swing.GroupLayout(jDlayout.getContentPane());
         jDlayout.getContentPane().setLayout(jDlayoutLayout);
         jDlayoutLayout.setHorizontalGroup(
             jDlayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jDlayoutLayout.createSequentialGroup()
                 .addComponent(jBsalvar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPConfigImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPConfigTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDlayoutLayout.setVerticalGroup(
             jDlayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDlayoutLayout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPConfigTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBsalvar)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jDFileImagem.setTitle("ARQUIVO");
         jDFileImagem.setMinimumSize(new java.awt.Dimension(614, 397));
         jDFileImagem.setModal(true);
 
+        jFileChooser1.setAcceptAllFileFilterUsed(false);
+        jFileChooser1.setControlButtonsAreShown(false);
+        jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.FILES_AND_DIRECTORIES);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -627,6 +867,363 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDColorLetreiroLayout.createSequentialGroup()
                 .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jDLayoutTabelas.setTitle("Dados Tabelas");
+        jDLayoutTabelas.setMinimumSize(new java.awt.Dimension(1000, 590));
+        jDLayoutTabelas.setModal(true);
+        jDLayoutTabelas.setPreferredSize(new java.awt.Dimension(1000, 590));
+
+        jPanel16.setAutoscrolls(true);
+        jPanel16.setPreferredSize(new java.awt.Dimension(900, 496));
+        jPanel16.setLayout(new java.awt.GridLayout(2, 2));
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela 01"));
+
+        jTCTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Produto", "UNID", "Oferta", "Valor 1", "Valor 2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTCTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCTable1KeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTCTable1);
+        if (jTCTable1.getColumnModel().getColumnCount() > 0) {
+            jTCTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTCTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTCTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTCTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTCTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTCTable1.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+        );
+
+        jPanel16.add(jPanel17);
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela 02"));
+
+        jTCTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Produto", "UNID", "Oferta", "Valor 1", "Valor 2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTCTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTCTable2MouseClicked(evt);
+            }
+        });
+        jTCTable2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCTable2KeyPressed(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTCTable2);
+        if (jTCTable2.getColumnModel().getColumnCount() > 0) {
+            jTCTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTCTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTCTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTCTable2.getColumnModel().getColumn(3).setResizable(false);
+            jTCTable2.getColumnModel().getColumn(4).setResizable(false);
+            jTCTable2.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+        );
+
+        jPanel16.add(jPanel18);
+
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela 03"));
+
+        jTCTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Produto", "UNID", "Oferta", "Valor 1", "Valor 2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTCTable3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCTable3KeyPressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTCTable3);
+        if (jTCTable3.getColumnModel().getColumnCount() > 0) {
+            jTCTable3.getColumnModel().getColumn(0).setResizable(false);
+            jTCTable3.getColumnModel().getColumn(1).setResizable(false);
+            jTCTable3.getColumnModel().getColumn(2).setResizable(false);
+            jTCTable3.getColumnModel().getColumn(3).setResizable(false);
+            jTCTable3.getColumnModel().getColumn(4).setResizable(false);
+            jTCTable3.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+        );
+
+        jPanel16.add(jPanel19);
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela 04"));
+
+        jTCTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Produto", "UNID", "Oferta", "Valor 1", "Valor 2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTCTable4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCTable4KeyPressed(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTCTable4);
+        if (jTCTable4.getColumnModel().getColumnCount() > 0) {
+            jTCTable4.getColumnModel().getColumn(0).setResizable(false);
+            jTCTable4.getColumnModel().getColumn(1).setResizable(false);
+            jTCTable4.getColumnModel().getColumn(2).setResizable(false);
+            jTCTable4.getColumnModel().getColumn(3).setResizable(false);
+            jTCTable4.getColumnModel().getColumn(4).setResizable(false);
+            jTCTable4.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 225, Short.MAX_VALUE)
+            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+        );
+
+        jPanel16.add(jPanel20);
+
+        jButton3.setText("Salvar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDLayoutTabelasLayout = new javax.swing.GroupLayout(jDLayoutTabelas.getContentPane());
+        jDLayoutTabelas.getContentPane().setLayout(jDLayoutTabelasLayout);
+        jDLayoutTabelasLayout.setHorizontalGroup(
+            jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(927, Short.MAX_VALUE))
+            .addGroup(jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jDLayoutTabelasLayout.setVerticalGroup(
+            jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
+                .addGap(498, 498, 498)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 94, Short.MAX_VALUE)))
+        );
+
+        jDConsultaProduto.setTitle("Consulta Produto");
+        jDConsultaProduto.setMinimumSize(new java.awt.Dimension(715, 340));
+        jDConsultaProduto.setModal(true);
+        jDConsultaProduto.setResizable(false);
+
+        jTConsultaProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Produto", "Oferta", "Unidade", "Valor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTConsultaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTConsultaProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTConsultaProduto);
+        if (jTConsultaProduto.getColumnModel().getColumnCount() > 0) {
+            jTConsultaProduto.getColumnModel().getColumn(0).setResizable(false);
+            jTConsultaProduto.getColumnModel().getColumn(1).setResizable(false);
+            jTConsultaProduto.getColumnModel().getColumn(2).setResizable(false);
+            jTConsultaProduto.getColumnModel().getColumn(3).setResizable(false);
+            jTConsultaProduto.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jDConsultaProdutoLayout = new javax.swing.GroupLayout(jDConsultaProduto.getContentPane());
+        jDConsultaProduto.getContentPane().setLayout(jDConsultaProdutoLayout);
+        jDConsultaProdutoLayout.setHorizontalGroup(
+            jDConsultaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+        );
+        jDConsultaProdutoLayout.setVerticalGroup(
+            jDConsultaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -674,6 +1271,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         );
 
         jPletreiro.setBackground(new java.awt.Color(204, 0, 0));
+        jPletreiro.setPreferredSize(new java.awt.Dimension(1394, 53));
 
         jPletreiroint.setBackground(new java.awt.Color(204, 0, 0));
 
@@ -704,9 +1302,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPletreiroLayout.setVerticalGroup(
             jPletreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPletreiroLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPletreiroint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout jPbackgroundLayout = new javax.swing.GroupLayout(jPbackground);
@@ -726,8 +1324,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jPImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
-                    .addComponent(jPImagemLateral, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(jPImagemLateral, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
                 .addComponent(jPletreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -781,7 +1379,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:  
+        jMenu.setVisible(false);
         DBConfigBeans dbc = new DBConfigBeans();
         jTlocalbalancabanco.setText(dbc.getDirdb());
         jTusuariobalancabanco.setText(dbc.getUser());
@@ -797,24 +1396,67 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jMenu.setVisible(false);
         DBConfigBeans dbc = new DBConfigBeans();
-        jRTabela1.setSelected(dbc.isTabela1());
-        jRTabela2.setSelected(dbc.isTabela2());
-        jRTabela3.setSelected(dbc.isTabela3());
-        jRTabela4.setSelected(dbc.isTabela4());
-        jRSequencial.setSelected(dbc.isSequencial());
-        jRletreiro.setSelected(dbc.isLetreiro());
-        jSLinhaTabela.setValue((Integer) dbc.getLinhatabela());        
-        jTletreirotexto.setText(dbc.getLetreirotexto());
-        jStransicaoLetreiro.setValue((Integer) dbc.getLetreirotempo());
-        jRTabelaCheia.setSelected(dbc.isTabelacheia());
-        jCTipoLocalizacao.setSelectedItem(dbc.getTipolocalizacao());        
-        jTFileImagemFundo.setText(dbc.getFundoimagem1());        
-        jTImagemLateral.setText(dbc.getLateralimagem());  
-        jTImagemTopo.setText(dbc.getTopoimagem());  
-        jSTamanhox.setValue(dbc.getTamanhox());
-        jSTamanhoy.setValue(dbc.getTamanhoy());
-        jPCorFundoLetreiro.setBackground(new Color(Integer.valueOf(dbc.getLetreirocorfundo())));
-        jPCorFonteLetreiro.setBackground(new Color(Integer.valueOf(dbc.getLetreirocorfonte())));
+        Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+        jRTabela1.setSelected(tbc.isTabela1());
+        jRTabela2.setSelected(tbc.isTabela2());
+        jRTabela3.setSelected(tbc.isTabela3());
+        jRTabela4.setSelected(tbc.isTabela4());
+        jRTransparencia.setSelected(tbc.isTransparencia());
+        jRletreiro.setSelected(tbc.isLetreiro());
+        jSFonteTabela.setValue((Integer) tbc.getFonteTabela());
+        jTletreirotexto.setText(tbc.getLetreirotexto());
+        jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());
+        jRTabelaCheia.setSelected(tbc.isTabelacheia());
+        jCTipoLocalizacao.setSelectedItem(tbc.getTipolocalizacao());
+        try {
+            //carrega o config com imagem
+            //imagem fundo            
+            jPCImagemFundo.removeAll();
+            configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
+            configfundo.setSize(100, 100);
+            configfundo.setVisible(true);
+            configfundo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemFundo.add(configfundo);
+            jPCImagemFundo.validate();
+            jPCImagemFundo.repaint();
+            //imagem lateral
+            jPCImagemLateral.removeAll();
+            configlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
+            configlateral.setSize(100, 100);
+            configlateral.setVisible(true);
+            configlateral.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemLateral.add(configlateral);
+            jPCImagemLateral.validate();
+            jPCImagemLateral.repaint();
+            //imagem topo
+            jPCImagemTopo.removeAll();
+            configtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
+            configtopo.setSize(100, 100);
+            configtopo.setVisible(true);
+            configtopo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemTopo.add(configtopo);
+            jPCImagemTopo.validate();
+            jPCImagemTopo.repaint();
+            // configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
+            configlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
+            configtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
+        } catch (IOException ex) {
+            Logger.getLogger(ViewPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jSTamanhox.setValue(tbc.getTamanhox());
+        jSTamanhoy.setValue(tbc.getTamanhoy());
+        jPCorFundoLetreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfundo())));
+        jPCorFonteLetreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfonte())));
+        jPCorFonteTabela.setBackground(new Color(Integer.valueOf(tbc.getCorfontetabela())));
+        jPCorFundoTabela.setBackground(new Color(Integer.valueOf(tbc.getCorfundotabela())));
+        jCCTCodigo.setSelected(tbc.isCtcodigo());
+        jCCTProduto.setSelected(tbc.isCtproduto());
+        jCCTOferta.setSelected(tbc.isCtoferta());
+        jCCTValor1.setSelected(tbc.isCtvalor1());
+        jCCTValor2.setSelected(tbc.isCtvalor2());
+        jTNomevalor1.setText(tbc.getNomevalor1());
+        jTNomeValor2.setText(tbc.getNomevalor2());
+        jCCTUnid.setSelected(tbc.isCtunid());
         jDlayout.setLocationRelativeTo(this);
         jDlayout.setVisible(true);
 
@@ -829,7 +1471,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DBConfigBeans dbc = new DBConfigBeans();
         dbc.setDirdb(jTlocalbalancabanco.getText());
-        dbc.setUser(jTsenhabalancabanco.getText());
+        dbc.setUser(jTusuariobalancabanco.getText());
         dbc.setPassword(jTsenhabalancabanco.getText());
         dbc.setLocaldirdb(jTlocalbanco.getText());
         dbc.setLocalpassword(jTsenhabanco.getText());
@@ -855,55 +1497,65 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTsenhabancoActionPerformed
 
     private void jBsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalvarActionPerformed
-        // TODO add your handling code here:
-        DBConfigBeans dbc = new DBConfigBeans();
-        dbc.setTabela1(jRTabela1.isSelected());
-        dbc.setTabela2(jRTabela2.isSelected());
-        dbc.setTabela3(jRTabela3.isSelected());
-        dbc.setTabela4(jRTabela4.isSelected());
-        dbc.setSequencial(jRSequencial.isSelected());
-        dbc.setLetreiro(jRletreiro.isSelected());
-        dbc.setLinhatabela((Integer) jSLinhaTabela.getValue());
-        dbc.setLetreirotexto(jTletreirotexto.getText());
-        dbc.setLetreirotempo((Integer) jStransicaoLetreiro.getValue());
-        dbc.setTabelacheia(jRTabelaCheia.isSelected());
-        dbc.setTipolocalizacao(jCTipoLocalizacao.getSelectedItem().toString());        
-        dbc.setFundoimagem1(jTFileImagemFundo.getText());        
-        dbc.setLateralimagem(jTImagemLateral.getText()); 
-        dbc.setTopoimagem(jTImagemTopo.getText()); 
-        dbc.setTamanhox((Integer) jSTamanhox.getValue());
-        dbc.setTamanhoy((Integer) jSTamanhoy.getValue());                
-        dbc.setLetreirocorfundo(String.valueOf(jPCorFundoLetreiro.getBackground().getRGB()));
-        dbc.setLetreirocorfonte(String.valueOf(jPCorFonteLetreiro.getBackground().getRGB()));
+        // TODO add your handling code here:  
         try {
-            new DBConfig().createConfig(dbc);
-            jDlayout.setVisible(false);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao Salvar" + ex);
-        }
-        if (jPanel3.getComponentCount() > 0) {
-            for (int i = 0; i < jPanel3.getComponentCount(); i++) {
-                jPanel3.getComponent(i).setVisible(false);
+            Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+            tbc.setTabela1(jRTabela1.isSelected());
+            tbc.setTabela2(jRTabela2.isSelected());
+            tbc.setTabela3(jRTabela3.isSelected());
+            tbc.setTabela4(jRTabela4.isSelected());
+            tbc.setTransparencia(jRTransparencia.isSelected());
+            tbc.setLetreiro(jRletreiro.isSelected());
+            tbc.setFonteTabela((Integer) jSFonteTabela.getValue());
+            tbc.setLetreirotexto(jTletreirotexto.getText());
+            tbc.setLetreirotempo((Integer) jStransicaoLetreiro.getValue());
+            tbc.setTabelacheia(jRTabelaCheia.isSelected());
+            tbc.setTipolocalizacao(jCTipoLocalizacao.getSelectedItem().toString());
+            try {
+                tbc.setFundoimagem1(converteArquivo(configfundo.getImage()));
+                tbc.setLateralimagem(converteArquivo(configlateral.getImage()));
+                tbc.setTopoimagem(converteArquivo(configtopo.getImage()));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao Salvar Imagem\n" + ex);
             }
-            jPanel3.setVisible(false);
-            jPanel3.setVisible(true);            
-                      
+            tbc.setTamanhox((Integer) jSTamanhox.getValue());
+            tbc.setTamanhoy((Integer) jSTamanhoy.getValue());
+            tbc.setLetreirocorfundo(Integer.valueOf(jPCorFundoLetreiro.getBackground().getRGB()));
+            tbc.setLetreirocorfonte(Integer.valueOf(jPCorFonteLetreiro.getBackground().getRGB()));
+            tbc.setCorfontetabela(Integer.valueOf(jPCorFonteTabela.getBackground().getRGB()));
+            tbc.setCorfundotabela(Integer.valueOf(jPCorFundoTabela.getBackground().getRGB()));
+            tbc.setCtcodigo(jCCTCodigo.isSelected());
+            tbc.setCtproduto(jCCTProduto.isSelected());
+            tbc.setCtoferta(jCCTOferta.isSelected());
+            tbc.setCtvalor1(jCCTValor1.isSelected());
+            tbc.setCtvalor2(jCCTValor2.isSelected());
+            tbc.setNomevalor1(jTNomevalor1.getText());
+            tbc.setNomevalor2(jTNomeValor2.getText());
+            tbc.setCtunid(jCCTUnid.isSelected());
+            int key = new Tb_ConfigDao().setTb_Config(tbc);
+            if (key > 0) {
+                new Tb_ConfigDao().delTb_Config(new DBConfigBeans().getTerminal(), key - 1);
+            }
+            jDlayout.setVisible(false);
+            if (jPanel3.getComponentCount() > 0) {
+                for (int i = 0; i < jPanel3.getComponentCount(); i++) {
+                    jPanel3.getComponent(i).setVisible(false);
+                }
+                jPanel3.setVisible(false);
+                jPanel3.setVisible(true);
+            }
+            inicializaGrade();
+            inicializaLetreiro();
+            inicializaTipoLayout();
+            inicializaCorBackground();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Salvar Nova Configuracao\n" + ex);
         }
-        
-        inicializaGrade();
-        inicializaLetreiro(); 
-        inicializaTipoLayout();  
-        inicializaCorBackground();
-
     }//GEN-LAST:event_jBsalvarActionPerformed
 
     private void jRletreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRletreiroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRletreiroActionPerformed
-
-    private void jTFileImagemFundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFileImagemFundoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFileImagemFundoActionPerformed
 
     private void jCTipoLocalizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTipoLocalizacaoActionPerformed
         // TODO add your handling code here:
@@ -913,8 +1565,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDFileImagem.setLocationRelativeTo(null);
         jDFileImagem.setVisible(true);
-        String file=jFileChooser1.getSelectedFile().toString();
-        jTFileImagemFundo.setText(file);
+        String file = jFileChooser1.getSelectedFile().toString();
+        try {
+            jPCImagemFundo.removeAll();
+            configfundo = new JImagePanel(loadImage(file));
+            configfundo.setSize(100, 100);
+            configfundo.setVisible(true);
+            configfundo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemFundo.add(configfundo);
+            jPCImagemFundo.validate();
+            jPCImagemFundo.repaint();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Configurar Nova Imagem de Fundo" + ex);
+        }
     }//GEN-LAST:event_jBImagem1ActionPerformed
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
@@ -931,7 +1594,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jColorChooser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jColorChooser1MouseClicked
         // TODO add your handling code here:
-        if(evt.getClickCount()==2){
+        if (evt.getClickCount() == 2) {
             jDColorLetreiro.setVisible(false);
         }
     }//GEN-LAST:event_jColorChooser1MouseClicked
@@ -947,26 +1610,157 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDFileImagem.setLocationRelativeTo(null);
         jDFileImagem.setVisible(true);
-        String file=jFileChooser1.getSelectedFile().toString();
-        jTImagemTopo.setText(file);
+        String file = jFileChooser1.getSelectedFile().toString();
+        try {
+            jPCImagemTopo.removeAll();
+            configtopo = new JImagePanel(loadImage(file));
+            configtopo.setSize(100, 100);
+            configtopo.setVisible(true);
+            configtopo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemTopo.add(configtopo);
+            jPCImagemTopo.validate();
+            jPCImagemTopo.repaint();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Configurar Nova Imagem de Topo" + ex);
+        }
     }//GEN-LAST:event_jBImagemTopoActionPerformed
 
     private void jBImagemLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImagemLateralActionPerformed
         // TODO add your handling code here:
         jDFileImagem.setLocationRelativeTo(null);
         jDFileImagem.setVisible(true);
-        String file=jFileChooser1.getSelectedFile().toString();
-        jTImagemLateral.setText(file);
+        String file = jFileChooser1.getSelectedFile().toString();
+        try {
+            jPCImagemLateral.removeAll();
+            configlateral = new JImagePanel(loadImage(file));
+            configlateral.setSize(100, 100);
+            configlateral.setVisible(true);
+            configlateral.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemLateral.add(configlateral);
+            jPCImagemLateral.validate();
+            jPCImagemLateral.repaint();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Configurar Nova Imagem Lateral" + ex);
+        }
     }//GEN-LAST:event_jBImagemLateralActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         inicializaGrade();
         inicializarAtalhos();
-        inicializaLetreiro();  
+        inicializaLetreiro();
         inicializaTipoLayout();
-        inicializaCorBackground(); 
+        inicializaCorBackground();
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        inicializaTabelasConfig();
+        consultaTbProdPainel();
+        jDLayoutTabelas.setLocationRelativeTo(this);
+        jDLayoutTabelas.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTNomevalor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomevalor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNomevalor1ActionPerformed
+
+    private void jPCorFonteTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPCorFonteTabelaMouseClicked
+        // TODO add your handling code here:
+        jDColorLetreiro.setLocationRelativeTo(null);
+        jDColorLetreiro.setVisible(true);
+        jPCorFonteTabela.setBackground(jColorChooser1.getColor());
+    }//GEN-LAST:event_jPCorFonteTabelaMouseClicked
+
+    private void jPCorFundoTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPCorFundoTabelaMouseClicked
+        // TODO add your handling code here:
+        jDColorLetreiro.setLocationRelativeTo(null);
+        jDColorLetreiro.setVisible(true);
+        jPCorFundoTabela.setBackground(jColorChooser1.getColor());
+    }//GEN-LAST:event_jPCorFundoTabelaMouseClicked
+
+    private void jTCTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTable1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            configtabela = 1;
+            consultaProdutoConfigTabela();
+        }
+    }//GEN-LAST:event_jTCTable1KeyPressed
+
+    private void jTConsultaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaProdutoMouseClicked
+        // TODO add your handling code here:        
+        if (evt.getClickCount() == 2) {
+            if (configtabela == 1) {
+                jTCTable1.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 0), jTCTable1.getSelectedRow(), 0);
+                jTCTable1.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 1), jTCTable1.getSelectedRow(), 1);
+                jTCTable1.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 3), jTCTable1.getSelectedRow(), 2);
+                jTCTable1.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 2), jTCTable1.getSelectedRow(), 3);
+                jTCTable1.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 4), jTCTable1.getSelectedRow(), 4);
+            } else if (configtabela == 2) {
+                jTCTable2.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 0), jTCTable2.getSelectedRow(), 0);
+                jTCTable2.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 1), jTCTable2.getSelectedRow(), 1);
+                jTCTable2.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 3), jTCTable2.getSelectedRow(), 2);
+                jTCTable2.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 2), jTCTable2.getSelectedRow(), 3);
+                jTCTable2.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 4), jTCTable2.getSelectedRow(), 4);
+            } else if (configtabela == 3) {
+                jTCTable3.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 0), jTCTable3.getSelectedRow(), 0);
+                jTCTable3.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 1), jTCTable3.getSelectedRow(), 1);
+                jTCTable3.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 3), jTCTable3.getSelectedRow(), 2);
+                jTCTable3.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 2), jTCTable3.getSelectedRow(), 3);
+                jTCTable3.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 4), jTCTable3.getSelectedRow(), 4);
+            } else if (configtabela == 4) {
+                jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 0), jTCTable4.getSelectedRow(), 0);
+                jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 1), jTCTable4.getSelectedRow(), 1);
+                jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 3), jTCTable4.getSelectedRow(), 2);
+                jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 2), jTCTable4.getSelectedRow(), 3);
+                jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 4), jTCTable4.getSelectedRow(), 4);
+            }
+
+            jDConsultaProduto.setVisible(false);
+        }
+    }//GEN-LAST:event_jTConsultaProdutoMouseClicked
+
+    private void jTCTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCTable2MouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTCTable2MouseClicked
+
+    private void jTCTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTable2KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            configtabela = 2;
+            consultaProdutoConfigTabela();
+        }
+    }//GEN-LAST:event_jTCTable2KeyPressed
+
+    private void jTCTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTable3KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            configtabela = 3;
+            consultaProdutoConfigTabela();
+        }
+    }//GEN-LAST:event_jTCTable3KeyPressed
+
+    private void jTCTable4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTable4KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            configtabela = 4;
+            consultaProdutoConfigTabela();
+        }
+    }//GEN-LAST:event_jTCTable4KeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setConfigProdTerminal();
+        if (jPanel3.getComponentCount() > 0) {
+            for (int i = 0; i < jPanel3.getComponentCount(); i++) {
+                jPanel3.getComponent(i).setVisible(false);
+            }
+            jPanel3.setVisible(false);
+            jPanel3.setVisible(true);
+        }
+        inicializaGrade();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -981,6 +1775,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    //javax.swing.UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
                     break;
                 }
             }
@@ -1011,18 +1806,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBImagemTopo;
     private javax.swing.JButton jBsalvar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JCheckBox jCCTCodigo;
+    private javax.swing.JCheckBox jCCTOferta;
+    private javax.swing.JCheckBox jCCTProduto;
+    private javax.swing.JCheckBox jCCTUnid;
+    private javax.swing.JCheckBox jCCTValor1;
+    private javax.swing.JCheckBox jCCTValor2;
     private javax.swing.JComboBox<String> jCTipoLocalizacao;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDColorLetreiro;
+    private javax.swing.JDialog jDConsultaProduto;
     private javax.swing.JDialog jDFileImagem;
+    private javax.swing.JDialog jDLayoutTabelas;
     private javax.swing.JDialog jDcarga;
     private javax.swing.JDialog jDlayout;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1032,39 +1837,59 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLletreirointFrase;
-    private javax.swing.JMenuBar jMenu;
+    public javax.swing.JMenuBar jMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPCImagemFundo;
+    private javax.swing.JPanel jPCImagemLateral;
+    private javax.swing.JPanel jPCImagemTopo;
+    private javax.swing.JPanel jPConfigImagem;
+    private javax.swing.JPanel jPConfigLetreiro;
+    private javax.swing.JPanel jPConfigTabela;
     private javax.swing.JPanel jPCorFonteLetreiro;
+    private javax.swing.JPanel jPCorFonteTabela;
     private javax.swing.JPanel jPCorFundoLetreiro;
+    private javax.swing.JPanel jPCorFundoTabela;
     private javax.swing.JPanel jPImagemLateral;
     private javax.swing.JPanel jPImagemTopo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel20;
+    public javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPbackground;
-    private javax.swing.JPanel jPletreiro;
+    public javax.swing.JPanel jPletreiro;
     private javax.swing.JPanel jPletreiroint;
-    private javax.swing.JRadioButton jRSequencial;
     private javax.swing.JRadioButton jRTabela1;
     private javax.swing.JRadioButton jRTabela2;
     private javax.swing.JRadioButton jRTabela3;
     private javax.swing.JRadioButton jRTabela4;
     private javax.swing.JRadioButton jRTabelaCheia;
+    private javax.swing.JRadioButton jRTransparencia;
     private javax.swing.JRadioButton jRletreiro;
-    private javax.swing.JSpinner jSLinhaTabela;
+    private javax.swing.JSpinner jSFonteTabela;
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jStransicaoLetreiro;
-    private javax.swing.JTextField jTFileImagemFundo;
-    private javax.swing.JTextField jTImagemLateral;
-    private javax.swing.JTextField jTImagemTopo;
+    private javax.swing.JTable jTCTable1;
+    private javax.swing.JTable jTCTable2;
+    private javax.swing.JTable jTCTable3;
+    private javax.swing.JTable jTCTable4;
+    private javax.swing.JTable jTConsultaProduto;
+    private javax.swing.JTextField jTNomeValor2;
+    private javax.swing.JTextField jTNomevalor1;
     private javax.swing.JTextField jTletreirotexto;
     private javax.swing.JTextField jTlocalbalancabanco;
     private javax.swing.JTextField jTlocalbanco;
@@ -1082,26 +1907,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         inputMapJBalterar.put(keyStrokeJBalterar, actionNameJBalterar);
         ActionMap actionMapJBMARCA = jPbackground.getActionMap();
         actionMapJBMARCA.put(actionNameJBalterar, ativaMenu);
-
-        //Atalho enter
-//        InputMap inputMapJBenter = this.jPimagem1.getRootPane().getInputMap(JComponent.HEIGHT);
-//        inputMapJBenter.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "forward");
-//        this.jPimagem1.getRootPane().setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMapJBenter);
-//        this.jPimagem1.getRootPane().getActionMap().put("forward", new AbstractAction() {
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.err.print("Atalho 2");
-//                if (jMenu.isVisible()) {
-//                    jMenu.setVisible(false);
-//                } else {
-//                    jMenu.setVisible(true);
-//                }
-//            }
-//
-//        });
-
     }
 
     Action ativaMenu = new AbstractAction() {  //funcao da acao do botao
@@ -1117,27 +1922,27 @@ public class ViewPrincipal extends javax.swing.JFrame {
     };
 
     private void inicializaGrade() {
-        DBConfigBeans dbc = new DBConfigBeans();
+        Tb_ConfigBeans tbc = new Tb_ConfigBeans();
         Integer tabelas = 0;
-        if (dbc.isTabela1()) {
+        if (tbc.isTabela1()) {
             tabelas = 1;
-        } else if (dbc.isTabela2()) {
+        } else if (tbc.isTabela2()) {
             tabelas = 2;
-        } else if (dbc.isTabela3()) {
+        } else if (tbc.isTabela3()) {
             tabelas = 3;
-        } else if (dbc.isTabela4()) {
+        } else if (tbc.isTabela4()) {
             tabelas = 4;
         }
-        ViewLayoutTabelas view = new ViewLayoutTabelas(tabelas);
+        ViewLayoutTabelas view = new ViewLayoutTabelas(tabelas, this);
         view.setSize(jPanel3.getSize());
         jPanel3.add(view);
         jPanel3.repaint();
-        jPanel3.validate();              
+        jPanel3.validate();
     }
 
-    private void threadletreiro(final String frase,final Integer tempo) {                       
-        x=jPletreiro.getSize().width; 
-        vthreadletreiro=new Thread(new Runnable() {
+    private void threadletreiro(final String frase, final Integer tempo) {
+        x = jPletreiro.getSize().width;
+        vthreadletreiro = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
@@ -1147,86 +1952,83 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         Logger.getLogger(ViewPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     jLletreirointFrase.setText(frase.toUpperCase());
-                    jPletreiroint.setLocation(x--, jPletreiroint.getY());                                        
-                    if((0-(jLletreirointFrase.getText().length()*20))>=x){
-                        x=jPletreiro.getSize().width; 
+                    jPletreiroint.setLocation(x--, jPletreiroint.getY());
+                    if ((0 - (jLletreirointFrase.getText().length() * 20)) >= x) {
+                        x = jPletreiro.getSize().width;
                     }
                 }
             }
         });
         vthreadletreiro.start();
-        
+
     }
 
     private void inicializaLetreiro() {
         DBConfigBeans dbc = new DBConfigBeans();
-        jPletreiro.setBackground(new Color(Integer.valueOf(dbc.getLetreirocorfundo())));
-        jPletreiroint.setBackground(new Color(Integer.valueOf(dbc.getLetreirocorfundo())));
-        jLletreirointFrase.setForeground(new Color(Integer.valueOf(dbc.getLetreirocorfonte())));
-        if (dbc.isLetreiro()) {
-            if(vthreadletreiro==null){
-            jPletreiro.setVisible(true);
-            threadletreiro(dbc.getLetreirotexto(),dbc.getLetreirotempo());
-            }else if(vthreadletreiro.isAlive()){
-             vthreadletreiro.stop();
-             jPletreiro.setVisible(false);
-             jPletreiro.setVisible(true);             
-            threadletreiro(dbc.getLetreirotexto(),dbc.getLetreirotempo());
-            }else{
-            jPletreiro.setVisible(true);
-            threadletreiro(dbc.getLetreirotexto(),dbc.getLetreirotempo());
+        Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+        jPletreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfundo())));
+        jPletreiroint.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfundo())));
+        jLletreirointFrase.setForeground(new Color(Integer.valueOf(tbc.getLetreirocorfonte())));
+        if (tbc.isLetreiro()) {
+            if (vthreadletreiro == null) {
+                jPletreiro.setVisible(true);
+                threadletreiro(tbc.getLetreirotexto(), tbc.getLetreirotempo());
+            } else if (vthreadletreiro.isAlive()) {
+                vthreadletreiro.stop();
+                jPletreiro.setVisible(false);
+                jPletreiro.setVisible(true);
+                threadletreiro(tbc.getLetreirotexto(), tbc.getLetreirotempo());
+            } else {
+                jPletreiro.setVisible(true);
+                threadletreiro(tbc.getLetreirotexto(), tbc.getLetreirotempo());
             }
         } else {
-            if(vthreadletreiro!=null){                    
+            if (vthreadletreiro != null) {
                 vthreadletreiro.stop();
             }
             jPletreiro.setVisible(false);
         }
     }
 
-    private void inicializaBackground() {        
+    private void inicializaBackground() {
         try {
             JImagePanel background;
             JImagePanel backgroundtopo;
             JImagePanel backgroundlateral;
-            DBConfigBeans dbc=new DBConfigBeans();    
-            if(dbc.getFundoimagem1().length()>3){
-                background=new JImagePanel(loadImage(dbc.getFundoimagem1()));
-            }else{
-            background=new JImagePanel(loadImage("./imagem/Padrao1.jpg"));
-            }
+            DBConfigBeans dbc = new DBConfigBeans();
+            Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+            background = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
             background.setVisible(true);
-            background.setSize(dbc.getTamanhox(),dbc.getTamanhoy());
-            String filltype=dbc.getTipolocalizacao();
-            background.setFillType(JImagePanel.FillType.valueOf(filltype));            
+            background.setSize(tbc.getTamanhox(), tbc.getTamanhoy());
+            String filltype = tbc.getTipolocalizacao();
+            background.setFillType(JImagePanel.FillType.valueOf(filltype));
             //jPbackground.add(background);
-            if(jPbackground.getComponentCount()==5){
-            jPbackground.remove(4);    
-            }                        
+            if (jPbackground.getComponentCount() == 5) {
+                jPbackground.remove(4);
+            }
             jPbackground.add(background);
             jPbackground.repaint();
-            jPbackground.validate();    
-            if(!dbc.isTabelacheia()){                 
-               jPImagemTopo.removeAll();
-               jPImagemLateral.removeAll();
-                backgroundtopo=new JImagePanel(loadImage(dbc.getTopoimagem()));                
-                backgroundtopo.setVisible(true); 
-                backgroundtopo.setFillType(JImagePanel.FillType.CENTER); 
-                jPImagemTopo.add(backgroundtopo);                                
+            jPbackground.validate();
+            if (!tbc.isTabelacheia()) {
+                jPImagemTopo.removeAll();
+                jPImagemLateral.removeAll();
+                backgroundtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
+                backgroundtopo.setVisible(true);
+                backgroundtopo.setFillType(JImagePanel.FillType.CENTER);
+                jPImagemTopo.add(backgroundtopo);
                 jPImagemTopo.repaint();
                 jPImagemTopo.validate();
                 backgroundtopo.setSize(jPImagemTopo.getSize());
-                
-                backgroundlateral=new JImagePanel(loadImage(dbc.getLateralimagem()));
-                backgroundlateral.setVisible(true);                
-                backgroundlateral.setFillType(JImagePanel.FillType.CENTER);                
-                jPImagemLateral.add(backgroundlateral);                               
+                backgroundlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
+                backgroundlateral.setVisible(true);
+                backgroundlateral.setFillType(JImagePanel.FillType.CENTER);
+                jPImagemLateral.add(backgroundlateral);
                 jPImagemLateral.repaint();
-                jPImagemLateral.validate();                
-                backgroundlateral.setSize(jPImagemLateral.getSize());                   
+                jPImagemLateral.validate();
+                backgroundlateral.setSize(jPImagemLateral.getSize());
             }
         } catch (IOException ex) {
-            new DBConfig().createArq("Erro ao Buscar Imagem Background"+ex);
+            new DBConfig().createArqLog("Erro ao Buscar Imagem Background" + ex);
         }
     }
 
@@ -1235,22 +2037,270 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void inicializaCorBackground() {
-        Color cor=new Color(0,0,0,0);
+        Color cor = new Color(0, 0, 0, 0);
         jPanel3.setBackground(cor);
-        jPImagemTopo.setBackground(cor);  
+        jPImagemTopo.setBackground(cor);
         jPImagemLateral.setBackground(cor);
-        inicializaBackground();        
+        inicializaBackground();
     }
 
     private void inicializaTipoLayout() {
-        DBConfigBeans dbc=new DBConfigBeans();
-        if(dbc.isTabelacheia()){
+        DBConfigBeans dbc = new DBConfigBeans();
+        Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+        if (tbc.isTabelacheia()) {
             jPImagemTopo.setVisible(false);
             jPImagemLateral.setVisible(false);
-        }else{
+        } else {
             jPImagemTopo.setVisible(true);
             jPImagemLateral.setVisible(true);
         }
     }
 
+    public byte[] converteArquivo(File f) throws FileNotFoundException, IOException {
+        InputStream is = new FileInputStream(f);
+        byte[] bytes = new byte[(int) f.length()];
+        int offset = 0;
+        int numRead = 0;
+        while (offset < bytes.length
+                && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+            offset += numRead;
+        }
+        return bytes;
+    }
+
+    public byte[] converteArquivo(BufferedImage imagem) throws IOException, IOException {
+        BufferedImage originalImage = imagem;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(originalImage, "jpg", baos);
+        baos.flush();
+        byte[] imageInByte = baos.toByteArray();
+        baos.close();
+        return imageInByte;
+    }
+
+    private void consultaProdutoConfigTabela() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTConsultaProduto.getModel();
+            model.setNumRows(0);
+            jTConsultaProduto.getColumnModel().getColumn(0).setMinWidth(100);
+            jTConsultaProduto.getColumnModel().getColumn(0).setMaxWidth(100);
+            jTConsultaProduto.getColumnModel().getColumn(1).setMinWidth(400);
+            jTConsultaProduto.getColumnModel().getColumn(1).setMaxWidth(400);
+            jTConsultaProduto.getColumnModel().getColumn(2).setMinWidth(50);
+            jTConsultaProduto.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTConsultaProduto.getColumnModel().getColumn(3).setMinWidth(75);
+            jTConsultaProduto.getColumnModel().getColumn(3).setMaxWidth(75);
+            jTConsultaProduto.getColumnModel().getColumn(4).setMinWidth(100);
+            jTConsultaProduto.getColumnModel().getColumn(4).setMaxWidth(100);
+            List<Tb_ProdBeans> lpb = new ArrayList<>();
+            lpb = new Tb_ProdDao().getProdLocal();
+            for (Tb_ProdBeans pb : lpb) {
+                model.addRow(new Object[]{pb.getCodigo(), pb.getDescricao(), pb.getOferta(), pb.getUnid(), pb.getValor1()});
+            }
+            jDConsultaProduto.setLocationRelativeTo(this);
+            jDConsultaProduto.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void inicializaTabelasConfig() {
+        jTCTable1.getColumnModel().getColumn(0).setMinWidth(50);
+        jTCTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+        jTCTable1.getColumnModel().getColumn(1).setMinWidth(150);
+        jTCTable1.getColumnModel().getColumn(2).setMinWidth(50);
+        jTCTable1.getColumnModel().getColumn(2).setMaxWidth(50);
+        jTCTable1.getColumnModel().getColumn(3).setMinWidth(50);
+        jTCTable1.getColumnModel().getColumn(3).setMaxWidth(50);
+        jTCTable1.getColumnModel().getColumn(4).setMinWidth(50);
+        jTCTable1.getColumnModel().getColumn(4).setMaxWidth(50);
+        jTCTable1.getColumnModel().getColumn(5).setMinWidth(50);
+        jTCTable1.getColumnModel().getColumn(5).setMaxWidth(50);
+
+        jTCTable2.getColumnModel().getColumn(0).setMinWidth(50);
+        jTCTable2.getColumnModel().getColumn(0).setMaxWidth(50);
+        jTCTable2.getColumnModel().getColumn(1).setMinWidth(150);
+        jTCTable2.getColumnModel().getColumn(2).setMinWidth(50);
+        jTCTable2.getColumnModel().getColumn(2).setMaxWidth(50);
+        jTCTable2.getColumnModel().getColumn(3).setMinWidth(50);
+        jTCTable2.getColumnModel().getColumn(3).setMaxWidth(50);
+        jTCTable2.getColumnModel().getColumn(4).setMinWidth(50);
+        jTCTable2.getColumnModel().getColumn(4).setMaxWidth(50);
+        jTCTable2.getColumnModel().getColumn(5).setMinWidth(50);
+        jTCTable2.getColumnModel().getColumn(5).setMaxWidth(50);
+
+        jTCTable3.getColumnModel().getColumn(0).setMinWidth(50);
+        jTCTable3.getColumnModel().getColumn(0).setMaxWidth(50);
+        jTCTable3.getColumnModel().getColumn(1).setMinWidth(150);
+        jTCTable3.getColumnModel().getColumn(2).setMinWidth(50);
+        jTCTable3.getColumnModel().getColumn(2).setMaxWidth(50);
+        jTCTable3.getColumnModel().getColumn(3).setMinWidth(50);
+        jTCTable3.getColumnModel().getColumn(3).setMaxWidth(50);
+        jTCTable3.getColumnModel().getColumn(4).setMinWidth(50);
+        jTCTable3.getColumnModel().getColumn(4).setMaxWidth(50);
+        jTCTable3.getColumnModel().getColumn(5).setMinWidth(50);
+        jTCTable3.getColumnModel().getColumn(5).setMaxWidth(50);
+
+        jTCTable4.getColumnModel().getColumn(0).setMinWidth(50);
+        jTCTable4.getColumnModel().getColumn(0).setMaxWidth(50);
+        jTCTable4.getColumnModel().getColumn(1).setMinWidth(150);
+        jTCTable4.getColumnModel().getColumn(2).setMinWidth(50);
+        jTCTable4.getColumnModel().getColumn(2).setMaxWidth(50);
+        jTCTable4.getColumnModel().getColumn(3).setMinWidth(50);
+        jTCTable4.getColumnModel().getColumn(3).setMaxWidth(50);
+        jTCTable4.getColumnModel().getColumn(4).setMinWidth(50);
+        jTCTable4.getColumnModel().getColumn(4).setMaxWidth(50);
+        jTCTable4.getColumnModel().getColumn(5).setMinWidth(50);
+        jTCTable4.getColumnModel().getColumn(5).setMaxWidth(50);
+    }
+
+    private void setConfigProdTerminal() {
+        try {
+            List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();
+            for (int i = 0; i < jTCTable1.getRowCount(); i++) {
+                Tb_Prod_PainelBeans ppb = new Tb_Prod_PainelBeans();
+                ppb.setCodigo((String) jTCTable1.getValueAt(i, 0));
+                ppb.setDescricao((String) jTCTable1.getValueAt(i, 1));
+                ppb.setUnid((String) jTCTable1.getValueAt(i, 2));
+                ppb.setOferta((Boolean) jTCTable1.getValueAt(i, 3));
+                ppb.setValor1((Float) jTCTable1.getValueAt(i, 4));
+                ppb.setValor2((Float) jTCTable1.getValueAt(i, 5));
+                ppb.setTerminal(new DBConfigBeans().getTerminal());
+                ppb.setPainel(1);
+                lppb.add(ppb);
+            }
+            new Tb_Prod_PainelDao().delProdPainel(new DBConfigBeans().getTerminal(), 1);
+            new Tb_Prod_PainelDao().setProdPainel(lppb);
+            lppb.clear();
+            for (int i = 0; i < jTCTable2.getRowCount(); i++) {
+                Tb_Prod_PainelBeans ppb = new Tb_Prod_PainelBeans();
+                ppb.setCodigo((String) jTCTable2.getValueAt(i, 0));
+                ppb.setDescricao((String) jTCTable2.getValueAt(i, 1));
+                ppb.setUnid((String) jTCTable2.getValueAt(i, 2));
+                ppb.setOferta((Boolean) jTCTable2.getValueAt(i, 3));
+                ppb.setValor1((Float) jTCTable2.getValueAt(i, 4));
+                ppb.setValor2((Float) jTCTable2.getValueAt(i, 5));
+                ppb.setTerminal(new DBConfigBeans().getTerminal());
+                ppb.setPainel(2);
+                lppb.add(ppb);
+            }
+            new Tb_Prod_PainelDao().delProdPainel(new DBConfigBeans().getTerminal(), 2);
+            new Tb_Prod_PainelDao().setProdPainel(lppb);
+            lppb.clear();
+
+            for (int i = 0; i < jTCTable3.getRowCount(); i++) {
+                Tb_Prod_PainelBeans ppb = new Tb_Prod_PainelBeans();
+                ppb.setCodigo((String) jTCTable3.getValueAt(i, 0));
+                ppb.setDescricao((String) jTCTable3.getValueAt(i, 1));
+                ppb.setUnid((String) jTCTable3.getValueAt(i, 2));
+                ppb.setOferta((Boolean) jTCTable3.getValueAt(i, 3));
+                ppb.setValor1((Float) jTCTable3.getValueAt(i, 4));
+                ppb.setValor2((Float) jTCTable3.getValueAt(i, 5));
+                ppb.setTerminal(new DBConfigBeans().getTerminal());
+                ppb.setPainel(3);
+                lppb.add(ppb);
+            }
+            new Tb_Prod_PainelDao().delProdPainel(new DBConfigBeans().getTerminal(), 3);
+            new Tb_Prod_PainelDao().setProdPainel(lppb);
+            lppb.clear();
+
+            for (int i = 0; i < jTCTable4.getRowCount(); i++) {
+                Tb_Prod_PainelBeans ppb = new Tb_Prod_PainelBeans();
+                ppb.setCodigo((String) jTCTable4.getValueAt(i, 0));
+                ppb.setDescricao((String) jTCTable4.getValueAt(i, 1));
+                ppb.setUnid((String) jTCTable4.getValueAt(i, 2));
+                ppb.setOferta((Boolean) jTCTable4.getValueAt(i, 3));
+                ppb.setValor1((Float) jTCTable4.getValueAt(i, 4));
+                ppb.setValor2((Float) jTCTable4.getValueAt(i, 5));
+                ppb.setTerminal(new DBConfigBeans().getTerminal());
+                ppb.setPainel(4);
+                lppb.add(ppb);
+            }
+            new Tb_Prod_PainelDao().delProdPainel(new DBConfigBeans().getTerminal(), 4);
+            new Tb_Prod_PainelDao().setProdPainel(lppb);
+            lppb.clear();
+            jDLayoutTabelas.setVisible(false);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Salvar Configuração das Tabelas\n" + ex);
+        }
+    }
+
+    private void consultaTbProdPainel() {
+
+        try {
+            List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();
+            int i;
+            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 1);
+            i = 0;
+            for (Tb_Prod_PainelBeans ppb : lppb) {
+                jTCTable1.setValueAt(ppb.getCodigo(), i, 0);
+                jTCTable1.setValueAt(ppb.getDescricao(), i, 1);
+                jTCTable1.setValueAt(ppb.getUnid(), i, 2);
+                jTCTable1.setValueAt(ppb.getOferta(), i, 3);
+                jTCTable1.setValueAt(ppb.getValor1(), i, 4);
+                jTCTable1.setValueAt(ppb.getValor2(), i, 5);
+                i++;
+            }
+            lppb.clear();
+
+            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 2);
+            i = 0;
+            for (Tb_Prod_PainelBeans ppb : lppb) {
+                jTCTable2.setValueAt(ppb.getCodigo(), i, 0);
+                jTCTable2.setValueAt(ppb.getDescricao(), i, 1);
+                jTCTable2.setValueAt(ppb.getUnid(), i, 2);
+                jTCTable2.setValueAt(ppb.getOferta(), i, 3);
+                jTCTable2.setValueAt(ppb.getValor1(), i, 4);
+                jTCTable2.setValueAt(ppb.getValor2(), i, 5);
+                i++;
+            }
+            lppb.clear();
+
+            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 3);
+            i = 0;
+            for (Tb_Prod_PainelBeans ppb : lppb) {
+                jTCTable3.setValueAt(ppb.getCodigo(), i, 0);
+                jTCTable3.setValueAt(ppb.getDescricao(), i, 1);
+                jTCTable3.setValueAt(ppb.getUnid(), i, 2);
+                jTCTable3.setValueAt(ppb.getOferta(), i, 3);
+                jTCTable3.setValueAt(ppb.getValor1(), i, 4);
+                jTCTable3.setValueAt(ppb.getValor2(), i, 5);
+                i++;
+            }
+            lppb.clear();
+
+            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 4);
+            i = 0;
+            for (Tb_Prod_PainelBeans ppb : lppb) {
+                jTCTable4.setValueAt(ppb.getCodigo(), i, 0);
+                jTCTable4.setValueAt(ppb.getDescricao(), i, 1);
+                jTCTable4.setValueAt(ppb.getUnid(), i, 2);
+                jTCTable4.setValueAt(ppb.getOferta(), i, 3);
+                jTCTable4.setValueAt(ppb.getValor1(), i, 4);
+                jTCTable4.setValueAt(ppb.getValor2(), i, 5);
+                i++;
+            }
+            lppb.clear();
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void atualizaGradeProduto() {
+        //jPanel3.removeAll();;
+        if (jPanel3.getComponentCount() > 0) {
+            jPanel3.removeAll();;
+                for (int i = 0; i < jPanel3.getComponentCount(); i++) {
+                    jPanel3.getComponent(i).setVisible(false);
+                }
+                jPanel3.setVisible(false);
+                jPanel3.setVisible(true);
+            }
+        jPanel3.setVisible(false);
+        jPanel3.setVisible(true);
+        inicializaGrade();
+        jPanel3.setVisible(false);
+        jPanel3.setVisible(true);
+    }
 }

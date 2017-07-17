@@ -7,7 +7,6 @@ package br.com.atmatech.painel.connection;
 
 
 import br.com.atmatech.painel.beans.DBConfigBeans;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,18 +17,19 @@ import javax.swing.JOptionPane;
  *
  * @author MARCOS
  */
-public class ConexaoDb {
+public class ConexaoDBMySql {
 
-    public Connection getConnect() throws SQLException, IOException {
+    public Connection getConnect() throws SQLException {
         Connection conexao = null;
         DBConfigBeans cb = new DBConfigBeans();
         Statement stmt;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conexao = DriverManager.getConnection(cb.getDirdb(), cb.getUser(), cb.getPassword());            
+            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.jdbc.Driver");
+            conexao = DriverManager.getConnection(cb.getLocaldirdb(), cb.getLocaluser(), cb.getLocalpassword());            
             stmt = conexao.createStatement();
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Registrar Driver de Conexão" + ex, null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao Registrar Driver de Conexão MySql" + ex, null, JOptionPane.ERROR_MESSAGE);
         }
         return conexao;
     }

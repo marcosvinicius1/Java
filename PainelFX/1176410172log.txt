@@ -1,0 +1,3 @@
+
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".

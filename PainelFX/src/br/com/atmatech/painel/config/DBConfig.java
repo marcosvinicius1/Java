@@ -6,11 +6,18 @@
 package br.com.atmatech.painel.config;
 
 import br.com.atmatech.painel.beans.DBConfigBeans;
+import br.com.atmatech.painel.beans.Tb_ConfigBeans;
+import br.com.atmatech.painel.dao.Tb_ConfigDao;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
@@ -28,26 +35,14 @@ public class DBConfig {
         cxb.setUser(prop.getProperty("user"));//pega o valor da tag usuario  
         cxb.setLocaldirdb(prop.getProperty("localdirdb"));//pega o valor da teg local
         cxb.setLocalpassword(prop.getProperty("localpassword"));//pega o valor da tag senha
-        cxb.setLocaluser(prop.getProperty("localuser"));//pega o valor da tag usuario 
-        cxb.setLinhatabela(Integer.valueOf(prop.getProperty("linhatabela")));
-        cxb.setTabela1(Boolean.valueOf(prop.getProperty("tabela01")));
-        cxb.setTabela2(Boolean.valueOf(prop.getProperty("tabela02")));
-        cxb.setTabela3(Boolean.valueOf(prop.getProperty("tabela03")));
-        cxb.setTabela4(Boolean.valueOf(prop.getProperty("tabela04")));
-        cxb.setSequencial(Boolean.valueOf(prop.getProperty("sequencial")));
-        cxb.setLetreiro(Boolean.valueOf(prop.getProperty("letreiro")));
-        cxb.setLetreirotexto(prop.getProperty("letreirotexto"));
-        cxb.setLetreirotempo(Integer.valueOf(prop.getProperty("letreirotempo")));
-        cxb.setTabelacheia(Boolean.valueOf(prop.getProperty("tabelacheia")));
-        cxb.setTipolocalizacao(prop.getProperty("tipolocalizacao"));        
-        cxb.setFundoimagem1(prop.getProperty("fundoimagem1"));
-        cxb.setTopoimagem(prop.getProperty("topoimagem"));
-        cxb.setLateralimagem(prop.getProperty("lateralimagem"));
-        cxb.setTamanhox(Integer.valueOf(prop.getProperty("tamanhox")));
-        cxb.setTamanhoy(Integer.valueOf(prop.getProperty("tamanhoy")));
-        cxb.setLetreirocorfundo(prop.getProperty("letreirocorfundo"));
-        cxb.setLetreirocorfonte(prop.getProperty("letreirocorfonte"));
-        
+        cxb.setLocaluser(prop.getProperty("localuser"));//pega o valor da tag usuario         
+        cxb.setTerminal(Integer.valueOf(prop.getProperty("terminal")));
+        try {
+            Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(Integer.valueOf(prop.getProperty("terminal")));
+        } catch (SQLException ex) {
+            new DBConfig().createArqLog("\nDBConfig:Erro ao Ler TB_CONFIG\n" + ex + "\n");
+        }
+
         return cxb;
     }
     //retorna os valores do arquivo de configuração    
@@ -60,14 +55,30 @@ public class DBConfig {
 
     }
 
-    public void createArq(String texto) {
+    public void createArqLog(String texto) {
         FileWriter arquivo;
         try {
-            arquivo = new FileWriter(new File("./log.txt"));
-            arquivo.write(texto);
-            arquivo.close();
+            File file = new File("./logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + "log.txt");
+            if (file.exists()) {
+//                FileReader ler = new FileReader(".logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + ".txt");
+//                BufferedReader leitor = new BufferedReader(ler);
+//                String linha;
+//                String linhaReescrita;
+//                while ((linha = leitor.readLine()) != null) {                    
+//                    linhaReescrita = linha.replaceAll(linha, texto);                    
+//                }
+                OutputStream bytes = new FileOutputStream(file, true); // passado "true" para gravar no mesmo arquivo
+                OutputStreamWriter chars = new OutputStreamWriter(bytes);
+                BufferedWriter strings = new BufferedWriter(chars);
+                strings.write("\r\n"+texto);
+                strings.close();
+            } else {
+                arquivo = new FileWriter(new File("./logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + "log.txt"));
+                arquivo.write(texto);
+                arquivo.close();
+            }
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Gerar Log"+ex);
+            JOptionPane.showMessageDialog(null, "Erro ao Gerar Log" + ex);
         }
 
     }
@@ -87,24 +98,7 @@ public class DBConfig {
         prop.put("localpassword", cb.getLocalpassword());
         prop.put("localdirdb", cb.getLocaldirdb());
         prop.put("localuser", cb.getLocaluser());
-        prop.put("tabela01", String.valueOf(cb.isTabela1()));
-        prop.put("tabela02", String.valueOf(cb.isTabela2()));
-        prop.put("tabela03", String.valueOf(cb.isTabela3()));
-        prop.put("tabela04", String.valueOf(cb.isTabela4()));
-        prop.put("sequencial", String.valueOf(cb.isSequencial()));
-        prop.put("linhatabela", String.valueOf(cb.getLinhatabela()));
-        prop.put("letreiro", String.valueOf(cb.isLetreiro()));
-        prop.put("letreirotexto", cb.getLetreirotexto());
-        prop.put("letreirotempo", String.valueOf(cb.getLetreirotempo()));
-        prop.put("tabelacheia", String.valueOf(cb.isTabelacheia()));
-        prop.put("tipolocalizacao", cb.getTipolocalizacao());        
-        prop.put("fundoimagem1", cb.getFundoimagem1());        
-        prop.put("tamanhox",String.valueOf(cb.getTamanhox()));
-        prop.put("tamanhoy",String.valueOf(cb.getTamanhoy()));
-        prop.put("letreirocorfundo",String.valueOf(cb.getLetreirocorfundo()));
-        prop.put("letreirocorfonte",String.valueOf(cb.getLetreirocorfonte()));
-        prop.put("lateralimagem", cb.getLateralimagem());      
-        prop.put("topoimagem", cb.getTopoimagem());       
+        prop.put("terminal", String.valueOf(cb.getTerminal()));
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 

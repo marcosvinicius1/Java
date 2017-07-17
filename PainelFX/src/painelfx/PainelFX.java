@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 public class PainelFX extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws IOException{
-        new ViewPrincipal().setVisible(true);                 
+    public void start(Stage primaryStage) throws IOException{        
+        new ViewPrincipal().setVisible(true);                   
        // DBConfigBeans dbc= new DBConfig().getConfig();
 //        Button btn = new Button();
 //        btn.setText("Teste");

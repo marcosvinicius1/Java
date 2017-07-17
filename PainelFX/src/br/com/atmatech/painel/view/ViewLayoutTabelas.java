@@ -5,7 +5,17 @@
  */
 package br.com.atmatech.painel.view;
 
+import br.com.atmatech.painel.beans.DBConfigBeans;
+import br.com.atmatech.painel.beans.Tb_ConfigBeans;
+import br.com.atmatech.painel.beans.Tb_Prod_PainelBeans;
+import br.com.atmatech.painel.config.DBConfig;
+import br.com.atmatech.painel.dao.Tb_Prod_PainelDao;
 import java.awt.Color;
+import java.awt.Font;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,67 +26,17 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
     /**
      * Creates new form ViewLayoutTabelas
      */
-    
-    public ViewLayoutTabelas(Integer tabelas) {
-        initComponents();           
-        jScrollPane1.setVisible(false);        
-        jScrollPane2.setVisible(false);        
-        jScrollPane3.setVisible(false);        
-        jScrollPane4.setVisible(false);       
-        if(tabelas==1){
-            jScrollPane1.setVisible(true);            
-        }else if(tabelas==2){
-            jScrollPane1.setVisible(true);            
-            jScrollPane2.setVisible(true);
-        }else if(tabelas==3){
-            jScrollPane1.setVisible(true);            
-            jScrollPane2.setVisible(true);
-            jScrollPane3.setVisible(true);
-        }else if(tabelas==4){
-            jScrollPane1.setVisible(true);            
-            jScrollPane2.setVisible(true);
-            jScrollPane3.setVisible(true);
-            jScrollPane4.setVisible(true);
-        }
-        Color cor=new Color(0, 0, 0,0);        
-        
-        this.setBackground(cor);
-        this.repaint();
-        this.validate();
-        jScrollPane1.setBackground(cor);
-        jScrollPane1.repaint();
-        jScrollPane1.validate();        
-        jTable1.setBackground(cor);
-        jTable1.getParent().setBackground(cor);
-        jTable1.repaint();
-        jTable1.validate();
-        
-        jScrollPane2.setBackground(cor);
-        jScrollPane2.repaint();
-        jScrollPane2.validate();        
-        jTable2.setBackground(cor);
-        jTable2.getParent().setBackground(cor);
-        jTable2.repaint();
-        jTable2.validate();
-        
-        jScrollPane3.setBackground(cor);
-        jScrollPane3.repaint();
-        jScrollPane3.validate();        
-        jTable3.setBackground(cor);
-        jTable3.getParent().setBackground(cor);
-        jTable3.repaint();
-        jTable3.validate();
-        
-        jScrollPane4.setBackground(cor);
-        jScrollPane4.repaint();
-        jScrollPane4.validate();        
-        jTable4.setBackground(cor);
-        jTable4.getParent().setBackground(cor);
-        jTable4.repaint();
-        jTable4.validate();
-        
-        
-        
+    Integer tabelas;
+    List<Tb_Prod_PainelBeans> lppbf = new ArrayList<>();
+    ViewPrincipal view;
+
+    public ViewLayoutTabelas(Integer tabelas, ViewPrincipal view) {
+        initComponents();
+        this.tabelas = tabelas;
+        this.view = view;
+        inicializaPainel();
+        ajustaColunasPainel();
+        updateInicializaPainel();
     }
 
     /**
@@ -104,30 +64,38 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jTable1.setForeground(new java.awt.Color(255, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "CÓDIGO", "DESCRICAO", "OFERTA", "PREÇO"
+                "CÓDIGO", "PRODUTO", "UNID", "OFERTA", "VALOR 1", "VALOR 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jTable1.setGridColor(new java.awt.Color(255, 0, 0));
+        jTable1.setRowHeight(55);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.setShowVerticalLines(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
         }
 
         add(jScrollPane1);
@@ -135,17 +103,14 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jTable2.setForeground(new java.awt.Color(255, 51, 51));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "CODIGO", "DESCRIÇÃO", "OFERTA", "PREÇO"
+                "CODIGO", "PRODUTO", "UNID", "OFERTA", "VALOR 1", "VALOR 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -153,12 +118,17 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             }
         });
         jTable2.setGridColor(new java.awt.Color(255, 0, 0));
+        jTable2.setRowHeight(55);
+        jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable2.setShowVerticalLines(false);
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setResizable(false);
             jTable2.getColumnModel().getColumn(3).setResizable(false);
+            jTable2.getColumnModel().getColumn(4).setResizable(false);
+            jTable2.getColumnModel().getColumn(5).setResizable(false);
         }
 
         add(jScrollPane2);
@@ -166,17 +136,14 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jTable3.setForeground(new java.awt.Color(255, 51, 51));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "CODIGO", "DESCRIÇÃO", "OFERTA", "VALOR"
+                "CODIGO", "PRODUTO", "UNID", "OFERTA", "VALOR 1", "VALOR 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -184,12 +151,17 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             }
         });
         jTable3.setGridColor(new java.awt.Color(255, 0, 0));
+        jTable3.setRowHeight(55);
+        jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable3.setShowVerticalLines(false);
         jScrollPane3.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
             jTable3.getColumnModel().getColumn(0).setResizable(false);
             jTable3.getColumnModel().getColumn(1).setResizable(false);
             jTable3.getColumnModel().getColumn(2).setResizable(false);
             jTable3.getColumnModel().getColumn(3).setResizable(false);
+            jTable3.getColumnModel().getColumn(4).setResizable(false);
+            jTable3.getColumnModel().getColumn(5).setResizable(false);
         }
 
         add(jScrollPane3);
@@ -197,17 +169,14 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jTable4.setForeground(new java.awt.Color(255, 51, 51));
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "CODIGO", "DESCRIÇÃO", "OFERTA", "VALOR"
+                "CODIGO", "PRODUTO", "UNID", "OFERTA", "VALOR 1", "VALOR 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -215,16 +184,27 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             }
         });
         jTable4.setGridColor(new java.awt.Color(255, 0, 0));
+        jTable4.setRowHeight(55);
+        jTable4.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jTable4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable4.setShowVerticalLines(false);
+        jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable4);
         if (jTable4.getColumnModel().getColumnCount() > 0) {
             jTable4.getColumnModel().getColumn(0).setResizable(false);
             jTable4.getColumnModel().getColumn(1).setResizable(false);
             jTable4.getColumnModel().getColumn(2).setResizable(false);
             jTable4.getColumnModel().getColumn(3).setResizable(false);
+            jTable4.getColumnModel().getColumn(4).setResizable(false);
+            jTable4.getColumnModel().getColumn(5).setResizable(false);
         }
 
         add(jScrollPane4);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -237,4 +217,366 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
+
+    private void cargaPainel(Integer tabela) {
+        //jTable1.setRowHeight(1, 32);
+        try {
+            if (tabela >= 1) {
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setNumRows(0);
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(1, new DBConfigBeans().getTerminal());
+                this.lppbf.addAll(lppb);
+                for (Tb_Prod_PainelBeans ppb : lppb) {
+                    String oferta = "";
+                    if (ppb.getOferta()) {
+                        oferta = "<html><font color=red>OFERTA</font></html>";
+                    }
+                    model.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                }
+            }
+//
+            if (tabela >= 2) {
+                DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
+                model2.setNumRows(0);
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(2, new DBConfigBeans().getTerminal());
+                this.lppbf.addAll(lppb);
+                for (Tb_Prod_PainelBeans ppb : lppb) {
+                    String oferta = "";
+                    if (ppb.getOferta()) {
+                        oferta = "<html><font color=red>OFERTA</font></html>";
+                    }
+                    model2.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                }
+            }
+
+            if (tabela >= 3) {
+                DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+                model3.setNumRows(0);
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(3, new DBConfigBeans().getTerminal());
+                this.lppbf.addAll(lppb);
+                for (Tb_Prod_PainelBeans ppb : lppb) {
+                    String oferta = "";
+                    if (ppb.getOferta()) {
+                        oferta = "<html><font color=red>OFERTA</font></html>";
+                    }
+                    model3.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                }
+            }
+
+            if (tabela >= 4) {
+                DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
+                model4.setNumRows(0);
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(4, new DBConfigBeans().getTerminal());
+                this.lppbf.addAll(lppb);
+                for (Tb_Prod_PainelBeans ppb : lppb) {
+                    String oferta = "";
+                    if (ppb.getOferta()) {
+                        oferta = "<html><font color=red>OFERTA</font></html>";
+                    }
+                    model4.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                }
+            }
+        } catch (SQLException ex) {
+            new DBConfig().createArqLog("Erro ao Prencher Tabelas ViewLayoutTabelas: " + ex);
+        }
+    }
+
+    private void inicializaPainel() {
+        jScrollPane1.setVisible(false);
+        jScrollPane2.setVisible(false);
+        jScrollPane3.setVisible(false);
+        jScrollPane4.setVisible(false);          
+        if (tabelas == 1) {
+            jScrollPane1.setVisible(true);
+            cargaPainel(1);
+        } else if (tabelas == 2) {
+            jScrollPane1.setVisible(true);
+            jScrollPane2.setVisible(true);
+            cargaPainel(2);
+        } else if (tabelas == 3) {
+            jScrollPane1.setVisible(true);
+            jScrollPane2.setVisible(true);
+            jScrollPane3.setVisible(true);
+            cargaPainel(3);
+        } else if (tabelas == 4) {
+            jScrollPane1.setVisible(true);
+            jScrollPane2.setVisible(true);
+            jScrollPane3.setVisible(true);
+            jScrollPane4.setVisible(true);
+            cargaPainel(4);
+        }
+        Tb_ConfigBeans tcb = new Tb_ConfigBeans();
+        Color cor = new Color(0, 0, 0, 0);
+        Font font = new java.awt.Font("Tahoma", 0, tcb.getFonteTabela());
+        int rowheighet = (int) (tcb.getFonteTabela() * (2.2));
+        Color corfonte = new Color(tcb.getCorfontetabela());
+
+        this.setBackground(cor);
+        this.repaint();
+        this.validate();
+        jScrollPane1.setBackground(cor);
+        jScrollPane1.repaint();
+        jScrollPane1.validate();
+        jTable1.getParent().setBackground(cor);
+        if (tcb.isTransparencia()) {
+            jTable1.setBackground(cor);
+        } else {
+            jTable1.setBackground(new Color(tcb.getCorfundotabela()));
+        }
+
+        jTable1.setFont(font);
+        jTable1.setRowHeight(rowheighet);
+        jTable1.setForeground(corfonte);
+        jTable1.repaint();
+        jTable1.validate();
+
+        jScrollPane2.setBackground(cor);
+        jScrollPane2.repaint();
+        jScrollPane2.validate();
+        jTable2.getParent().setBackground(cor);
+        if (tcb.isTransparencia()) {
+            jTable2.setBackground(cor);
+        } else {
+            jTable2.setBackground(new Color(tcb.getCorfundotabela()));
+        }
+        jTable2.setFont(font);
+        jTable2.setRowHeight(rowheighet);
+        jTable2.setForeground(corfonte);
+        jTable2.repaint();
+        jTable2.validate();
+
+        jScrollPane3.setBackground(cor);
+        jScrollPane3.repaint();
+        jScrollPane3.validate();
+        jTable3.getParent().setBackground(cor);
+        if (tcb.isTransparencia()) {
+            jTable3.setBackground(cor);
+        } else {
+            jTable3.setBackground(new Color(tcb.getCorfundotabela()));
+        }
+        jTable3.setFont(font);
+        jTable3.setRowHeight(rowheighet);
+        jTable3.setForeground(corfonte);
+        jTable3.repaint();
+        jTable3.validate();
+
+        jScrollPane4.setBackground(cor);
+        jScrollPane4.repaint();
+        jScrollPane4.validate();
+        jTable4.getParent().setBackground(cor);
+        if (tcb.isTransparencia()) {
+            jTable4.setBackground(cor);
+        } else {
+            jTable4.setBackground(new Color(tcb.getCorfundotabela()));
+        }
+        jTable4.setFont(font);
+        jTable4.setRowHeight(rowheighet);
+        jTable4.setForeground(corfonte);
+        jTable4.repaint();
+        jTable4.validate();
+    }
+
+    private void ajustaColunasPainel() {
+        Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+        if (tbc.isCtcodigo()) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable2.getColumnModel().getColumn(0).setMinWidth(50);
+            jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable3.getColumnModel().getColumn(0).setMinWidth(50);
+            jTable3.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable4.getColumnModel().getColumn(0).setMinWidth(50);
+            jTable4.getColumnModel().getColumn(0).setMaxWidth(50);
+        } else {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable4.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable4.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
+        if (tbc.isCtproduto()) {
+            jTable1.getColumnModel().getColumn(1).setMinWidth(100);
+            jTable2.getColumnModel().getColumn(1).setMinWidth(100);
+            jTable3.getColumnModel().getColumn(1).setMinWidth(100);
+            jTable4.getColumnModel().getColumn(1).setMinWidth(100);
+        } else {
+            jTable1.getColumnModel().getColumn(1).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(1).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(1).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(1).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(1).setMaxWidth(0);
+            jTable4.getColumnModel().getColumn(1).setMinWidth(0);
+            jTable4.getColumnModel().getColumn(1).setMaxWidth(0);
+        }
+        if (tbc.isCtunid()) {
+            jTable1.getColumnModel().getColumn(2).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTable2.getColumnModel().getColumn(2).setMinWidth(50);
+            jTable2.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTable3.getColumnModel().getColumn(2).setMinWidth(50);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTable4.getColumnModel().getColumn(2).setMinWidth(50);
+            jTable4.getColumnModel().getColumn(2).setMaxWidth(50);
+        } else {
+            jTable1.getColumnModel().getColumn(2).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(2).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(2).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(2).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(0);
+            jTable4.getColumnModel().getColumn(2).setMinWidth(0);
+            jTable4.getColumnModel().getColumn(2).setMaxWidth(0);
+        }
+        if (tbc.isCtoferta()) {
+            jTable1.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
+            jTable2.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
+            jTable2.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
+            jTable3.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
+            jTable3.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
+            jTable4.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
+            jTable4.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
+        } else {
+            jTable1.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(3).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(3).setMaxWidth(0);
+            jTable4.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable4.getColumnModel().getColumn(3).setMaxWidth(0);
+        }
+        if (tbc.isCtvalor1()) {
+            jTable1.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable1.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
+            jTable1.getTableHeader().resizeAndRepaint();
+
+            jTable2.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable2.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable2.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
+            jTable2.getTableHeader().resizeAndRepaint();
+
+            jTable3.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable3.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable3.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
+            jTable3.getTableHeader().resizeAndRepaint();
+
+            jTable4.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable4.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable4.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
+            jTable4.getTableHeader().resizeAndRepaint();
+        } else {
+            jTable1.getColumnModel().getColumn(4).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(4).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(4).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(4).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(4).setMaxWidth(0);
+            jTable4.getColumnModel().getColumn(4).setMinWidth(0);
+            jTable4.getColumnModel().getColumn(4).setMaxWidth(0);
+        }
+        if (tbc.isCtvalor2()) {
+            jTable1.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable1.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
+            jTable1.getTableHeader().resizeAndRepaint();
+
+            jTable2.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable2.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable2.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
+            jTable2.getTableHeader().resizeAndRepaint();
+
+            jTable3.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable3.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable3.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
+            jTable3.getTableHeader().resizeAndRepaint();
+
+            jTable4.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
+            jTable4.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable4.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
+            jTable4.getTableHeader().resizeAndRepaint();
+        } else {
+            jTable1.getColumnModel().getColumn(5).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(0);
+            jTable2.getColumnModel().getColumn(5).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(5).setMaxWidth(0);
+            jTable3.getColumnModel().getColumn(5).setMinWidth(0);
+            jTable3.getColumnModel().getColumn(5).setMaxWidth(0);
+            jTable4.getColumnModel().getColumn(5).setMinWidth(0);
+            jTable4.getColumnModel().getColumn(5).setMaxWidth(0);
+        }
+    }
+
+    private void updateInicializaPainel() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (getVisibleThis()) {
+                    updateAtualizaPainelProd();
+                    try {
+                        Thread.sleep(15000);
+                    } catch (InterruptedException ex) {
+                        new DBConfig().createArqLog("Erro Thread Parada ViewLayoutTabelas-updateIniciallizaPainel: " + ex);
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void updateAtualizaPainelProd() {
+        try {
+            List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();            
+            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal());
+            if (comparaListPainel(lppbf, lppb)) {               
+                this.setVisible(false);                
+                this.view.atualizaGradeProduto();
+            }
+        } catch (SQLException ex) {
+            new DBConfig().createArqLog("Erro ao Atualizar Produtos ViewLayoutTableas-updateInicializaPainel: " + ex);
+        }
+    }
+
+    private boolean comparaListPainel(List<Tb_Prod_PainelBeans> lppbf, List<Tb_Prod_PainelBeans> lppb) {
+        if (lppb != null) {
+            if (lppb.size() != lppbf.size()) {
+                return true;
+            } else {
+                for (int i = 0; i < lppb.size(); i++) {
+                    if (!lppb.get(i).getCodigo().equals(lppbf.get(i).getCodigo())) {                        
+                        return true;
+                    }
+//                    if (!lppb.get(i).getDescricao().equals(lppbf.get(i).getDescricao())) {
+//                        System.out.println("descricao");
+//                        return true;
+//                    }
+//                    if (!lppb.get(i).getUnid().equals(lppbf.get(i).getUnid())) {
+//                        System.out.println("unidade");
+//                        return true;
+//                    }
+                    if (!lppb.get(i).getValor1().toString().equals(lppbf.get(i).getValor1().toString())) {                        
+                        return true;
+                    }
+//                    if (!lppb.get(i).getValor2().equals(lppbf.get(i).getValor2())) {
+//                        System.out.println("valor2");
+//                        return true;
+//                    }
+//                    if (!lppb.get(i).getOferta().equals(lppbf.get(i).getOferta())) {
+//                        System.out.println("oferta");
+//                        return true;
+//                    }
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean getVisibleThis(){
+        return this.isVisible();
+    }
 }
