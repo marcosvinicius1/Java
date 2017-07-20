@@ -36,11 +36,14 @@ public class DBConfig {
         cxb.setLocaldirdb(prop.getProperty("localdirdb"));//pega o valor da teg local
         cxb.setLocalpassword(prop.getProperty("localpassword"));//pega o valor da tag senha
         cxb.setLocaluser(prop.getProperty("localuser"));//pega o valor da tag usuario         
-        cxb.setTerminal(Integer.valueOf(prop.getProperty("terminal")));
-        try {
-            Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(Integer.valueOf(prop.getProperty("terminal")));
-        } catch (SQLException ex) {
-            new DBConfig().createArqLog("\nDBConfig:Erro ao Ler TB_CONFIG\n" + ex + "\n");
+        cxb.setTerminal(Integer.valueOf(prop.getProperty("terminal", "0")));
+        cxb.setTipo(prop.getProperty("tipo"));
+        if (prop.getProperty("terminal")!=null) {
+            try {
+                Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(Integer.valueOf(prop.getProperty("terminal")));
+            } catch (SQLException ex) {
+                new DBConfig().createArqLog("\nDBConfig:Erro ao Ler TB_CONFIG\n" + ex + "\n");
+            }
         }
 
         return cxb;
@@ -60,17 +63,10 @@ public class DBConfig {
         try {
             File file = new File("./logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + "log.txt");
             if (file.exists()) {
-//                FileReader ler = new FileReader(".logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + ".txt");
-//                BufferedReader leitor = new BufferedReader(ler);
-//                String linha;
-//                String linhaReescrita;
-//                while ((linha = leitor.readLine()) != null) {                    
-//                    linhaReescrita = linha.replaceAll(linha, texto);                    
-//                }
                 OutputStream bytes = new FileOutputStream(file, true); // passado "true" para gravar no mesmo arquivo
                 OutputStreamWriter chars = new OutputStreamWriter(bytes);
                 BufferedWriter strings = new BufferedWriter(chars);
-                strings.write("\r\n"+texto);
+                strings.write("\r\n" + texto);
                 strings.close();
             } else {
                 arquivo = new FileWriter(new File("./logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + "log.txt"));
@@ -99,6 +95,7 @@ public class DBConfig {
         prop.put("localdirdb", cb.getLocaldirdb());
         prop.put("localuser", cb.getLocaluser());
         prop.put("terminal", String.valueOf(cb.getTerminal()));
+        prop.put("tipo", cb.getTipo());
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 

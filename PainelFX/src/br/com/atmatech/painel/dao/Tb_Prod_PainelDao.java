@@ -19,7 +19,7 @@ import java.util.List;
  * @author Marcos
  */
 public class Tb_Prod_PainelDao {
-    public List<Tb_Prod_PainelBeans> getProdPainel(Integer painel,Integer terminal) throws SQLException {
+    public List<Tb_Prod_PainelBeans> getProdPainel(Integer terminal,Integer painel) throws SQLException {
         try (Connection conexao = new ConexaoDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel " +
             " INNER JOIN tb_prod ON(tb_prod_painel.codigo=tb_prod.codigo) where terminal=? and painel=? order by tb_prod_painel.idtb_painel";            
@@ -48,14 +48,43 @@ public class Tb_Prod_PainelDao {
         }
     }
     
-    public List<Tb_Prod_PainelBeans> getProdPainel(Integer terminal) throws SQLException {
+    public List<Tb_Prod_PainelBeans> getProdPainelConfig(Integer terminal,Integer painel) throws SQLException {
         try (Connection conexao = new ConexaoDBMySql().getConnect()) {
-            String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel " +
-            " INNER JOIN tb_prod ON(tb_prod_painel.codigo=tb_prod.codigo) where terminal=? order by tb_prod_painel.idtb_painel";                
+            String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel "
+                    + "where terminal=? and painel=? order by tb_prod_painel.idtb_painel";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, terminal);            
+            pstm.setInt(1, terminal);
+            pstm.setInt(2, painel);
             ResultSet rs = pstm.executeQuery();
             List<Tb_Prod_PainelBeans> lpb = new ArrayList<>();
+            while (rs.next()) {
+                Tb_Prod_PainelBeans pb = new Tb_Prod_PainelBeans();
+                pb.setCodigo(rs.getString("codigo"));
+                pb.setDescricao(rs.getString("descricao"));
+                pb.setUnid(rs.getString("unid"));
+                pb.setValor1(rs.getFloat("valor1"));
+                pb.setValor2(rs.getFloat("valor2"));
+                pb.setOferta(rs.getBoolean("oferta"));
+                pb.setReceita(rs.getString("receita"));      
+                pb.setTerminal(rs.getInt("terminal"));
+                pb.setPainel(rs.getInt("painel"));
+                lpb.add(pb);
+            }
+            rs.close();
+            pstm.close();
+            conexao.close();
+            return lpb;
+        }
+    }
+    
+    public List<Tb_Prod_PainelBeans> getProdPainelTabelas(Integer terminal,String painel) throws SQLException {
+        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+            String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel " +
+            " INNER JOIN tb_prod ON(tb_prod_painel.codigo=tb_prod.codigo) where terminal=? and painel in("+painel+") order by tb_prod_painel.idtb_painel";                
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            pstm.setInt(1, terminal);                                
+            ResultSet rs = pstm.executeQuery();
+            List<Tb_Prod_PainelBeans> lpb = new ArrayList<>();              
             while (rs.next()) {
                 Tb_Prod_PainelBeans pb = new Tb_Prod_PainelBeans();
                 pb.setCodigo(rs.getString("codigo"));

@@ -13,6 +13,7 @@ import br.com.atmatech.painel.dao.Tb_Prod_PainelDao;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -26,17 +27,27 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
     /**
      * Creates new form ViewLayoutTabelas
      */
-    Integer tabelas;
+    Boolean tabela1;
+    Boolean tabela2;
+    Boolean tabela3;
+    Boolean tabela4;
     List<Tb_Prod_PainelBeans> lppbf = new ArrayList<>();
     ViewPrincipal view;
 
-    public ViewLayoutTabelas(Integer tabelas, ViewPrincipal view) {
+    public ViewLayoutTabelas(Boolean tabela1,Boolean tabela2,Boolean tabela3,Boolean tabela4, ViewPrincipal view) {
         initComponents();
-        this.tabelas = tabelas;
+        this.tabela1 = tabela1;
+        this.tabela2 = tabela2;
+        this.tabela3 = tabela3;
+        this.tabela4 = tabela4;
         this.view = view;
+        try{
         inicializaPainel();
         ajustaColunasPainel();
         updateInicializaPainel();
+        }catch(Exception ex){
+            new DBConfig().createArqLog("ViewLayoutTabelas-ViewLayoutTabelas:"+ex);
+        }
     }
 
     /**
@@ -60,6 +71,8 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         setBackground(new java.awt.Color(204, 0, 0));
         setForeground(new java.awt.Color(204, 0, 0));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+
+        jScrollPane1.setBorder(null);
 
         jTable1.setForeground(new java.awt.Color(255, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -100,6 +113,8 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
 
         add(jScrollPane1);
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
         jTable2.setForeground(new java.awt.Color(255, 51, 51));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -133,6 +148,8 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
 
         add(jScrollPane2);
 
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
         jTable3.setForeground(new java.awt.Color(255, 51, 51));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,6 +182,8 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         }
 
         add(jScrollPane3);
+
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jTable4.setForeground(new java.awt.Color(255, 51, 51));
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
@@ -218,62 +237,88 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
     private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 
-    private void cargaPainel(Integer tabela) {
+    private void cargaPainel(Boolean tabela1,Boolean tabela2,Boolean tabela3,Boolean tabela4) {
         //jTable1.setRowHeight(1, 32);
-        try {
-            if (tabela >= 1) {
+        DecimalFormat formatter = new DecimalFormat(",##0.00");
+        //System.err.println(tabela);
+        try {            
+            if (tabela1) {
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 model.setNumRows(0);
-                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(1, new DBConfigBeans().getTerminal());
-                this.lppbf.addAll(lppb);
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(),1);
+                this.lppbf.addAll(lppb);                 
                 for (Tb_Prod_PainelBeans ppb : lppb) {
                     String oferta = "";
+                    String valor2="";
                     if (ppb.getOferta()) {
                         oferta = "<html><font color=red>OFERTA</font></html>";
                     }
-                    model.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                    if(ppb.getValor2()==0){
+                        valor2="";
+                    }else{
+                        valor2=formatter.format(ppb.getValor2()).toString();
+                    }
+                    model.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, formatter.format(ppb.getValor1()), valor2});
                 }
             }
 //
-            if (tabela >= 2) {
+            if (tabela2) {
                 DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
                 model2.setNumRows(0);
-                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(2, new DBConfigBeans().getTerminal());
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(),2);
                 this.lppbf.addAll(lppb);
                 for (Tb_Prod_PainelBeans ppb : lppb) {
                     String oferta = "";
+                    String valor2="";
                     if (ppb.getOferta()) {
                         oferta = "<html><font color=red>OFERTA</font></html>";
                     }
-                    model2.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                    if(ppb.getValor2()==0){
+                        valor2="";
+                    }else{
+                        valor2=formatter.format(ppb.getValor2()).toString();
+                    }
+                    model2.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, formatter.format(ppb.getValor1()), valor2});
                 }
             }
 
-            if (tabela >= 3) {
+            if (tabela3) {
                 DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
                 model3.setNumRows(0);
-                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(3, new DBConfigBeans().getTerminal());
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(),3);
                 this.lppbf.addAll(lppb);
                 for (Tb_Prod_PainelBeans ppb : lppb) {
                     String oferta = "";
+                    String valor2="";
                     if (ppb.getOferta()) {
                         oferta = "<html><font color=red>OFERTA</font></html>";
                     }
-                    model3.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                    if(ppb.getValor2()==0){
+                        valor2="";
+                    }else{
+                        valor2=formatter.format(ppb.getValor2()).toString();
+                    }
+                    model3.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta,formatter.format(ppb.getValor1()), valor2});
                 }
             }
 
-            if (tabela >= 4) {
+            if (tabela4) {
                 DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
                 model4.setNumRows(0);
-                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(4, new DBConfigBeans().getTerminal());
+                List<Tb_Prod_PainelBeans> lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(),4);
                 this.lppbf.addAll(lppb);
                 for (Tb_Prod_PainelBeans ppb : lppb) {
                     String oferta = "";
+                    String valor2="";
                     if (ppb.getOferta()) {
                         oferta = "<html><font color=red>OFERTA</font></html>";
                     }
-                    model4.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, ppb.getValor1(), ppb.getValor2()});
+                    if(ppb.getValor2()==0){
+                        valor2="";
+                    }else{
+                        valor2=formatter.format(ppb.getValor2()).toString();
+                    }
+                    model4.addRow(new Object[]{ppb.getCodigo(), ppb.getDescricao(), ppb.getUnid(), oferta, formatter.format(ppb.getValor1()), valor2});
                 }
             }
         } catch (SQLException ex) {
@@ -285,29 +330,37 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jScrollPane1.setVisible(false);
         jScrollPane2.setVisible(false);
         jScrollPane3.setVisible(false);
-        jScrollPane4.setVisible(false);          
-        if (tabelas == 1) {
-            jScrollPane1.setVisible(true);
-            cargaPainel(1);
-        } else if (tabelas == 2) {
-            jScrollPane1.setVisible(true);
-            jScrollPane2.setVisible(true);
-            cargaPainel(2);
-        } else if (tabelas == 3) {
-            jScrollPane1.setVisible(true);
-            jScrollPane2.setVisible(true);
-            jScrollPane3.setVisible(true);
-            cargaPainel(3);
-        } else if (tabelas == 4) {
-            jScrollPane1.setVisible(true);
-            jScrollPane2.setVisible(true);
-            jScrollPane3.setVisible(true);
-            jScrollPane4.setVisible(true);
-            cargaPainel(4);
-        }
+        jScrollPane4.setVisible(false);            
+        jScrollPane1.setVisible(tabela1);
+        jScrollPane2.setVisible(tabela2);
+        jScrollPane3.setVisible(tabela3);
+        jScrollPane4.setVisible(tabela4);
+        cargaPainel(tabela1,tabela2,tabela3,tabela4);
+//        if (tabela1&&!tabela2&&!tabela3&&!tabela4) {
+//            jScrollPane1.setVisible(true);
+//            cargaPainel(true,false,false,false);
+//        } 
+//        if (tabela1&&tabela2&&!tabela3&&!tabela4) {
+//            jScrollPane1.setVisible(true);
+//            jScrollPane2.setVisible(true);
+//            cargaPainel(true,true,false,false);
+//        } 
+//        if (tabela1&&tabela2&&tabela3&&!tabela4) {
+//            jScrollPane1.setVisible(true);
+//            jScrollPane2.setVisible(true);
+//            jScrollPane3.setVisible(true);
+//            cargaPainel(true,true,true,false);
+//        } 
+//        if (tabela1&&tabela2&&tabela3&&tabela4) {
+//            jScrollPane1.setVisible(true);
+//            jScrollPane2.setVisible(true);
+//            jScrollPane3.setVisible(true);
+//            jScrollPane4.setVisible(true);
+//            cargaPainel(true,true,true,true);
+//        }
         Tb_ConfigBeans tcb = new Tb_ConfigBeans();
         Color cor = new Color(0, 0, 0, 0);
-        Font font = new java.awt.Font("Tahoma", 0, tcb.getFonteTabela());
+        Font font = new java.awt.Font(tcb.getFontetipotabela(), tcb.getFonteestilotabela(), tcb.getFonteTabela());
         int rowheighet = (int) (tcb.getFonteTabela() * (2.2));
         Color corfonte = new Color(tcb.getCorfontetabela());
 
@@ -378,7 +431,25 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
 
     private void ajustaColunasPainel() {
         Tb_ConfigBeans tbc = new Tb_ConfigBeans();
-        if (tbc.isCtcodigo()) {
+        if((tbc.getEspacamento()!=null)&&(tbc.getEspacamento()>0)){
+        jTable1.setRowHeight(tbc.getEspacamento());
+        jTable2.setRowHeight(tbc.getEspacamento());
+        jTable3.setRowHeight(tbc.getEspacamento());
+        jTable4.setRowHeight(tbc.getEspacamento());   
+        }     
+        if(tbc.getTabela1nome().length()>0){
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, tbc.getTabela1nome(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+        }
+        if(tbc.getTabela2nome().length()>0){
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, tbc.getTabela2nome(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N    
+        }
+        if(tbc.getTabela3nome().length()>0){
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, tbc.getTabela3nome(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+        }
+        if(tbc.getTabela4nome().length()>0){
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, tbc.getTabela4nome(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N    
+        }       
+        if (tbc.isCtcodigo()) {            
             jTable1.getColumnModel().getColumn(0).setMinWidth(50);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
             jTable2.getColumnModel().getColumn(0).setMinWidth(50);
@@ -387,7 +458,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jTable3.getColumnModel().getColumn(0).setMaxWidth(50);
             jTable4.getColumnModel().getColumn(0).setMinWidth(50);
             jTable4.getColumnModel().getColumn(0).setMaxWidth(50);
-        } else {
+        } else {            
             jTable1.getColumnModel().getColumn(0).setMinWidth(0);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
             jTable2.getColumnModel().getColumn(0).setMinWidth(0);
@@ -397,7 +468,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jTable4.getColumnModel().getColumn(0).setMinWidth(0);
             jTable4.getColumnModel().getColumn(0).setMaxWidth(0);
         }
-        if (tbc.isCtproduto()) {
+        if (tbc.isCtproduto()) {            
             jTable1.getColumnModel().getColumn(1).setMinWidth(100);
             jTable2.getColumnModel().getColumn(1).setMinWidth(100);
             jTable3.getColumnModel().getColumn(1).setMinWidth(100);
@@ -413,14 +484,14 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jTable4.getColumnModel().getColumn(1).setMaxWidth(0);
         }
         if (tbc.isCtunid()) {
-            jTable1.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(50);
-            jTable2.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable2.getColumnModel().getColumn(2).setMaxWidth(50);
-            jTable3.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable3.getColumnModel().getColumn(2).setMaxWidth(50);
-            jTable4.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable4.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(tbc.getFonteTabela() * 2);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(tbc.getFonteTabela() * 2);
+            jTable2.getColumnModel().getColumn(2).setMinWidth(tbc.getFonteTabela() * 2);
+            jTable2.getColumnModel().getColumn(2).setMaxWidth(tbc.getFonteTabela() * 2);
+            jTable3.getColumnModel().getColumn(2).setMinWidth(tbc.getFonteTabela() * 2);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(tbc.getFonteTabela() * 2);
+            jTable4.getColumnModel().getColumn(2).setMinWidth(tbc.getFonteTabela() * 2);
+            jTable4.getColumnModel().getColumn(2).setMaxWidth(tbc.getFonteTabela() * 2);
         } else {
             jTable1.getColumnModel().getColumn(2).setMinWidth(0);
             jTable1.getColumnModel().getColumn(2).setMaxWidth(0);
@@ -432,14 +503,14 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jTable4.getColumnModel().getColumn(2).setMaxWidth(0);
         }
         if (tbc.isCtoferta()) {
-            jTable1.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
-            jTable2.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
-            jTable2.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
-            jTable3.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
-            jTable3.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
-            jTable4.getColumnModel().getColumn(3).setMinWidth(tbc.getFonteTabela() * 4);
-            jTable4.getColumnModel().getColumn(3).setMaxWidth(tbc.getFonteTabela() * 4);
+            jTable1.getColumnModel().getColumn(3).setMinWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable1.getColumnModel().getColumn(3).setMaxWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable2.getColumnModel().getColumn(3).setMinWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable2.getColumnModel().getColumn(3).setMaxWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable3.getColumnModel().getColumn(3).setMinWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable3.getColumnModel().getColumn(3).setMaxWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable4.getColumnModel().getColumn(3).setMinWidth((int)(tbc.getFonteTabela() * 4.5));
+            jTable4.getColumnModel().getColumn(3).setMaxWidth((int)(tbc.getFonteTabela() * 4.5));
         } else {
             jTable1.getColumnModel().getColumn(3).setMinWidth(0);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(0);
@@ -451,23 +522,23 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jTable4.getColumnModel().getColumn(3).setMaxWidth(0);
         }
         if (tbc.isCtvalor1()) {
-            jTable1.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable1.getColumnModel().getColumn(4).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable1.getColumnModel().getColumn(4).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable1.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
             jTable1.getTableHeader().resizeAndRepaint();
 
-            jTable2.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable2.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable2.getColumnModel().getColumn(4).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable2.getColumnModel().getColumn(4).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable2.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
             jTable2.getTableHeader().resizeAndRepaint();
 
-            jTable3.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable3.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable3.getColumnModel().getColumn(4).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable3.getColumnModel().getColumn(4).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable3.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
             jTable3.getTableHeader().resizeAndRepaint();
 
-            jTable4.getColumnModel().getColumn(4).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable4.getColumnModel().getColumn(4).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable4.getColumnModel().getColumn(4).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable4.getColumnModel().getColumn(4).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable4.getColumnModel().getColumn(4).setHeaderValue(tbc.getNomevalor1());
             jTable4.getTableHeader().resizeAndRepaint();
         } else {
@@ -481,23 +552,23 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jTable4.getColumnModel().getColumn(4).setMaxWidth(0);
         }
         if (tbc.isCtvalor2()) {
-            jTable1.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable1.getColumnModel().getColumn(5).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable1.getColumnModel().getColumn(5).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable1.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
             jTable1.getTableHeader().resizeAndRepaint();
 
-            jTable2.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable2.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable2.getColumnModel().getColumn(5).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable2.getColumnModel().getColumn(5).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable2.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
             jTable2.getTableHeader().resizeAndRepaint();
 
-            jTable3.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable3.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable3.getColumnModel().getColumn(5).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable3.getColumnModel().getColumn(5).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable3.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
             jTable3.getTableHeader().resizeAndRepaint();
 
-            jTable4.getColumnModel().getColumn(5).setMinWidth(tbc.getFonteTabela() * 3);
-            jTable4.getColumnModel().getColumn(5).setMaxWidth(tbc.getFonteTabela() * 3);
+            jTable4.getColumnModel().getColumn(5).setMinWidth((int)(tbc.getFonteTabela() * 3.9));
+            jTable4.getColumnModel().getColumn(5).setMaxWidth((int)(tbc.getFonteTabela() * 3.9));
             jTable4.getColumnModel().getColumn(5).setHeaderValue(tbc.getNomevalor2());
             jTable4.getTableHeader().resizeAndRepaint();
         } else {
@@ -530,9 +601,35 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
 
     private void updateAtualizaPainelProd() {
         try {
-            List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();            
-            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal());
-            if (comparaListPainel(lppbf, lppb)) {               
+            List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();   
+            Integer tabelas=0;
+            String painel="";
+            if(this.tabela1){
+                painel="'1'";
+            }
+            if(this.tabela2){
+                if(!painel.equals("")){
+                painel="'2',"+painel;
+                }else{
+                painel="'2'";
+                }
+            }
+            if(this.tabela3){
+                if(!painel.equals("")){
+                painel="'3',"+painel;
+                }else{
+                painel="'3'";
+                }
+            }if(this.tabela4){
+                if(!painel.equals("")){
+                painel="'4',"+painel;
+                }else{
+                painel="'4'";
+                }
+            }
+            
+            lppb = new Tb_Prod_PainelDao().getProdPainelTabelas(new DBConfigBeans().getTerminal(),painel);            
+            if (comparaListPainel(lppbf, lppb)) {                   
                 this.setVisible(false);                
                 this.view.atualizaGradeProduto();
             }
@@ -550,25 +647,25 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
                     if (!lppb.get(i).getCodigo().equals(lppbf.get(i).getCodigo())) {                        
                         return true;
                     }
-//                    if (!lppb.get(i).getDescricao().equals(lppbf.get(i).getDescricao())) {
-//                        System.out.println("descricao");
-//                        return true;
-//                    }
-//                    if (!lppb.get(i).getUnid().equals(lppbf.get(i).getUnid())) {
-//                        System.out.println("unidade");
-//                        return true;
-//                    }
+                    if (!lppb.get(i).getDescricao().equals(lppbf.get(i).getDescricao())) {
+                        System.out.println("descricao");
+                        return true;
+                    }
+                    if (!lppb.get(i).getUnid().equals(lppbf.get(i).getUnid())) {
+                        System.out.println("unidade");
+                        return true;
+                    }
                     if (!lppb.get(i).getValor1().toString().equals(lppbf.get(i).getValor1().toString())) {                        
                         return true;
                     }
-//                    if (!lppb.get(i).getValor2().equals(lppbf.get(i).getValor2())) {
-//                        System.out.println("valor2");
-//                        return true;
-//                    }
-//                    if (!lppb.get(i).getOferta().equals(lppbf.get(i).getOferta())) {
-//                        System.out.println("oferta");
-//                        return true;
-//                    }
+                    if (!lppb.get(i).getValor2().equals(lppbf.get(i).getValor2())) {
+                        System.out.println("valor2");
+                        return true;
+                    }
+                    if (!lppb.get(i).getOferta().equals(lppbf.get(i).getOferta())) {
+                        System.out.println("oferta");
+                        return true;
+                    }
                 }
                 return false;
             }

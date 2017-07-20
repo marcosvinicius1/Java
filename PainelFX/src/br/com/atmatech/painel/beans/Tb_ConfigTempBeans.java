@@ -13,46 +13,46 @@ import javax.swing.JOptionPane;
  *
  * @author MARCOS
  */
-public class Tb_ConfigBeans {
+public class Tb_ConfigTempBeans{
 
-    static private Integer idtb_config;
-    static private boolean tabela1;
-    static private boolean tabela2;
-    static private boolean tabela3;
-    static private boolean tabela4;
-    static private String tabela1nome;
-    static private String tabela2nome;
-    static private String tabela3nome;
-    static private String tabela4nome;
-    static private Integer FonteTabela;
-    static private boolean transparencia;
-    static private boolean letreiro;
-    static private String letreirotexto;
-    static private Integer letreirotempo;
-    static private boolean tabelacheia;
-    static private String tipolocalizacao;
-    static private Integer tempotransicao;
-    static private byte[] fundoimagem1;
-    static private Integer tamanhox;
-    static private Integer tamanhoy;
-    static private Integer letreirocorfundo;
-    static private Integer letreirocorfonte;
-    static private byte[] lateralimagem;
-    static private byte[] topoimagem;
-    static private Integer terminal;
-    static private boolean ctcodigo;
-    static private boolean ctproduto;
-    static private boolean ctoferta;
-    static private boolean ctvalor1;
-    static private boolean ctvalor2;
-    static private String nomevalor1;
-    static private String nomevalor2;
-    static private boolean ctunid;
-    static private Integer corfontetabela;
-    static private Integer corfundotabela;
-    static private Integer fonteestilotabela;
-    static private String fontetipotabela;
-    static private Integer espacamento;
+    private Integer idtb_config;
+    private boolean tabela1;
+    private boolean tabela2;
+    private boolean tabela3;
+    private boolean tabela4;
+    private String tabela1nome;
+    private String tabela2nome;
+    private String tabela3nome;
+    private String tabela4nome;
+    private Integer FonteTabela;
+    private boolean transparencia;
+    private boolean letreiro;
+    private String letreirotexto;
+    private Integer letreirotempo;
+    private boolean tabelacheia;
+    private String tipolocalizacao;
+    private Integer tempotransicao;
+    private byte[] fundoimagem1;
+    private Integer tamanhox;
+    private Integer tamanhoy;
+    private Integer letreirocorfundo;
+    private Integer letreirocorfonte;
+    private byte[] lateralimagem;
+    private byte[] topoimagem;
+    private Integer terminal;
+    private boolean ctcodigo;
+    private boolean ctproduto;
+    private boolean ctoferta;
+    private boolean ctvalor1;
+    private boolean ctvalor2;
+    private String nomevalor1;
+    private String nomevalor2;
+    private boolean ctunid;
+    private Integer corfontetabela;
+    private Integer corfundotabela;
+    private Integer fonteestilotabela;
+    private String fontetipotabela;
+    private Integer espacamento;
     
     public boolean isTabela1() {
         return tabela1;

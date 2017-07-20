@@ -7,9 +7,11 @@ package br.com.atmatech.painel.view;
 
 import br.com.atmatech.painel.beans.DBConfigBeans;
 import br.com.atmatech.painel.beans.Tb_ConfigBeans;
+import br.com.atmatech.painel.beans.Tb_ConfigTempBeans;
 import br.com.atmatech.painel.beans.Tb_ProdBeans;
 import br.com.atmatech.painel.beans.Tb_Prod_PainelBeans;
 import br.com.atmatech.painel.config.DBConfig;
+import br.com.atmatech.painel.config.DBConfigManagement;
 import br.com.atmatech.painel.controller.CargaController;
 import br.com.atmatech.painel.dao.Tb_ConfigDao;
 import br.com.atmatech.painel.dao.Tb_ProdDao;
@@ -61,28 +63,35 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public ViewPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        try {
-            jMenu.setVisible(false);
-            DBConfigBeans dbc = new DBConfig().getConfig();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Config \n" + ex);
-            System.exit(0);
-        }
-        jFileChooser1.setFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
-        jFileChooser1.setAcceptAllFileFilterUsed(false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    new CargaController().cargaProd();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
-                    }
-                }
-            }
-        }).start();
+////        try {
+////            jMenu.setVisible(false);
+////            DBConfigBeans dbc = new DBConfig().getConfig();
+////            if(dbc.getTipo()==null){
+////                
+////            }else if(dbc.getTipo().equals("Estacao")){
+////                
+////            }else if(dbc.getTipo().equals("Management")){
+////                
+////            }
+////        } catch (IOException ex) {
+////            JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Config \n" + ex);
+////            System.exit(0);
+////        }
+////        jFileChooser1.setFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
+////        jFileChooser1.setAcceptAllFileFilterUsed(false);
+////        new Thread(new Runnable() {
+////            @Override
+////            public void run() {
+////                while (true) {
+////                    new CargaController().cargaProd();
+////                    try {
+////                        Thread.sleep(1000);
+////                    } catch (InterruptedException ex) {
+////                        new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
+////                    }
+////                }
+////            }
+////        }).start();
 
         //criado procedure para subistituir metodo
 //         new Thread(new Runnable() {
@@ -124,6 +133,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTsenhabanco = new javax.swing.JTextField();
         jTusuariobanco = new javax.swing.JTextField();
         jTlocalbanco = new javax.swing.JTextField();
+        jSTerminal = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        jCTipo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jDlayout = new javax.swing.JDialog();
         jPConfigTabela = new javax.swing.JPanel();
@@ -133,8 +145,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jRTabela4 = new javax.swing.JRadioButton();
         jSFonteTabela = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        jRTransparencia = new javax.swing.JRadioButton();
-        jRTabelaCheia = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jCCTCodigo = new javax.swing.JCheckBox();
@@ -147,6 +157,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jCCTUnid = new javax.swing.JCheckBox();
         jPCorFonteTabela = new javax.swing.JPanel();
         jPCorFundoTabela = new javax.swing.JPanel();
+        jCFonteEstiloTabela = new javax.swing.JComboBox<>();
+        jCFonteTipoTabela = new javax.swing.JComboBox<>();
+        jRTabelaCheia = new javax.swing.JRadioButton();
+        jRTransparencia = new javax.swing.JRadioButton();
+        jSEspacamento = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
+        jTTabela1nome = new javax.swing.JTextField();
+        jTTabela2nome = new javax.swing.JTextField();
+        jTTabela3nome = new javax.swing.JTextField();
+        jTTabela4nome = new javax.swing.JTextField();
         jPConfigLetreiro = new javax.swing.JPanel();
         jRletreiro = new javax.swing.JRadioButton();
         jTletreirotexto = new javax.swing.JTextField();
@@ -170,7 +190,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        GroupTabelas = new javax.swing.ButtonGroup();
         jDFileImagem = new javax.swing.JDialog();
         jFileChooser1 = new javax.swing.JFileChooser();
         jDColorLetreiro = new javax.swing.JDialog();
@@ -194,7 +213,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTConsultaProduto = new javax.swing.JTable();
         jPbackground = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jPCentral = new javax.swing.JPanel();
         jPImagemTopo = new javax.swing.JPanel();
         jPImagemLateral = new javax.swing.JPanel();
         jPletreiro = new javax.swing.JPanel();
@@ -210,8 +229,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDcarga.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDcarga.setTitle("CARGA");
         jDcarga.setAlwaysOnTop(true);
-        jDcarga.setMinimumSize(new java.awt.Dimension(465, 300));
+        jDcarga.setMinimumSize(new java.awt.Dimension(485, 315));
         jDcarga.setModal(true);
+        jDcarga.setPreferredSize(new java.awt.Dimension(485, 315));
         jDcarga.setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco Balança"));
@@ -284,6 +304,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSTerminal.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel10.setText("Terminal");
+
+        jCTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Management", "Terminal" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -298,8 +324,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jTlocalbanco)
-                    .addComponent(jTusuariobanco, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                    .addComponent(jTusuariobanco, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                     .addComponent(jTsenhabanco))
                 .addContainerGap())
         );
@@ -317,6 +350,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTsenhabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -345,38 +383,39 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(12, 12, 12))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jDlayout.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDlayout.setTitle("Layout");
-        jDlayout.setMinimumSize(new java.awt.Dimension(900, 550));
+        jDlayout.setMinimumSize(new java.awt.Dimension(1100, 580));
         jDlayout.setModal(true);
-        jDlayout.setPreferredSize(new java.awt.Dimension(900, 550));
         jDlayout.setResizable(false);
 
         jPConfigTabela.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabelas"));
         jPConfigTabela.setToolTipText("");
 
-        GroupTabelas.add(jRTabela1);
         jRTabela1.setText("1 Tabela");
 
-        GroupTabelas.add(jRTabela2);
         jRTabela2.setText("2 Tabelas");
+        jRTabela2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRTabela2ActionPerformed(evt);
+            }
+        });
 
-        GroupTabelas.add(jRTabela3);
         jRTabela3.setText("3 Tabelas");
+        jRTabela3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRTabela3ActionPerformed(evt);
+            }
+        });
 
-        GroupTabelas.add(jRTabela4);
         jRTabela4.setText("4 Tabelas");
 
         jSFonteTabela.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel8.setText("Fonte Tabela");
-
-        jRTransparencia.setText("Transparencia");
-
-        jRTabelaCheia.setText("Tabelas Cheias");
 
         jButton2.setText("Produtos Tabelas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -397,6 +436,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jCCTValor2.setText("Valor 2");
 
+        jTNomeValor2.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+
+        jTNomevalor1.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
         jTNomevalor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTNomevalor1ActionPerformed(evt);
@@ -483,6 +525,41 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
+        jCFonteEstiloTabela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simples", "Negrito", "Itálico", "Negrito e Itálico" }));
+
+        jCFonteTipoTabela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agency FB", "Algerian", "Arial", "Arial Black", "Arial Narrow", "Arial Rounded MT Bold", "Arial Unicode MS", "Baskerville Old Face", "Bauhaus 93", "Bell MT", "Berlin Sans FB", "Berlin Sans FB Demi", "Bernard MT Condensed", "Blackadder ITC", "Bodoni MT", "Bodoni MT Black", "Bodoni MT Condensed", "Bodoni MT Poster Compressed", "Book Antiqua", "Bookman Old Style", "Bookshelf Symbol 7", "Bradley Hand ITC", "Britannic Bold", "Broadway", "Brush Script MT", "Calibri", "Calibri Light", "Californian FB", "Calisto MT", "Cambria", "Cambria Math", "Candara", "Castellar", "Centaur", "Century", "Century Gothic", "Century Schoolbook", "Chiller", "Colonna MT", "Comic Sans MS", "Consolas", "Constantia", "Cooper Black", "Copperplate Gothic Bold", "Copperplate Gothic Light", "Corbel", "Courier New", "Curlz MT", "dbldwrsw", "Dialog", "DialogInput", "Ebrima", "Edwardian Script ITC", "Elephant", "Engravers MT", "Eras Bold ITC", "Eras Demi ITC", "Eras Light ITC", "Eras Medium ITC", "Felix Titling", "Footlight MT Light", "Forte", "Franklin Gothic Book", "Franklin Gothic Demi", "Franklin Gothic Demi Cond", "Franklin Gothic Heavy", "Franklin Gothic Medium", "Franklin Gothic Medium Cond", "Freestyle Script", "French Script MT", "Gabriola", "Gadugi", "Garamond", "Georgia", "Gigi", "Gill Sans MT", "Gill Sans MT Condensed", "Gill Sans MT Ext Condensed Bold", "Gill Sans Ultra Bold", "Gill Sans Ultra Bold Condensed", "Gloucester MT Extra Condensed", "Goudy Old Style", "Goudy Stout", "Haettenschweiler", "Harlow Solid Italic", "Harrington", "High Tower Text", "Impact", "Imprint MT Shadow", "Informal Roman", "Javanese Text", "Jokerman", "Juice ITC", "Kristen ITC", "Kunstler Script", "Leelawadee UI", "Leelawadee UI Semilight", "LettrGoth12 BT", "Lucida Bright", "Lucida Calligraphy", "Lucida Console", "Lucida Fax", "Lucida Handwriting", "Lucida Sans", "Lucida Sans Typewriter", "Lucida Sans Unicode", "Magneto", "Maiandra GD", "Malgun Gothic", "Malgun Gothic Semilight", "Marlett", "Matura MT Script Capitals", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft JhengHei Light", "Microsoft JhengHei UI", "Microsoft JhengHei UI Light", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft YaHei", "Microsoft YaHei Light", "Microsoft YaHei UI", "Microsoft YaHei UI Light", "Microsoft Yi Baiti", "MingLiU-ExtB", "MingLiU_HKSCS-ExtB", "Mistral", "Modern No. 20", "Mongolian Baiti", "Monospaced", "Monotype Corsiva", "MS Gothic", "MS Mincho", "MS Outlook", "MS PGothic", "MS Reference Sans Serif", "MS Reference Specialty", "MS UI Gothic", "MT Extra", "MV Boli", "Myanmar Text", "Niagara Engraved", "Niagara Solid", "Nirmala UI", "Nirmala UI Semilight", "NSimSun", "OCR A Extended", "Old English Text MT", "Onyx", "Palace Script MT", "Palatino Linotype", "Papyrus", "Parchment", "Perpetua", "Perpetua Titling MT", "Playbill", "PMingLiU-ExtB", "Poor Richard", "Pristina", "Rage Italic", "Ravie", "Rockwell", "Rockwell Condensed", "Rockwell Extra Bold", "SansSerif", "Script MT Bold", "Segoe MDL2 Assets", "Segoe Print", "Segoe Script", "Segoe UI", "Segoe UI Black", "Segoe UI Emoji", "Segoe UI Historic", "Segoe UI Light", "Segoe UI Semibold", "Segoe UI Semilight", "Segoe UI Symbol", "Serif", "Showcard Gothic", "SimSun", "SimSun-ExtB", "Sitka Banner", "Sitka Display", "Sitka Heading", "Sitka Small", "Sitka Subheading", "Sitka Text", "Snap ITC", "Stencil", "Sylfaen", "Symbol", "Tahoma", "Tempus Sans ITC", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Tw Cen MT Condensed", "Tw Cen MT Condensed Extra Bold", "Verdana", "Viner Hand ITC", "Vivaldi", "Vladimir Script", "Warsaw", "Webdings", "Wide Latin", "Wingdings", "Wingdings 2", "Wingdings 3", "Yu Gothic", "Yu Gothic Light", "Yu Gothic Medium", "Yu Gothic UI", "Yu Gothic UI Light", "Yu Gothic UI Semibold", "Yu Gothic UI Semilight" }));
+        jCFonteTipoTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCFonteTipoTabelaActionPerformed(evt);
+            }
+        });
+
+        jRTabelaCheia.setText("Tabelas Cheias");
+
+        jRTransparencia.setText("Transparencia");
+        jRTransparencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRTransparenciaActionPerformed(evt);
+            }
+        });
+
+        jSEspacamento.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel12.setText("Espaçamento");
+
+        jTTabela1nome.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+
+        jTTabela2nome.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+
+        jTTabela3nome.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+
+        jTTabela4nome.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+        jTTabela4nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTTabela4nomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPConfigTabelaLayout = new javax.swing.GroupLayout(jPConfigTabela);
         jPConfigTabela.setLayout(jPConfigTabelaLayout);
         jPConfigTabelaLayout.setHorizontalGroup(
@@ -490,56 +567,92 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRTabela1)
-                    .addComponent(jRTabela2)
-                    .addComponent(jRTabela3)
-                    .addComponent(jRTabela4))
-                .addGap(61, 61, 61)
+                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRTabela2)
+                            .addComponent(jRTabela3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTTabela3nome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTTabela2nome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                            .addComponent(jRTabela4)
+                            .addGap(1, 1, 1)
+                            .addComponent(jTTabela4nome))
+                        .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                            .addComponent(jRTabela1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTTabela1nome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(9, 9, 9)
                 .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCFonteEstiloTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRTabelaCheia, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRTransparencia)
+                            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                         .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton2))
-                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRTransparencia)
-                            .addComponent(jRTabelaCheia, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSEspacamento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)))
+                .addGap(49, 49, 49)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         jPConfigTabelaLayout.setVerticalGroup(
             jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRTabela1)
-                            .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRTabela2)
-                                    .addComponent(jRTabelaCheia))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRTabela3)
-                                    .addComponent(jRTransparencia))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRTabela4))
-                            .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jRTabela1)
+                                        .addComponent(jTTabela1nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton2)
+                                        .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jSEspacamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12)))
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jRTabela2)
+                                            .addComponent(jTTabela2nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jCFonteEstiloTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jRTabela3)
+                                            .addComponent(jTTabela3nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRTabela4)
+                            .addComponent(jTTabela4nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRTabelaCheia)
+                            .addComponent(jRTransparencia)))
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPConfigLetreiro.setBorder(javax.swing.BorderFactory.createTitledBorder("Letreiro"));
@@ -816,7 +929,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBsalvar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jDFileImagem.setTitle("ARQUIVO");
@@ -872,7 +985,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDLayoutTabelas.setTitle("Dados Tabelas");
         jDLayoutTabelas.setMinimumSize(new java.awt.Dimension(1000, 590));
         jDLayoutTabelas.setModal(true);
-        jDLayoutTabelas.setPreferredSize(new java.awt.Dimension(1000, 590));
 
         jPanel16.setAutoscrolls(true);
         jPanel16.setPreferredSize(new java.awt.Dimension(900, 496));
@@ -882,6 +994,20 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jTCTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -946,6 +1072,20 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jTCTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -1026,6 +1166,20 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -1079,6 +1233,20 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jTCTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -1169,8 +1337,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 94, Short.MAX_VALUE)))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(94, 94, 94)))
         );
 
         jDConsultaProduto.setTitle("Consulta Produto");
@@ -1239,9 +1407,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPbackground.setBackground(new java.awt.Color(204, 0, 0));
         jPbackground.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jPanel3.setBackground(new java.awt.Color(204, 0, 0));
-        jPanel3.setForeground(new java.awt.Color(204, 0, 0));
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+        jPCentral.setBackground(new java.awt.Color(204, 0, 0));
+        jPCentral.setForeground(new java.awt.Color(204, 0, 0));
+        jPCentral.setLayout(new javax.swing.BoxLayout(jPCentral, javax.swing.BoxLayout.LINE_AXIS));
 
         jPImagemTopo.setBackground(new java.awt.Color(204, 0, 0));
 
@@ -1275,7 +1443,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jPletreiroint.setBackground(new java.awt.Color(204, 0, 0));
 
-        jLletreirointFrase.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLletreirointFrase.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPletreirointLayout = new javax.swing.GroupLayout(jPletreiroint);
         jPletreiroint.setLayout(jPletreirointLayout);
@@ -1314,7 +1482,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPbackgroundLayout.createSequentialGroup()
                 .addComponent(jPImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPletreiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPImagemTopo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1324,7 +1492,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jPImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                    .addComponent(jPCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
                     .addComponent(jPImagemLateral, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE))
                 .addComponent(jPletreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1380,16 +1548,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:  
-        jMenu.setVisible(false);
-        DBConfigBeans dbc = new DBConfigBeans();
-        jTlocalbalancabanco.setText(dbc.getDirdb());
-        jTusuariobalancabanco.setText(dbc.getUser());
-        jTsenhabalancabanco.setText(dbc.getPassword());
-        jTlocalbanco.setText(dbc.getLocaldirdb());
-        jTusuariobanco.setText(dbc.getLocaluser());
-        jTsenhabanco.setText(dbc.getLocalpassword());
-        jDcarga.setLocationRelativeTo(this);
-        jDcarga.setVisible(true);
+        setVisibleJdcarga();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -1397,66 +1556,75 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenu.setVisible(false);
         DBConfigBeans dbc = new DBConfigBeans();
         Tb_ConfigBeans tbc = new Tb_ConfigBeans();
-        jRTabela1.setSelected(tbc.isTabela1());
-        jRTabela2.setSelected(tbc.isTabela2());
-        jRTabela3.setSelected(tbc.isTabela3());
-        jRTabela4.setSelected(tbc.isTabela4());
-        jRTransparencia.setSelected(tbc.isTransparencia());
-        jRletreiro.setSelected(tbc.isLetreiro());
-        jSFonteTabela.setValue((Integer) tbc.getFonteTabela());
-        jTletreirotexto.setText(tbc.getLetreirotexto());
-        jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());
-        jRTabelaCheia.setSelected(tbc.isTabelacheia());
-        jCTipoLocalizacao.setSelectedItem(tbc.getTipolocalizacao());
-        try {
-            //carrega o config com imagem
-            //imagem fundo            
-            jPCImagemFundo.removeAll();
-            configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
-            configfundo.setSize(100, 100);
-            configfundo.setVisible(true);
-            configfundo.setFillType(JImagePanel.FillType.RESIZE);
-            jPCImagemFundo.add(configfundo);
-            jPCImagemFundo.validate();
-            jPCImagemFundo.repaint();
-            //imagem lateral
-            jPCImagemLateral.removeAll();
-            configlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
-            configlateral.setSize(100, 100);
-            configlateral.setVisible(true);
-            configlateral.setFillType(JImagePanel.FillType.RESIZE);
-            jPCImagemLateral.add(configlateral);
-            jPCImagemLateral.validate();
-            jPCImagemLateral.repaint();
-            //imagem topo
-            jPCImagemTopo.removeAll();
-            configtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
-            configtopo.setSize(100, 100);
-            configtopo.setVisible(true);
-            configtopo.setFillType(JImagePanel.FillType.RESIZE);
-            jPCImagemTopo.add(configtopo);
-            jPCImagemTopo.validate();
-            jPCImagemTopo.repaint();
-            // configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
-            configlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
-            configtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
-        } catch (IOException ex) {
-            Logger.getLogger(ViewPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        if (tbc.getTerminal() != null) {
+            jRTabela1.setSelected(tbc.isTabela1());
+            jRTabela2.setSelected(tbc.isTabela2());
+            jRTabela3.setSelected(tbc.isTabela3());
+            jRTabela4.setSelected(tbc.isTabela4());
+            jTTabela1nome.setText(tbc.getTabela1nome());
+            jTTabela2nome.setText(tbc.getTabela2nome());
+            jTTabela3nome.setText(tbc.getTabela3nome());
+            jTTabela4nome.setText(tbc.getTabela4nome());
+            jRTransparencia.setSelected(tbc.isTransparencia());
+            jRletreiro.setSelected(tbc.isLetreiro());
+            jSFonteTabela.setValue((Integer) tbc.getFonteTabela());
+            jTletreirotexto.setText(tbc.getLetreirotexto());
+            jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());
+            jRTabelaCheia.setSelected(tbc.isTabelacheia());
+            jCTipoLocalizacao.setSelectedItem(tbc.getTipolocalizacao());
+            try {
+                //carrega o config com imagem
+                //imagem fundo            
+                jPCImagemFundo.removeAll();
+                configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
+                configfundo.setSize(100, 100);
+                configfundo.setVisible(true);
+                configfundo.setFillType(JImagePanel.FillType.RESIZE);
+                jPCImagemFundo.add(configfundo);
+                jPCImagemFundo.validate();
+                jPCImagemFundo.repaint();
+                //imagem lateral
+                jPCImagemLateral.removeAll();
+                configlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
+                configlateral.setSize(100, 100);
+                configlateral.setVisible(true);
+                configlateral.setFillType(JImagePanel.FillType.RESIZE);
+                jPCImagemLateral.add(configlateral);
+                jPCImagemLateral.validate();
+                jPCImagemLateral.repaint();
+                //imagem topo
+                jPCImagemTopo.removeAll();
+                configtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
+                configtopo.setSize(100, 100);
+                configtopo.setVisible(true);
+                configtopo.setFillType(JImagePanel.FillType.RESIZE);
+                jPCImagemTopo.add(configtopo);
+                jPCImagemTopo.validate();
+                jPCImagemTopo.repaint();
+                // configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
+                configlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
+                configtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
+            } catch (IOException ex) {
+                new DBConfig().createArqLog("jMenuItem2ActionPerformed-ViewPrincipal:" + ex);
+            }
+            jSTamanhox.setValue(tbc.getTamanhox());
+            jSTamanhoy.setValue(tbc.getTamanhoy());
+            jPCorFundoLetreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfundo())));
+            jPCorFonteLetreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfonte())));
+            jPCorFonteTabela.setBackground(new Color(Integer.valueOf(tbc.getCorfontetabela())));
+            jPCorFundoTabela.setBackground(new Color(Integer.valueOf(tbc.getCorfundotabela())));
+            jCCTCodigo.setSelected(tbc.isCtcodigo());
+            jCCTProduto.setSelected(tbc.isCtproduto());
+            jCCTOferta.setSelected(tbc.isCtoferta());
+            jCCTValor1.setSelected(tbc.isCtvalor1());
+            jCCTValor2.setSelected(tbc.isCtvalor2());
+            jTNomevalor1.setText(tbc.getNomevalor1());
+            jTNomeValor2.setText(tbc.getNomevalor2());
+            jCCTUnid.setSelected(tbc.isCtunid());
+            jCFonteEstiloTabela.setSelectedIndex(tbc.getFonteestilotabela());
+            jCFonteTipoTabela.setSelectedItem(tbc.getFontetipotabela());
+            jSEspacamento.setValue(tbc.getEspacamento());
         }
-        jSTamanhox.setValue(tbc.getTamanhox());
-        jSTamanhoy.setValue(tbc.getTamanhoy());
-        jPCorFundoLetreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfundo())));
-        jPCorFonteLetreiro.setBackground(new Color(Integer.valueOf(tbc.getLetreirocorfonte())));
-        jPCorFonteTabela.setBackground(new Color(Integer.valueOf(tbc.getCorfontetabela())));
-        jPCorFundoTabela.setBackground(new Color(Integer.valueOf(tbc.getCorfundotabela())));
-        jCCTCodigo.setSelected(tbc.isCtcodigo());
-        jCCTProduto.setSelected(tbc.isCtproduto());
-        jCCTOferta.setSelected(tbc.isCtoferta());
-        jCCTValor1.setSelected(tbc.isCtvalor1());
-        jCCTValor2.setSelected(tbc.isCtvalor2());
-        jTNomevalor1.setText(tbc.getNomevalor1());
-        jTNomeValor2.setText(tbc.getNomevalor2());
-        jCCTUnid.setSelected(tbc.isCtunid());
         jDlayout.setLocationRelativeTo(this);
         jDlayout.setVisible(true);
 
@@ -1469,18 +1637,30 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DBConfigBeans dbc = new DBConfigBeans();
-        dbc.setDirdb(jTlocalbalancabanco.getText());
-        dbc.setUser(jTusuariobalancabanco.getText());
-        dbc.setPassword(jTsenhabalancabanco.getText());
-        dbc.setLocaldirdb(jTlocalbanco.getText());
-        dbc.setLocalpassword(jTsenhabanco.getText());
-        dbc.setLocaluser(jTusuariobanco.getText());
-        try {
-            new DBConfig().createConfig(dbc);
-            jDcarga.setVisible(false);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao Salvar" + ex);
+        if (jCTipo.getSelectedItem().toString().equals("Management")) {
+            try {
+                new DBConfigManagement().createConfigManagementInicial();
+                System.exit(0);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao Salvar" + ex);
+            }
+        } else {
+            DBConfigBeans dbc = new DBConfigBeans();
+            dbc.setDirdb(jTlocalbalancabanco.getText());
+            dbc.setUser(jTusuariobalancabanco.getText());
+            dbc.setPassword(jTsenhabalancabanco.getText());
+            dbc.setLocaldirdb(jTlocalbanco.getText());
+            dbc.setLocalpassword(jTsenhabanco.getText());
+            dbc.setLocaluser(jTusuariobanco.getText());
+            dbc.setTerminal((Integer) jSTerminal.getValue());
+            dbc.setTipo(jCTipo.getSelectedItem().toString());
+            try {
+                new DBConfig().createConfig(dbc);
+                jDcarga.setVisible(false);
+                System.exit(0);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao Salvar" + ex);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1500,10 +1680,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:  
         try {
             Tb_ConfigBeans tbc = new Tb_ConfigBeans();
+            tbc.setTerminal(new DBConfigBeans().getTerminal());
             tbc.setTabela1(jRTabela1.isSelected());
             tbc.setTabela2(jRTabela2.isSelected());
             tbc.setTabela3(jRTabela3.isSelected());
             tbc.setTabela4(jRTabela4.isSelected());
+            tbc.setTabela1nome(jTTabela1nome.getText());
+            tbc.setTabela2nome(jTTabela2nome.getText());
+            tbc.setTabela3nome(jTTabela3nome.getText());
+            tbc.setTabela4nome(jTTabela4nome.getText());
             tbc.setTransparencia(jRTransparencia.isSelected());
             tbc.setLetreiro(jRletreiro.isSelected());
             tbc.setFonteTabela((Integer) jSFonteTabela.getValue());
@@ -1532,23 +1717,26 @@ public class ViewPrincipal extends javax.swing.JFrame {
             tbc.setNomevalor1(jTNomevalor1.getText());
             tbc.setNomevalor2(jTNomeValor2.getText());
             tbc.setCtunid(jCCTUnid.isSelected());
+            tbc.setFonteestilotabela(jCFonteEstiloTabela.getSelectedIndex());
+            tbc.setFontetipotabela(jCFonteTipoTabela.getSelectedItem().toString());
+            tbc.setEspacamento((Integer) jSEspacamento.getValue());
             int key = new Tb_ConfigDao().setTb_Config(tbc);
             if (key > 0) {
                 new Tb_ConfigDao().delTb_Config(new DBConfigBeans().getTerminal(), key - 1);
             }
             jDlayout.setVisible(false);
-            if (jPanel3.getComponentCount() > 0) {
-                for (int i = 0; i < jPanel3.getComponentCount(); i++) {
-                    jPanel3.getComponent(i).setVisible(false);
+            if (jPCentral.getComponentCount() > 0) {
+                for (int i = 0; i < jPCentral.getComponentCount(); i++) {
+                    jPCentral.getComponent(i).setVisible(false);
                 }
-                jPanel3.setVisible(false);
-                jPanel3.setVisible(true);
+                jPCentral.setVisible(false);
+                jPCentral.setVisible(true);
             }
             inicializaGrade();
             inicializaLetreiro();
             inicializaTipoLayout();
             inicializaCorBackground();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao Salvar Nova Configuracao\n" + ex);
         }
     }//GEN-LAST:event_jBsalvarActionPerformed
@@ -1645,12 +1833,23 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBImagemLateralActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        inicializaGrade();
-        inicializarAtalhos();
-        inicializaLetreiro();
-        inicializaTipoLayout();
-        inicializaCorBackground();
+        // TODO add your handling code here:        
+        try {
+            DBConfigBeans dbc = new DBConfig().getConfig();
+            if (dbc.getTipo().equals("Terminal")) {
+                setInicializaTerminal();
+            } else if (dbc.getTipo().equals("Management")) {
+                setInicializaManagement();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Determine o Tipo Desta Estação");
+                setVisibleJdcarga();
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Config \n" + ex);
+            System.exit(0);
+        }
+
+
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1685,6 +1884,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
             configtabela = 1;
             consultaProdutoConfigTabela();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deletaProdutoConfigTabela1();
+        }
+
     }//GEN-LAST:event_jTCTable1KeyPressed
 
     private void jTConsultaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaProdutoMouseClicked
@@ -1731,6 +1934,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
             configtabela = 2;
             consultaProdutoConfigTabela();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deletaProdutoConfigTabela2();
+        }
     }//GEN-LAST:event_jTCTable2KeyPressed
 
     private void jTCTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTable3KeyPressed
@@ -1738,6 +1944,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
             configtabela = 3;
             consultaProdutoConfigTabela();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deletaProdutoConfigTabela3();
         }
     }//GEN-LAST:event_jTCTable3KeyPressed
 
@@ -1747,20 +1956,43 @@ public class ViewPrincipal extends javax.swing.JFrame {
             configtabela = 4;
             consultaProdutoConfigTabela();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deletaProdutoConfigTabela4();
+        }
     }//GEN-LAST:event_jTCTable4KeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         setConfigProdTerminal();
-        if (jPanel3.getComponentCount() > 0) {
-            for (int i = 0; i < jPanel3.getComponentCount(); i++) {
-                jPanel3.getComponent(i).setVisible(false);
+        if (jPCentral.getComponentCount() > 0) {
+            for (int i = 0; i < jPCentral.getComponentCount(); i++) {
+                jPCentral.getComponent(i).setVisible(false);
             }
-            jPanel3.setVisible(false);
-            jPanel3.setVisible(true);
+            jPCentral.setVisible(false);
+            jPCentral.setVisible(true);
         }
         inicializaGrade();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jCFonteTipoTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteTipoTabelaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCFonteTipoTabelaActionPerformed
+
+    private void jRTabela2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRTabela2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRTabela2ActionPerformed
+
+    private void jTTabela4nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTabela4nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTabela4nomeActionPerformed
+
+    private void jRTabela3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRTabela3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRTabela3ActionPerformed
+
+    private void jRTransparenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRTransparenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRTransparenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1800,7 +2032,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup GroupTabelas;
     private javax.swing.JButton jBImagem1;
     private javax.swing.JButton jBImagemLateral;
     private javax.swing.JButton jBImagemTopo;
@@ -1814,6 +2045,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCCTUnid;
     private javax.swing.JCheckBox jCCTValor1;
     private javax.swing.JCheckBox jCCTValor2;
+    private javax.swing.JComboBox<String> jCFonteEstiloTabela;
+    private javax.swing.JComboBox<String> jCFonteTipoTabela;
+    private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JComboBox<String> jCTipoLocalizacao;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDColorLetreiro;
@@ -1824,7 +2058,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JDialog jDlayout;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1846,6 +2082,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPCImagemFundo;
     private javax.swing.JPanel jPCImagemLateral;
     private javax.swing.JPanel jPCImagemTopo;
+    public javax.swing.JPanel jPCentral;
     private javax.swing.JPanel jPConfigImagem;
     private javax.swing.JPanel jPConfigLetreiro;
     private javax.swing.JPanel jPConfigTabela;
@@ -1862,7 +2099,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    public javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPbackground;
     public javax.swing.JPanel jPletreiro;
@@ -1874,9 +2110,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRTabelaCheia;
     private javax.swing.JRadioButton jRTransparencia;
     private javax.swing.JRadioButton jRletreiro;
+    private javax.swing.JSpinner jSEspacamento;
     private javax.swing.JSpinner jSFonteTabela;
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
+    private javax.swing.JSpinner jSTerminal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1890,6 +2128,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTConsultaProduto;
     private javax.swing.JTextField jTNomeValor2;
     private javax.swing.JTextField jTNomevalor1;
+    private javax.swing.JTextField jTTabela1nome;
+    private javax.swing.JTextField jTTabela2nome;
+    private javax.swing.JTextField jTTabela3nome;
+    private javax.swing.JTextField jTTabela4nome;
     private javax.swing.JTextField jTletreirotexto;
     private javax.swing.JTextField jTlocalbalancabanco;
     private javax.swing.JTextField jTlocalbanco;
@@ -1923,21 +2165,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void inicializaGrade() {
         Tb_ConfigBeans tbc = new Tb_ConfigBeans();
-        Integer tabelas = 0;
-        if (tbc.isTabela1()) {
-            tabelas = 1;
-        } else if (tbc.isTabela2()) {
-            tabelas = 2;
-        } else if (tbc.isTabela3()) {
-            tabelas = 3;
-        } else if (tbc.isTabela4()) {
-            tabelas = 4;
-        }
-        ViewLayoutTabelas view = new ViewLayoutTabelas(tabelas, this);
-        view.setSize(jPanel3.getSize());
-        jPanel3.add(view);
-        jPanel3.repaint();
-        jPanel3.validate();
+
+        ViewLayoutTabelas view = new ViewLayoutTabelas(tbc.isTabela1(), tbc.isTabela2(), tbc.isTabela3(), tbc.isTabela4(), this);
+        view.setSize(jPCentral.getSize());
+        jPCentral.add(view);
+        jPCentral.repaint();
+        jPCentral.validate();
     }
 
     private void threadletreiro(final String frase, final Integer tempo) {
@@ -2007,6 +2240,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jPbackground.remove(4);
             }
             jPbackground.add(background);
+            background.setLocation((jPbackground.getSize().width - tbc.getTamanhox()) / 2, (jPbackground.getSize().height - tbc.getTamanhoy()) / 2);
             jPbackground.repaint();
             jPbackground.validate();
             if (!tbc.isTabelacheia()) {
@@ -2014,14 +2248,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jPImagemLateral.removeAll();
                 backgroundtopo = new JImagePanel(loadImage(tbc.getArquivoTopoImagem()));
                 backgroundtopo.setVisible(true);
-                backgroundtopo.setFillType(JImagePanel.FillType.CENTER);
+                backgroundtopo.setFillType(JImagePanel.FillType.RESIZE);
                 jPImagemTopo.add(backgroundtopo);
                 jPImagemTopo.repaint();
                 jPImagemTopo.validate();
                 backgroundtopo.setSize(jPImagemTopo.getSize());
                 backgroundlateral = new JImagePanel(loadImage(tbc.getArquivoLateralImagem()));
                 backgroundlateral.setVisible(true);
-                backgroundlateral.setFillType(JImagePanel.FillType.CENTER);
+                backgroundlateral.setFillType(JImagePanel.FillType.RESIZE);
                 jPImagemLateral.add(backgroundlateral);
                 jPImagemLateral.repaint();
                 jPImagemLateral.validate();
@@ -2038,7 +2272,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void inicializaCorBackground() {
         Color cor = new Color(0, 0, 0, 0);
-        jPanel3.setBackground(cor);
+        jPCentral.setBackground(cor);
         jPImagemTopo.setBackground(cor);
         jPImagemLateral.setBackground(cor);
         inicializaBackground();
@@ -2226,11 +2460,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void consultaTbProdPainel() {
-
         try {
             List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();
             int i;
-            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 1);
+            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 1);
             i = 0;
             for (Tb_Prod_PainelBeans ppb : lppb) {
                 jTCTable1.setValueAt(ppb.getCodigo(), i, 0);
@@ -2243,7 +2476,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             lppb.clear();
 
-            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 2);
+            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 2);
             i = 0;
             for (Tb_Prod_PainelBeans ppb : lppb) {
                 jTCTable2.setValueAt(ppb.getCodigo(), i, 0);
@@ -2256,7 +2489,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             lppb.clear();
 
-            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 3);
+            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 3);
             i = 0;
             for (Tb_Prod_PainelBeans ppb : lppb) {
                 jTCTable3.setValueAt(ppb.getCodigo(), i, 0);
@@ -2269,7 +2502,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             lppb.clear();
 
-            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(), 4);
+            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 4);
             i = 0;
             for (Tb_Prod_PainelBeans ppb : lppb) {
                 jTCTable4.setValueAt(ppb.getCodigo(), i, 0);
@@ -2282,25 +2515,147 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             lppb.clear();
         } catch (SQLException ex) {
-            Logger.getLogger(ViewPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            new DBConfig().createArqLog("Erro ViewPrincipal : consultaTbProdPainel " + ex);
         }
 
     }
 
     public void atualizaGradeProduto() {
         //jPanel3.removeAll();;
-        if (jPanel3.getComponentCount() > 0) {
-            jPanel3.removeAll();;
-                for (int i = 0; i < jPanel3.getComponentCount(); i++) {
-                    jPanel3.getComponent(i).setVisible(false);
-                }
-                jPanel3.setVisible(false);
-                jPanel3.setVisible(true);
+        if (jPCentral.getComponentCount() > 0) {
+            jPCentral.removeAll();;
+            for (int i = 0; i < jPCentral.getComponentCount(); i++) {
+                jPCentral.getComponent(i).setVisible(false);
             }
-        jPanel3.setVisible(false);
-        jPanel3.setVisible(true);
+            jPCentral.setVisible(false);
+            jPCentral.setVisible(true);
+        }
+        jPCentral.setVisible(false);
+        jPCentral.setVisible(true);
         inicializaGrade();
-        jPanel3.setVisible(false);
-        jPanel3.setVisible(true);
+        jPCentral.setVisible(false);
+        jPCentral.setVisible(true);
     }
+
+    private void deletaProdutoConfigTabela1() {
+        DefaultTableModel model1 = (DefaultTableModel) jTCTable1.getModel();
+        model1.removeRow(jTCTable1.getSelectedRow());
+        model1.addRow(new Object[]{"", "", "", false, new Float(0), new Float(0)});
+    }
+
+    private void deletaProdutoConfigTabela2() {
+        DefaultTableModel model1 = (DefaultTableModel) jTCTable2.getModel();
+        model1.removeRow(jTCTable2.getSelectedRow());
+        model1.addRow(new Object[]{"", "", "", false, new Float(0), new Float(0)});
+    }
+
+    private void deletaProdutoConfigTabela3() {
+        DefaultTableModel model1 = (DefaultTableModel) jTCTable3.getModel();
+        model1.removeRow(jTCTable3.getSelectedRow());
+        model1.addRow(new Object[]{"", "", "", false, new Float(0), new Float(0)});
+    }
+
+    private void deletaProdutoConfigTabela4() {
+        DefaultTableModel model1 = (DefaultTableModel) jTCTable4.getModel();
+        model1.removeRow(jTCTable4.getSelectedRow());
+        model1.addRow(new Object[]{"", "", "", false, new Float(0), new Float(0)});
+    }
+
+    private void setVisibleJdcarga() {
+        jMenu.setVisible(false);
+        DBConfigBeans dbc = new DBConfigBeans();
+        jTlocalbalancabanco.setText(dbc.getDirdb());
+        jTusuariobalancabanco.setText(dbc.getUser());
+        jTsenhabalancabanco.setText(dbc.getPassword());
+        jTlocalbanco.setText(dbc.getLocaldirdb());
+        jTusuariobanco.setText(dbc.getLocaluser());
+        jTsenhabanco.setText(dbc.getLocalpassword());
+        jSTerminal.setValue(dbc.getTerminal());
+        jCTipo.setSelectedItem(dbc.getTipo());
+        jDcarga.setLocationRelativeTo(this);
+        jDcarga.setVisible(true);
+    }
+
+    private void setInicializaTerminal() {
+        try {
+            jMenu.setVisible(false);
+            jFileChooser1.setFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
+            jFileChooser1.setAcceptAllFileFilterUsed(false);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        new CargaController().cargaProd();
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
+                        }
+                    }
+                }
+            }).start();
+            inicializaGrade();
+            inicializarAtalhos();
+            inicializaLetreiro();
+            inicializaTipoLayout();
+            inicializaCorBackground();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        updateConfig();
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
+                        }
+                    }
+                }
+            }).start();
+        } catch (Exception ex) {
+            new DBConfig().createArqLog("ViewPrincipal-formWindowOpened-UpdateConfig:" + ex);
+        }
+    }
+
+    private void setInicializaManagement() {
+        jPImagemTopo.setVisible(false);
+        jPImagemLateral.setVisible(false);
+        jPletreiro.setVisible(false);
+        jMenu1.setVisible(false);
+        ViewConfigTerminais view = new ViewConfigTerminais();
+        view.setVisible(true);
+        jPCentral.add(view);
+        jPCentral.setVisible(false);
+        jPCentral.setVisible(true);
+        jPCentral.validate();
+        jPCentral.repaint();
+
+    }
+
+    private void updateConfig() {
+        try {
+            Tb_ConfigTempBeans dbcnt = new Tb_ConfigDao().getTB_ConfigTemp(new DBConfigBeans().getTerminal());
+            if (comparaListConfig(dbcnt,new Tb_ConfigBeans())) {
+                if (jPCentral.getComponentCount() > 0) {
+                for (int i = 0; i < jPCentral.getComponentCount(); i++) {
+                    jPCentral.getComponent(i).setVisible(false);
+                }
+                jPCentral.setVisible(false);
+                jPCentral.setVisible(true);
+            }
+            inicializaGrade();
+            inicializaLetreiro();
+            inicializaTipoLayout();
+            inicializaCorBackground();
+            }
+        } catch (SQLException ex) {
+            new DBConfig().createArqLog("ViewPricipal-updateConfig:"+ex);
+        }
+
+    }
+
+    private boolean comparaListConfig(Tb_ConfigTempBeans dbcnt, Tb_ConfigBeans dbConfigBeans) {        
+        return !dbcnt.getIdtb_config().toString().equals(dbConfigBeans.getIdtb_config().toString());        
+    }
+
 }

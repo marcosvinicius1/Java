@@ -43,7 +43,7 @@ public class CargaController {
         List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();
         try {
             lpb = new Tb_ProdDao().getProdLocal();
-            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal());
+            lppb = new Tb_Prod_PainelDao().getProdPainel(new DBConfigBeans().getTerminal(),1);
             comparaArrayListCargaProdLocal(lpb, lppb);
         } catch (SQLException ex) {
             new DBConfig().createArqLog("\nCargaController:Erro ao Atualizar Produtos No Banco Local Tabela tb_prod com tb_prod_painel:\n" + ex + "\n");
