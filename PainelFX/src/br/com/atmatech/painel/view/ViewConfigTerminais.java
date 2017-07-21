@@ -92,6 +92,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jSTerminal1 = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
+        jDAguarde = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
         jPTerminal1 = new javax.swing.JPanel();
         jPConfigLetreiro = new javax.swing.JPanel();
         jRletreiro = new javax.swing.JRadioButton();
@@ -151,6 +153,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLTerminalConectado = new javax.swing.JLabel();
 
         jDFileImagem.setTitle("ARQUIVO");
         jDFileImagem.setMinimumSize(new java.awt.Dimension(614, 397));
@@ -675,6 +678,27 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jDAguarde.setMinimumSize(new java.awt.Dimension(400, 109));
+        jDAguarde.setModal(true);
+        jDAguarde.setUndecorated(true);
+        jDAguarde.setResizable(false);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("AGUARDE");
+
+        javax.swing.GroupLayout jDAguardeLayout = new javax.swing.GroupLayout(jDAguarde.getContentPane());
+        jDAguarde.getContentPane().setLayout(jDAguardeLayout);
+        jDAguardeLayout.setHorizontalGroup(
+            jDAguardeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        jDAguardeLayout.setVerticalGroup(
+            jDAguardeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
         );
 
         jPTerminal1.setMinimumSize(new java.awt.Dimension(1120, 492));
@@ -1280,7 +1304,10 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
+                    .addGroup(jPTerminal1Layout.createSequentialGroup()
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLTerminalConectado, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPTerminal1Layout.setVerticalGroup(
@@ -1293,7 +1320,9 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6)
+                .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLTerminalConectado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
@@ -1585,17 +1614,50 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        try {
-            // TODO add your handling code here:
-            conectTerminal();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao Carregar Configuração\n" + ex);
+
+        // TODO add your handling code here:        
+        if (((int) jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0)) > 0) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    showAguarde();
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        conectTerminal();
+                    } catch (Exception ex) {
+                        jDAguarde.setVisible(false);
+                        if(ex.toString().contains("NullPointer")){                            
+                        }else{
+                        JOptionPane.showMessageDialog(null, "Erro ao Carregar Configuração\n" + ex);
+                        }
+                    }
+                }
+            }).start();
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        setConfigTerminal();
+        // TODO add your handling code here:  
+        if (jLTerminalConectado.getText().length() > 21) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    showAguarde();
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    setConfigTerminal();
+                }
+            }).start();
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione um Terminal Para Conexão");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
@@ -1618,22 +1680,20 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCCTValor2;
     private javax.swing.JComboBox<String> jCFonteEstiloTabela;
     private javax.swing.JComboBox<String> jCFonteTipoTabela;
-    private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JComboBox<String> jCTipoLocalizacao;
     private javax.swing.JColorChooser jColorChooser1;
+    private javax.swing.JDialog jDAguarde;
     private javax.swing.JDialog jDColorLetreiro;
     private javax.swing.JDialog jDConsultaProduto;
     private javax.swing.JDialog jDFileImagem;
     private javax.swing.JDialog jDLayoutTabelas;
     private javax.swing.JDialog jDLocalTerminal;
     private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLTerminalConectado;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1661,7 +1721,6 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JRadioButton jRTabela1;
     private javax.swing.JRadioButton jRTabela2;
@@ -1674,7 +1733,6 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JSpinner jSFonteTabela;
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
-    private javax.swing.JSpinner jSTerminal;
     private javax.swing.JSpinner jSTerminal1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1696,11 +1754,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JTextField jTTabela4nome;
     private javax.swing.JTable jTTerminais;
     private javax.swing.JTextField jTletreirotexto;
-    private javax.swing.JTextField jTlocalbanco;
     private javax.swing.JTextField jTlocalbanco1;
-    private javax.swing.JTextField jTsenhabanco;
     private javax.swing.JTextField jTsenhabanco1;
-    private javax.swing.JTextField jTusuariobanco;
     private javax.swing.JTextField jTusuariobanco1;
     // End of variables declaration//GEN-END:variables
 
@@ -1991,8 +2046,9 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         dbc.setLocaluser(jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 2).toString());
         dbc.setLocalpassword(jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 3).toString());
         dbc.setTerminal((Integer) jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0));
-        Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(dbc.getTerminal());
-        if (tbc.getTerminal() != null) {
+        limpaCampos();
+        Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config((Integer) jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0));
+        if (tbc.getTerminal().toString().equals(jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0).toString())) {
             jRTabela1.setSelected(tbc.isTabela1());
             jRTabela2.setSelected(tbc.isTabela2());
             jRTabela3.setSelected(tbc.isTabela3());
@@ -2060,7 +2116,10 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jCFonteEstiloTabela.setSelectedIndex(tbc.getFonteestilotabela());
             jCFonteTipoTabela.setSelectedItem(tbc.getFontetipotabela());
             jSEspacamento.setValue(tbc.getEspacamento());
+            jLTerminalConectado.setText("Conectado ao Terminal: " + dbc.getTerminal());
+            jDAguarde.setVisible(false);
         }
+        jDAguarde.setVisible(false);
     }
 
     private void setConfigTerminal() {
@@ -2109,8 +2168,10 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             int key = new Tb_ConfigDao().setTb_Config(tbc);
             if (key > 0) {
                 new Tb_ConfigDao().delTb_Config(new DBConfigBeans().getTerminal(), key - 1);
-            }            
+            }
+            jDAguarde.setVisible(false);
         } catch (Exception ex) {
+            jDAguarde.setVisible(false);
             JOptionPane.showMessageDialog(this, "Erro ao Salvar Nova Configuracao\n" + ex);
         }
     }
@@ -2125,5 +2186,59 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         return imageInByte;
     }
 
+    private void showAguarde() {
+        jDAguarde.setLocationRelativeTo(this);
+        jDAguarde.setVisible(true);
+    }
+
+    private void limpaCampos() {
+        jRTabela1.setSelected(false);
+        jRTabela2.setSelected(false);
+        jRTabela3.setSelected(false);
+        jRTabela4.setSelected(false);
+        jTTabela1nome.setText("");
+        jTTabela2nome.setText("");
+        jTTabela3nome.setText("");
+        jTTabela4nome.setText("");
+        jRTransparencia.setSelected(false);
+        jRletreiro.setSelected(false);
+        jSFonteTabela.setValue(1);
+        jTletreirotexto.setText("");
+        jStransicaoLetreiro.setValue(1);
+        jRTabelaCheia.setSelected(false);
+        jCTipoLocalizacao.setSelectedIndex(1);
+        //carrega o config com imagem
+        //imagem fundo            
+        jPCImagemFundo.removeAll();
+        jPCImagemFundo.validate();
+        jPCImagemFundo.repaint();
+        //imagem lateral
+        jPCImagemLateral.removeAll();
+        jPCImagemLateral.validate();
+        jPCImagemLateral.repaint();
+        //imagem topo
+        jPCImagemTopo.removeAll();
+        jPCImagemTopo.validate();
+        jPCImagemTopo.repaint();
+        // configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));                
+        jSTamanhox.setValue(1);
+        jSTamanhoy.setValue(1);
+        jPCorFundoLetreiro.setBackground(new Color(0));
+        jPCorFonteLetreiro.setBackground(new Color(0));
+        jPCorFonteTabela.setBackground(new Color(0));
+        jPCorFundoTabela.setBackground(new Color(0));
+        jCCTCodigo.setSelected(false);
+        jCCTProduto.setSelected(false);
+        jCCTOferta.setSelected(false);
+        jCCTValor1.setSelected(false);
+        jCCTValor2.setSelected(false);
+        jTNomevalor1.setText("");
+        jTNomeValor2.setText("");
+        jCCTUnid.setSelected(false);
+        jCFonteEstiloTabela.setSelectedIndex(1);
+        jCFonteTipoTabela.setSelectedItem(1);
+        jSEspacamento.setValue(1);
+        jLTerminalConectado.setText("");
+    }
 
 }

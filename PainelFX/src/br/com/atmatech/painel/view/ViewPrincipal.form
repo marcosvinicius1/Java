@@ -64,9 +64,15 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTlocalbalancabanco" max="32767" attributes="0"/>
-                          <Component id="jTusuariobalancabanco" max="32767" attributes="0"/>
+                          <Component id="jTusuariobalancabanco" pref="419" max="32767" attributes="0"/>
                           <Component id="jTsenhabalancabanco" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jTlocalbalancabanco" min="-2" pref="193" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTbanco" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -78,6 +84,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTlocalbalancabanco" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTbanco" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -118,6 +126,13 @@
             <Component class="javax.swing.JTextField" name="jTusuariobalancabanco">
             </Component>
             <Component class="javax.swing.JTextField" name="jTsenhabalancabanco">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Banco:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTbanco">
             </Component>
           </SubComponents>
         </Container>

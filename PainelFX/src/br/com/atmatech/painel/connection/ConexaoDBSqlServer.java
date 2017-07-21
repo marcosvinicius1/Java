@@ -23,7 +23,7 @@ public class ConexaoDBSqlServer {
         Statement stmt;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");              
-            conexao = DriverManager.getConnection(cb.getDirdb(), cb.getUser(), cb.getPassword());            
+            conexao = DriverManager.getConnection("jdbc:sqlserver://"+cb.getDirdb()+":1433;database="+cb.getBanco(), cb.getUser(), cb.getPassword());            
             stmt = conexao.createStatement();
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Registrar Driver de Conexão SqlServer" + ex, null, JOptionPane.ERROR_MESSAGE);

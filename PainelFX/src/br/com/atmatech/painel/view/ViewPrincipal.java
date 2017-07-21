@@ -63,50 +63,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public ViewPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-////        try {
-////            jMenu.setVisible(false);
-////            DBConfigBeans dbc = new DBConfig().getConfig();
-////            if(dbc.getTipo()==null){
-////                
-////            }else if(dbc.getTipo().equals("Estacao")){
-////                
-////            }else if(dbc.getTipo().equals("Management")){
-////                
-////            }
-////        } catch (IOException ex) {
-////            JOptionPane.showMessageDialog(rootPane, "Erro ao Carregar Config \n" + ex);
-////            System.exit(0);
-////        }
-////        jFileChooser1.setFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
-////        jFileChooser1.setAcceptAllFileFilterUsed(false);
-////        new Thread(new Runnable() {
-////            @Override
-////            public void run() {
-////                while (true) {
-////                    new CargaController().cargaProd();
-////                    try {
-////                        Thread.sleep(1000);
-////                    } catch (InterruptedException ex) {
-////                        new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
-////                    }
-////                }
-////            }
-////        }).start();
-
-        //criado procedure para subistituir metodo
-//         new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    new CargaController().cargaProdLocal();
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException ex) {
-//                        new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou cargaProdLocal:\n" + ex + "\n");
-//                    }
-//                }
-//            }
-//        }).start();
     }
 
     /**
@@ -126,6 +82,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTlocalbalancabanco = new javax.swing.JTextField();
         jTusuariobalancabanco = new javax.swing.JTextField();
         jTsenhabalancabanco = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTbanco = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -231,7 +189,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jDcarga.setAlwaysOnTop(true);
         jDcarga.setMinimumSize(new java.awt.Dimension(485, 315));
         jDcarga.setModal(true);
-        jDcarga.setPreferredSize(new java.awt.Dimension(485, 315));
         jDcarga.setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco Balança"));
@@ -248,6 +205,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setText("Banco:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -262,9 +221,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTlocalbalancabanco)
-                    .addComponent(jTusuariobalancabanco)
-                    .addComponent(jTsenhabalancabanco))
+                    .addComponent(jTusuariobalancabanco, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addComponent(jTsenhabalancabanco)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTlocalbalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTbanco)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -272,7 +236,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTlocalbalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTlocalbalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTbanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -1654,6 +1620,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             dbc.setLocaluser(jTusuariobanco.getText());
             dbc.setTerminal((Integer) jSTerminal.getValue());
             dbc.setTipo(jCTipo.getSelectedItem().toString());
+            dbc.setBanco(jTbanco.getText());
             try {
                 new DBConfig().createConfig(dbc);
                 jDcarga.setVisible(false);
@@ -1836,8 +1803,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:        
         try {
             DBConfigBeans dbc = new DBConfig().getConfig();
-            if (dbc.getTipo().equals("Terminal")) {
-                setInicializaTerminal();
+            if (dbc.getTipo().equals("Terminal")) {                                
+                    while(verTbConfig(dbc.getTerminal())){                        
+                    }   
+                    System.err.println("Consultou");
+                    setInicializaTerminal();                    
             } else if (dbc.getTipo().equals("Management")) {
                 setInicializaManagement();
             } else {
@@ -2061,6 +2031,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -2132,6 +2103,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTTabela2nome;
     private javax.swing.JTextField jTTabela3nome;
     private javax.swing.JTextField jTTabela4nome;
+    private javax.swing.JTextField jTbanco;
     private javax.swing.JTextField jTletreirotexto;
     private javax.swing.JTextField jTlocalbalancabanco;
     private javax.swing.JTextField jTlocalbanco;
@@ -2572,6 +2544,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTsenhabanco.setText(dbc.getLocalpassword());
         jSTerminal.setValue(dbc.getTerminal());
         jCTipo.setSelectedItem(dbc.getTipo());
+        jTbanco.setText(dbc.getBanco());
         jDcarga.setLocationRelativeTo(this);
         jDcarga.setVisible(true);
     }
@@ -2643,6 +2616,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jPCentral.setVisible(false);
                 jPCentral.setVisible(true);
             }
+            Tb_ConfigBeans tbc=new Tb_ConfigDao().getTB_Config(new Tb_ConfigBeans().getTerminal());
             inicializaGrade();
             inicializaLetreiro();
             inicializaTipoLayout();
@@ -2656,6 +2630,18 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private boolean comparaListConfig(Tb_ConfigTempBeans dbcnt, Tb_ConfigBeans dbConfigBeans) {        
         return !dbcnt.getIdtb_config().toString().equals(dbConfigBeans.getIdtb_config().toString());        
+    }
+
+    private boolean verTbConfig(Integer terminal) {
+        try {
+            Tb_ConfigBeans tbc= new Tb_ConfigDao().getTB_Config(terminal);
+            if(tbc.getTerminal()!=null){
+                return false;
+            }            
+        } catch (SQLException ex) {
+            new DBConfig().createArqLog("ViewPrincipal-verTBConfig:"+ex);
+        }
+        return true;
     }
 
 }

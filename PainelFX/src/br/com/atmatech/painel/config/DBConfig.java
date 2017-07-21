@@ -38,6 +38,7 @@ public class DBConfig {
         cxb.setLocaluser(prop.getProperty("localuser"));//pega o valor da tag usuario         
         cxb.setTerminal(Integer.valueOf(prop.getProperty("terminal", "0")));
         cxb.setTipo(prop.getProperty("tipo"));
+        cxb.setBanco(prop.getProperty("banco"));
         if (prop.getProperty("terminal")!=null) {
             try {
                 Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(Integer.valueOf(prop.getProperty("terminal")));
@@ -96,6 +97,7 @@ public class DBConfig {
         prop.put("localuser", cb.getLocaluser());
         prop.put("terminal", String.valueOf(cb.getTerminal()));
         prop.put("tipo", cb.getTipo());
+        prop.put("banco", cb.getBanco());
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 

@@ -26,7 +26,7 @@ public class ConexaoDBMySql {
         try {
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Class.forName("com.mysql.jdbc.Driver");
-            conexao = DriverManager.getConnection(cb.getLocaldirdb(), cb.getLocaluser(), cb.getLocalpassword());            
+            conexao = DriverManager.getConnection("jdbc:mysql://"+cb.getLocaldirdb()+":3306/PAINELFX", cb.getLocaluser(), cb.getLocalpassword());            
             stmt = conexao.createStatement();
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Registrar Driver de Conexão MySql" + ex, null, JOptionPane.ERROR_MESSAGE);

@@ -19,6 +19,7 @@ public class DBConfigBeans {
     static private String localuser;
     static private Integer terminal;
     static private String tipo;
+    static private String banco;
     
     public String getDirdb() {
         return dirdb;
@@ -82,6 +83,14 @@ public class DBConfigBeans {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getBanco() {
+        return banco;
+    }
+
+    public void setBanco(String banco) {
+        this.banco = banco;
     }
     
 }
