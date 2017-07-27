@@ -336,28 +336,6 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         jScrollPane3.setVisible(tabela3);
         jScrollPane4.setVisible(tabela4);
         cargaPainel(tabela1,tabela2,tabela3,tabela4);
-//        if (tabela1&&!tabela2&&!tabela3&&!tabela4) {
-//            jScrollPane1.setVisible(true);
-//            cargaPainel(true,false,false,false);
-//        } 
-//        if (tabela1&&tabela2&&!tabela3&&!tabela4) {
-//            jScrollPane1.setVisible(true);
-//            jScrollPane2.setVisible(true);
-//            cargaPainel(true,true,false,false);
-//        } 
-//        if (tabela1&&tabela2&&tabela3&&!tabela4) {
-//            jScrollPane1.setVisible(true);
-//            jScrollPane2.setVisible(true);
-//            jScrollPane3.setVisible(true);
-//            cargaPainel(true,true,true,false);
-//        } 
-//        if (tabela1&&tabela2&&tabela3&&tabela4) {
-//            jScrollPane1.setVisible(true);
-//            jScrollPane2.setVisible(true);
-//            jScrollPane3.setVisible(true);
-//            jScrollPane4.setVisible(true);
-//            cargaPainel(true,true,true,true);
-//        }
         Tb_ConfigBeans tcb = new Tb_ConfigBeans();
         Color cor = new Color(0, 0, 0, 0);
         Font font = new java.awt.Font(tcb.getFontetipotabela(), tcb.getFonteestilotabela(), tcb.getFonteTabela());
@@ -374,7 +352,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         if (tcb.isTransparencia()) {
             jTable1.setBackground(cor);
         } else {
-            jTable1.setBackground(new Color(tcb.getCorfundotabela()));
+            jTable1.setBackground(new Color(new Color(tcb.getCorfundotabela()).getRed(),new Color(tcb.getCorfundotabela()).getGreen(),new Color(tcb.getCorfundotabela()).getBlue(),tcb.getTranspfundotabela()));
         }
 
         jTable1.setFont(font);
@@ -390,7 +368,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         if (tcb.isTransparencia()) {
             jTable2.setBackground(cor);
         } else {
-            jTable2.setBackground(new Color(tcb.getCorfundotabela()));
+            jTable2.setBackground(new Color(new Color(tcb.getCorfundotabela()).getRed(),new Color(tcb.getCorfundotabela()).getGreen(),new Color(tcb.getCorfundotabela()).getBlue(),tcb.getTranspfundotabela()));
         }
         jTable2.setFont(font);
         jTable2.setRowHeight(rowheighet);
@@ -405,7 +383,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         if (tcb.isTransparencia()) {
             jTable3.setBackground(cor);
         } else {
-            jTable3.setBackground(new Color(tcb.getCorfundotabela()));
+            jTable3.setBackground(new Color(new Color(tcb.getCorfundotabela()).getRed(),new Color(tcb.getCorfundotabela()).getGreen(),new Color(tcb.getCorfundotabela()).getBlue(),tcb.getTranspfundotabela()));
         }
         jTable3.setFont(font);
         jTable3.setRowHeight(rowheighet);
@@ -420,7 +398,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         if (tcb.isTransparencia()) {
             jTable4.setBackground(cor);
         } else {
-            jTable4.setBackground(new Color(tcb.getCorfundotabela()));
+            jTable4.setBackground(new Color(new Color(tcb.getCorfundotabela()).getRed(),new Color(tcb.getCorfundotabela()).getGreen(),new Color(tcb.getCorfundotabela()).getBlue(),tcb.getTranspfundotabela()));
         }
         jTable4.setFont(font);
         jTable4.setRowHeight(rowheighet);
@@ -647,23 +625,19 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
                     if (!lppb.get(i).getCodigo().equals(lppbf.get(i).getCodigo())) {                        
                         return true;
                     }
-                    if (!lppb.get(i).getDescricao().equals(lppbf.get(i).getDescricao())) {
-                        System.out.println("descricao");
+                    if (!lppb.get(i).getDescricao().equals(lppbf.get(i).getDescricao())) {                        
                         return true;
                     }
-                    if (!lppb.get(i).getUnid().equals(lppbf.get(i).getUnid())) {
-                        System.out.println("unidade");
+                    if (!lppb.get(i).getUnid().equals(lppbf.get(i).getUnid())) {                        
                         return true;
                     }
                     if (!lppb.get(i).getValor1().toString().equals(lppbf.get(i).getValor1().toString())) {                        
                         return true;
                     }
-                    if (!lppb.get(i).getValor2().equals(lppbf.get(i).getValor2())) {
-                        System.out.println("valor2");
+                    if (!lppb.get(i).getValor2().equals(lppbf.get(i).getValor2())) {                        
                         return true;
                     }
-                    if (!lppb.get(i).getOferta().equals(lppbf.get(i).getOferta())) {
-                        System.out.println("oferta");
+                    if (!lppb.get(i).getOferta().equals(lppbf.get(i).getOferta())) {                        
                         return true;
                     }
                 }

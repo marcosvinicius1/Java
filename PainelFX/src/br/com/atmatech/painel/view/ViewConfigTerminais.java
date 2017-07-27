@@ -131,6 +131,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jTTabela2nome = new javax.swing.JTextField();
         jTTabela3nome = new javax.swing.JTextField();
         jTTabela4nome = new javax.swing.JTextField();
+        jSTranspFundoTabela = new javax.swing.JSpinner();
+        jLabel20 = new javax.swing.JLabel();
         jPConfigImagem = new javax.swing.JPanel();
         jCTipoLocalizacao = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -583,7 +585,6 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jDLocalTerminal.setAlwaysOnTop(true);
         jDLocalTerminal.setMinimumSize(new java.awt.Dimension(485, 195));
         jDLocalTerminal.setModal(true);
-        jDLocalTerminal.setPreferredSize(new java.awt.Dimension(485, 195));
         jDLocalTerminal.setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Local Terminal"));
@@ -961,6 +962,10 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             }
         });
 
+        jSTranspFundoTabela.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
+
+        jLabel20.setText("Transparencia");
+
         javax.swing.GroupLayout jPConfigTabelaLayout = new javax.swing.GroupLayout(jPConfigTabela);
         jPConfigTabela.setLayout(jPConfigTabelaLayout);
         jPConfigTabelaLayout.setHorizontalGroup(
@@ -997,8 +1002,12 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                             .addComponent(jRTransparencia)
                             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                                 .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel20))))
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                         .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1009,7 +1018,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)))
-                .addGap(49, 49, 49)
+                .addGap(6, 6, 6)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(128, Short.MAX_VALUE))
         );
@@ -1044,7 +1053,12 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                                             .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel20)))))
                             .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)
                         .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1697,6 +1711,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1734,6 +1749,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
     private javax.swing.JSpinner jSTerminal1;
+    private javax.swing.JSpinner jSTranspFundoTabela;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2064,6 +2080,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());
             jRTabelaCheia.setSelected(tbc.isTabelacheia());
             jCTipoLocalizacao.setSelectedItem(tbc.getTipolocalizacao());
+            jSTranspFundoTabela.setValue(tbc.getTranspfundotabela());
             try {
                 //carrega o config com imagem
                 //imagem fundo            
@@ -2141,6 +2158,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             tbc.setLetreirotempo((Integer) jStransicaoLetreiro.getValue());
             tbc.setTabelacheia(jRTabelaCheia.isSelected());
             tbc.setTipolocalizacao(jCTipoLocalizacao.getSelectedItem().toString());
+            tbc.setTranspfundotabela((Integer)jSTranspFundoTabela.getValue());
             try {
                 tbc.setFundoimagem1(converteArquivo(configfundo.getImage()));
                 tbc.setLateralimagem(converteArquivo(configlateral.getImage()));
@@ -2203,6 +2221,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jRTransparencia.setSelected(false);
         jRletreiro.setSelected(false);
         jSFonteTabela.setValue(1);
+        jSTranspFundoTabela.setValue(0);
         jTletreirotexto.setText("");
         jStransicaoLetreiro.setValue(1);
         jRTabelaCheia.setSelected(false);

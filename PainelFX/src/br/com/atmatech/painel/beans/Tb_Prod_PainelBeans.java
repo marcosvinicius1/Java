@@ -35,7 +35,11 @@ public class Tb_Prod_PainelBeans {
     }
     
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        if(codigo==null){
+            this.codigo = "";
+        }else{
+            this.codigo = codigo;
+        }        
     }
     
     public String getDescricao() {
@@ -43,7 +47,11 @@ public class Tb_Prod_PainelBeans {
     }
     
     public void setDescricao(String descricao) {
+        if(descricao==null){
+        this.descricao = "";    
+        }else{
         this.descricao = descricao;
+        }
     }
     
     public String getUnid() {
@@ -51,7 +59,11 @@ public class Tb_Prod_PainelBeans {
     }
     
     public void setUnid(String unid) {
+        if(unid==null){
+            this.unid="";
+        }else{
         this.unid = unid;
+        }
     }
     
     public Float getValor1() {

@@ -53,6 +53,7 @@ public class Tb_ConfigBeans {
     static private Integer fonteestilotabela;
     static private String fontetipotabela;
     static private Integer espacamento;
+    static private Integer transpfundotabela;
     
     public boolean isTabela1() {
         return tabela1;
@@ -411,5 +412,13 @@ public class Tb_ConfigBeans {
 
     public void setIdtb_config(Integer idtb_config) {
         this.idtb_config = idtb_config;
+    }
+
+    public Integer getTranspfundotabela() {
+        return transpfundotabela;
+    }
+
+    public void setTranspfundotabela(Integer transpfundotabela) {
+        this.transpfundotabela = transpfundotabela;
     }
 }

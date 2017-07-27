@@ -64,6 +64,7 @@ public class Tb_ConfigDao {
                 tbc.setTabela2nome(rs.getString("tabela2nome"));
                 tbc.setTabela3nome(rs.getString("tabela3nome"));
                 tbc.setTabela4nome(rs.getString("tabela4nome"));
+                tbc.setTranspfundotabela(rs.getInt("transpfundotabela"));
             }
             rs.close();
             pstm.close();
@@ -117,6 +118,7 @@ public class Tb_ConfigDao {
                 tbc.setTabela2nome(rs.getString("tabela2nome"));
                 tbc.setTabela3nome(rs.getString("tabela3nome"));
                 tbc.setTabela4nome(rs.getString("tabela4nome"));
+                tbc.setTranspfundotabela(rs.getInt("transpfundotabela"));
             }
             rs.close();
             pstm.close();
@@ -130,8 +132,8 @@ public class Tb_ConfigDao {
             String sql="INSERT INTO tb_config (tamanhox, tamanhoy, letreiro, tipolocalizacao, topoimagem, fundoimagem, lateralimagem, "
                     + "transparencia, letreirotempo, letreirocorfonte, fontetabela, letreirocorfundo, letreirotexto, tabela01, tabela02, "
                     + "tabela03, tabela04, tabelacheia, terminal,ctcodigo,ctproduto,ctoferta,ctvalor1,ctvalor2,nomevalor1,nomevalor2,"
-                    + "ctunid,corfontetabela,corfundotabela,fonteestilotabela,fontetipotabela,espacamento,tabela1nome,tabela2nome,tabela3nome,tabela4nome) "
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "ctunid,corfontetabela,corfundotabela,fonteestilotabela,fontetipotabela,espacamento,tabela1nome,tabela2nome,tabela3nome,tabela4nome,transpfundotabela) "
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, tbc.getTamanhox());
             pstm.setInt(2, tbc.getTamanhoy());
@@ -169,6 +171,7 @@ public class Tb_ConfigDao {
             pstm.setString(34, tbc.getTabela2nome());
             pstm.setString(35, tbc.getTabela3nome());
             pstm.setString(36, tbc.getTabela4nome());
+            pstm.setInt(37, tbc.getTranspfundotabela());
             pstm.execute();
             ResultSet rs=pstm.getGeneratedKeys();
             int key=0;

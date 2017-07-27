@@ -125,6 +125,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTTabela2nome = new javax.swing.JTextField();
         jTTabela3nome = new javax.swing.JTextField();
         jTTabela4nome = new javax.swing.JTextField();
+        jSTranspFundoTabela = new javax.swing.JSpinner();
+        jLabel17 = new javax.swing.JLabel();
         jPConfigLetreiro = new javax.swing.JPanel();
         jRletreiro = new javax.swing.JRadioButton();
         jTletreirotexto = new javax.swing.JTextField();
@@ -526,6 +528,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSTranspFundoTabela.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
+
+        jLabel17.setText("Transparencia");
+
         javax.swing.GroupLayout jPConfigTabelaLayout = new javax.swing.GroupLayout(jPConfigTabela);
         jPConfigTabela.setLayout(jPConfigTabelaLayout);
         jPConfigTabelaLayout.setHorizontalGroup(
@@ -562,8 +568,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
                             .addComponent(jRTransparencia)
                             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                                 .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel17))))
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                         .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -574,9 +584,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)))
-                .addGap(49, 49, 49)
+                .addGap(16, 16, 16)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPConfigTabelaLayout.setVerticalGroup(
             jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,7 +619,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
                                             .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel17)))))
                             .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)
                         .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1538,6 +1553,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());
             jRTabelaCheia.setSelected(tbc.isTabelacheia());
             jCTipoLocalizacao.setSelectedItem(tbc.getTipolocalizacao());
+            jSTranspFundoTabela.setValue(tbc.getTranspfundotabela());
             try {
                 //carrega o config com imagem
                 //imagem fundo            
@@ -1663,6 +1679,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             tbc.setLetreirotempo((Integer) jStransicaoLetreiro.getValue());
             tbc.setTabelacheia(jRTabelaCheia.isSelected());
             tbc.setTipolocalizacao(jCTipoLocalizacao.getSelectedItem().toString());
+            tbc.setTranspfundotabela((Integer)jSTranspFundoTabela.getValue());
             try {
                 tbc.setFundoimagem1(converteArquivo(configfundo.getImage()));
                 tbc.setLateralimagem(converteArquivo(configlateral.getImage()));
@@ -1692,17 +1709,18 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 new Tb_ConfigDao().delTb_Config(new DBConfigBeans().getTerminal(), key - 1);
             }
             jDlayout.setVisible(false);
-            if (jPCentral.getComponentCount() > 0) {
-                for (int i = 0; i < jPCentral.getComponentCount(); i++) {
-                    jPCentral.getComponent(i).setVisible(false);
-                }
-                jPCentral.setVisible(false);
-                jPCentral.setVisible(true);
-            }
-            inicializaGrade();
-            inicializaLetreiro();
-            inicializaTipoLayout();
-            inicializaCorBackground();
+            
+//            if (jPCentral.getComponentCount() > 0) {
+//                for (int i = 0; i < jPCentral.getComponentCount(); i++) {
+//                    jPCentral.getComponent(i).setVisible(false);
+//                }
+//                jPCentral.setVisible(false);
+//                jPCentral.setVisible(true);
+//            }
+//            inicializaGrade();
+//            inicializaLetreiro();
+//            inicializaTipoLayout();
+//            inicializaCorBackground();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao Salvar Nova Configuracao\n" + ex);
         }
@@ -1805,8 +1823,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             DBConfigBeans dbc = new DBConfig().getConfig();
             if (dbc.getTipo().equals("Terminal")) {                                
                     while(verTbConfig(dbc.getTerminal())){                        
-                    }   
-                    System.err.println("Consultou");
+                    }                       
                     setInicializaTerminal();                    
             } else if (dbc.getTipo().equals("Management")) {
                 setInicializaManagement();
@@ -1934,14 +1951,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         setConfigProdTerminal();
-        if (jPCentral.getComponentCount() > 0) {
-            for (int i = 0; i < jPCentral.getComponentCount(); i++) {
-                jPCentral.getComponent(i).setVisible(false);
-            }
-            jPCentral.setVisible(false);
-            jPCentral.setVisible(true);
-        }
-        inicializaGrade();
+//        if (jPCentral.getComponentCount() > 0) {
+//            for (int i = 0; i < jPCentral.getComponentCount(); i++) {
+//                jPCentral.getComponent(i).setVisible(false);
+//            }
+//            jPCentral.setVisible(false);
+//            jPCentral.setVisible(true);
+//        }
+//        inicializaGrade();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jCFonteTipoTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteTipoTabelaActionPerformed
@@ -2035,6 +2052,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2086,6 +2104,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
     private javax.swing.JSpinner jSTerminal;
+    private javax.swing.JSpinner jSTranspFundoTabela;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2365,7 +2384,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();
             for (int i = 0; i < jTCTable1.getRowCount(); i++) {
                 Tb_Prod_PainelBeans ppb = new Tb_Prod_PainelBeans();
-                ppb.setCodigo((String) jTCTable1.getValueAt(i, 0));
+                ppb.setCodigo((String)jTCTable1.getValueAt(i, 0));
                 ppb.setDescricao((String) jTCTable1.getValueAt(i, 1));
                 ppb.setUnid((String) jTCTable1.getValueAt(i, 2));
                 ppb.setOferta((Boolean) jTCTable1.getValueAt(i, 3));
@@ -2433,11 +2452,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void consultaTbProdPainel() {
         try {
-            List<Tb_Prod_PainelBeans> lppb = new ArrayList<>();
-            int i;
-            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 1);
+            List<Tb_Prod_PainelBeans> lppb1 = new ArrayList<>();
+            int i;            
+            lppb1 = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 1);
             i = 0;
-            for (Tb_Prod_PainelBeans ppb : lppb) {
+            for (Tb_Prod_PainelBeans ppb : lppb1) {
                 jTCTable1.setValueAt(ppb.getCodigo(), i, 0);
                 jTCTable1.setValueAt(ppb.getDescricao(), i, 1);
                 jTCTable1.setValueAt(ppb.getUnid(), i, 2);
@@ -2446,11 +2465,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTCTable1.setValueAt(ppb.getValor2(), i, 5);
                 i++;
             }
-            lppb.clear();
+            lppb1.clear();
 
-            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 2);
+            lppb1 = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 2);
             i = 0;
-            for (Tb_Prod_PainelBeans ppb : lppb) {
+            for (Tb_Prod_PainelBeans ppb : lppb1) {
                 jTCTable2.setValueAt(ppb.getCodigo(), i, 0);
                 jTCTable2.setValueAt(ppb.getDescricao(), i, 1);
                 jTCTable2.setValueAt(ppb.getUnid(), i, 2);
@@ -2459,11 +2478,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTCTable2.setValueAt(ppb.getValor2(), i, 5);
                 i++;
             }
-            lppb.clear();
+            lppb1.clear();
 
-            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 3);
+            lppb1 = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 3);
             i = 0;
-            for (Tb_Prod_PainelBeans ppb : lppb) {
+            for (Tb_Prod_PainelBeans ppb : lppb1) {
                 jTCTable3.setValueAt(ppb.getCodigo(), i, 0);
                 jTCTable3.setValueAt(ppb.getDescricao(), i, 1);
                 jTCTable3.setValueAt(ppb.getUnid(), i, 2);
@@ -2472,11 +2491,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTCTable3.setValueAt(ppb.getValor2(), i, 5);
                 i++;
             }
-            lppb.clear();
+            lppb1.clear();
 
-            lppb = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 4);
+            lppb1 = new Tb_Prod_PainelDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 4);
             i = 0;
-            for (Tb_Prod_PainelBeans ppb : lppb) {
+            for (Tb_Prod_PainelBeans ppb : lppb1) {
                 jTCTable4.setValueAt(ppb.getCodigo(), i, 0);
                 jTCTable4.setValueAt(ppb.getDescricao(), i, 1);
                 jTCTable4.setValueAt(ppb.getUnid(), i, 2);
@@ -2485,7 +2504,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTCTable4.setValueAt(ppb.getValor2(), i, 5);
                 i++;
             }
-            lppb.clear();
+            lppb1.clear();
         } catch (SQLException ex) {
             new DBConfig().createArqLog("Erro ViewPrincipal : consultaTbProdPainel " + ex);
         }
