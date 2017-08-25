@@ -16,10 +16,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,7 +63,15 @@ public class DBConfig {
     public void createArqLog(String texto) {
         FileWriter arquivo;
         try {
-            File file = new File("./logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + "log.txt");
+            String nomecomputador=InetAddress.getLocalHost().getHostName();
+            nomecomputador=nomecomputador.replace(" ", "");   
+            Date data = new Date();
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatadorhora = new SimpleDateFormat("HH:mm:ss");
+            String dataf=formatador.format(data);
+            texto=formatadorhora.format(data)+texto;
+            dataf=dataf.replace("/", "");
+            File file = new File("./logs/"+nomecomputador+dataf + "log.txt");
             if (file.exists()) {
                 OutputStream bytes = new FileOutputStream(file, true); // passado "true" para gravar no mesmo arquivo
                 OutputStreamWriter chars = new OutputStreamWriter(bytes);
@@ -70,12 +79,12 @@ public class DBConfig {
                 strings.write("\r\n" + texto);
                 strings.close();
             } else {
-                arquivo = new FileWriter(new File("./logs/" + new Date().getYear() + new Date().getMonth() + new Date().getDay() + "log.txt"));
+                arquivo = new FileWriter(file);
                 arquivo.write(texto);
                 arquivo.close();
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Gerar Log" + ex);
+            }            
+        } catch (Exception ex) {
+            
         }
 
     }

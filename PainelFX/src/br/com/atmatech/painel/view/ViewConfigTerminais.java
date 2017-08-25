@@ -15,6 +15,7 @@ import br.com.atmatech.painel.config.DBConfigManagement;
 import br.com.atmatech.painel.dao.Tb_ConfigDao;
 import br.com.atmatech.painel.dao.Tb_ProdDao;
 import br.com.atmatech.painel.dao.Tb_Prod_PainelDao;
+import br.com.atmatech.painel.util.AjusteTabela;
 import com.towel.swing.img.JImagePanel;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -81,6 +82,11 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTCTable4 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jDLocalTerminal = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -123,8 +129,6 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jPCorFundoTabela = new javax.swing.JPanel();
         jCFonteEstiloTabela = new javax.swing.JComboBox<>();
         jCFonteTipoTabela = new javax.swing.JComboBox<>();
-        jRTabelaCheia = new javax.swing.JRadioButton();
-        jRTransparencia = new javax.swing.JRadioButton();
         jSEspacamento = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
         jTTabela1nome = new javax.swing.JTextField();
@@ -133,6 +137,10 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jTTabela4nome = new javax.swing.JTextField();
         jSTranspFundoTabela = new javax.swing.JSpinner();
         jLabel20 = new javax.swing.JLabel();
+        jSFonteTabelaTitulo = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
+        jCFonteEstiloTabelaTitulo = new javax.swing.JComboBox<>();
+        jCFonteTipoTabelaTitulo = new javax.swing.JComboBox<>();
         jPConfigImagem = new javax.swing.JPanel();
         jCTipoLocalizacao = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -148,6 +156,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jRExibirTopo = new javax.swing.JRadioButton();
+        jRExibirLateral = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTTerminais = new javax.swing.JTable();
@@ -156,6 +166,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLTerminalConectado = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
 
         jDFileImagem.setTitle("ARQUIVO");
         jDFileImagem.setMinimumSize(new java.awt.Dimension(614, 397));
@@ -163,6 +174,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.setControlButtonsAreShown(false);
+        jFileChooser1.setCurrentDirectory(new java.io.File("C:\\Program Files\\NetBeans 8.1\\.\\imagem"));
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.FILES_AND_DIRECTORIES);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +252,11 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 jTConsultaProdutoMouseClicked(evt);
             }
         });
+        jTConsultaProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTConsultaProdutoKeyPressed(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTConsultaProduto);
 
         javax.swing.GroupLayout jDConsultaProdutoLayout = new javax.swing.GroupLayout(jDConsultaProduto.getContentPane());
@@ -254,7 +271,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         );
 
         jDLayoutTabelas.setTitle("Dados Tabelas");
-        jDLayoutTabelas.setMinimumSize(new java.awt.Dimension(1000, 590));
+        jDLayoutTabelas.setMinimumSize(new java.awt.Dimension(1000, 650));
         jDLayoutTabelas.setModal(true);
 
         jPanel16.setAutoscrolls(true);
@@ -311,6 +328,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTCTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTCTable1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTCTable1KeyPressed(evt);
@@ -381,6 +399,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTCTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTCTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTCTable2MouseClicked(evt);
@@ -456,6 +475,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTCTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTCTable3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTCTable3KeyPressed(evt);
@@ -526,6 +546,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTCTable4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTCTable4.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTCTable4KeyPressed(evt);
@@ -557,6 +578,37 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             }
         });
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Atalhos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 0)));
+
+        jLabel21.setText("F2 : Consulta Produtos");
+
+        jLabel22.setText("Delete : Exclui Produto");
+
+        jLabel23.setText("Movimentar Acima: CTRL+ Ceta Para Cima ");
+
+        jLabel24.setText("Movimentar Abaixo: CTRL+ Ceta Para Baixo ");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21)
+            .addComponent(jLabel22)
+            .addComponent(jLabel24)
+            .addComponent(jLabel23)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23))
+        );
+
         javax.swing.GroupLayout jDLayoutTabelasLayout = new javax.swing.GroupLayout(jDLayoutTabelas.getContentPane());
         jDLayoutTabelas.getContentPane().setLayout(jDLayoutTabelasLayout);
         jDLayoutTabelasLayout.setHorizontalGroup(
@@ -564,7 +616,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton3)
-                .addContainerGap(927, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 700, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -572,12 +625,14 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
                 .addGap(498, 498, 498)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(55, Short.MAX_VALUE))
             .addGroup(jDLayoutTabelasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDLayoutTabelasLayout.createSequentialGroup()
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(94, 94, 94)))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 154, Short.MAX_VALUE)))
         );
 
         jDLocalTerminal.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -928,20 +983,16 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         );
 
         jCFonteEstiloTabela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simples", "Negrito", "Itálico", "Negrito e Itálico" }));
+        jCFonteEstiloTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCFonteEstiloTabelaActionPerformed(evt);
+            }
+        });
 
         jCFonteTipoTabela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agency FB", "Algerian", "Arial", "Arial Black", "Arial Narrow", "Arial Rounded MT Bold", "Arial Unicode MS", "Baskerville Old Face", "Bauhaus 93", "Bell MT", "Berlin Sans FB", "Berlin Sans FB Demi", "Bernard MT Condensed", "Blackadder ITC", "Bodoni MT", "Bodoni MT Black", "Bodoni MT Condensed", "Bodoni MT Poster Compressed", "Book Antiqua", "Bookman Old Style", "Bookshelf Symbol 7", "Bradley Hand ITC", "Britannic Bold", "Broadway", "Brush Script MT", "Calibri", "Calibri Light", "Californian FB", "Calisto MT", "Cambria", "Cambria Math", "Candara", "Castellar", "Centaur", "Century", "Century Gothic", "Century Schoolbook", "Chiller", "Colonna MT", "Comic Sans MS", "Consolas", "Constantia", "Cooper Black", "Copperplate Gothic Bold", "Copperplate Gothic Light", "Corbel", "Courier New", "Curlz MT", "dbldwrsw", "Dialog", "DialogInput", "Ebrima", "Edwardian Script ITC", "Elephant", "Engravers MT", "Eras Bold ITC", "Eras Demi ITC", "Eras Light ITC", "Eras Medium ITC", "Felix Titling", "Footlight MT Light", "Forte", "Franklin Gothic Book", "Franklin Gothic Demi", "Franklin Gothic Demi Cond", "Franklin Gothic Heavy", "Franklin Gothic Medium", "Franklin Gothic Medium Cond", "Freestyle Script", "French Script MT", "Gabriola", "Gadugi", "Garamond", "Georgia", "Gigi", "Gill Sans MT", "Gill Sans MT Condensed", "Gill Sans MT Ext Condensed Bold", "Gill Sans Ultra Bold", "Gill Sans Ultra Bold Condensed", "Gloucester MT Extra Condensed", "Goudy Old Style", "Goudy Stout", "Haettenschweiler", "Harlow Solid Italic", "Harrington", "High Tower Text", "Impact", "Imprint MT Shadow", "Informal Roman", "Javanese Text", "Jokerman", "Juice ITC", "Kristen ITC", "Kunstler Script", "Leelawadee UI", "Leelawadee UI Semilight", "LettrGoth12 BT", "Lucida Bright", "Lucida Calligraphy", "Lucida Console", "Lucida Fax", "Lucida Handwriting", "Lucida Sans", "Lucida Sans Typewriter", "Lucida Sans Unicode", "Magneto", "Maiandra GD", "Malgun Gothic", "Malgun Gothic Semilight", "Marlett", "Matura MT Script Capitals", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft JhengHei Light", "Microsoft JhengHei UI", "Microsoft JhengHei UI Light", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft YaHei", "Microsoft YaHei Light", "Microsoft YaHei UI", "Microsoft YaHei UI Light", "Microsoft Yi Baiti", "MingLiU-ExtB", "MingLiU_HKSCS-ExtB", "Mistral", "Modern No. 20", "Mongolian Baiti", "Monospaced", "Monotype Corsiva", "MS Gothic", "MS Mincho", "MS Outlook", "MS PGothic", "MS Reference Sans Serif", "MS Reference Specialty", "MS UI Gothic", "MT Extra", "MV Boli", "Myanmar Text", "Niagara Engraved", "Niagara Solid", "Nirmala UI", "Nirmala UI Semilight", "NSimSun", "OCR A Extended", "Old English Text MT", "Onyx", "Palace Script MT", "Palatino Linotype", "Papyrus", "Parchment", "Perpetua", "Perpetua Titling MT", "Playbill", "PMingLiU-ExtB", "Poor Richard", "Pristina", "Rage Italic", "Ravie", "Rockwell", "Rockwell Condensed", "Rockwell Extra Bold", "SansSerif", "Script MT Bold", "Segoe MDL2 Assets", "Segoe Print", "Segoe Script", "Segoe UI", "Segoe UI Black", "Segoe UI Emoji", "Segoe UI Historic", "Segoe UI Light", "Segoe UI Semibold", "Segoe UI Semilight", "Segoe UI Symbol", "Serif", "Showcard Gothic", "SimSun", "SimSun-ExtB", "Sitka Banner", "Sitka Display", "Sitka Heading", "Sitka Small", "Sitka Subheading", "Sitka Text", "Snap ITC", "Stencil", "Sylfaen", "Symbol", "Tahoma", "Tempus Sans ITC", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Tw Cen MT Condensed", "Tw Cen MT Condensed Extra Bold", "Verdana", "Viner Hand ITC", "Vivaldi", "Vladimir Script", "Warsaw", "Webdings", "Wide Latin", "Wingdings", "Wingdings 2", "Wingdings 3", "Yu Gothic", "Yu Gothic Light", "Yu Gothic Medium", "Yu Gothic UI", "Yu Gothic UI Light", "Yu Gothic UI Semibold", "Yu Gothic UI Semilight" }));
         jCFonteTipoTabela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCFonteTipoTabelaActionPerformed(evt);
-            }
-        });
-
-        jRTabelaCheia.setText("Tabelas Cheias");
-
-        jRTransparencia.setText("Transparencia");
-        jRTransparencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRTransparenciaActionPerformed(evt);
             }
         });
 
@@ -965,6 +1016,19 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jSTranspFundoTabela.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
 
         jLabel20.setText("Transparencia");
+
+        jSFonteTabelaTitulo.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel13.setText("Fonte Titulo");
+
+        jCFonteEstiloTabelaTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simples", "Negrito", "Itálico", "Negrito e Itálico" }));
+        jCFonteEstiloTabelaTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCFonteEstiloTabelaTituloActionPerformed(evt);
+            }
+        });
+
+        jCFonteTipoTabelaTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agency FB", "Algerian", "Arial", "Arial Black", "Arial Narrow", "Arial Rounded MT Bold", "Arial Unicode MS", "Baskerville Old Face", "Bauhaus 93", "Bell MT", "Berlin Sans FB", "Berlin Sans FB Demi", "Bernard MT Condensed", "Blackadder ITC", "Bodoni MT", "Bodoni MT Black", "Bodoni MT Condensed", "Bodoni MT Poster Compressed", "Book Antiqua", "Bookman Old Style", "Bookshelf Symbol 7", "Bradley Hand ITC", "Britannic Bold", "Broadway", "Brush Script MT", "Calibri", "Calibri Light", "Californian FB", "Calisto MT", "Cambria", "Cambria Math", "Candara", "Castellar", "Centaur", "Century", "Century Gothic", "Century Schoolbook", "Chiller", "Colonna MT", "Comic Sans MS", "Consolas", "Constantia", "Cooper Black", "Copperplate Gothic Bold", "Copperplate Gothic Light", "Corbel", "Courier New", "Curlz MT", "dbldwrsw", "Dialog", "DialogInput", "Ebrima", "Edwardian Script ITC", "Elephant", "Engravers MT", "Eras Bold ITC", "Eras Demi ITC", "Eras Light ITC", "Eras Medium ITC", "Felix Titling", "Footlight MT Light", "Forte", "Franklin Gothic Book", "Franklin Gothic Demi", "Franklin Gothic Demi Cond", "Franklin Gothic Heavy", "Franklin Gothic Medium", "Franklin Gothic Medium Cond", "Freestyle Script", "French Script MT", "Gabriola", "Gadugi", "Garamond", "Georgia", "Gigi", "Gill Sans MT", "Gill Sans MT Condensed", "Gill Sans MT Ext Condensed Bold", "Gill Sans Ultra Bold", "Gill Sans Ultra Bold Condensed", "Gloucester MT Extra Condensed", "Goudy Old Style", "Goudy Stout", "Haettenschweiler", "Harlow Solid Italic", "Harrington", "High Tower Text", "Impact", "Imprint MT Shadow", "Informal Roman", "Javanese Text", "Jokerman", "Juice ITC", "Kristen ITC", "Kunstler Script", "Leelawadee UI", "Leelawadee UI Semilight", "LettrGoth12 BT", "Lucida Bright", "Lucida Calligraphy", "Lucida Console", "Lucida Fax", "Lucida Handwriting", "Lucida Sans", "Lucida Sans Typewriter", "Lucida Sans Unicode", "Magneto", "Maiandra GD", "Malgun Gothic", "Malgun Gothic Semilight", "Marlett", "Matura MT Script Capitals", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft JhengHei Light", "Microsoft JhengHei UI", "Microsoft JhengHei UI Light", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft YaHei", "Microsoft YaHei Light", "Microsoft YaHei UI", "Microsoft YaHei UI Light", "Microsoft Yi Baiti", "MingLiU-ExtB", "MingLiU_HKSCS-ExtB", "Mistral", "Modern No. 20", "Mongolian Baiti", "Monospaced", "Monotype Corsiva", "MS Gothic", "MS Mincho", "MS Outlook", "MS PGothic", "MS Reference Sans Serif", "MS Reference Specialty", "MS UI Gothic", "MT Extra", "MV Boli", "Myanmar Text", "Niagara Engraved", "Niagara Solid", "Nirmala UI", "Nirmala UI Semilight", "NSimSun", "OCR A Extended", "Old English Text MT", "Onyx", "Palace Script MT", "Palatino Linotype", "Papyrus", "Parchment", "Perpetua", "Perpetua Titling MT", "Playbill", "PMingLiU-ExtB", "Poor Richard", "Pristina", "Rage Italic", "Ravie", "Rockwell", "Rockwell Condensed", "Rockwell Extra Bold", "SansSerif", "Script MT Bold", "Segoe MDL2 Assets", "Segoe Print", "Segoe Script", "Segoe UI", "Segoe UI Black", "Segoe UI Emoji", "Segoe UI Historic", "Segoe UI Light", "Segoe UI Semibold", "Segoe UI Semilight", "Segoe UI Symbol", "Serif", "Showcard Gothic", "SimSun", "SimSun-ExtB", "Sitka Banner", "Sitka Display", "Sitka Heading", "Sitka Small", "Sitka Subheading", "Sitka Text", "Snap ITC", "Stencil", "Sylfaen", "Symbol", "Tahoma", "Tempus Sans ITC", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Tw Cen MT Condensed", "Tw Cen MT Condensed Extra Bold", "Verdana", "Viner Hand ITC", "Vivaldi", "Vladimir Script", "Warsaw", "Webdings", "Wide Latin", "Wingdings", "Wingdings 2", "Wingdings 3", "Yu Gothic", "Yu Gothic Light", "Yu Gothic Medium", "Yu Gothic UI", "Yu Gothic UI Light", "Yu Gothic UI Semibold", "Yu Gothic UI Semilight" }));
 
         javax.swing.GroupLayout jPConfigTabelaLayout = new javax.swing.GroupLayout(jPConfigTabela);
         jPConfigTabela.setLayout(jPConfigTabelaLayout);
@@ -990,35 +1054,42 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                             .addComponent(jRTabela1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jTTabela1nome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCFonteEstiloTabelaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                        .addComponent(jSFonteTabelaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13))
+                    .addComponent(jCFonteTipoTabelaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCFonteEstiloTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRTabelaCheia, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRTransparencia)
-                            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                                .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel20))))
+                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel20))
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                        .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSEspacamento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addGap(6, 6, 6)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                .addComponent(jSEspacamento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2))
+                            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCFonteEstiloTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(128, Short.MAX_VALUE))
         );
@@ -1027,45 +1098,45 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
                 .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRTabela1)
+                                    .addComponent(jTTabela1nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSFonteTabelaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13))
+                                .addGap(3, 3, 3)
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRTabela2)
+                                    .addComponent(jTTabela2nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCFonteEstiloTabelaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRTabela3)
+                                    .addComponent(jTTabela3nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCFonteTipoTabelaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPConfigTabelaLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton2)
+                                    .addComponent(jSEspacamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12))
                                 .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jRTabela1)
-                                        .addComponent(jTTabela1nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton2)
-                                        .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jSEspacamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel12)))
-                                .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jRTabela2)
-                                            .addComponent(jTTabela2nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jCFonteEstiloTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jRTabela3)
-                                            .addComponent(jTTabela3nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPCorFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPConfigTabelaLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
+                                        .addGap(15, 15, 15)
                                         .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jSTranspFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel20)))))
-                            .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel20)))
+                                    .addComponent(jPCorFundoTabela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(3, 3, 3)
                         .addGroup(jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRTabela4)
                             .addComponent(jTTabela4nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRTabelaCheia)
-                            .addComponent(jRTransparencia)))
+                            .addComponent(jSFonteTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jCFonteEstiloTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCFonteTipoTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -1177,13 +1248,19 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPCImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
-                    .addComponent(jBImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                        .addComponent(jBImagemTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRExibirTopo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPConfigImagemLayout.createSequentialGroup()
+                        .addComponent(jBImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRExibirLateral))
                     .addComponent(jLabel19)
                     .addComponent(jPCImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(603, Short.MAX_VALUE))
         );
         jPConfigImagemLayout.setVerticalGroup(
             jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1211,9 +1288,12 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                             .addComponent(jPCImagemLateral, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPCImagemTopo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBImagemTopo)
-                            .addComponent(jBImagemLateral)))
+                        .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jBImagemTopo)
+                                .addComponent(jBImagemLateral)
+                                .addComponent(jRExibirTopo))
+                            .addComponent(jRExibirLateral)))
                     .addGroup(jPConfigImagemLayout.createSequentialGroup()
                         .addComponent(jPCImagemFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1244,21 +1324,21 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jScrollPane6.setViewportView(jTTerminais);
         jTTerminais.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jButton1.setText("+");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/painel/icon/Knob Add.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("-");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/painel/icon/Knob Remove.png"))); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("->");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/atmatech/painel/icon/Knob Forward.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -1272,24 +1352,21 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton4, jButton5});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jButton1)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1301,6 +1378,13 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Restaurar Padrão");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -1321,6 +1405,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                     .addGroup(jPTerminal1Layout.createSequentialGroup()
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLTerminalConectado, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1334,9 +1420,11 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLTerminalConectado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLTerminalConectado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
@@ -1384,10 +1472,14 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:  
-        inicializaTabelasConfig();
-        consultaTbProdPainel();
-        jDLayoutTabelas.setLocationRelativeTo(this);
-        jDLayoutTabelas.setVisible(true);
+        if (jLTerminalConectado.getText().length() > 21) {
+            inicializaTabelasConfig();
+            consultaTbProdPainel();
+            jDLayoutTabelas.setLocationRelativeTo(this);
+            jDLayoutTabelas.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Terminal Para Conexão");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTNomevalor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomevalor1ActionPerformed
@@ -1412,10 +1504,6 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCFonteTipoTabelaActionPerformed
 
-    private void jRTransparenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRTransparenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRTransparenciaActionPerformed
-
     private void jTTabela4nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTabela4nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTTabela4nomeActionPerformed
@@ -1426,6 +1514,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
 
     private void jBImagem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImagem1ActionPerformed
         // TODO add your handling code here:
+        jFileChooser1.setCurrentDirectory(new File("./imagem"));
         jDFileImagem.setLocationRelativeTo(null);
         jDFileImagem.setVisible(true);
         String file = jFileChooser1.getSelectedFile().toString();
@@ -1445,6 +1534,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
 
     private void jBImagemTopoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImagemTopoActionPerformed
         // TODO add your handling code here:
+        jFileChooser1.setCurrentDirectory(new File("./imagem"));
         jDFileImagem.setLocationRelativeTo(null);
         jDFileImagem.setVisible(true);
         String file = jFileChooser1.getSelectedFile().toString();
@@ -1464,6 +1554,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
 
     private void jBImagemLateralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImagemLateralActionPerformed
         // TODO add your handling code here:
+        jFileChooser1.setCurrentDirectory(new File("./imagem"));
         jDFileImagem.setLocationRelativeTo(null);
         jDFileImagem.setVisible(true);
         String file = jFileChooser1.getSelectedFile().toString();
@@ -1535,6 +1626,17 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             deletaProdutoConfigTabela1();
         }
+
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaUP(jTCTable1);
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaDown(jTCTable1);
+            }
+        }
     }//GEN-LAST:event_jTCTable1KeyPressed
 
     private void jTCTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCTable2MouseClicked
@@ -1550,6 +1652,16 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             deletaProdutoConfigTabela2();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaUP(jTCTable2);
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaDown(jTCTable2);
+            }
+        }
     }//GEN-LAST:event_jTCTable2KeyPressed
 
     private void jTCTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTable3KeyPressed
@@ -1560,6 +1672,16 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         }
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             deletaProdutoConfigTabela3();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaUP(jTCTable3);
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaDown(jTCTable3);
+            }
         }
     }//GEN-LAST:event_jTCTable3KeyPressed
 
@@ -1572,11 +1694,25 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             deletaProdutoConfigTabela4();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaUP(jTCTable4);
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaDown(jTCTable4);
+            }
+        }
     }//GEN-LAST:event_jTCTable4KeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        setConfigProdTerminal();
+        if (jLTerminalConectado.getText().length() > 21) {
+            setConfigProdTerminal();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Terminal Para Conexão");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1629,7 +1765,8 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        // TODO add your handling code here:        
+        // TODO add your handling code here:  
+        
         if (((int) jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0)) > 0) {
             new Thread(new Runnable() {
                 @Override
@@ -1637,6 +1774,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                     showAguarde();
                 }
             }).start();
+            limpaCampos();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -1644,9 +1782,9 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                         conectTerminal();
                     } catch (Exception ex) {
                         jDAguarde.setVisible(false);
-                        if(ex.toString().contains("NullPointer")){                            
-                        }else{
-                        JOptionPane.showMessageDialog(null, "Erro ao Carregar Configuração\n" + ex);
+                        if (ex.toString().contains("NullPointer")) {
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Erro ao Carregar Configuração\n" + ex);
                         }
                     }
                 }
@@ -1669,10 +1807,40 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                     setConfigTerminal();
                 }
             }).start();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione um Terminal Para Conexão");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTConsultaProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTConsultaProdutoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F) {
+            if (evt.isControlDown()) {
+                String filtro = JOptionPane.showInputDialog(jDConsultaProduto, "Consulta:");
+                if (filtro != null) {
+                    filtraProduto(filtro);
+                }
+            }
+        }
+    }//GEN-LAST:event_jTConsultaProdutoKeyPressed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        if (jLTerminalConectado.getText().length() > 21) {
+            setDefault();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Terminal Para Conexão");
+        }
+
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jCFonteEstiloTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteEstiloTabelaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCFonteEstiloTabelaActionPerformed
+
+    private void jCFonteEstiloTabelaTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteEstiloTabelaTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCFonteEstiloTabelaTituloActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1686,6 +1854,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JCheckBox jCCTCodigo;
     private javax.swing.JCheckBox jCCTOferta;
     private javax.swing.JCheckBox jCCTProduto;
@@ -1693,7 +1862,9 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCCTValor1;
     private javax.swing.JCheckBox jCCTValor2;
     private javax.swing.JComboBox<String> jCFonteEstiloTabela;
+    private javax.swing.JComboBox<String> jCFonteEstiloTabelaTitulo;
     private javax.swing.JComboBox<String> jCFonteTipoTabela;
+    private javax.swing.JComboBox<String> jCFonteTipoTabelaTitulo;
     private javax.swing.JComboBox<String> jCTipoLocalizacao;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDAguarde;
@@ -1708,10 +1879,15 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1736,16 +1912,18 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JRadioButton jRExibirLateral;
+    private javax.swing.JRadioButton jRExibirTopo;
     private javax.swing.JRadioButton jRTabela1;
     private javax.swing.JRadioButton jRTabela2;
     private javax.swing.JRadioButton jRTabela3;
     private javax.swing.JRadioButton jRTabela4;
-    private javax.swing.JRadioButton jRTabelaCheia;
-    private javax.swing.JRadioButton jRTransparencia;
     private javax.swing.JRadioButton jRletreiro;
     private javax.swing.JSpinner jSEspacamento;
     private javax.swing.JSpinner jSFonteTabela;
+    private javax.swing.JSpinner jSFonteTabelaTitulo;
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
     private javax.swing.JSpinner jSTerminal1;
@@ -2062,7 +2240,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         dbc.setLocaluser(jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 2).toString());
         dbc.setLocalpassword(jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 3).toString());
         dbc.setTerminal((Integer) jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0));
-        limpaCampos();
+        //limpaCampos();
         Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config((Integer) jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0));
         if (tbc.getTerminal().toString().equals(jTTerminais.getValueAt(jTTerminais.getSelectedRow(), 0).toString())) {
             jRTabela1.setSelected(tbc.isTabela1());
@@ -2073,12 +2251,10 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jTTabela2nome.setText(tbc.getTabela2nome());
             jTTabela3nome.setText(tbc.getTabela3nome());
             jTTabela4nome.setText(tbc.getTabela4nome());
-            jRTransparencia.setSelected(tbc.isTransparencia());
             jRletreiro.setSelected(tbc.isLetreiro());
             jSFonteTabela.setValue((Integer) tbc.getFonteTabela());
             jTletreirotexto.setText(tbc.getLetreirotexto());
-            jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());
-            jRTabelaCheia.setSelected(tbc.isTabelacheia());
+            jStransicaoLetreiro.setValue((Integer) tbc.getLetreirotempo());            
             jCTipoLocalizacao.setSelectedItem(tbc.getTipolocalizacao());
             jSTranspFundoTabela.setValue(tbc.getTranspfundotabela());
             try {
@@ -2131,9 +2307,19 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jTNomeValor2.setText(tbc.getNomevalor2());
             jCCTUnid.setSelected(tbc.isCtunid());
             jCFonteEstiloTabela.setSelectedIndex(tbc.getFonteestilotabela());
+            jCFonteEstiloTabela.repaint();
             jCFonteTipoTabela.setSelectedItem(tbc.getFontetipotabela());
+            jCFonteTipoTabela.repaint();
             jSEspacamento.setValue(tbc.getEspacamento());
+            
+            jSFonteTabelaTitulo.setValue(tbc.getFontetabelatitulo());
+            jCFonteTipoTabelaTitulo.setSelectedItem(tbc.getFontetipotabelatitulo());
+            jCFonteTipoTabelaTitulo.repaint();
+            jCFonteEstiloTabelaTitulo.setSelectedIndex(tbc.getFonteestilotabelatitulo());
+            jCFonteEstiloTabelaTitulo.repaint();
             jLTerminalConectado.setText("Conectado ao Terminal: " + dbc.getTerminal());
+            jRExibirTopo.setSelected(tbc.isExibirtopo());
+            jRExibirLateral.setSelected(tbc.isExibirlateral());
             jDAguarde.setVisible(false);
         }
         jDAguarde.setVisible(false);
@@ -2151,14 +2337,12 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             tbc.setTabela2nome(jTTabela2nome.getText());
             tbc.setTabela3nome(jTTabela3nome.getText());
             tbc.setTabela4nome(jTTabela4nome.getText());
-            tbc.setTransparencia(jRTransparencia.isSelected());
             tbc.setLetreiro(jRletreiro.isSelected());
             tbc.setFonteTabela((Integer) jSFonteTabela.getValue());
             tbc.setLetreirotexto(jTletreirotexto.getText());
-            tbc.setLetreirotempo((Integer) jStransicaoLetreiro.getValue());
-            tbc.setTabelacheia(jRTabelaCheia.isSelected());
+            tbc.setLetreirotempo((Integer) jStransicaoLetreiro.getValue());            
             tbc.setTipolocalizacao(jCTipoLocalizacao.getSelectedItem().toString());
-            tbc.setTranspfundotabela((Integer)jSTranspFundoTabela.getValue());
+            tbc.setTranspfundotabela((Integer) jSTranspFundoTabela.getValue());
             try {
                 tbc.setFundoimagem1(converteArquivo(configfundo.getImage()));
                 tbc.setLateralimagem(converteArquivo(configlateral.getImage()));
@@ -2183,6 +2367,12 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             tbc.setFonteestilotabela(jCFonteEstiloTabela.getSelectedIndex());
             tbc.setFontetipotabela(jCFonteTipoTabela.getSelectedItem().toString());
             tbc.setEspacamento((Integer) jSEspacamento.getValue());
+            
+            tbc.setFontetabelatitulo((Integer)jSFonteTabelaTitulo.getValue());
+            tbc.setFonteestilotabelatitulo(jCFonteEstiloTabelaTitulo.getSelectedIndex());
+            tbc.setFontetipotabelatitulo(jCFonteTipoTabelaTitulo.getSelectedItem().toString());
+            tbc.setExibirtopo(jRExibirTopo.isSelected());
+            tbc.setExibirlateral(jRExibirLateral.isSelected());
             int key = new Tb_ConfigDao().setTb_Config(tbc);
             if (key > 0) {
                 new Tb_ConfigDao().delTb_Config(new DBConfigBeans().getTerminal(), key - 1);
@@ -2218,13 +2408,11 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jTTabela2nome.setText("");
         jTTabela3nome.setText("");
         jTTabela4nome.setText("");
-        jRTransparencia.setSelected(false);
         jRletreiro.setSelected(false);
         jSFonteTabela.setValue(1);
         jSTranspFundoTabela.setValue(0);
         jTletreirotexto.setText("");
-        jStransicaoLetreiro.setValue(1);
-        jRTabelaCheia.setSelected(false);
+        jStransicaoLetreiro.setValue(1);        
         jCTipoLocalizacao.setSelectedIndex(1);
         //carrega o config com imagem
         //imagem fundo            
@@ -2255,9 +2443,104 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jTNomeValor2.setText("");
         jCCTUnid.setSelected(false);
         jCFonteEstiloTabela.setSelectedIndex(1);
-        jCFonteTipoTabela.setSelectedItem(1);
+        jCFonteTipoTabela.setSelectedIndex(0);
         jSEspacamento.setValue(1);
         jLTerminalConectado.setText("");
+        jSFonteTabelaTitulo.setValue(18);
+        jCFonteEstiloTabelaTitulo.setSelectedIndex(1);
+        jCFonteTipoTabelaTitulo.setSelectedIndex(0);
+        jRExibirLateral.setSelected(false);
+        jRExibirTopo.setSelected(false);
+    }
+
+    private void filtraProduto(String filtro) {
+        try {
+            List<Tb_ProdBeans> lpb = new ArrayList<>();
+            lpb = new Tb_ProdDao().getFiltroProdLocal(filtro);
+            DefaultTableModel model = (DefaultTableModel) jTConsultaProduto.getModel();
+            model.setNumRows(0);
+            for (Tb_ProdBeans pb : lpb) {
+                model.addRow(new Object[]{pb.getCodigo(), pb.getDescricao(), pb.getOferta(), pb.getUnid(), pb.getValor1()});
+            }
+            jDConsultaProduto.setLocationRelativeTo(this);
+            jDConsultaProduto.setVisible(true);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao Consultar" + ex);
+        }
+    }
+
+    private void setDefault() {
+        jRTabela1.setSelected(true);
+        jRTabela2.setSelected(false);
+        jRTabela3.setSelected(false);
+        jRTabela4.setSelected(false);
+        jTTabela1nome.setText("");
+        jTTabela2nome.setText("");
+        jTTabela3nome.setText("");
+        jTTabela4nome.setText("");
+        jRletreiro.setSelected(true);
+        jSFonteTabela.setValue(40);
+        jTletreirotexto.setText("Agradecemos Pela Preferência !!!");
+        jStransicaoLetreiro.setValue(10);        
+        jCTipoLocalizacao.setSelectedItem("RESIZE");
+        jSTranspFundoTabela.setValue(100);
+        try {
+            //carrega o config com imagem
+            //imagem fundo            
+            jPCImagemFundo.removeAll();
+            configfundo = new JImagePanel(loadImage("./imagem/PadraoFundo.jpg"));
+            configfundo.setSize(100, 100);
+            configfundo.setVisible(true);
+            configfundo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemFundo.add(configfundo);
+            jPCImagemFundo.validate();
+            jPCImagemFundo.repaint();
+            //imagem lateral
+            jPCImagemLateral.removeAll();
+            configlateral = new JImagePanel(loadImage("./imagem/PadraoLateral.jpg"));
+            configlateral.setSize(100, 100);
+            configlateral.setVisible(true);
+            configlateral.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemLateral.add(configlateral);
+            jPCImagemLateral.validate();
+            jPCImagemLateral.repaint();
+            //imagem topo
+            jPCImagemTopo.removeAll();
+            configtopo = new JImagePanel(loadImage("./imagem/PadraoTopo.jpg"));
+            configtopo.setSize(100, 100);
+            configtopo.setVisible(true);
+            configtopo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemTopo.add(configtopo);
+            jPCImagemTopo.validate();
+            jPCImagemTopo.repaint();
+            // configfundo = new JImagePanel(loadImage(tbc.getArquivoFundoImagem1()));
+            configlateral = new JImagePanel(loadImage("./imagem/PadraoLateral.jpg"));
+            configtopo = new JImagePanel(loadImage("./imagem/PadraoTopo.jpg"));
+        } catch (IOException ex) {
+            new DBConfig().createArqLog("SetDefault-ViewPrincipal:" + ex);
+        }
+        jSTamanhox.setValue(1900);
+        jSTamanhoy.setValue(1100);
+        jPCorFundoLetreiro.setBackground(new Color(Integer.valueOf(-3394816)));
+        jPCorFonteLetreiro.setBackground(new Color(Integer.valueOf(-16777216)));
+        jPCorFonteTabela.setBackground(new Color(Integer.valueOf(-16777216)));
+        jPCorFundoTabela.setBackground(new Color(Integer.valueOf(-1)));
+        jCCTCodigo.setSelected(false);
+        jCCTProduto.setSelected(true);
+        jCCTOferta.setSelected(false);
+        jCCTValor1.setSelected(true);
+        jCCTValor2.setSelected(false);
+        jTNomevalor1.setText("KILO");
+        jTNomeValor2.setText("");
+        jCCTUnid.setSelected(false);
+        jCFonteEstiloTabela.setSelectedIndex(1);
+        jCFonteTipoTabela.setSelectedItem("Tahoma");
+        jSEspacamento.setValue(40);
+        jSFonteTabelaTitulo.setValue(18);
+        jCFonteEstiloTabelaTitulo.setSelectedIndex(1);
+        jCFonteTipoTabelaTitulo.setSelectedItem("Tahoma");
+        jRExibirTopo.setSelected(false);
+        jRExibirLateral.setSelected(false);
     }
 
 }

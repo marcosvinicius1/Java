@@ -24,12 +24,10 @@ public class Tb_ConfigBeans {
     static private String tabela2nome;
     static private String tabela3nome;
     static private String tabela4nome;
-    static private Integer FonteTabela;
-    static private boolean transparencia;
+    static private Integer FonteTabela;    
     static private boolean letreiro;
     static private String letreirotexto;
-    static private Integer letreirotempo;
-    static private boolean tabelacheia;
+    static private Integer letreirotempo;    
     static private String tipolocalizacao;
     static private Integer tempotransicao;
     static private byte[] fundoimagem1;
@@ -54,6 +52,11 @@ public class Tb_ConfigBeans {
     static private String fontetipotabela;
     static private Integer espacamento;
     static private Integer transpfundotabela;
+    static private Integer fontetabelatitulo;
+    static private String fontetipotabelatitulo;
+    static private Integer fonteestilotabelatitulo;
+    static private boolean exibirtopo;
+    static private boolean exibirlateral;
     
     public boolean isTabela1() {
         return tabela1;
@@ -95,14 +98,6 @@ public class Tb_ConfigBeans {
         this.FonteTabela = FonteTabela;
     }
 
-    public boolean isTransparencia() {
-        return transparencia;
-    }
-
-    public void setTransparencia(boolean transparencia) {
-        this.transparencia = transparencia;
-    }
-
     public boolean isLetreiro() {
         return letreiro;
     }
@@ -126,15 +121,7 @@ public class Tb_ConfigBeans {
     public void setLetreirotempo(Integer letreirotempo) {
         this.letreirotempo = letreirotempo;
     }
-
-    public boolean isTabelacheia() {
-        return tabelacheia;
-    }
-
-    public void setTabelacheia(boolean tabelacheia) {
-        this.tabelacheia = tabelacheia;
-    }
-
+  
     public String getTipolocalizacao() {
         return tipolocalizacao;
     }
@@ -420,5 +407,45 @@ public class Tb_ConfigBeans {
 
     public void setTranspfundotabela(Integer transpfundotabela) {
         this.transpfundotabela = transpfundotabela;
+    }
+
+    public Integer getFontetabelatitulo() {
+        return fontetabelatitulo;
+    }
+
+    public void setFontetabelatitulo(Integer fontetabelatitulo) {
+        this.fontetabelatitulo = fontetabelatitulo;
+    }
+
+    public String getFontetipotabelatitulo() {
+        return fontetipotabelatitulo;
+    }
+
+    public void setFontetipotabelatitulo(String fontetipotabelatitulo) {
+        this.fontetipotabelatitulo = fontetipotabelatitulo;
+    }
+
+    public Integer getFonteestilotabelatitulo() {
+        return fonteestilotabelatitulo;
+    }
+
+    public void setFonteestilotabelatitulo(Integer fonteestilotabelatitulo) {
+        this.fonteestilotabelatitulo = fonteestilotabelatitulo;
+    }
+
+    public boolean isExibirtopo() {
+        return exibirtopo;
+    }
+
+    public void setExibirtopo(boolean exibirtopo) {
+        this.exibirtopo = exibirtopo;
+    }
+
+    public boolean isExibirlateral() {
+        return exibirlateral;
+    }
+
+    public void setExibirlateral(boolean exibirlateral) {
+        this.exibirlateral = exibirlateral;
     }
 }

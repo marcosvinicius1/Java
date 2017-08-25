@@ -66,6 +66,31 @@ public class Tb_ProdDao {
             return lpb;
         }
     }
+    
+    public List<Tb_ProdBeans> getFiltroProdLocal(String filtro) throws SQLException {
+        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+            String sql = "select * from tb_prod where descricao like ? OR codigo like ? ";
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, "%"+filtro+"%");
+            pstm.setString(2, "%"+filtro+"%");
+            ResultSet rs = pstm.executeQuery();
+            List<Tb_ProdBeans> lpb = new ArrayList<>();
+            while (rs.next()) {
+                Tb_ProdBeans pb = new Tb_ProdBeans();
+                pb.setCodigo(rs.getString("codigo"));
+                pb.setDescricao(rs.getString("descricao"));
+                pb.setUnid(rs.getString("unid"));
+                pb.setValor1(rs.getFloat("valor1"));
+                pb.setValor2(rs.getFloat("valor2"));
+                pb.setOferta(rs.getBoolean("oferta"));
+                lpb.add(pb);
+            }
+            rs.close();
+            pstm.close();
+            conexao.close();
+            return lpb;
+        }
+    }
 
     public void setProdLocal(List<Tb_ProdBeans> lpb) throws SQLException {
         try (Connection conexao = new ConexaoDBMySql().getConnect()) {

@@ -15,29 +15,10 @@ import javafx.stage.Stage;
  * @author Marcos
  */
 public class PainelFX extends Application {
-    
+
     @Override
-    public void start(Stage primaryStage) throws IOException{        
-        new ViewPrincipal().setVisible(true);                   
-       // DBConfigBeans dbc= new DBConfig().getConfig();
-//        Button btn = new Button();
-//        btn.setText("Teste");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                new ViewPrincipal().setVisible(true);
-//            }
-//        });
-//        
-//        StackPane root = new StackPane();
-//        root.getChildren().add(btn);
-//        
-//        Scene scene = new Scene(root, 300, 250);
-//        
-//        primaryStage.setTitle("Teste");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+    public void start(Stage primaryStage) throws IOException {        
+        new ViewPrincipal().setVisible(true);
     }
 
     /**
@@ -46,5 +27,5 @@ public class PainelFX extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

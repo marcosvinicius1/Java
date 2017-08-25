@@ -34,8 +34,7 @@ public class Tb_ConfigDao {
                 tbc.setTipolocalizacao(rs.getString("tipolocalizacao"));
                 tbc.setTopoimagem(rs.getBytes("topoimagem"));
                 tbc.setFundoimagem1(rs.getBytes("fundoimagem"));
-                tbc.setLateralimagem(rs.getBytes("lateralimagem"));
-                tbc.setTransparencia(rs.getBoolean("transparencia"));
+                tbc.setLateralimagem(rs.getBytes("lateralimagem"));                
                 tbc.setLetreirotempo(rs.getInt("letreirotempo"));
                 tbc.setLetreirocorfundo(rs.getInt("letreirocorfundo"));
                 tbc.setLetreirotexto(rs.getString("letreirotexto"));
@@ -43,8 +42,7 @@ public class Tb_ConfigDao {
                 tbc.setTabela1(rs.getBoolean("tabela01"));
                 tbc.setTabela2(rs.getBoolean("tabela02"));
                 tbc.setTabela3(rs.getBoolean("tabela03"));
-                tbc.setTabela4(rs.getBoolean("tabela04"));
-                tbc.setTabelacheia(rs.getBoolean("tabelacheia"));
+                tbc.setTabela4(rs.getBoolean("tabela04"));                
                 tbc.setTerminal(rs.getInt("terminal"));                                
                 tbc.setCtcodigo(rs.getBoolean("ctcodigo"));
                 tbc.setCtproduto(rs.getBoolean("ctproduto"));
@@ -65,6 +63,11 @@ public class Tb_ConfigDao {
                 tbc.setTabela3nome(rs.getString("tabela3nome"));
                 tbc.setTabela4nome(rs.getString("tabela4nome"));
                 tbc.setTranspfundotabela(rs.getInt("transpfundotabela"));
+                tbc.setFontetabelatitulo(rs.getInt("fontetabelatitulo"));
+                tbc.setFontetipotabelatitulo(rs.getString("fontetipotabelatitulo"));
+                tbc.setFonteestilotabelatitulo(rs.getInt("fonteestilotabelatitulo"));
+                tbc.setExibirtopo(rs.getBoolean("exibirtopo"));
+                tbc.setExibirlateral(rs.getBoolean("exibirlateral"));
             }
             rs.close();
             pstm.close();
@@ -88,8 +91,7 @@ public class Tb_ConfigDao {
                 tbc.setTipolocalizacao(rs.getString("tipolocalizacao"));
                 tbc.setTopoimagem(rs.getBytes("topoimagem"));
                 tbc.setFundoimagem1(rs.getBytes("fundoimagem"));
-                tbc.setLateralimagem(rs.getBytes("lateralimagem"));
-                tbc.setTransparencia(rs.getBoolean("transparencia"));
+                tbc.setLateralimagem(rs.getBytes("lateralimagem"));                
                 tbc.setLetreirotempo(rs.getInt("letreirotempo"));
                 tbc.setLetreirocorfundo(rs.getInt("letreirocorfundo"));
                 tbc.setLetreirotexto(rs.getString("letreirotexto"));
@@ -97,8 +99,7 @@ public class Tb_ConfigDao {
                 tbc.setTabela1(rs.getBoolean("tabela01"));
                 tbc.setTabela2(rs.getBoolean("tabela02"));
                 tbc.setTabela3(rs.getBoolean("tabela03"));
-                tbc.setTabela4(rs.getBoolean("tabela04"));
-                tbc.setTabelacheia(rs.getBoolean("tabelacheia"));
+                tbc.setTabela4(rs.getBoolean("tabela04"));               
                 tbc.setTerminal(rs.getInt("terminal"));                                
                 tbc.setCtcodigo(rs.getBoolean("ctcodigo"));
                 tbc.setCtproduto(rs.getBoolean("ctproduto"));
@@ -119,6 +120,11 @@ public class Tb_ConfigDao {
                 tbc.setTabela3nome(rs.getString("tabela3nome"));
                 tbc.setTabela4nome(rs.getString("tabela4nome"));
                 tbc.setTranspfundotabela(rs.getInt("transpfundotabela"));
+                tbc.setFontetabelatitulo(rs.getInt("fontetabelatitulo"));
+                tbc.setFontetipotabelatitulo(rs.getString("fontetipotabelatitulo"));
+                tbc.setFonteestilotabelatitulo(rs.getInt("fonteestilotabelatitulo"));
+                tbc.setExibirtopo(rs.getBoolean("exibirtopo"));
+                tbc.setExibirlateral(rs.getBoolean("exibirlateral"));
             }
             rs.close();
             pstm.close();
@@ -130,10 +136,10 @@ public class Tb_ConfigDao {
     public int setTb_Config(Tb_ConfigBeans tbc) throws SQLException{
         try(Connection conexao=new ConexaoDBMySql().getConnect()){
             String sql="INSERT INTO tb_config (tamanhox, tamanhoy, letreiro, tipolocalizacao, topoimagem, fundoimagem, lateralimagem, "
-                    + "transparencia, letreirotempo, letreirocorfonte, fontetabela, letreirocorfundo, letreirotexto, tabela01, tabela02, "
-                    + "tabela03, tabela04, tabelacheia, terminal,ctcodigo,ctproduto,ctoferta,ctvalor1,ctvalor2,nomevalor1,nomevalor2,"
-                    + "ctunid,corfontetabela,corfundotabela,fonteestilotabela,fontetipotabela,espacamento,tabela1nome,tabela2nome,tabela3nome,tabela4nome,transpfundotabela) "
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "letreirotempo, letreirocorfonte, fontetabela, letreirocorfundo, letreirotexto, tabela01, tabela02, "
+                    + "tabela03, tabela04, terminal,ctcodigo,ctproduto,ctoferta,ctvalor1,ctvalor2,nomevalor1,nomevalor2,"
+                    + "ctunid,corfontetabela,corfundotabela,fonteestilotabela,fontetipotabela,espacamento,tabela1nome,tabela2nome,tabela3nome,tabela4nome,transpfundotabela,fontetabelatitulo,fontetipotabelatitulo,fonteestilotabelatitulo,exibirtopo,exibirlateral) "
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, tbc.getTamanhox());
             pstm.setInt(2, tbc.getTamanhoy());
@@ -141,37 +147,40 @@ public class Tb_ConfigDao {
             pstm.setString(4, tbc.getTipolocalizacao());
             pstm.setBytes(5, tbc.getTopoimagem());
             pstm.setBytes(6, tbc.getFundoimagem1());
-            pstm.setBytes(7, tbc.getLateralimagem());
-            pstm.setBoolean(8, tbc.isTransparencia());
-            pstm.setInt(9, tbc.getLetreirotempo());
-            pstm.setInt(10, tbc.getLetreirocorfonte());
-            pstm.setInt(11, tbc.getFonteTabela());
-            pstm.setInt(12, tbc.getLetreirocorfundo());
-            pstm.setString(13, tbc.getLetreirotexto());
-            pstm.setBoolean(14, tbc.isTabela1());
-            pstm.setBoolean(15, tbc.isTabela2());
-            pstm.setBoolean(16, tbc.isTabela3());
-            pstm.setBoolean(17, tbc.isTabela4());
-            pstm.setBoolean(18, tbc.isTabelacheia());
-            pstm.setInt(19, tbc.getTerminal());
-            pstm.setBoolean(20, tbc.isCtcodigo());
-            pstm.setBoolean(21, tbc.isCtproduto());
-            pstm.setBoolean(22, tbc.isCtoferta());
-            pstm.setBoolean(23, tbc.isCtvalor1());
-            pstm.setBoolean(24, tbc.isCtvalor2());
-            pstm.setString(25, tbc.getNomevalor1());
-            pstm.setString(26, tbc.getNomevalor2());
-            pstm.setBoolean(27, tbc.isCtunid());
-            pstm.setInt(28, tbc.getCorfontetabela());
-            pstm.setInt(29, tbc.getCorfundotabela());
-            pstm.setInt(30, tbc.getFonteestilotabela());
-            pstm.setString(31, tbc.getFontetipotabela());
-            pstm.setInt(32, tbc.getEspacamento());
-            pstm.setString(33, tbc.getTabela1nome());
-            pstm.setString(34, tbc.getTabela2nome());
-            pstm.setString(35, tbc.getTabela3nome());
-            pstm.setString(36, tbc.getTabela4nome());
-            pstm.setInt(37, tbc.getTranspfundotabela());
+            pstm.setBytes(7, tbc.getLateralimagem());            
+            pstm.setInt(8, tbc.getLetreirotempo());
+            pstm.setInt(9, tbc.getLetreirocorfonte());
+            pstm.setInt(10, tbc.getFonteTabela());
+            pstm.setInt(11, tbc.getLetreirocorfundo());
+            pstm.setString(12, tbc.getLetreirotexto());
+            pstm.setBoolean(13, tbc.isTabela1());
+            pstm.setBoolean(14, tbc.isTabela2());
+            pstm.setBoolean(15, tbc.isTabela3());
+            pstm.setBoolean(16, tbc.isTabela4());            
+            pstm.setInt(17, tbc.getTerminal());
+            pstm.setBoolean(18, tbc.isCtcodigo());
+            pstm.setBoolean(19, tbc.isCtproduto());
+            pstm.setBoolean(20, tbc.isCtoferta());
+            pstm.setBoolean(21, tbc.isCtvalor1());
+            pstm.setBoolean(22, tbc.isCtvalor2());
+            pstm.setString(23, tbc.getNomevalor1());
+            pstm.setString(24, tbc.getNomevalor2());
+            pstm.setBoolean(25, tbc.isCtunid());
+            pstm.setInt(26, tbc.getCorfontetabela());
+            pstm.setInt(27, tbc.getCorfundotabela());
+            pstm.setInt(28, tbc.getFonteestilotabela());
+            pstm.setString(29, tbc.getFontetipotabela());
+            pstm.setInt(30, tbc.getEspacamento());
+            pstm.setString(31, tbc.getTabela1nome());
+            pstm.setString(32, tbc.getTabela2nome());
+            pstm.setString(33, tbc.getTabela3nome());
+            pstm.setString(34, tbc.getTabela4nome());
+            pstm.setInt(35, tbc.getTranspfundotabela());
+            pstm.setInt(36, tbc.getFontetabelatitulo());
+            pstm.setString(37, tbc.getFontetipotabelatitulo());
+            pstm.setInt(38, tbc.getFonteestilotabelatitulo());
+            pstm.setBoolean(39, tbc.isExibirtopo());
+            pstm.setBoolean(40, tbc.isExibirlateral());
             pstm.execute();
             ResultSet rs=pstm.getGeneratedKeys();
             int key=0;

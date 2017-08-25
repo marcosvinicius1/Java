@@ -24,12 +24,10 @@ public class Tb_ConfigTempBeans{
     private String tabela2nome;
     private String tabela3nome;
     private String tabela4nome;
-    private Integer FonteTabela;
-    private boolean transparencia;
+    private Integer FonteTabela;    
     private boolean letreiro;
     private String letreirotexto;
-    private Integer letreirotempo;
-    private boolean tabelacheia;
+    private Integer letreirotempo;    
     private String tipolocalizacao;
     private Integer tempotransicao;
     private byte[] fundoimagem1;
@@ -54,6 +52,11 @@ public class Tb_ConfigTempBeans{
     private String fontetipotabela;
     private Integer espacamento;
     private Integer transpfundotabela;
+    private Integer fontetabelatitulo;
+    private String fontetipotabelatitulo;
+    private Integer fonteestilotabelatitulo;
+    private boolean exibirtopo;
+    private boolean exibirlateral;
     
     public boolean isTabela1() {
         return tabela1;
@@ -95,14 +98,6 @@ public class Tb_ConfigTempBeans{
         this.FonteTabela = FonteTabela;
     }
 
-    public boolean isTransparencia() {
-        return transparencia;
-    }
-
-    public void setTransparencia(boolean transparencia) {
-        this.transparencia = transparencia;
-    }
-
     public boolean isLetreiro() {
         return letreiro;
     }
@@ -125,15 +120,7 @@ public class Tb_ConfigTempBeans{
 
     public void setLetreirotempo(Integer letreirotempo) {
         this.letreirotempo = letreirotempo;
-    }
-
-    public boolean isTabelacheia() {
-        return tabelacheia;
-    }
-
-    public void setTabelacheia(boolean tabelacheia) {
-        this.tabelacheia = tabelacheia;
-    }
+    }    
 
     public String getTipolocalizacao() {
         return tipolocalizacao;
@@ -420,5 +407,45 @@ public class Tb_ConfigTempBeans{
 
     public void setTranspfundotabela(Integer transpfundotabela) {
         this.transpfundotabela = transpfundotabela;
+    }
+
+    public Integer getFontetabelatitulo() {
+        return fontetabelatitulo;
+    }
+
+    public void setFontetabelatitulo(Integer fontetabelatitulo) {
+        this.fontetabelatitulo = fontetabelatitulo;
+    }
+
+    public String getFontetipotabelatitulo() {
+        return fontetipotabelatitulo;
+    }
+
+    public void setFontetipotabelatitulo(String fontetipotabelatitulo) {
+        this.fontetipotabelatitulo = fontetipotabelatitulo;
+    }
+
+    public Integer getFonteestilotabelatitulo() {
+        return fonteestilotabelatitulo;
+    }
+
+    public void setFonteestilotabelatitulo(Integer fonteestilotabelatitulo) {
+        this.fonteestilotabelatitulo = fonteestilotabelatitulo;
+    }
+
+    public boolean isExibirtopo() {
+        return exibirtopo;
+    }
+
+    public void setExibirtopo(boolean exibirtopo) {
+        this.exibirtopo = exibirtopo;
+    }
+
+    public boolean isExibirlateral() {
+        return exibirlateral;
+    }
+
+    public void setExibirlateral(boolean exibirlateral) {
+        this.exibirlateral = exibirlateral;
     }
 }

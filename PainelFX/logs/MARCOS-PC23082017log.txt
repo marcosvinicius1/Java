@@ -1,0 +1,63 @@
+15:13:01
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:13:18
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:13:30Erro ao Atualizar Produtos ViewLayoutTableas-updateInicializaPainel: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:35
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:13:41ViewPricipal-updateConfig:com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 18.904 milliseconds ago.  The last packet sent successfully to the server was 18.903 milliseconds ago.
+15:13:42ViewPricipal-updateConfig:com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:43ViewPricipal-updateConfig:com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:44ViewPricipal-updateConfig:com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:45ViewPricipal-updateConfig:com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:45Erro ao Atualizar Produtos ViewLayoutTableas-updateInicializaPainel: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:46ViewPricipal-updateConfig:com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+15:13:52
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:14:09
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:14:26
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:14:43
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:15:00
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Falha na conexão TCP/IP com o host localhost, porta 1433. Erro: "Connection refused: connect. Verifique as propriedades da conexão. Verifique se uma instância do SQL Server está sendo executada no host e se está aceitando conexões TCP/IP na porta. Verifique se as conexões TCP na porta não foram bloqueadas por um firewall.".
+
+15:15:16
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Uma conexão estabelecida foi anulada pelo software no computador host ClientConnectionId:efcdcabe-6160-4dca-9a71-bb4b3f8a7b8b
+
+15:15:27
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:fcb3f3eb-f72b-4f1d-a508-a06022665318

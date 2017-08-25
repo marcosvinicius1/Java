@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.6" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JDialog" name="jDFileImagem">
       <Properties>
@@ -31,6 +31,9 @@
           <Properties>
             <Property name="acceptAllFileFilterUsed" type="boolean" value="false"/>
             <Property name="controlButtonsAreShown" type="boolean" value="false"/>
+            <Property name="currentDirectory" type="java.io.File" editor="org.netbeans.beaninfo.editors.FileEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,8,46,92,105,109,97,103,101,109,119,2,0,92,120"/>
+            </Property>
             <Property name="fileSelectionMode" type="int" value="2"/>
           </Properties>
           <Events>
@@ -119,6 +122,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTConsultaProdutoMouseClicked"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTConsultaProdutoKeyPressed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -129,7 +133,7 @@
       <Properties>
         <Property name="title" type="java.lang.String" value="Dados Tabelas"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1000, 590]"/>
+          <Dimension value="[1000, 650]"/>
         </Property>
         <Property name="modal" type="boolean" value="true"/>
       </Properties>
@@ -140,7 +144,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="927" max="32767" attributes="0"/>
+                  <EmptySpace pref="700" max="32767" attributes="0"/>
+                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Component id="jPanel16" alignment="0" max="32767" attributes="0"/>
@@ -151,13 +156,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="498" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanel16" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="154" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -218,6 +226,9 @@
                             <Column editable="true" title="Valor 2" type="java.lang.Float"/>
                           </Table>
                         </Property>
+                        <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                          <JTableSelectionModel selectionMode="0"/>
+                        </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -270,6 +281,9 @@
                             <Column editable="false" title="Valor 1" type="java.lang.Float"/>
                             <Column editable="true" title="Valor 2" type="java.lang.Float"/>
                           </Table>
+                        </Property>
+                        <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                          <JTableSelectionModel selectionMode="0"/>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -324,6 +338,9 @@
                             <Column editable="false" title="Valor 1" type="java.lang.Float"/>
                             <Column editable="true" title="Valor 2" type="java.lang.Float"/>
                           </Table>
+                        </Property>
+                        <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                          <JTableSelectionModel selectionMode="0"/>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -384,6 +401,9 @@
                             <Column editable="true" title="Valor 2" type="java.lang.Float"/>
                           </Table>
                         </Property>
+                        <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                          <JTableSelectionModel selectionMode="0"/>
+                        </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -406,6 +426,63 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
           </Events>
         </Component>
+        <Container class="javax.swing.JPanel" name="jPanel4">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Atalhos">
+                  <Color PropertyName="color" blue="0" green="0" red="ff" type="rgb"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="F2 : Consulta Produtos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel22">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete : Exclui Produto"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel23">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Movimentar Acima: CTRL+ Ceta Para Cima "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel24">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Movimentar Abaixo: CTRL+ Ceta Para Baixo "/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDLocalTerminal">
@@ -651,6 +728,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLTerminalConectado" min="-2" pref="213" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -668,9 +747,12 @@
                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                   <Component id="jPConfigImagem" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton6" max="32767" attributes="0"/>
-                      <Component id="jLTerminalConectado" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jButton6" max="32767" attributes="0"/>
+                          <Component id="jLTerminalConectado" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" pref="164" max="-2" attributes="0"/>
@@ -859,41 +941,50 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jCFonteEstiloTabelaTitulo" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
+                              <Component id="jSFonteTabelaTitulo" min="-2" pref="44" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jCFonteTipoTabelaTitulo" min="-2" pref="123" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jPCorFonteTabela" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPCorFundoTabela" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jSTranspFundoTabela" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jCFonteEstiloTabela" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
-                                  <Component id="jCFonteTipoTabela" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
-                                  <Component id="jRTabelaCheia" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRTransparencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jSEspacamento" min="-2" pref="39" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel12" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jPCorFonteTabela" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jSFonteTabela" min="-2" pref="44" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPCorFundoTabela" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jSTranspFundoTabela" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jCFonteEstiloTabela" min="-2" pref="93" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCFonteTipoTabela" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jSFonteTabela" min="-2" pref="44" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" pref="87" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSEspacamento" min="-2" pref="39" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" pref="85" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="128" max="32767" attributes="0"/>
                   </Group>
@@ -904,57 +995,55 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                              <Component id="jRTabela1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jTTabela1nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jSFonteTabela" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jSEspacamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jRTabela1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jTTabela1nome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jSFonteTabelaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jRTabela2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jTTabela2nome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jCFonteEstiloTabelaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jRTabela3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jTTabela3nome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jCFonteTipoTabelaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jSEspacamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jPCorFonteTabela" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jRTabela2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jTTabela2nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jCFonteEstiloTabela" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jRTabela3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jTTabela3nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jCFonteTipoTabela" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jPCorFonteTabela" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jSTranspFundoTabela" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
+                                          <Component id="jPCorFundoTabela" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jPCorFundoTabela" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jRTabela4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTTabela4nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRTabelaCheia" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRTransparencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSFonteTabela" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCFonteEstiloTabela" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCFonteTipoTabela" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1183,6 +1272,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCFonteEstiloTabelaActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -1418,19 +1510,6 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRTabelaCheia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Tabelas Cheias"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="jRTransparencia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Transparencia"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRTransparenciaActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JSpinner" name="jSEspacamento">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -1486,6 +1565,264 @@
                 <Property name="text" type="java.lang.String" value="Transparencia"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JSpinner" name="jSFonteTabelaTitulo">
+              <Properties>
+                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                  <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fonte Titulo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jCFonteEstiloTabelaTitulo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Simples"/>
+                    <StringItem index="1" value="Negrito"/>
+                    <StringItem index="2" value="It&#xe1;lico"/>
+                    <StringItem index="3" value="Negrito e It&#xe1;lico"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCFonteEstiloTabelaTituloActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jCFonteTipoTabelaTitulo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="217">
+                    <StringItem index="0" value="Agency FB"/>
+                    <StringItem index="1" value="Algerian"/>
+                    <StringItem index="2" value="Arial"/>
+                    <StringItem index="3" value="Arial Black"/>
+                    <StringItem index="4" value="Arial Narrow"/>
+                    <StringItem index="5" value="Arial Rounded MT Bold"/>
+                    <StringItem index="6" value="Arial Unicode MS"/>
+                    <StringItem index="7" value="Baskerville Old Face"/>
+                    <StringItem index="8" value="Bauhaus 93"/>
+                    <StringItem index="9" value="Bell MT"/>
+                    <StringItem index="10" value="Berlin Sans FB"/>
+                    <StringItem index="11" value="Berlin Sans FB Demi"/>
+                    <StringItem index="12" value="Bernard MT Condensed"/>
+                    <StringItem index="13" value="Blackadder ITC"/>
+                    <StringItem index="14" value="Bodoni MT"/>
+                    <StringItem index="15" value="Bodoni MT Black"/>
+                    <StringItem index="16" value="Bodoni MT Condensed"/>
+                    <StringItem index="17" value="Bodoni MT Poster Compressed"/>
+                    <StringItem index="18" value="Book Antiqua"/>
+                    <StringItem index="19" value="Bookman Old Style"/>
+                    <StringItem index="20" value="Bookshelf Symbol 7"/>
+                    <StringItem index="21" value="Bradley Hand ITC"/>
+                    <StringItem index="22" value="Britannic Bold"/>
+                    <StringItem index="23" value="Broadway"/>
+                    <StringItem index="24" value="Brush Script MT"/>
+                    <StringItem index="25" value="Calibri"/>
+                    <StringItem index="26" value="Calibri Light"/>
+                    <StringItem index="27" value="Californian FB"/>
+                    <StringItem index="28" value="Calisto MT"/>
+                    <StringItem index="29" value="Cambria"/>
+                    <StringItem index="30" value="Cambria Math"/>
+                    <StringItem index="31" value="Candara"/>
+                    <StringItem index="32" value="Castellar"/>
+                    <StringItem index="33" value="Centaur"/>
+                    <StringItem index="34" value="Century"/>
+                    <StringItem index="35" value="Century Gothic"/>
+                    <StringItem index="36" value="Century Schoolbook"/>
+                    <StringItem index="37" value="Chiller"/>
+                    <StringItem index="38" value="Colonna MT"/>
+                    <StringItem index="39" value="Comic Sans MS"/>
+                    <StringItem index="40" value="Consolas"/>
+                    <StringItem index="41" value="Constantia"/>
+                    <StringItem index="42" value="Cooper Black"/>
+                    <StringItem index="43" value="Copperplate Gothic Bold"/>
+                    <StringItem index="44" value="Copperplate Gothic Light"/>
+                    <StringItem index="45" value="Corbel"/>
+                    <StringItem index="46" value="Courier New"/>
+                    <StringItem index="47" value="Curlz MT"/>
+                    <StringItem index="48" value="dbldwrsw"/>
+                    <StringItem index="49" value="Dialog"/>
+                    <StringItem index="50" value="DialogInput"/>
+                    <StringItem index="51" value="Ebrima"/>
+                    <StringItem index="52" value="Edwardian Script ITC"/>
+                    <StringItem index="53" value="Elephant"/>
+                    <StringItem index="54" value="Engravers MT"/>
+                    <StringItem index="55" value="Eras Bold ITC"/>
+                    <StringItem index="56" value="Eras Demi ITC"/>
+                    <StringItem index="57" value="Eras Light ITC"/>
+                    <StringItem index="58" value="Eras Medium ITC"/>
+                    <StringItem index="59" value="Felix Titling"/>
+                    <StringItem index="60" value="Footlight MT Light"/>
+                    <StringItem index="61" value="Forte"/>
+                    <StringItem index="62" value="Franklin Gothic Book"/>
+                    <StringItem index="63" value="Franklin Gothic Demi"/>
+                    <StringItem index="64" value="Franklin Gothic Demi Cond"/>
+                    <StringItem index="65" value="Franklin Gothic Heavy"/>
+                    <StringItem index="66" value="Franklin Gothic Medium"/>
+                    <StringItem index="67" value="Franklin Gothic Medium Cond"/>
+                    <StringItem index="68" value="Freestyle Script"/>
+                    <StringItem index="69" value="French Script MT"/>
+                    <StringItem index="70" value="Gabriola"/>
+                    <StringItem index="71" value="Gadugi"/>
+                    <StringItem index="72" value="Garamond"/>
+                    <StringItem index="73" value="Georgia"/>
+                    <StringItem index="74" value="Gigi"/>
+                    <StringItem index="75" value="Gill Sans MT"/>
+                    <StringItem index="76" value="Gill Sans MT Condensed"/>
+                    <StringItem index="77" value="Gill Sans MT Ext Condensed Bold"/>
+                    <StringItem index="78" value="Gill Sans Ultra Bold"/>
+                    <StringItem index="79" value="Gill Sans Ultra Bold Condensed"/>
+                    <StringItem index="80" value="Gloucester MT Extra Condensed"/>
+                    <StringItem index="81" value="Goudy Old Style"/>
+                    <StringItem index="82" value="Goudy Stout"/>
+                    <StringItem index="83" value="Haettenschweiler"/>
+                    <StringItem index="84" value="Harlow Solid Italic"/>
+                    <StringItem index="85" value="Harrington"/>
+                    <StringItem index="86" value="High Tower Text"/>
+                    <StringItem index="87" value="Impact"/>
+                    <StringItem index="88" value="Imprint MT Shadow"/>
+                    <StringItem index="89" value="Informal Roman"/>
+                    <StringItem index="90" value="Javanese Text"/>
+                    <StringItem index="91" value="Jokerman"/>
+                    <StringItem index="92" value="Juice ITC"/>
+                    <StringItem index="93" value="Kristen ITC"/>
+                    <StringItem index="94" value="Kunstler Script"/>
+                    <StringItem index="95" value="Leelawadee UI"/>
+                    <StringItem index="96" value="Leelawadee UI Semilight"/>
+                    <StringItem index="97" value="LettrGoth12 BT"/>
+                    <StringItem index="98" value="Lucida Bright"/>
+                    <StringItem index="99" value="Lucida Calligraphy"/>
+                    <StringItem index="100" value="Lucida Console"/>
+                    <StringItem index="101" value="Lucida Fax"/>
+                    <StringItem index="102" value="Lucida Handwriting"/>
+                    <StringItem index="103" value="Lucida Sans"/>
+                    <StringItem index="104" value="Lucida Sans Typewriter"/>
+                    <StringItem index="105" value="Lucida Sans Unicode"/>
+                    <StringItem index="106" value="Magneto"/>
+                    <StringItem index="107" value="Maiandra GD"/>
+                    <StringItem index="108" value="Malgun Gothic"/>
+                    <StringItem index="109" value="Malgun Gothic Semilight"/>
+                    <StringItem index="110" value="Marlett"/>
+                    <StringItem index="111" value="Matura MT Script Capitals"/>
+                    <StringItem index="112" value="Microsoft Himalaya"/>
+                    <StringItem index="113" value="Microsoft JhengHei"/>
+                    <StringItem index="114" value="Microsoft JhengHei Light"/>
+                    <StringItem index="115" value="Microsoft JhengHei UI"/>
+                    <StringItem index="116" value="Microsoft JhengHei UI Light"/>
+                    <StringItem index="117" value="Microsoft New Tai Lue"/>
+                    <StringItem index="118" value="Microsoft PhagsPa"/>
+                    <StringItem index="119" value="Microsoft Sans Serif"/>
+                    <StringItem index="120" value="Microsoft Tai Le"/>
+                    <StringItem index="121" value="Microsoft YaHei"/>
+                    <StringItem index="122" value="Microsoft YaHei Light"/>
+                    <StringItem index="123" value="Microsoft YaHei UI"/>
+                    <StringItem index="124" value="Microsoft YaHei UI Light"/>
+                    <StringItem index="125" value="Microsoft Yi Baiti"/>
+                    <StringItem index="126" value="MingLiU-ExtB"/>
+                    <StringItem index="127" value="MingLiU_HKSCS-ExtB"/>
+                    <StringItem index="128" value="Mistral"/>
+                    <StringItem index="129" value="Modern No. 20"/>
+                    <StringItem index="130" value="Mongolian Baiti"/>
+                    <StringItem index="131" value="Monospaced"/>
+                    <StringItem index="132" value="Monotype Corsiva"/>
+                    <StringItem index="133" value="MS Gothic"/>
+                    <StringItem index="134" value="MS Mincho"/>
+                    <StringItem index="135" value="MS Outlook"/>
+                    <StringItem index="136" value="MS PGothic"/>
+                    <StringItem index="137" value="MS Reference Sans Serif"/>
+                    <StringItem index="138" value="MS Reference Specialty"/>
+                    <StringItem index="139" value="MS UI Gothic"/>
+                    <StringItem index="140" value="MT Extra"/>
+                    <StringItem index="141" value="MV Boli"/>
+                    <StringItem index="142" value="Myanmar Text"/>
+                    <StringItem index="143" value="Niagara Engraved"/>
+                    <StringItem index="144" value="Niagara Solid"/>
+                    <StringItem index="145" value="Nirmala UI"/>
+                    <StringItem index="146" value="Nirmala UI Semilight"/>
+                    <StringItem index="147" value="NSimSun"/>
+                    <StringItem index="148" value="OCR A Extended"/>
+                    <StringItem index="149" value="Old English Text MT"/>
+                    <StringItem index="150" value="Onyx"/>
+                    <StringItem index="151" value="Palace Script MT"/>
+                    <StringItem index="152" value="Palatino Linotype"/>
+                    <StringItem index="153" value="Papyrus"/>
+                    <StringItem index="154" value="Parchment"/>
+                    <StringItem index="155" value="Perpetua"/>
+                    <StringItem index="156" value="Perpetua Titling MT"/>
+                    <StringItem index="157" value="Playbill"/>
+                    <StringItem index="158" value="PMingLiU-ExtB"/>
+                    <StringItem index="159" value="Poor Richard"/>
+                    <StringItem index="160" value="Pristina"/>
+                    <StringItem index="161" value="Rage Italic"/>
+                    <StringItem index="162" value="Ravie"/>
+                    <StringItem index="163" value="Rockwell"/>
+                    <StringItem index="164" value="Rockwell Condensed"/>
+                    <StringItem index="165" value="Rockwell Extra Bold"/>
+                    <StringItem index="166" value="SansSerif"/>
+                    <StringItem index="167" value="Script MT Bold"/>
+                    <StringItem index="168" value="Segoe MDL2 Assets"/>
+                    <StringItem index="169" value="Segoe Print"/>
+                    <StringItem index="170" value="Segoe Script"/>
+                    <StringItem index="171" value="Segoe UI"/>
+                    <StringItem index="172" value="Segoe UI Black"/>
+                    <StringItem index="173" value="Segoe UI Emoji"/>
+                    <StringItem index="174" value="Segoe UI Historic"/>
+                    <StringItem index="175" value="Segoe UI Light"/>
+                    <StringItem index="176" value="Segoe UI Semibold"/>
+                    <StringItem index="177" value="Segoe UI Semilight"/>
+                    <StringItem index="178" value="Segoe UI Symbol"/>
+                    <StringItem index="179" value="Serif"/>
+                    <StringItem index="180" value="Showcard Gothic"/>
+                    <StringItem index="181" value="SimSun"/>
+                    <StringItem index="182" value="SimSun-ExtB"/>
+                    <StringItem index="183" value="Sitka Banner"/>
+                    <StringItem index="184" value="Sitka Display"/>
+                    <StringItem index="185" value="Sitka Heading"/>
+                    <StringItem index="186" value="Sitka Small"/>
+                    <StringItem index="187" value="Sitka Subheading"/>
+                    <StringItem index="188" value="Sitka Text"/>
+                    <StringItem index="189" value="Snap ITC"/>
+                    <StringItem index="190" value="Stencil"/>
+                    <StringItem index="191" value="Sylfaen"/>
+                    <StringItem index="192" value="Symbol"/>
+                    <StringItem index="193" value="Tahoma"/>
+                    <StringItem index="194" value="Tempus Sans ITC"/>
+                    <StringItem index="195" value="Times New Roman"/>
+                    <StringItem index="196" value="Trebuchet MS"/>
+                    <StringItem index="197" value="Tw Cen MT"/>
+                    <StringItem index="198" value="Tw Cen MT Condensed"/>
+                    <StringItem index="199" value="Tw Cen MT Condensed Extra Bold"/>
+                    <StringItem index="200" value="Verdana"/>
+                    <StringItem index="201" value="Viner Hand ITC"/>
+                    <StringItem index="202" value="Vivaldi"/>
+                    <StringItem index="203" value="Vladimir Script"/>
+                    <StringItem index="204" value="Warsaw"/>
+                    <StringItem index="205" value="Webdings"/>
+                    <StringItem index="206" value="Wide Latin"/>
+                    <StringItem index="207" value="Wingdings"/>
+                    <StringItem index="208" value="Wingdings 2"/>
+                    <StringItem index="209" value="Wingdings 3"/>
+                    <StringItem index="210" value="Yu Gothic"/>
+                    <StringItem index="211" value="Yu Gothic Light"/>
+                    <StringItem index="212" value="Yu Gothic Medium"/>
+                    <StringItem index="213" value="Yu Gothic UI"/>
+                    <StringItem index="214" value="Yu Gothic UI Light"/>
+                    <StringItem index="215" value="Yu Gothic UI Semibold"/>
+                    <StringItem index="216" value="Yu Gothic UI Semilight"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPConfigImagem">
@@ -1524,15 +1861,23 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPCImagemTopo" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBImagemTopo" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jBImagemTopo" min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jRExibirTopo" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBImagemLateral" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jBImagemLateral" min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jRExibirLateral" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jPCImagemLateral" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="603" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1567,9 +1912,13 @@
                                   <Component id="jPCImagemTopo" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jBImagemTopo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jBImagemLateral" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jBImagemTopo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBImagemLateral" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRExibirTopo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jRExibirLateral" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -1730,6 +2079,10 @@
                 <Property name="text" type="java.lang.String" value="Imagem Lateral"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JRadioButton" name="jRExibirTopo">
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRExibirLateral">
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel1">
@@ -1747,12 +2100,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton4" linkSize="1" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="jButton5" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" linkSize="1" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jButton1" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="jButton4" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="jButton5" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace pref="42" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1760,11 +2113,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton4" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton5" min="-2" pref="28" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -1827,7 +2180,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="+"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/atmatech/painel/icon/Knob Add.png"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -1835,7 +2190,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="-"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/atmatech/painel/icon/Knob Remove.png"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -1843,7 +2200,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="-&gt;"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/atmatech/painel/icon/Knob Forward.png"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
@@ -1860,6 +2219,14 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLTerminalConectado">
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton8">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Restaurar Padr&#xe3;o"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
