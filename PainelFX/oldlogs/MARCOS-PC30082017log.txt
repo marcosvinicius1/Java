@@ -1,0 +1,154 @@
+13:18:18
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:9e50ab01-ba31-47ea-a381-20ee0baae8af
+
+13:18:19Erro ao Atualizar Produtos ViewLayoutTableas-updateInicializaPainel: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+13:18:19
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:6949fd76-7fea-4ce8-92f0-d41822a73bb0
+
+13:18:21
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:e03ac2c9-4763-4bb2-9783-b760fafb47a8
+
+13:18:22
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:d672e3f9-df05-41c3-90d1-26dcda40b1c6
+
+13:18:23
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:f1d6842a-a6ef-447b-9d9c-fc752c5114a4
+
+13:18:24
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:8b5313dc-963a-4316-bee6-11e2b4ea659a
+
+13:18:25
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:785660be-c763-45d3-b559-202fbaa3df05
+
+13:18:26
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:387609c9-de92-4d03-aba4-fd263920f29a
+
+13:18:27
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:d69a976b-bf6b-4a0a-8a7c-08867eb4bea1
+
+13:18:28
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:cc8f60d5-e968-49b6-8e98-1a90b67ff479
+
+13:18:29
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:16b5a432-aad2-4775-bdae-712a0140e787
+
+13:18:30
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:3129ef06-5654-414c-8feb-92d5d319c300
+
+13:18:31
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:2f8ec93e-04b1-444a-be51-94770d32d51d
+
+13:18:32
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:044246cb-d462-4a33-bd70-7117c908836d
+
+13:18:33
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:01f2cf58-894a-413f-9b41-d5314897ac2e
+
+13:18:34Erro ao Atualizar Produtos ViewLayoutTableas-updateInicializaPainel: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+13:18:34
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:1d301bd5-bd76-45b0-a228-fbb50291bd63
+
+13:18:35
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:2b8df68f-08fa-4e80-a5ba-b23fb2bae58a
+
+13:18:36
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:3a2656c3-200a-4289-8a0e-e7a126ee62a8
+
+13:18:38
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:ff026873-07e8-45ac-af39-5723733aae30
+
+13:18:40
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:2ea13fff-dbd1-442b-bc9d-ac33010b28b5
+
+13:18:42
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:b7219fa6-54ee-4d9b-932e-e6b45bbb178c
+
+13:19:05
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:9cf21406-118d-4bc0-8a33-9e8d096eae11
+
+13:19:06
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:652b0f53-3b26-4448-9737-67b5b6c82133
+
+13:19:06Saida de Inicializacao:
+13:19:07
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:7aa7da2c-ad91-4f14-9b99-95ae8e4fffe3
+
+13:19:08
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:da9f3bbf-b7ea-4c79-881d-4efeef496d1b
+
+13:19:09
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:8d428ab6-07ea-427b-b12a-e3ce876fc44a
+
+13:19:11
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:0eaae574-5c2e-45c4-8251-d56c32b2df4f
+
+13:19:12
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:73031726-5333-4228-b9f6-8924868a51a6
+
+13:19:13
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:082341aa-ef0e-444b-8d64-d5a1a2bd3cb4
+
+13:19:14
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:469e6da7-c0ea-4176-b79d-3204c1f4296b
+
+13:19:15
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:684bed6b-d0bd-4232-93ff-bab97d207aaa
+
+13:19:16
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:df9c27ca-6ca4-438e-86cc-e85a9f52d166
+
+13:19:17
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:ad9f6e73-b95b-4843-b110-58495e8aa8f8
+
+13:19:18
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:b616c37f-9e20-4a46-ba57-6d6c281abcaf
+
+13:19:19
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:aa1b3d15-f685-4f6e-80e5-c5d7d16dd129
+
+13:19:20
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:ead040da-eb8e-45cc-90ae-728246c2525a
+
+13:19:22
+CargaController:Erro ao Atualizar Produtos No Banco Local:
+com.microsoft.sqlserver.jdbc.SQLServerException: Não é possível abrir o banco de dados "MGV6_0001" solicitado pelo logon. Falha de logon. ClientConnectionId:20771d6d-c751-4d89-b634-a7f2e4117053

@@ -20,6 +20,8 @@ public class DBConfigBeans {
     static private Integer terminal;
     static private String tipo;
     static private String banco;
+    static private String locallog;
+    static private Integer portabanco;
     
     public String getDirdb() {
         return dirdb;
@@ -91,6 +93,22 @@ public class DBConfigBeans {
 
     public void setBanco(String banco) {
         this.banco = banco;
+    }
+
+    public String getLocallog() {
+        return locallog;
+    }
+
+    public void setLocallog(String locallog) {
+        this.locallog = locallog;
+    }
+
+    public Integer getPortabanco() {
+        return portabanco;
+    }
+
+    public void setPortabanco(Integer portabanco) {
+        this.portabanco = portabanco;
     }
     
 }

@@ -12,8 +12,6 @@ import br.com.atmatech.painel.config.DBConfig;
 import br.com.atmatech.painel.dao.Tb_Prod_PainelDao;
 import java.awt.Color;
 import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,8 +47,7 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
         try {
             inicializaPainel();
             ajustaColunasPainel();
-            updateInicializaPainel();
-            inicializaScript();
+            updateInicializaPainel();           
         } catch (Exception ex) {
             new DBConfig().createArqLog("ViewLayoutTabelas-ViewLayoutTabelas:" + ex);
         }
@@ -425,14 +422,14 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
             jScrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, tbc.getTabela4nome(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font(tbc.getFontetipotabelatitulo(), tbc.getFonteestilotabelatitulo(), tbc.getFontetabelatitulo()), corfonte)); // NOI18N    
         }
         if (tbc.isCtcodigo()) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable2.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable3.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable3.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable4.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable4.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(0).setMinWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable1.getColumnModel().getColumn(0).setMaxWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable2.getColumnModel().getColumn(0).setMinWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable2.getColumnModel().getColumn(0).setMaxWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable3.getColumnModel().getColumn(0).setMinWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable3.getColumnModel().getColumn(0).setMaxWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable4.getColumnModel().getColumn(0).setMinWidth((int)(tbc.getFonteTabela() * 3.5));
+            jTable4.getColumnModel().getColumn(0).setMaxWidth((int)(tbc.getFonteTabela() * 3.5));
         } else {
             jTable1.getColumnModel().getColumn(0).setMinWidth(0);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -679,32 +676,5 @@ public class ViewLayoutTabelas extends javax.swing.JPanel {
 
     public boolean getVisibleThis() {
         return this.isVisible();
-    }
-
-    private void inicializaScript() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Process p = Runtime.getRuntime().exec("cmd.exe /c script.lnk");
-                    BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                    String lineOut = null;
-                    int numberOfOutline = 0;
-                    StringBuffer cmdOut = new StringBuffer();
-                    while ((lineOut = input.readLine()) != null) {
-                        if (numberOfOutline > 0) {
-                            cmdOut.append("\n");
-                        }
-                        cmdOut.append(lineOut);
-                        numberOfOutline++;
-                    }
-                    System.err.println(cmdOut.toString());
-                    new DBConfig().createArqLog("Saida de Inicializacao:" + cmdOut.toString());
-                } catch (Exception ex) {
-                    new DBConfig().createArqLog("main - Erro ao Execultar Script Inicial:" + ex);
-                }
-            }
-        }).start();
-
-    }
+    }    
 }

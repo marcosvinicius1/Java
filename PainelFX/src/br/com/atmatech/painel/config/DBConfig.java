@@ -39,8 +39,10 @@ public class DBConfig {
         cxb.setLocaluser(prop.getProperty("localuser"));//pega o valor da tag usuario         
         cxb.setTerminal(Integer.valueOf(prop.getProperty("terminal", "0")));
         cxb.setTipo(prop.getProperty("tipo"));
-        cxb.setBanco(prop.getProperty("banco"));
-        if (prop.getProperty("terminal")!=null) {
+        cxb.setBanco(prop.getProperty("banco"));        
+        cxb.setLocallog(prop.getProperty("locallog", "./logs"));
+        cxb.setPortabanco(Integer.valueOf(prop.getProperty("portabanco","1433")));
+        if (prop.getProperty("terminal") != null) {
             try {
                 Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(Integer.valueOf(prop.getProperty("terminal")));
             } catch (SQLException ex) {
@@ -62,16 +64,21 @@ public class DBConfig {
 
     public void createArqLog(String texto) {
         FileWriter arquivo;
-        try {
-            String nomecomputador=InetAddress.getLocalHost().getHostName();
-            nomecomputador=nomecomputador.replace(" ", "");   
+        try {            
+            String nomecomputador = InetAddress.getLocalHost().getHostName();
+            nomecomputador = nomecomputador.replace(" ", "");
+            DBConfigBeans dbc = new DBConfigBeans();
+            File file1 = new File(dbc.getLocallog());
+            if (!file1.exists()) {
+                file1.mkdir();
+            }
             Date data = new Date();
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat formatadorhora = new SimpleDateFormat("HH:mm:ss");
-            String dataf=formatador.format(data);
-            texto=formatadorhora.format(data)+texto;
-            dataf=dataf.replace("/", "");
-            File file = new File("./logs/"+nomecomputador+dataf + "log.txt");
+            String dataf = formatador.format(data);
+            texto = formatadorhora.format(data) + texto;
+            dataf = dataf.replace("/", "");
+            File file = new File(dbc.getLocallog() + "/" + nomecomputador + dataf + "log.txt");
             if (file.exists()) {
                 OutputStream bytes = new FileOutputStream(file, true); // passado "true" para gravar no mesmo arquivo
                 OutputStreamWriter chars = new OutputStreamWriter(bytes);
@@ -82,9 +89,9 @@ public class DBConfig {
                 arquivo = new FileWriter(file);
                 arquivo.write(texto);
                 arquivo.close();
-            }            
+            }
         } catch (Exception ex) {
-            
+
         }
 
     }
@@ -107,6 +114,8 @@ public class DBConfig {
         prop.put("terminal", String.valueOf(cb.getTerminal()));
         prop.put("tipo", cb.getTipo());
         prop.put("banco", cb.getBanco());
+        prop.put("locallog", cb.getLocallog());
+        prop.put("portabanco", String.valueOf(cb.getPortabanco()));
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 
