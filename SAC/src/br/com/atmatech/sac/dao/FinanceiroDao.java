@@ -142,7 +142,7 @@ public class FinanceiroDao {
     public List<FinanceiroBeans> getFinanceiroVencidosMes() throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "select * from financeiro  where idpessoa is not NULL "
-                    + " AND MONTH(vencimento)=MONTH(now())  AND Day(vencimento)<Day(now()) order by vencimento,cliente";
+                    + "AND Year(vencimento)=Year(now()) AND MONTH(vencimento)=MONTH(now())  AND Day(vencimento)<Day(now()) order by vencimento,cliente";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             List<FinanceiroBeans> lfb = new ArrayList<>();

@@ -48,6 +48,7 @@ public class PessoaDao {
                 pb.setTelefone3(rs.getString("telefone3"));
                 pb.setIdsituacao(rs.getInt("idsituacao"));
                 pb.setObs(rs.getString("obs"));
+                pb.setObsatend(rs.getString("obsatend"));
                 pb.setBairro(rs.getString("bairro"));
                 pb.setResponsavel(rs.getString("responsavel"));
                 pb.setEcf(rs.getBoolean("ecf"));
@@ -91,6 +92,7 @@ public class PessoaDao {
                 pb.setTelefone3(rs.getString("telefone3"));
                 pb.setIdsituacao(rs.getInt("idsituacao"));
                 pb.setObs(rs.getString("obs"));
+                pb.setObsatend(rs.getString("obsatend"));
                 pb.setBairro(rs.getString("bairro"));
                 pb.setResponsavel(rs.getString("responsavel"));
                 pb.setEcf(rs.getBoolean("ecf"));
@@ -135,6 +137,7 @@ public class PessoaDao {
                 pb.setTelefone3(rs.getString("telefone3"));
                 pb.setIdsituacao(rs.getInt("idsituacao"));
                 pb.setObs(rs.getString("obs"));
+                pb.setObsatend(rs.getString("obsatend"));
                 pb.setBairro(rs.getString("bairro"));
                 pb.setResponsavel(rs.getString("responsavel"));
                 pb.setModulo(rs.getString("descricao"));
@@ -155,8 +158,8 @@ public class PessoaDao {
 
     public void setPessoa(PessoaBeans pb) throws SQLException {
         try (Connection conexao = new ConexaoDb().getConnect()) {
-            String sql = "insert into pessoa (RAZAO,FANTASIA,CNPJ,IE,ENDERECO,IDDISTRITO,NUMERO,EMAIL,IDMODULO,TELEFONE1,TELEFONE2,TELEFONE3,IDSITUACAO,OBS,BAIRRO,responsavel,nfe,ecf,dtplugin,idempresa,nfce) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into pessoa (RAZAO,FANTASIA,CNPJ,IE,ENDERECO,IDDISTRITO,NUMERO,EMAIL,IDMODULO,TELEFONE1,TELEFONE2,TELEFONE3,IDSITUACAO,OBS,BAIRRO,responsavel,nfe,ecf,dtplugin,idempresa,nfce,obsatend) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, pb.getRazao());
             pstm.setString(2, pb.getFantasia());
@@ -179,6 +182,7 @@ public class PessoaDao {
             pstm.setDate(19, pb.getPlugins());
             pstm.setInt(20, new DBConfigBeans().getCompany());
             pstm.setString(21, Boolean.toString(pb.isNfce()));
+            pstm.setString(22, pb.getObsatend());
             pstm.execute();
             pstm.close();
         }
@@ -198,7 +202,7 @@ public class PessoaDao {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql = "update pessoa set RAZAO=?,FANTASIA=?,CNPJ=?,IE=?,ENDERECO=?,IDDISTRITO=?,NUMERO=?,EMAIL=?,"
                     + "IDMODULO=?,TELEFONE1=?,TELEFONE2=?,TELEFONE3=?,IDSITUACAO=?,OBS=?,BAIRRO=?,responsavel=?,"
-                    + "NFE=?,ECF=?,DTPLUGIN=?,NFCE=? "
+                    + "NFE=?,ECF=?,DTPLUGIN=?,NFCE=?,obsatend=? "
                     + "where idpessoa=?";
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -222,7 +226,8 @@ public class PessoaDao {
             pstm.setString(18, Boolean.toString(pb.isEcf()));
             pstm.setDate(19, pb.getPlugins());
             pstm.setString(20, Boolean.toString(pb.isNfce()));
-            pstm.setInt(21, pb.getIdpessoa());
+            pstm.setString(21, pb.getObsatend());
+            pstm.setInt(22, pb.getIdpessoa());
 
             pstm.executeUpdate();
             pstm.close();
@@ -278,6 +283,7 @@ public class PessoaDao {
                 pb.setTelefone3(rs.getString("telefone3"));
                 pb.setIdsituacao(rs.getInt("idsituacao"));
                 pb.setObs(rs.getString("obs"));
+                pb.setObsatend(rs.getString("obsatend"));
                 pb.setBairro(rs.getString("bairro"));
                 pb.setResponsavel(rs.getString("responsavel"));
                 pb.setModulo(rs.getString("descricao"));

@@ -11,6 +11,7 @@ import br.com.atmatech.sac.beans.ListPerUsuarioBeans;
 import br.com.atmatech.sac.beans.UsuarioBeans;
 import br.com.atmatech.sac.beans.UsuarioLogadoBeans;
 import br.com.atmatech.sac.config.DBConfig;
+import br.com.atmatech.sac.controller.Crypto;
 import br.com.atmatech.sac.controller.Versao;
 import br.com.atmatech.sac.dao.EmpresaDao;
 import br.com.atmatech.sac.dao.PerusuarioDao;
@@ -22,8 +23,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
@@ -41,14 +40,13 @@ public class ViewLogin extends javax.swing.JFrame {
      * Creates new form ViewLogin
      */
     final Integer versao = 2;
-    final Integer edicao = 1;
-    final Integer seguranca = 9;
+    final Integer edicao = 2;
+    final Integer seguranca = 2;
     List<EmpresaBeans>leb=new ArrayList<>();
 
     public ViewLogin() {
         initComponents();
         jTusuario.requestFocus();
-
     }
 
     /**
@@ -67,11 +65,11 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTcaminhobd = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTusuariobd = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTsenhabd = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jThost = new javax.swing.JTextField();
+        jTsenhabd = new javax.swing.JPasswordField();
+        jTusuariobd = new javax.swing.JPasswordField();
         jPanel10 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jTusuariofin = new javax.swing.JTextField();
@@ -136,17 +134,19 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel12.setText("Usuario:");
 
-        jTusuariobd.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel13.setText("Senha:");
-
-        jTsenhabd.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel16.setText("Host:");
 
         jThost.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+
+        jTsenhabd.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTsenhabd.setText("jPasswordField1");
+
+        jTusuariobd.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTusuariobd.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -157,14 +157,16 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTcaminhobd)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTusuariobd, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jTsenhabd, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel12)
+                            .addComponent(jTusuariobd))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(182, 182, 182))
+                            .addComponent(jTsenhabd)))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -182,10 +184,10 @@ public class ViewLogin extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTusuariobd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTsenhabd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTsenhabd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTusuariobd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jThost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,7 +215,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addComponent(jTusuariofin, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jTsenhafin, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -838,7 +840,7 @@ public class ViewLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -848,7 +850,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(514, 246));
+        setSize(new java.awt.Dimension(503, 246));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1101,18 +1103,18 @@ public class ViewLogin extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTcaminhobd;
     private javax.swing.JTextField jThost;
-    private javax.swing.JTextField jTsenhabd;
+    private javax.swing.JPasswordField jTsenhabd;
     private javax.swing.JTextField jTsenhafin;
     private javax.swing.JTable jTtdempresa;
     private javax.swing.JTextField jTusuario;
-    private javax.swing.JTextField jTusuariobd;
+    private javax.swing.JPasswordField jTusuariobd;
     private javax.swing.JTextField jTusuariofin;
     // End of variables declaration//GEN-END:variables
 
     private void carregaConfig() {
         try {
             DBConfigBeans cb = new DBConfig().getConfig();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro Ao Ler Arquivo de Configuração\n" + ex, "SAC", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -1220,13 +1222,12 @@ public class ViewLogin extends javax.swing.JFrame {
     private void alteraConfig() {
         try {
             DBConfigBeans cb = new DBConfigBeans();
-            cb.setDirdb(jTcaminhobd.getText());
-            cb.setUser(jTusuariobd.getText());
-            cb.setPassword(jTsenhabd.getText());
+            cb.setDirdb(jTcaminhobd.getText());            
+            cb.setUser(new Crypto().codifica(jTusuariobd.getText()));
+            cb.setPassword(new Crypto().codifica(jTsenhabd.getText()));
             cb.setLogin(jTusuariofin.getText());
             cb.setSenha(jTsenhafin.getText());
             cb.setDirdbhost(jThost.getText());
-
             cb.setPrimary1r(jPprimaria1.getBackground().getRed());
             cb.setPrimary1g(jPprimaria1.getBackground().getGreen());
             cb.setPrimary1b(jPprimaria1.getBackground().getBlue());
@@ -1253,11 +1254,10 @@ public class ViewLogin extends javax.swing.JFrame {
             cb.setBlackb(jPblack.getBackground().getBlue());
             cb.setMenuopacity(Integer.valueOf(jSopacidademenu.getValue()));
             cb.setFrameopacity(Integer.valueOf(jSopacidadeframe.getValue()));
-
             new DBConfig().createConfig(cb);
             setTema();
-        } catch (IOException ex) {
-            Logger.getLogger(ViewLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Salvar\n"+versao);
         }
 
     }
@@ -1272,7 +1272,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 jButton1.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Versão Incompativel com Servidor");
                 try {
-                    Runtime.getRuntime().exec("cmd.exe /c java -jar svr.jar i");
+                    Runtime.getRuntime().exec("cmd.exe /c java -jar srv.jar i");
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao Atualizar\n" + ex);
                 }
@@ -1282,6 +1282,9 @@ public class ViewLogin extends javax.swing.JFrame {
             buscaEmpresa(dbcb.getCompany());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Verificar Versão\n" + ex, "Versão", JOptionPane.ERROR_MESSAGE);
+            carregaDados();
+            jDconfig.setLocationRelativeTo(this);
+            jDconfig.setVisible(true);
             System.exit(0);
         }
     }

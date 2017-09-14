@@ -82,9 +82,8 @@ public class AtendimentoDao {
     }
 
     //usado na abertura da tela de listaatendimento
-    public List<AtendimentoBeans> getAtendimento(String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) throws SQLException {
+    public List<AtendimentoBeans> getAtendimento(String tipo,String status, Integer idtecnico, Boolean supervisor, Date ini, Date fin, String tpdata) throws SQLException {
        
-
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String dtini = sdfa.format(ini);
             String dtfin = sdfa.format(fin);
@@ -98,7 +97,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
+                        + " where atendimento.ativo='true' and tipo in("+tipo+") and status in( " + status + ") and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
             } else {
                 sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
                         + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
@@ -108,7 +107,7 @@ public class AtendimentoDao {
                         + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                         + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                         + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
-                        + " where atendimento.ativo='true' and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
+                        + " where atendimento.ativo='true' and tipo in("+tipo+") and status in( " + status + ") and ((idtecnico=?) or (idtecnico=1)) and cast(atendimento." + tpdata + " as date) between '" + dtini + "' and '" + dtfin + "' and atendimento.idempresa=" + new DBConfigBeans().getCompany() + " order by atendimento.idatendimento";
             }
             PreparedStatement pstm = conexao.prepareStatement(sql);            
             if (!supervisor) {
@@ -137,6 +136,7 @@ public class AtendimentoDao {
                 ab.setAberturanome(rs.getString("tecnicoabertura"));
                 ab.setTecanteriornome(rs.getString("tecnicoanterior"));
                 ab.setRazao(rs.getString("razao"));
+                ab.setObsatend(rs.getString("obsatend"));
                 ab.setFantasia(rs.getString("fantasia"));
                 ab.setResponsavel(rs.getString("responsavel"));
                 ab.setModulo(rs.getString("modulo"));
@@ -162,13 +162,7 @@ public class AtendimentoDao {
             rs.close();
             conexao.close();
             return lab;
-        }/* catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar Atendimento\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
-            return null;
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Converter Dados\n" + ex, "Atendimento", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }*/
+        }
     }
 
     //usado na filtragem de chamao na tela listaatendimento
@@ -252,6 +246,7 @@ public class AtendimentoDao {
                 ab.setNfe(rs.getBoolean("nfe"));
                 ab.setPlugins(rs.getDate("dtplugin"));
                 ab.setNfce(rs.getBoolean("nfce"));
+                ab.setObsatend(rs.getString("obsatend"));
                 lab.add(ab);
             }
             pstm.close();
@@ -271,7 +266,7 @@ public class AtendimentoDao {
     public AtendimentoBeans getAtendimento(Integer idatendimento) {
         try (Connection conexao = new ConexaoDb().getConnect()) {
             String sql;
-            sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa from atendimento\n"
+            sql = "select atendimento.*,tecnico.nome tecnico,abertura.nome tecnicoabertura,tecnicoante.nome tecnicoanterior,pessoa.*,distrito.distrito,modulo.descricao modulo,placa,tecnicoedit.nome nometecnicoedit from atendimento\n"
                     + " left join pessoa on(atendimento.idpessoa=pessoa.idpessoa)\n"
                     + " left join usuario tecnico on(atendimento.idtecnico=tecnico.idusuario)\n"
                     + " left join usuario abertura on(atendimento.idabertura=abertura.idusuario)\n"
@@ -279,6 +274,7 @@ public class AtendimentoDao {
                     + " left join veiculo on(atendimento.idveiculo=veiculo.idveiculo)"
                     + " inner join  distrito on(pessoa.iddistrito=distrito.iddistrito)\n"
                     + " inner join modulo on(pessoa.idmodulo=modulo.idmodulo)\n"
+                    + "left join usuario tecnicoedit on(tecnicoedit.idusuario=atendimento.idtecnicoedit)"
                     + " where atendimento.idatendimento=? and atendimento.idempresa=" + new DBConfigBeans().getCompany() + "";
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -324,6 +320,9 @@ public class AtendimentoDao {
                 ab.setNfe(rs.getBoolean("nfe"));
                 ab.setPlugins(rs.getDate("dtplugin"));
                 ab.setNfce(rs.getBoolean("nfce"));
+                ab.setObsatend(rs.getString("obsatend"));
+                ab.setIdtecnicoedit(rs.getInt("idtecnicoedit"));
+                ab.setNometecnicoedit(rs.getString("nometecnicoedit"));
             }
             pstm.close();
             rs.close();
@@ -358,7 +357,9 @@ public class AtendimentoDao {
                     + "    IDVEICULO= ?,"
                     + "    KMINICIAL= ?,"
                     + "    KMFINAL= ?,"
-                    + "    ANOTACAO= ?"
+                    + "    ANOTACAO= ?,"
+                    + "    idtecnicoedit=?"
+                    
                     + " WHERE (IDATENDIMENTO = ?)";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, ab.getIDPESSOA());
@@ -401,7 +402,8 @@ public class AtendimentoDao {
             pstm.setDouble(16, ab.getKminicial());
             pstm.setDouble(17, ab.getKmfinal());
             pstm.setString(18, ab.getAnotacao());
-            pstm.setInt(19, ab.getIDATENDIMENTO());
+            pstm.setInt(19, ab.getIdtecnicoedit());
+            pstm.setInt(20, ab.getIDATENDIMENTO());
             pstm.execute();
             pstm.close();
             conexao.close();

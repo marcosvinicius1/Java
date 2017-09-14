@@ -2008,14 +2008,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void getAtendimentoAberto() {
-        jLpendente.setText("Pendentes: " + String.valueOf(new Avisos().getStatusAtendimento("'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
-        jLaberto.setText("Abertos: " + String.valueOf(new Avisos().getStatusAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
-        jLiniciado.setText("Iniciado: " + String.valueOf(new Avisos().getStatusAtendimento("'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
+        jLpendente.setText("Pendentes: " + String.valueOf(new Avisos().getStatusAtendimento("'INTERNO','EXTERNO','PLANTAO'","'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
+        jLaberto.setText("Abertos: " + String.valueOf(new Avisos().getStatusAtendimento("'INTERNO','EXTERNO','PLANTAO'","'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
+        jLiniciado.setText("Iniciado: " + String.valueOf(new Avisos().getStatusAtendimento("'INTERNO','EXTERNO','PLANTAO'","'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), new UsuarioLogadoBeans().getVchamados())));
     }
 
     private void getAtendimentoTecnico() throws InterruptedException {
         Integer countAtend = 0;
-        countAtend = new Avisos().getStatusAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), false);
+        countAtend = new Avisos().getStatusAtendimento("'INTERNO','EXTERNO','PLANTAO'","'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), false);
         if ((countAtedTecnico == 0) && (countAtend != 0)) {
             countAtedTecnico = countAtend;
             jPavisoAtendimento.setVisible(true);
@@ -2061,13 +2061,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_YEAR, -360);
-                view.buscaAtendimento("'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                view.buscaAtendimento("'INTERNO','EXTERNO','PLANTAO'","'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
             } else {
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_YEAR, -360);
                 if (getJanelaAbertaClass("Atendimento") instanceof ViewListaAtendimento) {
                     ViewListaAtendimento view = (ViewListaAtendimento) getJanelaAbertaClass("Atendimento");
-                    view.buscaAtendimento("'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                    view.buscaAtendimento("'INTERNO','EXTERNO','PLANTAO'","'PENDENTE'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
                 }
             }
         }
@@ -2083,13 +2083,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_YEAR, -360);
-                view.buscaAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                view.buscaAtendimento("'INTERNO','EXTERNO','PLANTAO'","'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
             } else {
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_YEAR, -360);
                 if (getJanelaAbertaClass("Atendimento") instanceof ViewListaAtendimento) {
                     ViewListaAtendimento view = (ViewListaAtendimento) getJanelaAbertaClass("Atendimento");
-                    view.buscaAtendimento("'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                    view.buscaAtendimento("'INTERNO','EXTERNO','PLANTAO'","'ABERTO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
                 }
             }
         }
@@ -2105,13 +2105,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jTaabas.setTabComponentAt(j, new ButtonTabComponent(jTaabas));
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_YEAR, -360);
-                view.buscaAtendimento("'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                view.buscaAtendimento("'INTERNO','EXTERNO','PLANTAO'","'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
             } else {
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_YEAR, -360);
                 if (getJanelaAbertaClass("Atendimento") instanceof ViewListaAtendimento) {
                     ViewListaAtendimento view = (ViewListaAtendimento) getJanelaAbertaClass("Atendimento");
-                    view.buscaAtendimento("'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
+                    view.buscaAtendimento("'INTERNO','EXTERNO','PLANTAO'","'INICIADO'", new UsuarioLogadoBeans().getIdusuario(), c.getTime(), new Timestamp(new Date().getTime()), "dtabertura");
                 }
             }
         }

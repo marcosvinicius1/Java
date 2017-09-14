@@ -36,6 +36,8 @@ public class AtendimentoBeans extends PessoaBeans{
     private String placa;
     private String anotacao;
     private Integer idempresa;
+    private Integer idtecnicoedit;
+    private String nometecnicoedit;
 
     public Integer getIDATENDIMENTO() {
         return IDATENDIMENTO;
@@ -227,6 +229,22 @@ public class AtendimentoBeans extends PessoaBeans{
 
     public void setIdempresa(Integer idempresa) {
         this.idempresa = idempresa;
+    }
+
+    public Integer getIdtecnicoedit() {
+        return idtecnicoedit;
+    }
+
+    public void setIdtecnicoedit(Integer idtecnicoedit) {
+        this.idtecnicoedit = idtecnicoedit;
+    }
+
+    public String getNometecnicoedit() {
+        return nometecnicoedit;
+    }
+
+    public void setNometecnicoedit(String nometecnicoedit) {
+        this.nometecnicoedit = nometecnicoedit;
     }
     
     

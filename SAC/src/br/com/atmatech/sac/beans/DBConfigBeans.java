@@ -46,6 +46,7 @@ public class DBConfigBeans {
     static private int blackb;
     static private int menuopacity;
     static private int frameopacity;
+    static private int indextipo;
 
     public String getDirdbhost() {
         return dirdbhost;
@@ -319,6 +320,14 @@ public class DBConfigBeans {
 
     public void setUsehost(String usehost) {
         this.usehost = usehost;
+    }
+
+    public int getIndextipo() {
+        return indextipo;
+    }
+
+    public void setIndextipo(int indextipo) {
+        this.indextipo = indextipo;
     }
 
     

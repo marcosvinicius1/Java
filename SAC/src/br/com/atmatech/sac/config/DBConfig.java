@@ -6,6 +6,8 @@
 package br.com.atmatech.sac.config;
 
 import br.com.atmatech.sac.beans.DBConfigBeans;
+import br.com.atmatech.sac.beans.DBConfigTempBeans;
+import br.com.atmatech.sac.controller.Crypto;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,13 +21,14 @@ import java.util.Properties;
  */
 public class DBConfig {
 
-    public DBConfigBeans getConfig() throws IOException {
+    public DBConfigBeans getConfig() throws IOException, Exception {
         Properties prop = getProp();
-        DBConfigBeans cxb = new DBConfigBeans();
+        DBConfigBeans cxb = new DBConfigBeans();   
+        String nome;        
         cxb.setDirdb(prop.getProperty("dirdb"));//pega o valor da teg local
-        cxb.setDirdbhost(prop.getProperty("dirdbhost"));
-        cxb.setPassword(prop.getProperty("password"));//pega o valor da tag senha
-        cxb.setUser(prop.getProperty("user"));//pega o valor da tag usuario
+        cxb.setDirdbhost(prop.getProperty("dirdbhost"));        
+        cxb.setPassword(new Crypto().decodificar(prop.getProperty("password")));//pega o valor da tag senha   
+        cxb.setUser(new Crypto().decodificar(prop.getProperty("user")));//pega o valor da tag usuario        
         cxb.setCompany(Integer.valueOf(prop.getProperty("company"))); //pega o valor da tag compania    
         cxb.setLogin(prop.getProperty("login"));
         cxb.setSenha(prop.getProperty("senha"));
@@ -55,6 +58,7 @@ public class DBConfig {
         cxb.setBlackb(Integer.valueOf(prop.getProperty("blackb")));
         cxb.setMenuopacity(Integer.valueOf(prop.getProperty("menuopacity")));
         cxb.setFrameopacity(Integer.valueOf(prop.getProperty("frameopacity")));
+        cxb.setIndextipo(Integer.valueOf(prop.getProperty("indextipo","3")));
 
         return cxb;
     }
@@ -110,9 +114,57 @@ public class DBConfig {
         prop.put("blackb", String.valueOf(cb.getBlackb()));
         prop.put("menuopacity", String.valueOf(cb.getMenuopacity()));
         prop.put("frameopacity", String.valueOf(cb.getFrameopacity()));
+        prop.put("indextipo", String.valueOf(cb.getIndextipo()));        
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 
+    //cria arquivo de configuração
+    public void createTempConfig(DBConfigTempBeans cb) throws IOException {
+        File file = new File("./config");
+        file.mkdir();
+        file = new File("./config/config.properties");
+        file.createNewFile();
+        FileInputStream finput = new FileInputStream("./config/config.properties");
+        Properties prop = new Properties();
+        //  prop.load(finput);
+        prop.put("password", cb.getPasswordt());
+        prop.put("dirdb", cb.getDirdbt());
+        prop.put("dirdbhost", cb.getDirdbhostt());
+        prop.put("user", cb.getUsert());
+        prop.put("company", String.valueOf(cb.getCompanyt()));
+        prop.put("login", cb.getLogint());
+        prop.put("senha", cb.getSenhat());
+        prop.put("primary1r", String.valueOf(cb.getPrimary1rt()));
+        prop.put("primary1g", String.valueOf(cb.getPrimary1gt()));
+        prop.put("primary1b", String.valueOf(cb.getPrimary1bt()));
+        prop.put("primary2r", String.valueOf(cb.getPrimary2rt()));
+        prop.put("primary2g", String.valueOf(cb.getPrimary2gt()));
+        prop.put("primary2b", String.valueOf(cb.getPrimary2bt()));
+        prop.put("primary3r", String.valueOf(cb.getPrimary3rt()));
+        prop.put("primary3g", String.valueOf(cb.getPrimary3gt()));
+        prop.put("primary3b", String.valueOf(cb.getPrimary3bt()));
+        prop.put("secondary1r", String.valueOf(cb.getSecondary1rt()));
+        prop.put("secondary1g", String.valueOf(cb.getSecondary1gt()));
+        prop.put("secondary1b", String.valueOf(cb.getSecondary1bt()));
+        prop.put("secondary2r", String.valueOf(cb.getSecondary2rt()));
+        prop.put("secondary2g", String.valueOf(cb.getSecondary2gt()));
+        prop.put("secondary2b", String.valueOf(cb.getSecondary2bt()));
+        prop.put("secondary3r", String.valueOf(cb.getSecondary3rt()));
+        prop.put("secondary3g", String.valueOf(cb.getSecondary3gt()));
+        prop.put("secondary3b", String.valueOf(cb.getSecondary3bt()));
+        prop.put("whiter", String.valueOf(cb.getWhitert()));
+        prop.put("whiteg", String.valueOf(cb.getWhitegt()));
+        prop.put("whiteb", String.valueOf(cb.getWhitebt()));
+        prop.put("blackr", String.valueOf(cb.getBlackrt()));
+        prop.put("blackg", String.valueOf(cb.getBlackgt()));
+        prop.put("blackb", String.valueOf(cb.getBlackbt()));
+        prop.put("menuopacity", String.valueOf(cb.getMenuopacityt()));
+        prop.put("frameopacity", String.valueOf(cb.getFrameopacityt()));
+        prop.put("indextipo", String.valueOf(cb.getIndextipot()));        
+        prop.store(new FileOutputStream("./config/config.properties"), null);
+    }
+
+    
     public void createArq(String texto) throws IOException {
         FileWriter arquivo;
         arquivo = new FileWriter(new File("./log.txt"));
