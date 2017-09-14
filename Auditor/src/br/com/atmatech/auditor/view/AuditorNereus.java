@@ -6,8 +6,10 @@
 package br.com.atmatech.auditor.view;
 
 import br.com.atmatech.auditor.beans.NfceBeans;
+import br.com.atmatech.auditor.beans.VndCupomSeqBeans;
 import br.com.atmatech.auditor.config.DBConfig;
 import br.com.atmatech.auditor.dao.NfceDao;
+import br.com.atmatech.auditor.dao.VndCupomSeqDao;
 import br.com.atmatech.auditor.uteis.PintarLinhasTabela;
 import br.com.atmatech.auditor.uteis.PintarLinhasTabela1;
 import br.com.atmatech.auditor.webservice.WebServiceNFce;
@@ -15,9 +17,12 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -38,7 +43,7 @@ public class AuditorNereus extends javax.swing.JFrame {
     public AuditorNereus() {
         initComponents();
         try {
-            this.setTitle("Auditor Nereus 1.1.17");
+            this.setTitle("Auditor Nereus 1.1.20");
             new DBConfig().getConfig();
             inicializaTable();
             inicializaTable1();
@@ -46,9 +51,6 @@ public class AuditorNereus extends javax.swing.JFrame {
             jDdtfin.setDate(new Date());
             jDdtini1.setDate(new Date());
             jDdtfin1.setDate(new Date());
-            Properties propriedade = System.getProperties();
-		propriedade.setProperty("Mouse", "Apple Magic Mouse");
-		propriedade.list(System.out);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Abrir Configuração");
         }
@@ -86,10 +88,8 @@ public class AuditorNereus extends javax.swing.JFrame {
         jBnfceverif3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTnfce2 = new javax.swing.JTable();
+        jTnfceseq = new javax.swing.JTable();
         jBnfceverif2 = new javax.swing.JButton();
-        jDdtini2 = new com.toedter.calendar.JDateChooser();
-        jDdtfin2 = new com.toedter.calendar.JDateChooser();
 
         jDaviso.setTitle("AVISO");
         jDaviso.setLocationByPlatform(true);
@@ -226,14 +226,14 @@ public class AuditorNereus extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_CUPOM", "NRO_DCTO", "CHAVE", "DT_VENDA", "ID_PDV", "STATUS_NFC", "STATUS_SEFAZ", "ATUALIZAR"
+                "ID_CUPOM", "NRO_DCTO", "CHAVE", "DT_VENDA", "ID_PDV", "STATUS_NFC", "STATUS_SEFAZ", "ATUALIZAR", "VALOR NFCE", "VALOR SEFAZ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -306,13 +306,13 @@ public class AuditorNereus extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("NFce Status", jPanel3);
 
-        jTnfce2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        jTnfce2.setModel(new javax.swing.table.DefaultTableModel(
+        jTnfceseq.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        jTnfceseq.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID_PDV", "NRO_DCTO"
+                "SERIE", "NRO_DCTO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -323,8 +323,8 @@ public class AuditorNereus extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTnfce2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTnfce2);
+        jTnfceseq.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTnfceseq);
 
         jBnfceverif2.setText("SEQ.NRO NFCE");
         jBnfceverif2.addActionListener(new java.awt.event.ActionListener() {
@@ -338,28 +338,23 @@ public class AuditorNereus extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jDdtini2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDdtfin2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBnfceverif2))
-                .addContainerGap(752, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jBnfceverif2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(746, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDdtini2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDdtfin2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addContainerGap()
                 .addComponent(jBnfceverif2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Validação", jPanel2);
@@ -430,6 +425,7 @@ public class AuditorNereus extends javax.swing.JFrame {
             @Override
             public void run() {
                 buscaNfceCancelado();
+                // selecionaDivergente();
                 closeAviso();
             }
         }).start();
@@ -438,12 +434,28 @@ public class AuditorNereus extends javax.swing.JFrame {
             public void run() {
                 showAviso();
                 jLstatus.setText("Corretos:" + qtdeenv + ", Erros:" + qtdeerro);
+                selecionaDivergente();
             }
         }).start();
     }//GEN-LAST:event_jBnfceverif1ActionPerformed
 
     private void jBnfceverif2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnfceverif2ActionPerformed
         // TODO add your handling code here:
+        jLaviso.setText("");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                buscaSequencia();
+                closeAviso();
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                 showAviso();
+            }
+        }).start();
+
     }//GEN-LAST:event_jBnfceverif2ActionPerformed
 
     private void jTnfceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTnfceMouseClicked
@@ -532,10 +544,8 @@ public class AuditorNereus extends javax.swing.JFrame {
     private javax.swing.JDialog jDaviso;
     private com.toedter.calendar.JDateChooser jDdtfin;
     private com.toedter.calendar.JDateChooser jDdtfin1;
-    private com.toedter.calendar.JDateChooser jDdtfin2;
     private com.toedter.calendar.JDateChooser jDdtini;
     private com.toedter.calendar.JDateChooser jDdtini1;
-    private com.toedter.calendar.JDateChooser jDdtini2;
     private static javax.swing.JLabel jLaviso;
     private javax.swing.JLabel jLstatus;
     private javax.swing.JMenuItem jMdesmarcatodos;
@@ -550,7 +560,7 @@ public class AuditorNereus extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTnfce;
     private javax.swing.JTable jTnfce1;
-    private javax.swing.JTable jTnfce2;
+    private javax.swing.JTable jTnfceseq;
     // End of variables declaration//GEN-END:variables
 
     private void buscaNfce() {
@@ -648,7 +658,15 @@ public class AuditorNereus extends javax.swing.JFrame {
         jTnfce1.getColumnModel().getColumn(7).setMinWidth(100);
         jTnfce1.getColumnModel().getColumn(7).setMaxWidth(100);
         jTnfce1.getColumnModel().getColumn(7).setPreferredWidth(100);
+        
+        jTnfce1.getColumnModel().getColumn(8).setMinWidth(100);
+        jTnfce1.getColumnModel().getColumn(8).setMaxWidth(100);
+        jTnfce1.getColumnModel().getColumn(8).setPreferredWidth(100);
 
+        jTnfce1.getColumnModel().getColumn(9).setMinWidth(100);
+        jTnfce1.getColumnModel().getColumn(9).setMaxWidth(100);
+        jTnfce1.getColumnModel().getColumn(9).setPreferredWidth(100);
+        
         TableCellRenderer renderer = new PintarLinhasTabela1();
         jTnfce1.setDefaultRenderer(jTnfce1.getColumnClass(5), renderer);
         jTnfce1.repaint();
@@ -702,19 +720,29 @@ public class AuditorNereus extends javax.swing.JFrame {
     }
 
     private void updateNfce1() {
-//        for (int i = 0; i < jTnfce1.getRowCount(); i++) {
-//            if ((Boolean) jTnfce1.getValueAt(i, 7)) {
-//                if (!jTnfce1.getValueAt(i, 7).equals("")) {
-//                    try {
-//                        jLaviso.setText("Atualizando: " + jTnfce1.getValueAt(i, 1).toString());
-//                        new NfceDao().updateNfceStatus(jTnfce1.getValueAt(i, 0).toString(), jTnfce.getValueAt(i, 6).toString(), jTnfce.getValueAt(i, 7).toString());
-//                    } catch (SQLException | IOException ex) {
-//                        JOptionPane.showMessageDialog(rootPane, "Erro ao Atualizar:" + jTnfce.getValueAt(i, 7).toString() + " \n" + ex);
-//                    }
-//                }
-//
-//            }
-//        }
+        for (int i = 0; i < jTnfce1.getRowCount(); i++) {
+            if ((Boolean) jTnfce1.getValueAt(i, 7)) {
+                if (!jTnfce1.getValueAt(i, 5).equals(jTnfce1.getValueAt(i, 6))) {
+                    if (jTnfce1.getValueAt(i, 6).equals("ENVIADO")) {
+                        try {
+                            jLaviso.setText("Atualizando: " + jTnfce1.getValueAt(i, 1).toString());
+                            new NfceDao().updateNfceStatus(jTnfce1.getValueAt(i, 0).toString(), "ENVIADO", "NAO", 1);
+                        } catch (SQLException | IOException ex) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao Atualizar:" + jTnfce.getValueAt(i, 2).toString() + " \n" + ex);
+                        }
+                    } else if (jTnfce1.getValueAt(i, 6).equals("CANCELADO")) {
+                        try {
+                            jLaviso.setText("Atualizando: " + jTnfce1.getValueAt(i, 1).toString());
+                            new NfceDao().updateNfceStatus(jTnfce1.getValueAt(i, 0).toString(), "CANCELADO", "SIM", 3);
+                        } catch (SQLException | IOException ex) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao Atualizar:" + jTnfce.getValueAt(i, 2).toString() + " \n" + ex);
+                        }
+                    }
+
+                }
+
+            }
+        }
     }
 
     private boolean verificMarcado() {
@@ -727,6 +755,7 @@ public class AuditorNereus extends javax.swing.JFrame {
     }
 
     private boolean verificMarcadoNfce1() {
+
         for (int i = 0; i < jTnfce1.getRowCount(); i++) {
             if ((Boolean) jTnfce1.getValueAt(i, 7)) {
                 return true;
@@ -741,8 +770,10 @@ public class AuditorNereus extends javax.swing.JFrame {
             modelnfce1.setNumRows(0);
             jLaviso.setText("Analisando Banco Local");
             lnfce1 = new NfceDao().getNfceXmlCancelado(jDdtini1.getDate(), jDdtfin1.getDate());
+            DecimalFormat formatter = new DecimalFormat("##.##");
             for (NfceBeans nfce : lnfce1) {
-                modelnfce1.addRow(new Object[]{nfce.getId_cupom(), nfce.getNro_dcto(), nfce.getChave(), nfce.getDt_venda(), nfce.getId_pdv(), nfce.getStatus_nfc()});
+                //Float valor=Float.parseFloat(formatter.format(nfce.getValor().toString()).replace(",", "."));
+                modelnfce1.addRow(new Object[]{nfce.getId_cupom(), nfce.getNro_dcto(), nfce.getChave(), nfce.getDt_venda(), nfce.getId_pdv(), nfce.getStatus_nfc(), "", false,nfce.getValor(),""});
             }
             buscaSefazNfceTotal(lnfce1);
             jTnfce1.repaint();
@@ -756,14 +787,15 @@ public class AuditorNereus extends javax.swing.JFrame {
         for (NfceBeans nfce : chave) {
             try {
                 jLaviso.setText("Analisando Banco Local com Sefaz:" + i++ + "|" + chave.size());
-                String status = new WebServiceNFce().SearcheStatus(nfce.getChave());
-                jTnfce1.setValueAt(status, i - 2, 6);
-                if (jTnfce1.getValueAt(i - 2, 6).equals(jTnfce1.getValueAt(i - 2, 5))) {
-                    qtdeenv = qtdeenv + 1;
+                Map<String,String> status=new HashMap<String, String>();
+                status = new WebServiceNFce().SearcheStatus(nfce.getChave());
+                jTnfce1.setValueAt(status.get("chave"), i - 2, 6);
+                jTnfce1.setValueAt(Float.parseFloat(status.get("valor")), i - 2, 9);  
+                if ((jTnfce1.getValueAt(i - 2, 6).toString().equals(jTnfce1.getValueAt(i - 2, 5).toString())) &&(jTnfce1.getValueAt(i - 2, 8).toString().equals(jTnfce1.getValueAt(i - 2, 9).toString()))) {
+                    qtdeenv = qtdeenv + 1;                    
                 } else {
                     qtdeerro = qtdeerro + 1;
                 }
-
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao Consultar Chave no Sefaz:" + nfce.getChave() + " \n" + ex);
             }
@@ -775,9 +807,9 @@ public class AuditorNereus extends javax.swing.JFrame {
         String xmlret = "false";
         if (nfce.getChave_xml().contains("52")) {
             xmlret = new WebServiceNFce().Searche(nfce.getChave_xml());
-        } 
+        }
 
-        if ((!xmlret.contains(nfce.getChave_xml())) ||(nfce.getChave_xml().length()<44)) {
+        if ((!xmlret.contains(nfce.getChave_xml())) || (nfce.getChave_xml().length() < 44)) {
             if (nfce.getChave().contains("52")) {
                 xmlret = new WebServiceNFce().Searche(nfce.getChave());
             }
@@ -789,5 +821,41 @@ public class AuditorNereus extends javax.swing.JFrame {
             jTnfce.setValueAt(xmlret, i - 1, 6);
             jTnfce.setValueAt(nfce.getChave_xml(), i - 1, 7);
         }
+    }
+
+    private void selecionaDivergente() {        
+        DefaultTableModel modelnfce1 = (DefaultTableModel) jTnfce1.getModel();
+        if (jTnfce1.getRowCount() > 0) {            
+            for (int i = 0; i < jTnfce1.getRowCount(); i++) {                                
+                if ((jTnfce1.getValueAt(i, 5).equals(jTnfce1.getValueAt(i, 6))) && (jTnfce1.getValueAt(i, 8).toString().equals(jTnfce1.getValueAt(i, 9).toString()))) {
+                    modelnfce1.removeRow(i);                    
+                    i--;
+                }
+            }
+            jTnfce1.setModel(modelnfce1);
+        }
+    }
+
+    private void buscaSequencia() {
+        jLaviso.setText("Analisando Banco Local");
+        DefaultTableModel modelntseq = (DefaultTableModel) jTnfceseq.getModel();
+        modelntseq.setNumRows(0);
+        try {
+            List<VndCupomSeqBeans> lvcsm = new VndCupomSeqDao().getVndCupomSeqMax();
+
+            for (int i = 0; i < lvcsm.size(); i++) {
+                List<Integer> lvcs = new VndCupomSeqDao().getVndCupomSeq(lvcsm.get(i).getNro_nfce());
+                for (int j = 0; j < lvcsm.get(i).getMax_dcto(); j++) {
+                    if (!lvcs.contains(j + 1)) {
+                        modelntseq.addRow(new Object[]{lvcsm.get(i).getNro_nfce(), j + 1});
+                    }
+
+                }
+            }
+
+        } catch (SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Consultar Sequencia \n" + ex);
+        }
+
     }
 }

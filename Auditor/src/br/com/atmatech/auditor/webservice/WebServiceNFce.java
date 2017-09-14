@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -29,7 +31,7 @@ public class WebServiceNFce {
 //         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 //         nameValuePairs.add(new BasicNameValuePair("rTipoDoc", "2"));
          
-        //HttpGet get = new HttpGet("http://homolog.sefaz.go.gov.br/nfeweb/jsp/CConsultaCompletaNFEJSF.jsf?parametroChaveAcesso=" + chave);
+      //  HttpGet get = new HttpGet("http://homolog.sefaz.go.gov.br/nfeweb/jsp/CConsultaCompletaNFEJSF.jsf?parametroChaveAcesso=" + chave);
         HttpResponse response = client.execute(get);
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String line;
@@ -50,13 +52,15 @@ public class WebServiceNFce {
         return line2;
     }
 
-    public String SearcheStatus(String chave) throws Exception {
+    public Map<String, String> SearcheStatus(String chave) throws Exception {
         String line2;
+        Map<String,String> status=new HashMap<String, String>();
         HttpGet get = new HttpGet("http://nfe.sefaz.go.gov.br/nfeweb/jsp/CConsultaCompletaNFEJSF.jsf?parametroChaveAcesso=" + chave);
+       //HttpGet get = new HttpGet("http://homolog.sefaz.go.gov.br/nfeweb/jsp/CConsultaCompletaNFEJSF.jsf?parametroChaveAcesso=" + chave);
         HttpResponse response = client.execute(get);
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String line;
-        String status = "ERRO";
+        //String status = "ERRO";
         line2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
         while ((line = rd.readLine()) != null) {
             line = line.replace("&gt;", ">").replaceAll("&lt;", "<").replace("&quot;", "\"").replace("&amp;", "&");
@@ -67,13 +71,20 @@ public class WebServiceNFce {
         }
         if (line2.contains("<xMotivo>Evento registrado e vinculado a NF-e</xMotivo>")) {
             if (line2.contains("<xEvento>Cancelamento</xEvento>")) {
-                status = "CANCELADO";
+                status.put("chave", "CANCELADO");
             } else {
-                status = "EVENTO NAO IDENTIFICADO";
+                status.put("chave", "EVENTO NAO IDENTIFICADO");                
             }
         } else if (line2.contains("<xMotivo>Autorizado o uso da NF-e</xMotivo>")) {
-            status = "ENVIADO";
+            status.put("chave", "ENVIADO");            
+        }else{
+            status.put("chave", "NAO EXISTE");            
         }
+        String valor="0";
+        if(line2.indexOf("</vNF>")>0){
+            valor=line2.substring(line2.indexOf("<vNF>")+5, line2.indexOf("</vNF>"));        
+        }
+        status.put("valor", valor);
         return status;
     }
 

@@ -18,9 +18,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class PintarLinhasTabela1 extends DefaultTableCellRenderer {
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-        Component result = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {        
+        Component result = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);         
         if (String.valueOf(table.getValueAt(row, 5)).equals(String.valueOf(table.getValueAt(row, 6)))) {
             result.setFont(new Font("arial", Font.BOLD, 12));
             result.setForeground(Color.BLACK);

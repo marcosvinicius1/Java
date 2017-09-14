@@ -9,25 +9,25 @@ package br.com.atmatech.auditor.beans;
  *
  * @author Marcos
  */
-public class VndCupomSeq {
-    private Integer id_pdv;
-    private Integer max;
+public class VndCupomSeqBeans {
+    private Integer nro_nfce;
+    private Integer max_dcto;
     private Integer nro_dcto;
 
-    public Integer getId_pdv() {
-        return id_pdv;
+    public Integer getNro_nfce() {
+        return nro_nfce;
     }
 
-    public void setId_pdv(Integer id_pdv) {
-        this.id_pdv = id_pdv;
+    public void setNro_nfce(Integer nro_nfce) {
+        this.nro_nfce = nro_nfce;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMax_dcto() {
+        return max_dcto;
     }
 
-    public void setMax(Integer max) {
-        this.max = max;
+    public void setMax_dcto(Integer max_dcto) {
+        this.max_dcto = max_dcto;
     }
 
     public Integer getNro_dcto() {

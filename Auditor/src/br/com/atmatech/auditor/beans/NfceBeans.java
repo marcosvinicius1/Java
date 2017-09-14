@@ -21,6 +21,7 @@ public class NfceBeans {
     private String chave_sefaz;
     private String chave_xml;
     private String status_nfc;
+    private Float valor;
 
     public String getId_cupom() {
         return id_cupom;
@@ -87,6 +88,14 @@ public class NfceBeans {
     public void setStatus_nfc(String status_nfc) {
         this.status_nfc = status_nfc;
     }
+
+    public Float getValor() {
+        return valor;
+    }
+
+    public void setValor(Float valor) {
+        this.valor = valor;
+    }
     
-    
+       
 }
