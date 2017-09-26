@@ -56,7 +56,28 @@ public class Tb_ConfigBeans {
     static private String fontetipotabelatitulo;
     static private Integer fonteestilotabelatitulo;
     static private boolean exibirtopo;
-    static private boolean exibirlateral;
+    static private boolean exibirlateral;    
+    static private boolean tabelapromo;
+    static private Integer fonteestilotabelapromotitulo;
+    static private String fontetipotabelapromotitulo;
+    static private Integer corfontetabelapromo;
+    static private Integer corfundotabelapromo;
+    static private Integer fontetabelapromotitulo;
+    static private Integer espacamentotabelapromo;
+    static private Integer fontetabelapromo;
+    static private Integer transpfundotabelapromo;
+    static private Integer tamanhotabelapromo;
+    static private Integer fonteestilotabelapromo;
+    static private String fontetipotabelapromo;
+    static private String tabelapromonome;
+    static private boolean ctcodigotabelapromo;
+    static private boolean ctprodutotabelapromo;
+    static private boolean ctofertatabelapromo;
+    static private boolean ctunidtabelapromo;
+    static private boolean ctvalor2tabelapromo;
+    static private boolean ctvalor1tabelapromo;
+    static private String nomevalor2tabelapromo;
+    static private String nomevalor1tabelapromo;
     
     public boolean isTabela1() {
         return tabela1;
@@ -447,5 +468,173 @@ public class Tb_ConfigBeans {
 
     public void setExibirlateral(boolean exibirlateral) {
         this.exibirlateral = exibirlateral;
+    }
+
+    public boolean isTabelapromo() {
+        return tabelapromo;
+    }
+
+    public void setTabelapromo(boolean tabelapromo) {
+        this.tabelapromo = tabelapromo;
+    }
+
+    public Integer getFonteestilotabelapromotitulo() {
+        return fonteestilotabelapromotitulo;
+    }
+
+    public void setFonteestilotabelapromotitulo(Integer fonteestilotabelapromotitulo) {
+        this.fonteestilotabelapromotitulo = fonteestilotabelapromotitulo;
+    }
+
+    public String getFontetipotabelapromotitulo() {
+        return fontetipotabelapromotitulo;
+    }
+
+    public void setFontetipotabelapromotitulo(String fontetipotabelapromotitulo) {
+        this.fontetipotabelapromotitulo = fontetipotabelapromotitulo;
+    }
+
+    public Integer getCorfontetabelapromo() {
+        return corfontetabelapromo;
+    }
+
+    public void setCorfontetabelapromo(Integer corfontetabelapromo) {
+        this.corfontetabelapromo = corfontetabelapromo;
+    }
+
+    public Integer getCorfundotabelapromo() {
+        return corfundotabelapromo;
+    }
+
+    public void setCorfundotabelapromo(Integer corfundotabelapromo) {
+        this.corfundotabelapromo = corfundotabelapromo;
+    }
+
+    public Integer getFontetabelapromotitulo() {
+        return fontetabelapromotitulo;
+    }
+
+    public void setFontetabelapromotitulo(Integer fontetabelapromotitulo) {
+        this.fontetabelapromotitulo = fontetabelapromotitulo;
+    }
+
+    public Integer getEspacamentotabelapromo() {
+        return espacamentotabelapromo;
+    }
+
+    public void setEspacamentotabelapromo(Integer espacamentotabelapromo) {
+        this.espacamentotabelapromo = espacamentotabelapromo;
+    }
+
+    public Integer getFontetabelapromo() {
+        return fontetabelapromo;
+    }
+
+    public void setFontetabelapromo(Integer fontetabelapromo) {
+        this.fontetabelapromo = fontetabelapromo;
+    }
+
+    public Integer getTranspfundotabelapromo() {
+        return transpfundotabelapromo;
+    }
+
+    public void setTranspfundotabelapromo(Integer transpfundotabelapromo) {
+        this.transpfundotabelapromo = transpfundotabelapromo;
+    }
+
+    public Integer getTamanhotabelapromo() {
+        return tamanhotabelapromo;
+    }
+
+    public void setTamanhotabelapromo(Integer tamanhotabelapromo) {
+        this.tamanhotabelapromo = tamanhotabelapromo;
+    }
+
+    public Integer getFonteestilotabelapromo() {
+        return fonteestilotabelapromo;
+    }
+
+    public void setFonteestilotabelapromo(Integer fonteestilotabelapromo) {
+        this.fonteestilotabelapromo = fonteestilotabelapromo;
+    }
+
+    public String getFontetipotabelapromo() {
+        return fontetipotabelapromo;
+    }
+
+    public void setFontetipotabelapromo(String fontetipotabelapromo) {
+        this.fontetipotabelapromo = fontetipotabelapromo;
+    }
+
+    public String getTabelapromonome() {
+        return tabelapromonome;
+    }
+
+    public void setTabelapromonome(String tabelapromonome) {
+        this.tabelapromonome = tabelapromonome;
+    }
+
+    public boolean isCtcodigotabelapromo() {
+        return ctcodigotabelapromo;
+    }
+
+    public void setCtcodigotabelapromo(boolean ctcodigotabelapromo) {
+        this.ctcodigotabelapromo = ctcodigotabelapromo;
+    }
+
+    public boolean isCtprodutotabelapromo() {
+        return ctprodutotabelapromo;
+    }
+
+    public void setCtprodutotabelapromo(boolean ctprodutotabelapromo) {
+        this.ctprodutotabelapromo = ctprodutotabelapromo;
+    }
+
+    public boolean isCtofertatabelapromo() {
+        return ctofertatabelapromo;
+    }
+
+    public void setCtofertatabelapromo(boolean ctofertatabelapromo) {
+        this.ctofertatabelapromo = ctofertatabelapromo;
+    }
+
+    public boolean isCtunidtabelapromo() {
+        return ctunidtabelapromo;
+    }
+
+    public void setCtunidtabelapromo(boolean ctunidtabelapromo) {
+        this.ctunidtabelapromo = ctunidtabelapromo;
+    }
+
+    public boolean isCtvalor2tabelapromo() {
+        return ctvalor2tabelapromo;
+    }
+
+    public void setCtvalor2tabelapromo(boolean ctvalor2tabelapromo) {
+        this.ctvalor2tabelapromo = ctvalor2tabelapromo;
+    }
+
+    public boolean isCtvalor1tabelapromo() {
+        return ctvalor1tabelapromo;
+    }
+
+    public void setCtvalor1tabelapromo(boolean ctvalor1tabelapromo) {
+        this.ctvalor1tabelapromo = ctvalor1tabelapromo;
+    }
+
+    public String getNomevalor2tabelapromo() {
+        return nomevalor2tabelapromo;
+    }
+
+    public void setNomevalor2tabelapromo(String nomevalor2tabelapromo) {
+        this.nomevalor2tabelapromo = nomevalor2tabelapromo;
+    }
+
+    public String getNomevalor1tabelapromo() {
+        return nomevalor1tabelapromo;
+    }
+
+    public void setNomevalor1tabelapromo(String nomevalor1tabelapromo) {
+        this.nomevalor1tabelapromo = nomevalor1tabelapromo;
     }
 }

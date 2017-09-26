@@ -68,6 +68,28 @@ public class Tb_ConfigDao {
                 tbc.setFonteestilotabelatitulo(rs.getInt("fonteestilotabelatitulo"));
                 tbc.setExibirtopo(rs.getBoolean("exibirtopo"));
                 tbc.setExibirlateral(rs.getBoolean("exibirlateral"));
+                
+                tbc.setTabelapromo(rs.getBoolean("tabelapromo"));
+                tbc.setFonteestilotabelapromotitulo(rs.getInt("fonteestilotabelapromotitulo"));
+                tbc.setFontetipotabelapromotitulo(rs.getString("fontetipotabelapromotitulo"));
+                tbc.setCorfontetabelapromo(rs.getInt("corfontetabelapromo"));
+                tbc.setCorfundotabelapromo(rs.getInt("corfundotabelapromo"));
+                tbc.setFontetabelapromotitulo(rs.getInt("fontetabelapromotitulo"));
+                tbc.setEspacamentotabelapromo(rs.getInt("espacamentotabelapromo"));
+                tbc.setFontetabelapromo(rs.getInt("fontetabelapromo"));
+                tbc.setTranspfundotabelapromo(rs.getInt("transpfundotabelapromo"));
+                tbc.setTamanhotabelapromo(rs.getInt("tamanhotabelapromo"));
+                tbc.setFonteestilotabelapromo(rs.getInt("fonteestilotabelapromo"));
+                tbc.setFontetipotabelapromo(rs.getString("fontetipotabelapromo"));
+                tbc.setTabelapromonome(rs.getString("tabelapromonome"));
+                tbc.setCtcodigotabelapromo(rs.getBoolean("ctcodigotabelapromo"));
+                tbc.setCtprodutotabelapromo(rs.getBoolean("ctprodutotabelapromo"));
+                tbc.setCtofertatabelapromo(rs.getBoolean("ctofertatabelapromo"));
+                tbc.setCtunidtabelapromo(rs.getBoolean("ctunidtabelapromo"));
+                tbc.setCtvalor2tabelapromo(rs.getBoolean("ctvalor2tabelapromo"));
+                tbc.setCtvalor1tabelapromo(rs.getBoolean("ctvalor1tabelapromo"));
+                tbc.setNomevalor2tabelapromo(rs.getString("nomevalor2tabelapromo"));
+                tbc.setNomevalor1tabelapromo(rs.getString("nomevalor1tabelapromo"));                
             }
             rs.close();
             pstm.close();
@@ -125,6 +147,28 @@ public class Tb_ConfigDao {
                 tbc.setFonteestilotabelatitulo(rs.getInt("fonteestilotabelatitulo"));
                 tbc.setExibirtopo(rs.getBoolean("exibirtopo"));
                 tbc.setExibirlateral(rs.getBoolean("exibirlateral"));
+                
+                tbc.setTabelapromo(rs.getBoolean("tabelapromo"));
+                tbc.setFonteestilotabelapromotitulo(rs.getInt("fonteestilotabelapromotitulo"));
+                tbc.setFontetipotabelapromotitulo(rs.getString("fontetipotabelapromotitulo"));
+                tbc.setCorfontetabelapromo(rs.getInt("corfontetabelapromo"));
+                tbc.setCorfundotabelapromo(rs.getInt("corfundotabelapromo"));
+                tbc.setFontetabelapromotitulo(rs.getInt("fontetabelapromotitulo"));
+                tbc.setEspacamentotabelapromo(rs.getInt("espacamentotabelapromo"));
+                tbc.setFontetabelapromo(rs.getInt("fontetabelapromo"));
+                tbc.setTranspfundotabelapromo(rs.getInt("transpfundotabelapromo"));
+                tbc.setTamanhotabelapromo(rs.getInt("tamanhotabelapromo"));
+                tbc.setFonteestilotabelapromo(rs.getInt("fonteestilotabelapromo"));
+                tbc.setFontetipotabelapromo(rs.getString("fontetipotabelapromo"));
+                tbc.setTabelapromonome(rs.getString("tabelapromonome"));
+                tbc.setCtcodigotabelapromo(rs.getBoolean("ctcodigotabelapromo"));
+                tbc.setCtprodutotabelapromo(rs.getBoolean("ctprodutotabelapromo"));
+                tbc.setCtofertatabelapromo(rs.getBoolean("ctofertatabelapromo"));
+                tbc.setCtunidtabelapromo(rs.getBoolean("ctunidtabelapromo"));
+                tbc.setCtvalor2tabelapromo(rs.getBoolean("ctvalor2tabelapromo"));
+                tbc.setCtvalor1tabelapromo(rs.getBoolean("ctvalor1tabelapromo"));
+                tbc.setNomevalor2tabelapromo(rs.getString("nomevalor2tabelapromo"));
+                tbc.setNomevalor1tabelapromo(rs.getString("nomevalor1tabelapromo"));
             }
             rs.close();
             pstm.close();
@@ -138,8 +182,14 @@ public class Tb_ConfigDao {
             String sql="INSERT INTO tb_config (tamanhox, tamanhoy, letreiro, tipolocalizacao, topoimagem, fundoimagem, lateralimagem, "
                     + "letreirotempo, letreirocorfonte, fontetabela, letreirocorfundo, letreirotexto, tabela01, tabela02, "
                     + "tabela03, tabela04, terminal,ctcodigo,ctproduto,ctoferta,ctvalor1,ctvalor2,nomevalor1,nomevalor2,"
-                    + "ctunid,corfontetabela,corfundotabela,fonteestilotabela,fontetipotabela,espacamento,tabela1nome,tabela2nome,tabela3nome,tabela4nome,transpfundotabela,fontetabelatitulo,fontetipotabelatitulo,fonteestilotabelatitulo,exibirtopo,exibirlateral) "
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "ctunid,corfontetabela,corfundotabela,fonteestilotabela,fontetipotabela,espacamento,tabela1nome,"
+                    + "tabela2nome,tabela3nome,tabela4nome,transpfundotabela,fontetabelatitulo,fontetipotabelatitulo,"
+                    + "fonteestilotabelatitulo,exibirtopo,exibirlateral,tabelapromo,fonteestilotabelapromotitulo,fontetipotabelapromotitulo,"
+                    + "corfontetabelapromo,corfundotabelapromo,fontetabelapromotitulo,espacamentotabelapromo,fontetabelapromo,"
+                    + "transpfundotabelapromo,tamanhotabelapromo,fonteestilotabelapromo,fontetipotabelapromo,tabelapromonome,"
+                    + "ctcodigotabelapromo,ctprodutotabelapromo,ctofertatabelapromo,ctunidtabelapromo,ctvalor2tabelapromo,ctvalor1tabelapromo,"
+                    + "nomevalor2tabelapromo,nomevalor1tabelapromo) "
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstm=conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, tbc.getTamanhox());
             pstm.setInt(2, tbc.getTamanhoy());
@@ -181,6 +231,29 @@ public class Tb_ConfigDao {
             pstm.setInt(38, tbc.getFonteestilotabelatitulo());
             pstm.setBoolean(39, tbc.isExibirtopo());
             pstm.setBoolean(40, tbc.isExibirlateral());
+            
+            pstm.setBoolean(41, tbc.isTabelapromo());
+            pstm.setInt(42, tbc.getFonteestilotabelapromotitulo());
+            pstm.setString(43, tbc.getFontetipotabelapromotitulo());
+            pstm.setInt(44, tbc.getCorfontetabelapromo());
+            pstm.setInt(45, tbc.getCorfundotabelapromo());
+            pstm.setInt(46, tbc.getFontetabelapromotitulo());
+            pstm.setInt(47, tbc.getEspacamentotabelapromo());
+            pstm.setInt(48, tbc.getFontetabelapromo());
+            pstm.setInt(49, tbc.getTranspfundotabelapromo());
+            pstm.setInt(50, tbc.getTamanhotabelapromo());
+            pstm.setInt(51, tbc.getFonteestilotabelapromo());
+            pstm.setString(52, tbc.getFontetipotabelapromo());
+            pstm.setString(53, tbc.getTabelapromonome());
+            pstm.setBoolean(54, tbc.isCtcodigotabelapromo());
+            pstm.setBoolean(55, tbc.isCtprodutotabelapromo());
+            pstm.setBoolean(56, tbc.isCtofertatabelapromo());
+            pstm.setBoolean(57, tbc.isCtunidtabelapromo());
+            pstm.setBoolean(58, tbc.isCtvalor2tabelapromo());
+            pstm.setBoolean(59, tbc.isCtvalor1tabelapromo());
+            pstm.setString(60, tbc.getNomevalor2tabelapromo());
+            pstm.setString(61, tbc.getNomevalor1tabelapromo());
+            
             pstm.execute();
             ResultSet rs=pstm.getGeneratedKeys();
             int key=0;
@@ -204,3 +277,4 @@ public class Tb_ConfigDao {
         }
     }
 }
+

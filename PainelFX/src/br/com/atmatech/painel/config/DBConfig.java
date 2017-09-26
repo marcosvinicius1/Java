@@ -91,7 +91,7 @@ public class DBConfig {
                 arquivo.close();
             }
         } catch (Exception ex) {
-
+         System.err.println(ex);
         }
 
     }

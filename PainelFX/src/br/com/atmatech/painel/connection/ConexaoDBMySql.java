@@ -25,7 +25,7 @@ public class ConexaoDBMySql {
         Statement stmt;
         try {
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");            
             conexao = DriverManager.getConnection("jdbc:mysql://"+cb.getLocaldirdb()+":3306/PAINELFX", cb.getLocaluser(), cb.getLocalpassword());            
             stmt = conexao.createStatement();
         } catch (ClassNotFoundException ex) {

@@ -10,14 +10,17 @@ import br.com.atmatech.painel.beans.DBConfigManagementBeans;
 import br.com.atmatech.painel.beans.Tb_ConfigBeans;
 import br.com.atmatech.painel.beans.Tb_ProdBeans;
 import br.com.atmatech.painel.beans.Tb_Prod_PainelBeans;
+import br.com.atmatech.painel.beans.Tb_Prod_Painel_PromoBeans;
 import br.com.atmatech.painel.config.DBConfig;
 import br.com.atmatech.painel.config.DBConfigManagement;
 import br.com.atmatech.painel.dao.Tb_ConfigDao;
 import br.com.atmatech.painel.dao.Tb_ProdDao;
 import br.com.atmatech.painel.dao.Tb_Prod_PainelDao;
+import br.com.atmatech.painel.dao.Tb_Prod_Painel_PromoDao;
 import br.com.atmatech.painel.util.AjusteTabela;
 import com.towel.swing.img.JImagePanel;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -100,6 +103,20 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         jDAguarde = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
+        jDLayoutTabelaOferta = new javax.swing.JDialog();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTCTablePromo = new javax.swing.JTable();
+        jButton9 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jPopcaoFundo = new javax.swing.JPopupMenu();
+        jMImagem = new javax.swing.JMenuItem();
+        jMCor = new javax.swing.JMenuItem();
         jPTerminal1 = new javax.swing.JPanel();
         jPConfigLetreiro = new javax.swing.JPanel();
         jRletreiro = new javax.swing.JRadioButton();
@@ -167,6 +184,35 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jLTerminalConectado = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
+        jPConfigTabelaOferta = new javax.swing.JPanel();
+        jRAtivaTabelaPromo = new javax.swing.JRadioButton();
+        jSFonteTabelaPromo = new javax.swing.JSpinner();
+        jLabel25 = new javax.swing.JLabel();
+        jBTabelaPromo = new javax.swing.JButton();
+        jPCorFonteTabelaPromo = new javax.swing.JPanel();
+        jPCorFundoTabelaPromo = new javax.swing.JPanel();
+        jCFonteEstiloTabelaPromo = new javax.swing.JComboBox<>();
+        jCFonteTipoTabelaPromo = new javax.swing.JComboBox<>();
+        jSEspacamentoTabelaPromo = new javax.swing.JSpinner();
+        jLabel26 = new javax.swing.JLabel();
+        jTTabelaPromoNome = new javax.swing.JTextField();
+        jSTranspFundoTabelaPromo = new javax.swing.JSpinner();
+        jLabel27 = new javax.swing.JLabel();
+        jSFonteTabelaPromoTitulo = new javax.swing.JSpinner();
+        jLabel28 = new javax.swing.JLabel();
+        jCFonteEstiloTabelaPromoTitulo = new javax.swing.JComboBox<>();
+        jCFonteTipoTabelaPromoTitulo = new javax.swing.JComboBox<>();
+        jPanel10 = new javax.swing.JPanel();
+        jCCTCodigoTabelaPromo = new javax.swing.JCheckBox();
+        jCCTProdutoTabelaPromo = new javax.swing.JCheckBox();
+        jCCTOfertaTabelaPromo = new javax.swing.JCheckBox();
+        jCCTValor1TabelaPromo = new javax.swing.JCheckBox();
+        jCCTValor2TabelaPromo = new javax.swing.JCheckBox();
+        jTNomeValor2TabelaPromo = new javax.swing.JTextField();
+        jTNomeValor1TabelaPromo = new javax.swing.JTextField();
+        jCCTUnidTabelaPromo = new javax.swing.JCheckBox();
+        jSTamanhoTabelaPromo = new javax.swing.JSpinner();
+        jLabel29 = new javax.swing.JLabel();
 
         jDFileImagem.setTitle("ARQUIVO");
         jDFileImagem.setMinimumSize(new java.awt.Dimension(614, 397));
@@ -757,6 +803,156 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
         );
 
+        jDLayoutTabelaOferta.setTitle("Dados Tabela Oferta");
+        jDLayoutTabelaOferta.setMinimumSize(new java.awt.Dimension(550, 310));
+        jDLayoutTabelaOferta.setModal(true);
+
+        jPanel21.setAutoscrolls(true);
+        jPanel21.setPreferredSize(new java.awt.Dimension(900, 496));
+
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela Oferta"));
+
+        jTCTablePromo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null,  new Float(0.0),  new Float(0.0)},
+                {null, null, null, null,  new Float(0.0),  new Float(0.0)},
+                {null, null, null, null,  new Float(0.0),  new Float(0.0)},
+                {null, null, null, null,  new Float(0.0),  new Float(0.0)},
+                {null, null, null, null,  new Float(0.0),  new Float(0.0)},
+                {null, null, null, null,  new Float(0.0),  new Float(0.0)}
+            },
+            new String [] {
+                "Codigo", "Produto", "UNID", "Oferta", "Valor 1", "Valor 2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTCTablePromo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTCTablePromo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCTablePromoKeyPressed(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jTCTablePromo);
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jButton9.setText("Salvar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Atalhos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 0)));
+
+        jLabel30.setText("F2 : Consulta Produtos");
+
+        jLabel31.setText("Delete : Exclui Produto");
+
+        jLabel32.setText("Movimentar Acima: CTRL+ Ceta Para Cima ");
+
+        jLabel33.setText("Movimentar Abaixo: CTRL+ Ceta Para Baixo ");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel30)
+            .addComponent(jLabel31)
+            .addComponent(jLabel33)
+            .addComponent(jLabel32)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel32))
+        );
+
+        javax.swing.GroupLayout jDLayoutTabelaOfertaLayout = new javax.swing.GroupLayout(jDLayoutTabelaOferta.getContentPane());
+        jDLayoutTabelaOferta.getContentPane().setLayout(jDLayoutTabelaOfertaLayout);
+        jDLayoutTabelaOfertaLayout.setHorizontalGroup(
+            jDLayoutTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDLayoutTabelaOfertaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jDLayoutTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
+        );
+        jDLayoutTabelaOfertaLayout.setVerticalGroup(
+            jDLayoutTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDLayoutTabelaOfertaLayout.createSequentialGroup()
+                .addContainerGap(159, Short.MAX_VALUE)
+                .addGroup(jDLayoutTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9))
+                .addContainerGap())
+            .addGroup(jDLayoutTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jDLayoutTabelaOfertaLayout.createSequentialGroup()
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 115, Short.MAX_VALUE)))
+        );
+
+        jMImagem.setText("Imagem");
+        jMImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMImagemActionPerformed(evt);
+            }
+        });
+        jPopcaoFundo.add(jMImagem);
+
+        jMCor.setText("Cor");
+        jMCor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCorActionPerformed(evt);
+            }
+        });
+        jPopcaoFundo.add(jMCor);
+
         jPTerminal1.setMinimumSize(new java.awt.Dimension(1120, 492));
 
         jPConfigLetreiro.setBorder(javax.swing.BorderFactory.createTitledBorder("Letreiro"));
@@ -816,20 +1012,19 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
                 .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
-                            .addComponent(jRletreiro)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTletreirotexto, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
-                            .addComponent(jStransicaoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
+                        .addComponent(jRletreiro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTletreirotexto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
+                        .addComponent(jStransicaoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPConfigLetreiroLayout.createSequentialGroup()
                         .addComponent(jPCorFundoLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPCorFonteLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 120, Short.MAX_VALUE))
         );
         jPConfigLetreiroLayout.setVerticalGroup(
             jPConfigLetreiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1091,7 +1286,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPConfigTabelaLayout.setVerticalGroup(
             jPConfigTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1260,7 +1455,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                         .addComponent(jRExibirLateral))
                     .addComponent(jLabel19)
                     .addComponent(jPCImagemLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(603, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPConfigImagemLayout.setVerticalGroup(
             jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1289,10 +1484,11 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                             .addComponent(jPCImagemTopo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBImagemTopo)
-                                .addComponent(jBImagemLateral)
-                                .addComponent(jRExibirTopo))
+                            .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRExibirTopo)
+                                .addGroup(jPConfigImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jBImagemTopo)
+                                    .addComponent(jBImagemLateral)))
                             .addComponent(jRExibirLateral)))
                     .addGroup(jPConfigImagemLayout.createSequentialGroup()
                         .addComponent(jPCImagemFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1388,6 +1584,270 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             }
         });
 
+        jPConfigTabelaOferta.setBorder(javax.swing.BorderFactory.createTitledBorder("Oferta"));
+        jPConfigTabelaOferta.setToolTipText("");
+
+        jRAtivaTabelaPromo.setText("Ativa");
+
+        jSFonteTabelaPromo.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+
+        jLabel25.setText("Fonte Tabela");
+
+        jBTabelaPromo.setText("Produtos");
+        jBTabelaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTabelaPromoActionPerformed(evt);
+            }
+        });
+
+        jPCorFonteTabelaPromo.setBorder(javax.swing.BorderFactory.createTitledBorder("Cor Fonte"));
+        jPCorFonteTabelaPromo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPCorFonteTabelaPromoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPCorFonteTabelaPromoLayout = new javax.swing.GroupLayout(jPCorFonteTabelaPromo);
+        jPCorFonteTabelaPromo.setLayout(jPCorFonteTabelaPromoLayout);
+        jPCorFonteTabelaPromoLayout.setHorizontalGroup(
+            jPCorFonteTabelaPromoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+        jPCorFonteTabelaPromoLayout.setVerticalGroup(
+            jPCorFonteTabelaPromoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        jPCorFundoTabelaPromo.setBorder(javax.swing.BorderFactory.createTitledBorder("Cor Fundo"));
+        jPCorFundoTabelaPromo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPCorFundoTabelaPromoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPCorFundoTabelaPromoLayout = new javax.swing.GroupLayout(jPCorFundoTabelaPromo);
+        jPCorFundoTabelaPromo.setLayout(jPCorFundoTabelaPromoLayout);
+        jPCorFundoTabelaPromoLayout.setHorizontalGroup(
+            jPCorFundoTabelaPromoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+        jPCorFundoTabelaPromoLayout.setVerticalGroup(
+            jPCorFundoTabelaPromoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        jCFonteEstiloTabelaPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simples", "Negrito", "Itálico", "Negrito e Itálico" }));
+
+        jCFonteTipoTabelaPromo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agency FB", "Algerian", "Arial", "Arial Black", "Arial Narrow", "Arial Rounded MT Bold", "Arial Unicode MS", "Baskerville Old Face", "Bauhaus 93", "Bell MT", "Berlin Sans FB", "Berlin Sans FB Demi", "Bernard MT Condensed", "Blackadder ITC", "Bodoni MT", "Bodoni MT Black", "Bodoni MT Condensed", "Bodoni MT Poster Compressed", "Book Antiqua", "Bookman Old Style", "Bookshelf Symbol 7", "Bradley Hand ITC", "Britannic Bold", "Broadway", "Brush Script MT", "Calibri", "Calibri Light", "Californian FB", "Calisto MT", "Cambria", "Cambria Math", "Candara", "Castellar", "Centaur", "Century", "Century Gothic", "Century Schoolbook", "Chiller", "Colonna MT", "Comic Sans MS", "Consolas", "Constantia", "Cooper Black", "Copperplate Gothic Bold", "Copperplate Gothic Light", "Corbel", "Courier New", "Curlz MT", "dbldwrsw", "Dialog", "DialogInput", "Ebrima", "Edwardian Script ITC", "Elephant", "Engravers MT", "Eras Bold ITC", "Eras Demi ITC", "Eras Light ITC", "Eras Medium ITC", "Felix Titling", "Footlight MT Light", "Forte", "Franklin Gothic Book", "Franklin Gothic Demi", "Franklin Gothic Demi Cond", "Franklin Gothic Heavy", "Franklin Gothic Medium", "Franklin Gothic Medium Cond", "Freestyle Script", "French Script MT", "Gabriola", "Gadugi", "Garamond", "Georgia", "Gigi", "Gill Sans MT", "Gill Sans MT Condensed", "Gill Sans MT Ext Condensed Bold", "Gill Sans Ultra Bold", "Gill Sans Ultra Bold Condensed", "Gloucester MT Extra Condensed", "Goudy Old Style", "Goudy Stout", "Haettenschweiler", "Harlow Solid Italic", "Harrington", "High Tower Text", "Impact", "Imprint MT Shadow", "Informal Roman", "Javanese Text", "Jokerman", "Juice ITC", "Kristen ITC", "Kunstler Script", "Leelawadee UI", "Leelawadee UI Semilight", "LettrGoth12 BT", "Lucida Bright", "Lucida Calligraphy", "Lucida Console", "Lucida Fax", "Lucida Handwriting", "Lucida Sans", "Lucida Sans Typewriter", "Lucida Sans Unicode", "Magneto", "Maiandra GD", "Malgun Gothic", "Malgun Gothic Semilight", "Marlett", "Matura MT Script Capitals", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft JhengHei Light", "Microsoft JhengHei UI", "Microsoft JhengHei UI Light", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft YaHei", "Microsoft YaHei Light", "Microsoft YaHei UI", "Microsoft YaHei UI Light", "Microsoft Yi Baiti", "MingLiU-ExtB", "MingLiU_HKSCS-ExtB", "Mistral", "Modern No. 20", "Mongolian Baiti", "Monospaced", "Monotype Corsiva", "MS Gothic", "MS Mincho", "MS Outlook", "MS PGothic", "MS Reference Sans Serif", "MS Reference Specialty", "MS UI Gothic", "MT Extra", "MV Boli", "Myanmar Text", "Niagara Engraved", "Niagara Solid", "Nirmala UI", "Nirmala UI Semilight", "NSimSun", "OCR A Extended", "Old English Text MT", "Onyx", "Palace Script MT", "Palatino Linotype", "Papyrus", "Parchment", "Perpetua", "Perpetua Titling MT", "Playbill", "PMingLiU-ExtB", "Poor Richard", "Pristina", "Rage Italic", "Ravie", "Rockwell", "Rockwell Condensed", "Rockwell Extra Bold", "SansSerif", "Script MT Bold", "Segoe MDL2 Assets", "Segoe Print", "Segoe Script", "Segoe UI", "Segoe UI Black", "Segoe UI Emoji", "Segoe UI Historic", "Segoe UI Light", "Segoe UI Semibold", "Segoe UI Semilight", "Segoe UI Symbol", "Serif", "Showcard Gothic", "SimSun", "SimSun-ExtB", "Sitka Banner", "Sitka Display", "Sitka Heading", "Sitka Small", "Sitka Subheading", "Sitka Text", "Snap ITC", "Stencil", "Sylfaen", "Symbol", "Tahoma", "Tempus Sans ITC", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Tw Cen MT Condensed", "Tw Cen MT Condensed Extra Bold", "Verdana", "Viner Hand ITC", "Vivaldi", "Vladimir Script", "Warsaw", "Webdings", "Wide Latin", "Wingdings", "Wingdings 2", "Wingdings 3", "Yu Gothic", "Yu Gothic Light", "Yu Gothic Medium", "Yu Gothic UI", "Yu Gothic UI Light", "Yu Gothic UI Semibold", "Yu Gothic UI Semilight" }));
+        jCFonteTipoTabelaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCFonteTipoTabelaPromoActionPerformed(evt);
+            }
+        });
+
+        jSEspacamentoTabelaPromo.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel26.setText("Espaçamento");
+
+        jTTabelaPromoNome.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+
+        jSTranspFundoTabelaPromo.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
+
+        jLabel27.setText("Transparencia");
+
+        jSFonteTabelaPromoTitulo.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+
+        jLabel28.setText("Fonte Titulo");
+
+        jCFonteEstiloTabelaPromoTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simples", "Negrito", "Itálico", "Negrito e Itálico" }));
+        jCFonteEstiloTabelaPromoTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCFonteEstiloTabelaPromoTituloActionPerformed(evt);
+            }
+        });
+
+        jCFonteTipoTabelaPromoTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agency FB", "Algerian", "Arial", "Arial Black", "Arial Narrow", "Arial Rounded MT Bold", "Arial Unicode MS", "Baskerville Old Face", "Bauhaus 93", "Bell MT", "Berlin Sans FB", "Berlin Sans FB Demi", "Bernard MT Condensed", "Blackadder ITC", "Bodoni MT", "Bodoni MT Black", "Bodoni MT Condensed", "Bodoni MT Poster Compressed", "Book Antiqua", "Bookman Old Style", "Bookshelf Symbol 7", "Bradley Hand ITC", "Britannic Bold", "Broadway", "Brush Script MT", "Calibri", "Calibri Light", "Californian FB", "Calisto MT", "Cambria", "Cambria Math", "Candara", "Castellar", "Centaur", "Century", "Century Gothic", "Century Schoolbook", "Chiller", "Colonna MT", "Comic Sans MS", "Consolas", "Constantia", "Cooper Black", "Copperplate Gothic Bold", "Copperplate Gothic Light", "Corbel", "Courier New", "Curlz MT", "dbldwrsw", "Dialog", "DialogInput", "Ebrima", "Edwardian Script ITC", "Elephant", "Engravers MT", "Eras Bold ITC", "Eras Demi ITC", "Eras Light ITC", "Eras Medium ITC", "Felix Titling", "Footlight MT Light", "Forte", "Franklin Gothic Book", "Franklin Gothic Demi", "Franklin Gothic Demi Cond", "Franklin Gothic Heavy", "Franklin Gothic Medium", "Franklin Gothic Medium Cond", "Freestyle Script", "French Script MT", "Gabriola", "Gadugi", "Garamond", "Georgia", "Gigi", "Gill Sans MT", "Gill Sans MT Condensed", "Gill Sans MT Ext Condensed Bold", "Gill Sans Ultra Bold", "Gill Sans Ultra Bold Condensed", "Gloucester MT Extra Condensed", "Goudy Old Style", "Goudy Stout", "Haettenschweiler", "Harlow Solid Italic", "Harrington", "High Tower Text", "Impact", "Imprint MT Shadow", "Informal Roman", "Javanese Text", "Jokerman", "Juice ITC", "Kristen ITC", "Kunstler Script", "Leelawadee UI", "Leelawadee UI Semilight", "LettrGoth12 BT", "Lucida Bright", "Lucida Calligraphy", "Lucida Console", "Lucida Fax", "Lucida Handwriting", "Lucida Sans", "Lucida Sans Typewriter", "Lucida Sans Unicode", "Magneto", "Maiandra GD", "Malgun Gothic", "Malgun Gothic Semilight", "Marlett", "Matura MT Script Capitals", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft JhengHei Light", "Microsoft JhengHei UI", "Microsoft JhengHei UI Light", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft YaHei", "Microsoft YaHei Light", "Microsoft YaHei UI", "Microsoft YaHei UI Light", "Microsoft Yi Baiti", "MingLiU-ExtB", "MingLiU_HKSCS-ExtB", "Mistral", "Modern No. 20", "Mongolian Baiti", "Monospaced", "Monotype Corsiva", "MS Gothic", "MS Mincho", "MS Outlook", "MS PGothic", "MS Reference Sans Serif", "MS Reference Specialty", "MS UI Gothic", "MT Extra", "MV Boli", "Myanmar Text", "Niagara Engraved", "Niagara Solid", "Nirmala UI", "Nirmala UI Semilight", "NSimSun", "OCR A Extended", "Old English Text MT", "Onyx", "Palace Script MT", "Palatino Linotype", "Papyrus", "Parchment", "Perpetua", "Perpetua Titling MT", "Playbill", "PMingLiU-ExtB", "Poor Richard", "Pristina", "Rage Italic", "Ravie", "Rockwell", "Rockwell Condensed", "Rockwell Extra Bold", "SansSerif", "Script MT Bold", "Segoe MDL2 Assets", "Segoe Print", "Segoe Script", "Segoe UI", "Segoe UI Black", "Segoe UI Emoji", "Segoe UI Historic", "Segoe UI Light", "Segoe UI Semibold", "Segoe UI Semilight", "Segoe UI Symbol", "Serif", "Showcard Gothic", "SimSun", "SimSun-ExtB", "Sitka Banner", "Sitka Display", "Sitka Heading", "Sitka Small", "Sitka Subheading", "Sitka Text", "Snap ITC", "Stencil", "Sylfaen", "Symbol", "Tahoma", "Tempus Sans ITC", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Tw Cen MT Condensed", "Tw Cen MT Condensed Extra Bold", "Verdana", "Viner Hand ITC", "Vivaldi", "Vladimir Script", "Warsaw", "Webdings", "Wide Latin", "Wingdings", "Wingdings 2", "Wingdings 3", "Yu Gothic", "Yu Gothic Light", "Yu Gothic Medium", "Yu Gothic UI", "Yu Gothic UI Light", "Yu Gothic UI Semibold", "Yu Gothic UI Semilight" }));
+        jCFonteTipoTabelaPromoTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCFonteTipoTabelaPromoTituloActionPerformed(evt);
+            }
+        });
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Campos Tabela"));
+
+        jCCTCodigoTabelaPromo.setText("Codigo");
+
+        jCCTProdutoTabelaPromo.setText("Produto");
+
+        jCCTOfertaTabelaPromo.setText("Oferta");
+        jCCTOfertaTabelaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCCTOfertaTabelaPromoActionPerformed(evt);
+            }
+        });
+
+        jCCTValor1TabelaPromo.setText("Valor1");
+
+        jCCTValor2TabelaPromo.setText("Valor 2");
+        jCCTValor2TabelaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCCTValor2TabelaPromoActionPerformed(evt);
+            }
+        });
+
+        jTNomeValor2TabelaPromo.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+
+        jTNomeValor1TabelaPromo.setDocument(new br.com.atmatech.painel.util.LimitaCaracterUpper(45,true));
+        jTNomeValor1TabelaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTNomeValor1TabelaPromoActionPerformed(evt);
+            }
+        });
+
+        jCCTUnidTabelaPromo.setText("UNID");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCCTCodigoTabelaPromo)
+                    .addComponent(jCCTProdutoTabelaPromo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCCTUnidTabelaPromo)
+                    .addComponent(jCCTOfertaTabelaPromo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jCCTValor2TabelaPromo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTNomeValor2TabelaPromo))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addComponent(jCCTValor1TabelaPromo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTNomeValor1TabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCCTCodigoTabelaPromo)
+                    .addComponent(jCCTOfertaTabelaPromo)
+                    .addComponent(jCCTValor2TabelaPromo)
+                    .addComponent(jTNomeValor2TabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCCTProdutoTabelaPromo)
+                    .addComponent(jCCTValor1TabelaPromo)
+                    .addComponent(jTNomeValor1TabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCCTUnidTabelaPromo))
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+
+        jSTamanhoTabelaPromo.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel29.setText("Altura");
+
+        javax.swing.GroupLayout jPConfigTabelaOfertaLayout = new javax.swing.GroupLayout(jPConfigTabelaOferta);
+        jPConfigTabelaOferta.setLayout(jPConfigTabelaOfertaLayout);
+        jPConfigTabelaOfertaLayout.setHorizontalGroup(
+            jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                        .addComponent(jRAtivaTabelaPromo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTTabelaPromoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSFonteTabelaPromoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel28))
+                    .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                        .addComponent(jCFonteEstiloTabelaPromoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCFonteTipoTabelaPromoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                        .addComponent(jPCorFonteTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPCorFundoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jSTranspFundoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jSEspacamentoTabelaPromo, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSFonteTabelaPromo, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(jSTamanhoTabelaPromo, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBTabelaPromo))
+                    .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                        .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel29))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCFonteTipoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCFonteEstiloTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(243, 243, 243))
+        );
+        jPConfigTabelaOfertaLayout.setVerticalGroup(
+            jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                        .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRAtivaTabelaPromo)
+                            .addComponent(jTTabelaPromoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSFonteTabelaPromoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCFonteEstiloTabelaPromoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCFonteTipoTabelaPromoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPCorFonteTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPCorFundoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                            .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jBTabelaPromo)
+                                .addComponent(jSEspacamentoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel26))
+                            .addGap(2, 2, 2)
+                            .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                                    .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jSFonteTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel25))
+                                    .addGap(2, 2, 2)
+                                    .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSTranspFundoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                                            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGap(3, 3, 3)))
+                                    .addGap(2, 2, 2)
+                                    .addGroup(jPConfigTabelaOfertaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jSTamanhoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel29)))
+                                .addGroup(jPConfigTabelaOfertaLayout.createSequentialGroup()
+                                    .addComponent(jCFonteEstiloTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jCFonteTipoTabelaPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPTerminal1Layout = new javax.swing.GroupLayout(jPTerminal1);
         jPTerminal1.setLayout(jPTerminal1Layout);
         jPTerminal1Layout.setHorizontalGroup(
@@ -1396,8 +1856,11 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPConfigTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPConfigImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPTerminal1Layout.createSequentialGroup()
+                        .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPTerminal1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1409,16 +1872,21 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLTerminalConectado, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPTerminal1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPConfigTabelaOferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPTerminal1Layout.setVerticalGroup(
             jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPTerminal1Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jPConfigTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPConfigTabelaOferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPConfigImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPTerminal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1513,23 +1981,24 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     }//GEN-LAST:event_jCTipoLocalizacaoActionPerformed
 
     private void jBImagem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImagem1ActionPerformed
-        // TODO add your handling code here:
-        jFileChooser1.setCurrentDirectory(new File("./imagem"));
-        jDFileImagem.setLocationRelativeTo(null);
-        jDFileImagem.setVisible(true);
-        String file = jFileChooser1.getSelectedFile().toString();
-        try {
-            jPCImagemFundo.removeAll();
-            configfundo = new JImagePanel(loadImage(file));
-            configfundo.setSize(100, 100);
-            configfundo.setVisible(true);
-            configfundo.setFillType(JImagePanel.FillType.RESIZE);
-            jPCImagemFundo.add(configfundo);
-            jPCImagemFundo.validate();
-            jPCImagemFundo.repaint();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao Configurar Nova Imagem de Fundo" + ex);
-        }
+        // TODO add your handling code here:        
+        jPopcaoFundo.show(jBImagem1, WIDTH, jBImagem1.getHeight());
+//        jFileChooser1.setCurrentDirectory(new File("./imagem"));
+//        jDFileImagem.setLocationRelativeTo(null);
+//        jDFileImagem.setVisible(true);
+//        String file = jFileChooser1.getSelectedFile().toString();
+//        try {
+//            jPCImagemFundo.removeAll();
+//            configfundo = new JImagePanel(loadImage(file));
+//            configfundo.setSize(100, 100);
+//            configfundo.setVisible(true);
+//            configfundo.setFillType(JImagePanel.FillType.RESIZE);
+//            jPCImagemFundo.add(configfundo);
+//            jPCImagemFundo.validate();
+//            jPCImagemFundo.repaint();
+//        } catch (IOException ex) {
+//            JOptionPane.showMessageDialog(this, "Erro ao Configurar Nova Imagem de Fundo" + ex);
+//        }
     }//GEN-LAST:event_jBImagem1ActionPerformed
 
     private void jBImagemTopoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImagemTopoActionPerformed
@@ -1611,6 +2080,12 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
                 jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 3), jTCTable4.getSelectedRow(), 2);
                 jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 2), jTCTable4.getSelectedRow(), 3);
                 jTCTable4.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 4), jTCTable4.getSelectedRow(), 4);
+            }else if (configtabela == 5) {
+                jTCTablePromo.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 0), jTCTablePromo.getSelectedRow(), 0);
+                jTCTablePromo.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 1), jTCTablePromo.getSelectedRow(), 1);
+                jTCTablePromo.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 3), jTCTablePromo.getSelectedRow(), 2);
+                jTCTablePromo.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 2), jTCTablePromo.getSelectedRow(), 3);
+                jTCTablePromo.setValueAt(jTConsultaProduto.getValueAt(jTConsultaProduto.getSelectedRow(), 4), jTCTablePromo.getSelectedRow(), 4);
             }
 
             jDConsultaProduto.setVisible(false);
@@ -1842,11 +2317,127 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCFonteEstiloTabelaTituloActionPerformed
 
+    private void jBTabelaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTabelaPromoActionPerformed
+        // TODO add your handling code here:
+        inicializaTabelaOfertaConfig();
+        consultaTbProdPainelPromo();
+        jDLayoutTabelaOferta.setLocationRelativeTo(this);
+        jDLayoutTabelaOferta.setVisible(true);
+    }//GEN-LAST:event_jBTabelaPromoActionPerformed
+
+    private void jPCorFonteTabelaPromoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPCorFonteTabelaPromoMouseClicked
+        // TODO add your handling code here:
+        jDColorLetreiro.setLocationRelativeTo(null);
+        jDColorLetreiro.setVisible(true);
+        jPCorFonteTabelaPromo.setBackground(jColorChooser1.getColor());
+    }//GEN-LAST:event_jPCorFonteTabelaPromoMouseClicked
+
+    private void jPCorFundoTabelaPromoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPCorFundoTabelaPromoMouseClicked
+        // TODO add your handling code here:
+        jDColorLetreiro.setLocationRelativeTo(null);
+        jDColorLetreiro.setVisible(true);
+        jPCorFundoTabelaPromo.setBackground(jColorChooser1.getColor());
+    }//GEN-LAST:event_jPCorFundoTabelaPromoMouseClicked
+
+    private void jCFonteTipoTabelaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteTipoTabelaPromoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCFonteTipoTabelaPromoActionPerformed
+
+    private void jCFonteEstiloTabelaPromoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteEstiloTabelaPromoTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCFonteEstiloTabelaPromoTituloActionPerformed
+
+    private void jCFonteTipoTabelaPromoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFonteTipoTabelaPromoTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCFonteTipoTabelaPromoTituloActionPerformed
+
+    private void jTNomeValor1TabelaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeValor1TabelaPromoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNomeValor1TabelaPromoActionPerformed
+
+    private void jTCTablePromoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCTablePromoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            configtabela = 5;
+            consultaProdutoConfigTabela();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deletaProdutoConfigTabelaPromo();
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaUP(jTCTablePromo);
+            }
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (evt.isControlDown()) {
+                new AjusteTabela().movimentaTabelaDown(jTCTablePromo);
+            }
+        }
+    }//GEN-LAST:event_jTCTablePromoKeyPressed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        setConfigProdPromoTerminal();
+        jDLayoutTabelaOferta.setVisible(false);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jCCTOfertaTabelaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCCTOfertaTabelaPromoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCCTOfertaTabelaPromoActionPerformed
+
+    private void jCCTValor2TabelaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCCTValor2TabelaPromoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCCTValor2TabelaPromoActionPerformed
+
+    private void jMImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMImagemActionPerformed
+        // TODO add your handling code here:
+        jFileChooser1.setCurrentDirectory(new File("./imagem"));
+        jDFileImagem.setLocationRelativeTo(null);
+        jDFileImagem.setVisible(true);
+        String file = jFileChooser1.getSelectedFile().toString();
+        try {
+            jPCImagemFundo.removeAll();
+            configfundo = new JImagePanel(loadImage(file));
+            configfundo.setSize(100, 100);
+            configfundo.setVisible(true);
+            configfundo.setFillType(JImagePanel.FillType.RESIZE);
+            jPCImagemFundo.add(configfundo);
+            jPCImagemFundo.validate();
+            jPCImagemFundo.repaint();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao Configurar Nova Imagem de Fundo" + ex);
+        }
+    }//GEN-LAST:event_jMImagemActionPerformed
+
+    private void jMCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCorActionPerformed
+        // TODO add your handling code here:
+        jDColorLetreiro.setLocationRelativeTo(null);
+        jDColorLetreiro.setVisible(true);
+        Color cor = jColorChooser1.getColor();        
+        int width = 200, height = 200;
+        BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics g = buffer.createGraphics();
+        g.setColor(cor);
+        g.fillRect(0, 0, width, height);
+        jPCImagemFundo.removeAll();
+        configfundo = new JImagePanel(buffer);
+        configfundo.setSize(100, 100);
+        configfundo.setVisible(true);
+        configfundo.setFillType(JImagePanel.FillType.RESIZE);
+        jPCImagemFundo.add(configfundo);
+        jPCImagemFundo.validate();
+        jPCImagemFundo.repaint();
+    }//GEN-LAST:event_jMCorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBImagem1;
     private javax.swing.JButton jBImagemLateral;
     private javax.swing.JButton jBImagemTopo;
+    private javax.swing.JButton jBTabelaPromo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1855,15 +2446,26 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCCTCodigo;
+    private javax.swing.JCheckBox jCCTCodigoTabelaPromo;
     private javax.swing.JCheckBox jCCTOferta;
+    private javax.swing.JCheckBox jCCTOfertaTabelaPromo;
     private javax.swing.JCheckBox jCCTProduto;
+    private javax.swing.JCheckBox jCCTProdutoTabelaPromo;
     private javax.swing.JCheckBox jCCTUnid;
+    private javax.swing.JCheckBox jCCTUnidTabelaPromo;
     private javax.swing.JCheckBox jCCTValor1;
+    private javax.swing.JCheckBox jCCTValor1TabelaPromo;
     private javax.swing.JCheckBox jCCTValor2;
+    private javax.swing.JCheckBox jCCTValor2TabelaPromo;
     private javax.swing.JComboBox<String> jCFonteEstiloTabela;
+    private javax.swing.JComboBox<String> jCFonteEstiloTabelaPromo;
+    private javax.swing.JComboBox<String> jCFonteEstiloTabelaPromoTitulo;
     private javax.swing.JComboBox<String> jCFonteEstiloTabelaTitulo;
     private javax.swing.JComboBox<String> jCFonteTipoTabela;
+    private javax.swing.JComboBox<String> jCFonteTipoTabelaPromo;
+    private javax.swing.JComboBox<String> jCFonteTipoTabelaPromoTitulo;
     private javax.swing.JComboBox<String> jCFonteTipoTabelaTitulo;
     private javax.swing.JComboBox<String> jCTipoLocalizacao;
     private javax.swing.JColorChooser jColorChooser1;
@@ -1871,6 +2473,7 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JDialog jDColorLetreiro;
     private javax.swing.JDialog jDConsultaProduto;
     private javax.swing.JDialog jDFileImagem;
+    private javax.swing.JDialog jDLayoutTabelaOferta;
     private javax.swing.JDialog jDLayoutTabelas;
     private javax.swing.JDialog jDLocalTerminal;
     private javax.swing.JFileChooser jFileChooser1;
@@ -1888,32 +2491,52 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMCor;
+    private javax.swing.JMenuItem jMImagem;
     private javax.swing.JPanel jPCImagemFundo;
     private javax.swing.JPanel jPCImagemLateral;
     private javax.swing.JPanel jPCImagemTopo;
     private javax.swing.JPanel jPConfigImagem;
     private javax.swing.JPanel jPConfigLetreiro;
     private javax.swing.JPanel jPConfigTabela;
+    private javax.swing.JPanel jPConfigTabelaOferta;
     private javax.swing.JPanel jPCorFonteLetreiro;
     private javax.swing.JPanel jPCorFonteTabela;
+    private javax.swing.JPanel jPCorFonteTabelaPromo;
     private javax.swing.JPanel jPCorFundoLetreiro;
     private javax.swing.JPanel jPCorFundoTabela;
+    private javax.swing.JPanel jPCorFundoTabelaPromo;
     private javax.swing.JPanel jPTerminal1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPopupMenu jPopcaoFundo;
+    private javax.swing.JRadioButton jRAtivaTabelaPromo;
     private javax.swing.JRadioButton jRExibirLateral;
     private javax.swing.JRadioButton jRExibirTopo;
     private javax.swing.JRadioButton jRTabela1;
@@ -1922,30 +2545,40 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRTabela4;
     private javax.swing.JRadioButton jRletreiro;
     private javax.swing.JSpinner jSEspacamento;
+    private javax.swing.JSpinner jSEspacamentoTabelaPromo;
     private javax.swing.JSpinner jSFonteTabela;
+    private javax.swing.JSpinner jSFonteTabelaPromo;
+    private javax.swing.JSpinner jSFonteTabelaPromoTitulo;
     private javax.swing.JSpinner jSFonteTabelaTitulo;
+    private javax.swing.JSpinner jSTamanhoTabelaPromo;
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
     private javax.swing.JSpinner jSTerminal1;
     private javax.swing.JSpinner jSTranspFundoTabela;
+    private javax.swing.JSpinner jSTranspFundoTabelaPromo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSpinner jStransicaoLetreiro;
     private javax.swing.JTable jTCTable1;
     private javax.swing.JTable jTCTable2;
     private javax.swing.JTable jTCTable3;
     private javax.swing.JTable jTCTable4;
+    private javax.swing.JTable jTCTablePromo;
     private javax.swing.JTable jTConsultaProduto;
+    private javax.swing.JTextField jTNomeValor1TabelaPromo;
     private javax.swing.JTextField jTNomeValor2;
+    private javax.swing.JTextField jTNomeValor2TabelaPromo;
     private javax.swing.JTextField jTNomevalor1;
     private javax.swing.JTextField jTTabela1nome;
     private javax.swing.JTextField jTTabela2nome;
     private javax.swing.JTextField jTTabela3nome;
     private javax.swing.JTextField jTTabela4nome;
+    private javax.swing.JTextField jTTabelaPromoNome;
     private javax.swing.JTable jTTerminais;
     private javax.swing.JTextField jTletreirotexto;
     private javax.swing.JTextField jTlocalbanco1;
@@ -2310,13 +2943,39 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             jCFonteEstiloTabela.repaint();
             jCFonteTipoTabela.setSelectedItem(tbc.getFontetipotabela());
             jCFonteTipoTabela.repaint();
-            jSEspacamento.setValue(tbc.getEspacamento());
-            
+            jSEspacamento.setValue(tbc.getEspacamento());            
             jSFonteTabelaTitulo.setValue(tbc.getFontetabelatitulo());
-            jCFonteTipoTabelaTitulo.setSelectedItem(tbc.getFontetipotabelatitulo());
+            jCFonteTipoTabelaTitulo.setSelectedItem(tbc.getFontetipotabelatitulo());                        
             jCFonteTipoTabelaTitulo.repaint();
             jCFonteEstiloTabelaTitulo.setSelectedIndex(tbc.getFonteestilotabelatitulo());
             jCFonteEstiloTabelaTitulo.repaint();
+            
+            jRAtivaTabelaPromo.setSelected(tbc.isTabelapromo());
+            jCFonteEstiloTabelaPromoTitulo.setSelectedIndex(tbc.getFonteestilotabelapromotitulo());
+            jCFonteEstiloTabelaPromoTitulo.repaint();
+            jCFonteTipoTabelaPromoTitulo.setSelectedItem(tbc.getFontetipotabelapromotitulo());            
+            jCFonteTipoTabelaPromoTitulo.repaint();
+            jPCorFonteTabelaPromo.setBackground(new Color(tbc.getCorfontetabelapromo()));
+            jPCorFundoTabelaPromo.setBackground(new Color(tbc.getCorfundotabelapromo()));
+            jSFonteTabelaPromoTitulo.setValue(tbc.getFontetabelapromotitulo());
+            jSEspacamentoTabelaPromo.setValue(tbc.getEspacamentotabelapromo());
+            jSFonteTabelaPromo.setValue(tbc.getFontetabelapromo());
+            jSTranspFundoTabelaPromo.setValue(tbc.getTranspfundotabelapromo());
+            jSTamanhoTabelaPromo.setValue(tbc.getTamanhotabelapromo());
+            jCFonteEstiloTabelaPromo.setSelectedIndex(tbc.getFonteestilotabelapromo());
+            jCFonteEstiloTabelaPromo.repaint();
+            jCFonteTipoTabelaPromo.setSelectedItem(tbc.getFontetipotabelapromo());
+            jCFonteTipoTabelaPromo.repaint();
+            jTTabelaPromoNome.setText(tbc.getTabelapromonome());
+            jCCTCodigoTabelaPromo.setSelected(tbc.isCtcodigotabelapromo());
+            jCCTProdutoTabelaPromo.setSelected(tbc.isCtprodutotabelapromo());
+            jCCTOfertaTabelaPromo.setSelected(tbc.isCtofertatabelapromo());
+            jCCTUnidTabelaPromo.setSelected(tbc.isCtunidtabelapromo());
+            jCCTValor2TabelaPromo.setSelected(tbc.isCtvalor2tabelapromo());
+            jCCTValor1TabelaPromo.setSelected(tbc.isCtvalor1tabelapromo());
+            jTNomeValor2TabelaPromo.setText(tbc.getNomevalor2tabelapromo());
+            jTNomeValor1TabelaPromo.setText(tbc.getNomevalor1tabelapromo());
+            
             jLTerminalConectado.setText("Conectado ao Terminal: " + dbc.getTerminal());
             jRExibirTopo.setSelected(tbc.isExibirtopo());
             jRExibirLateral.setSelected(tbc.isExibirlateral());
@@ -2373,6 +3032,29 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
             tbc.setFontetipotabelatitulo(jCFonteTipoTabelaTitulo.getSelectedItem().toString());
             tbc.setExibirtopo(jRExibirTopo.isSelected());
             tbc.setExibirlateral(jRExibirLateral.isSelected());
+            
+            tbc.setTabelapromo(jRAtivaTabelaPromo.isSelected());
+            tbc.setFonteestilotabelapromotitulo(jCFonteEstiloTabelaPromoTitulo.getSelectedIndex());
+            tbc.setFontetipotabelapromotitulo(jCFonteTipoTabelaPromoTitulo.getSelectedItem().toString());
+            tbc.setCorfontetabelapromo(Integer.valueOf(jPCorFonteTabelaPromo.getBackground().getRGB()));
+            tbc.setCorfundotabelapromo(Integer.valueOf(jPCorFundoTabelaPromo.getBackground().getRGB()));
+            tbc.setFontetabelapromotitulo((Integer) jSFonteTabelaPromoTitulo.getValue());
+            tbc.setEspacamentotabelapromo((Integer) jSEspacamentoTabelaPromo.getValue());
+            tbc.setFontetabelapromo((Integer) jSFonteTabelaPromo.getValue());
+            tbc.setTranspfundotabelapromo((Integer) jSTranspFundoTabelaPromo.getValue());
+            tbc.setTamanhotabelapromo((Integer) jSTamanhoTabelaPromo.getValue());
+            tbc.setFonteestilotabelapromo(jCFonteEstiloTabelaPromo.getSelectedIndex());
+            tbc.setFontetipotabelapromo(jCFonteTipoTabelaPromo.getSelectedItem().toString());
+            tbc.setTabelapromonome(jTTabelaPromoNome.getText());
+            tbc.setCtcodigotabelapromo(jCCTCodigoTabelaPromo.isSelected());
+            tbc.setCtprodutotabelapromo(jCCTProdutoTabelaPromo.isSelected());
+            tbc.setCtofertatabelapromo(jCCTOfertaTabelaPromo.isSelected());
+            tbc.setCtunidtabelapromo(jCCTUnidTabelaPromo.isSelected());
+            tbc.setCtvalor2tabelapromo(jCCTValor2TabelaPromo.isSelected());
+            tbc.setCtvalor1tabelapromo(jCCTValor1TabelaPromo.isSelected());
+            tbc.setNomevalor2tabelapromo(jTNomeValor2TabelaPromo.getText());
+            tbc.setNomevalor1tabelapromo(jTNomeValor1TabelaPromo.getText());
+            
             int key = new Tb_ConfigDao().setTb_Config(tbc);
             if (key > 0) {
                 new Tb_ConfigDao().delTb_Config(new DBConfigBeans().getTerminal(), key - 1);
@@ -2541,6 +3223,91 @@ public class ViewConfigTerminais extends javax.swing.JPanel {
         jCFonteTipoTabelaTitulo.setSelectedItem("Tahoma");
         jRExibirTopo.setSelected(false);
         jRExibirLateral.setSelected(false);
+        
+        jRAtivaTabelaPromo.setSelected(false);
+        jCFonteEstiloTabelaPromoTitulo.setSelectedIndex(1);
+        jCFonteTipoTabelaPromoTitulo.setSelectedItem("Tahoma");
+        jPCorFonteTabelaPromo.setBackground(new Color(Integer.valueOf(-16777216)));
+        jPCorFundoTabelaPromo.setBackground(new Color(Integer.valueOf(-1)));
+        jSFonteTabelaPromoTitulo.setValue(34);
+        jSEspacamentoTabelaPromo.setValue(40);
+        jSFonteTabelaPromo.setValue(40);
+        jSTranspFundoTabelaPromo.setValue(100);
+        jSTamanhoTabelaPromo.setValue(20);
+        jCFonteEstiloTabelaPromo.setSelectedIndex(1);
+        jCFonteTipoTabelaPromo.setSelectedItem("Tahoma");
+        jTTabelaPromoNome.setText("OFERTA");
+        jCCTCodigoTabelaPromo.setSelected(false);
+        jCCTProdutoTabelaPromo.setSelected(true);
+        jCCTOfertaTabelaPromo.setSelected(false);
+        jCCTUnidTabelaPromo.setSelected(false);
+        jCCTValor2TabelaPromo.setSelected(false);
+        jCCTValor1TabelaPromo.setSelected(true);
+        jTNomeValor2TabelaPromo.setText("");
+        jTNomeValor1TabelaPromo.setText("KILO");
+    }
+
+    private void inicializaTabelaOfertaConfig() {
+        jTCTablePromo.getColumnModel().getColumn(0).setMinWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(0).setMaxWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(1).setMinWidth(150);
+        jTCTablePromo.getColumnModel().getColumn(2).setMinWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(2).setMaxWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(3).setMinWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(3).setMaxWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(4).setMinWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(4).setMaxWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(5).setMinWidth(50);
+        jTCTablePromo.getColumnModel().getColumn(5).setMaxWidth(50);
+    }
+
+    private void consultaTbProdPainelPromo() {
+        try{
+         List<Tb_Prod_Painel_PromoBeans> lppb1 = new ArrayList<>();
+            int i;
+            lppb1 = new Tb_Prod_Painel_PromoDao().getProdPainelConfig(new DBConfigBeans().getTerminal(), 1);
+            i = 0;
+            for (Tb_Prod_Painel_PromoBeans ppb : lppb1) {
+                jTCTablePromo.setValueAt(ppb.getCodigo(), i, 0);
+                jTCTablePromo.setValueAt(ppb.getDescricao(), i, 1);
+                jTCTablePromo.setValueAt(ppb.getUnid(), i, 2);
+                jTCTablePromo.setValueAt(ppb.getOferta(), i, 3);
+                jTCTablePromo.setValueAt(ppb.getValor1(), i, 4);
+                jTCTablePromo.setValueAt(ppb.getValor2(), i, 5);
+                i++;
+            }
+            lppb1.clear();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Erro ao Consultar Produtos\n"+ex);
+        }
+    }
+
+    private void deletaProdutoConfigTabelaPromo() {
+        DefaultTableModel model1 = (DefaultTableModel) jTCTablePromo.getModel();
+        model1.removeRow(jTCTablePromo.getSelectedRow());
+        model1.addRow(new Object[]{"", "", "", false, new Float(0), new Float(0)});
+    }
+
+    private void setConfigProdPromoTerminal() {
+        try{
+        List<Tb_Prod_Painel_PromoBeans> lppb = new ArrayList<>();
+            for (int i = 0; i < jTCTablePromo.getRowCount(); i++) {
+                Tb_Prod_Painel_PromoBeans ppb = new Tb_Prod_Painel_PromoBeans();
+                ppb.setCodigo((String) jTCTablePromo.getValueAt(i, 0));
+                ppb.setDescricao((String) jTCTablePromo.getValueAt(i, 1));
+                ppb.setUnid((String) jTCTablePromo.getValueAt(i, 2));
+                ppb.setOferta((Boolean) jTCTablePromo.getValueAt(i, 3));
+                ppb.setValor1((Float) jTCTablePromo.getValueAt(i, 4));
+                ppb.setValor2((Float) jTCTablePromo.getValueAt(i, 5));
+                ppb.setTerminal(new DBConfigBeans().getTerminal());
+                ppb.setPainel(1);
+                lppb.add(ppb);
+            }
+            new Tb_Prod_Painel_PromoDao().delProdPainel(new DBConfigBeans().getTerminal(), 1);
+            new Tb_Prod_Painel_PromoDao().setProdPainel(lppb);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Erro ao Salvar Produtos\n"+ex);
+        }
     }
 
 }
