@@ -1,0 +1,13 @@
+CREATE TABLE `tb_prod_painel_promo` (
+  `idtb_painel_promo` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(45) DEFAULT NULL,
+  `descricao` varchar(50) DEFAULT NULL,
+  `unid` varchar(45) DEFAULT NULL,
+  `valor1` float DEFAULT NULL,
+  `valor2` float DEFAULT NULL,
+  `receita` varchar(100) DEFAULT NULL,
+  `oferta` tinyint(4) DEFAULT NULL,
+  `terminal` int(11) DEFAULT NULL,
+  `painel` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idtb_painel_promo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -42,6 +42,8 @@ public class DBConfig {
         cxb.setBanco(prop.getProperty("banco"));        
         cxb.setLocallog(prop.getProperty("locallog", "./logs"));
         cxb.setPortabanco(Integer.valueOf(prop.getProperty("portabanco","1433")));
+        cxb.setTipobanco(prop.getProperty("tipobanco",""));
+        cxb.setSleep(Integer.valueOf(prop.getProperty("sleep", "1000")));
         if (prop.getProperty("terminal") != null) {
             try {
                 Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(Integer.valueOf(prop.getProperty("terminal")));
@@ -116,6 +118,8 @@ public class DBConfig {
         prop.put("banco", cb.getBanco());
         prop.put("locallog", cb.getLocallog());
         prop.put("portabanco", String.valueOf(cb.getPortabanco()));
+        prop.put("tipobanco", cb.getTipobanco());
+        prop.put("sleep", String.valueOf(cb.getSleep()));
         prop.store(new FileOutputStream("./config/config.properties"), null);
     }
 

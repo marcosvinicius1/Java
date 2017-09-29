@@ -1,0 +1,16 @@
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`%` 
+    SQL SECURITY DEFINER
+VIEW `vw_prod_painel` AS
+    SELECT 
+        `tb_prod`.`idtb_prod` AS `idtb_prod`,
+        `tb_prod`.`codigo` AS `codigo`,
+        `tb_prod`.`descricao` AS `descricao`,
+        `tb_prod`.`unid` AS `unid`,
+        `tb_prod`.`valor1` AS `valor1`,
+        `tb_prod`.`valor2` AS `valor2`,
+        `tb_prod`.`receita` AS `receita`,
+        `tb_prod`.`oferta` AS `oferta`
+    FROM
+        `tb_prod`

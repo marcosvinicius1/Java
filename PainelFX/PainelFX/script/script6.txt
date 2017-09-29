@@ -1,0 +1,11 @@
+DELIMITER $
+
+CREATE DEFINER=`root`@`%` TRIGGER `painelfx`.`UPDATE_BEFORE_TB_PROD_PAINEL_PROMO_VALOR1` BEFORE INSERT ON `tb_prod` FOR EACH ROW
+
+BEGIN
+
+UPDATE tb_prod_painel_promo set valor1=new.valor1 where codigo=new.codigo;
+
+END$
+
+DELIMITER ;

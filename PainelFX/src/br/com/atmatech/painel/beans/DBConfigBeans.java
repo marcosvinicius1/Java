@@ -22,6 +22,8 @@ public class DBConfigBeans {
     static private String banco;
     static private String locallog;
     static private Integer portabanco;
+    static private String tipobanco;
+    static private Integer sleep;
     
     public String getDirdb() {
         return dirdb;
@@ -109,6 +111,22 @@ public class DBConfigBeans {
 
     public void setPortabanco(Integer portabanco) {
         this.portabanco = portabanco;
+    }
+
+    public String getTipobanco() {
+        return tipobanco;
+    }
+
+    public void setTipobanco(String tipobanco) {
+        this.tipobanco = tipobanco;
+    }
+
+    public Integer getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(Integer sleep) {
+        this.sleep = sleep;
     }
     
 }

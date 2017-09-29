@@ -1,0 +1,6 @@
+DELIMITER $
+CREATE DEFINER=`root`@`%` TRIGGER `painelfx`.`UPDATE_AFTER_TB_PROD_PAINEL_VALOR1` AFTER INSERT ON `tb_prod` FOR EACH ROW
+BEGIN
+UPDATE tb_prod_painel set valor1=new.valor1 where codigo=new.codigo;
+END$
+DELIMITER ;

@@ -7,7 +7,7 @@ package br.com.atmatech.painel.dao;
 
 import br.com.atmatech.painel.beans.Tb_ConfigBeans;
 import br.com.atmatech.painel.beans.Tb_ConfigTempBeans;
-import br.com.atmatech.painel.connection.ConexaoDBMySql;
+import br.com.atmatech.painel.connection.ConexaoLocalDBMySql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.sql.Statement;
  */
 public class Tb_ConfigDao {
     public Tb_ConfigBeans getTB_Config(Integer terminal) throws SQLException{
-        try(Connection conexao=new ConexaoDBMySql().getConnect()){
+        try(Connection conexao=new ConexaoLocalDBMySql().getConnect()){
             String sql="select * from tb_config where terminal=?";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setInt(1, terminal);
@@ -99,7 +99,7 @@ public class Tb_ConfigDao {
     }
     
     public Tb_ConfigTempBeans getTB_ConfigTemp(Integer terminal) throws SQLException{
-        try(Connection conexao=new ConexaoDBMySql().getConnect()){
+        try(Connection conexao=new ConexaoLocalDBMySql().getConnect()){
             String sql="select * from tb_config where terminal=?";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setInt(1, terminal);
@@ -178,7 +178,7 @@ public class Tb_ConfigDao {
     }
     
     public int setTb_Config(Tb_ConfigBeans tbc) throws SQLException{
-        try(Connection conexao=new ConexaoDBMySql().getConnect()){
+        try(Connection conexao=new ConexaoLocalDBMySql().getConnect()){
             String sql="INSERT INTO tb_config (tamanhox, tamanhoy, letreiro, tipolocalizacao, topoimagem, fundoimagem, lateralimagem, "
                     + "letreirotempo, letreirocorfonte, fontetabela, letreirocorfundo, letreirotexto, tabela01, tabela02, "
                     + "tabela03, tabela04, terminal,ctcodigo,ctproduto,ctoferta,ctvalor1,ctvalor2,nomevalor1,nomevalor2,"
@@ -266,7 +266,7 @@ public class Tb_ConfigDao {
         }
     }
     public void delTb_Config(Integer idterminal,int key) throws SQLException{
-        try(Connection conexao=new ConexaoDBMySql().getConnect()){
+        try(Connection conexao=new ConexaoLocalDBMySql().getConnect()){
             String sql="delete from tb_config where terminal=? and idtb_config<?";
             PreparedStatement pstm=conexao.prepareStatement(sql);
             pstm.setInt(1, idterminal);

@@ -1,0 +1,19 @@
+/****** Object:  View [dbo].[vw_prod_painel]    Script Date: 21/07/2017 10:24:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE view [dbo].[vw_prod_painel]
+as
+SELECT 
+tbsupervisaoitens.ITN_CODIGO codigo,
+rtrim(LTRIM(replace(replace(tbsupervisaoitens.ITN_DESCRITIVO,'#',''),'$',''))) descricao,
+'KG' unid,
+tbsupervisaoitens.ITN_PRECO AS valor1,
+0 valor2,
+0 oferta
+FROM tbsupervisaoitens
+GO
+

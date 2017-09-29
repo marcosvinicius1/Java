@@ -6,7 +6,7 @@
 package br.com.atmatech.painel.dao;
 
 import br.com.atmatech.painel.beans.Tb_Prod_Painel_PromoBeans;
-import br.com.atmatech.painel.connection.ConexaoDBMySql;
+import br.com.atmatech.painel.connection.ConexaoLocalDBMySql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ public class Tb_Prod_Painel_PromoDao {
     
 //usado na consulta assim que abre a tela de promocao
     public List<Tb_Prod_Painel_PromoBeans> getProdPainel(Integer terminal, Integer painel) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel_promo.* FROM tb_prod_painel_promo "
                     + " INNER JOIN tb_prod ON(tb_prod_painel_promo.codigo=tb_prod.codigo) where terminal=? and painel=? order by tb_prod_painel_promo.idtb_painel_promo";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class Tb_Prod_Painel_PromoDao {
     }
     //consulta produtos da tabela promocao
     public List<Tb_Prod_Painel_PromoBeans> getProdPainelConfig(Integer terminal, Integer painel) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel_promo.* FROM tb_prod_painel_promo "
                     + "where terminal=? and painel=? order by tb_prod_painel_promo.idtb_painel_promo";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -80,7 +80,7 @@ public class Tb_Prod_Painel_PromoDao {
     }
     //usado para verificar se produto foi alterado na atualizacao automatica
     public List<Tb_Prod_Painel_PromoBeans> getProdPainelTabelas(Integer terminal, String painel) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel_promo.* FROM tb_prod_painel_promo "
                     + " INNER JOIN tb_prod ON(tb_prod_painel_promo.codigo=tb_prod.codigo) where terminal=? and painel in(" + painel + ") order by tb_prod_painel_promo.idtb_painel_promo";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -108,7 +108,7 @@ public class Tb_Prod_Painel_PromoDao {
     }
     //utilizado para salvar produtos na promocao
     public void setProdPainel(List<Tb_Prod_Painel_PromoBeans> lpb) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "insert into tb_prod_painel_promo(codigo,descricao,unid,valor1,valor2,oferta,terminal,painel) values ";            
             String sql2 = null;
             for (Tb_Prod_Painel_PromoBeans pb : lpb) {                
@@ -129,7 +129,7 @@ public class Tb_Prod_Painel_PromoDao {
     //utilizado para limpar produtos na promocao
     public Boolean delProdPainel(Integer terminal, Integer painel) throws SQLException {
         Boolean retorno = false;
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "delete from tb_prod_painel_promo where terminal=? and painel=?";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, terminal);

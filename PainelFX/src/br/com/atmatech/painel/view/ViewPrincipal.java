@@ -99,6 +99,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTbanco = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jSPortaBanco = new javax.swing.JSpinner();
+        jCTipoBanco = new javax.swing.JComboBox<>();
+        jSSleep = new javax.swing.JSpinner();
+        jLabel34 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -290,6 +293,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jSPortaBanco.setModel(new javax.swing.SpinnerNumberModel(1433, 0, null, 1));
 
+        jCTipoBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SqlServer", "Access", "MySql", "Filizola bkp" }));
+
+        jSSleep.setModel(new javax.swing.SpinnerNumberModel(1000, 1000, null, 1));
+
+        jLabel34.setText("Sleep");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -303,20 +312,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTusuariobalancabanco)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTusuariobalancabanco, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jTlocalbalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSPortaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTbanco, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
+                        .addComponent(jSPortaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTsenhabalancabanco))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel13)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTbanco, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCTipoBanco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSSleep, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel34)))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,11 +348,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTusuariobalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTusuariobalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCTipoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTsenhabalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTsenhabalancabanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSSleep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1285,7 +1305,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                         .addComponent(jPConfigImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPConfigLetreiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPConfigTabelaOferta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPConfigTabelaOferta, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 54, Short.MAX_VALUE))
         );
         jDlayoutLayout.setVerticalGroup(
@@ -2277,6 +2297,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
             dbc.setBanco(jTbanco.getText());
             dbc.setLocallog(jTlocallog.getText());
             dbc.setPortabanco(Integer.valueOf(jSPortaBanco.getValue().toString()));
+            dbc.setTipobanco(jCTipoBanco.getSelectedItem().toString());
+            dbc.setSleep(Integer.valueOf(jSSleep.getValue().toString()));
             try {
                 new DBConfig().createConfig(dbc);
                 jDcarga.setVisible(false);
@@ -2495,7 +2517,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 Tb_ConfigBeans tbc = new Tb_ConfigDao().getTB_Config(dbc.getTerminal());
                 if (tbc.getIdtb_config() != null) {
                     setInicializaTerminal();
-
                 }
             } else if (dbc.getTipo().equals("Management")) {
                 setInicializaManagement();
@@ -2899,6 +2920,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jCFonteTipoTabelaPromoTitulo;
     private javax.swing.JComboBox<String> jCFonteTipoTabelaTitulo;
     private javax.swing.JComboBox<String> jCTipo;
+    private javax.swing.JComboBox<String> jCTipoBanco;
     private javax.swing.JComboBox<String> jCTipoLocalizacao;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDColorLetreiro;
@@ -2936,6 +2958,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -3000,6 +3023,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JSpinner jSFonteTabelaPromoTitulo;
     private javax.swing.JSpinner jSFonteTabelaTitulo;
     private javax.swing.JSpinner jSPortaBanco;
+    private javax.swing.JSpinner jSSleep;
     private javax.swing.JSpinner jSTamanhoTabelaPromo;
     private javax.swing.JSpinner jSTamanhox;
     private javax.swing.JSpinner jSTamanhoy;
@@ -3508,6 +3532,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jTbanco.setText(dbc.getBanco());
         jTlocallog.setText(dbc.getLocallog());
         jSPortaBanco.setValue(dbc.getPortabanco());
+        jCTipoBanco.setSelectedItem(dbc.getTipobanco());
+        jSSleep.setValue(dbc.getSleep());
         jDcarga.setLocationRelativeTo(this);
         jDcarga.setVisible(true);
     }
@@ -3524,7 +3550,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     while (true) {
                         new CargaController().cargaProd();
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(new DBConfigBeans().getSleep());                            
                         } catch (InterruptedException ex) {
                             new DBConfig().createArqLog("\nViewPrincipal Construtor:Thread Encerrou:\n" + ex + "\n");
                         }

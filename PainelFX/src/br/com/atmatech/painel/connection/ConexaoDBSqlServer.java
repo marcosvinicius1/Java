@@ -6,11 +6,10 @@
 package br.com.atmatech.painel.connection;
 
 import br.com.atmatech.painel.beans.DBConfigBeans;
+import br.com.atmatech.painel.config.DBConfig;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,13 +19,13 @@ public class ConexaoDBSqlServer {
     public Connection getConnect() throws SQLException {
         Connection conexao = null;
         DBConfigBeans cb = new DBConfigBeans();
-        Statement stmt;
+       // Statement stmt;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");              
             conexao = DriverManager.getConnection("jdbc:sqlserver://"+cb.getDirdb()+":"+cb.getPortabanco()+";database="+cb.getBanco(), cb.getUser(), cb.getPassword());            
-            stmt = conexao.createStatement();
+           // stmt = conexao.createStatement();
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Registrar Driver de Conexão SqlServer" + ex, null, JOptionPane.ERROR_MESSAGE);
+            new DBConfig().createArqLog("ConexaoDBSqlServer - getConnect :"+ex);
         }
         return conexao;
     }

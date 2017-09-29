@@ -6,7 +6,7 @@
 package br.com.atmatech.painel.dao;
 
 import br.com.atmatech.painel.beans.Tb_Prod_PainelBeans;
-import br.com.atmatech.painel.connection.ConexaoDBMySql;
+import br.com.atmatech.painel.connection.ConexaoLocalDBMySql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ import java.util.List;
 public class Tb_Prod_PainelDao {
 
     public List<Tb_Prod_PainelBeans> getProdPainel(Integer terminal, Integer painel) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel "
                     + " INNER JOIN tb_prod ON(tb_prod_painel.codigo=tb_prod.codigo) where terminal=? and painel=? order by tb_prod_painel.idtb_painel";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -50,7 +50,7 @@ public class Tb_Prod_PainelDao {
     }
     
     public List<Tb_Prod_PainelBeans> getProdPainelConfig(Integer terminal, Integer painel) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel "
                     + "where terminal=? and painel=? order by tb_prod_painel.idtb_painel";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -79,7 +79,7 @@ public class Tb_Prod_PainelDao {
     }
     
     public List<Tb_Prod_PainelBeans> getProdPainelTabelas(Integer terminal, String painel) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "SELECT tb_prod_painel.* FROM tb_prod_painel "
                     + " INNER JOIN tb_prod ON(tb_prod_painel.codigo=tb_prod.codigo) where terminal=? and painel in(" + painel + ") order by tb_prod_painel.idtb_painel";            
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class Tb_Prod_PainelDao {
     }
     
     public void setProdPainel(List<Tb_Prod_PainelBeans> lpb) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "insert into tb_prod_painel(codigo,descricao,unid,valor1,valor2,oferta,terminal,painel) values ";            
             String sql2 = null;
             for (Tb_Prod_PainelBeans pb : lpb) {                
@@ -127,7 +127,7 @@ public class Tb_Prod_PainelDao {
     }    
     
     public void setProdPainelbackup(List<Tb_Prod_PainelBeans> lpb) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "insert into tb_prod_painel(codigo,descricao,unid,valor1,valor2,oferta,terminal,painel)values(?,?,?,?,?,?,?,?)";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             for (Tb_Prod_PainelBeans pb : lpb) {                
@@ -148,7 +148,7 @@ public class Tb_Prod_PainelDao {
     }    
     
     public void updateProdPainel(String codigo, Integer terminal, Float valor1) throws SQLException {
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "UPDATE tb_prod_painel SET valor1 = ? WHERE codigo = ? AND terminal=?";            
             PreparedStatement pstm = conexao.prepareStatement(sql);            
             pstm.setFloat(0, valor1);
@@ -163,7 +163,7 @@ public class Tb_Prod_PainelDao {
     
     public Boolean delProdPainel(Integer terminal, Integer painel) throws SQLException {
         Boolean retorno = false;
-        try (Connection conexao = new ConexaoDBMySql().getConnect()) {
+        try (Connection conexao = new ConexaoLocalDBMySql().getConnect()) {
             String sql = "delete from tb_prod_painel where terminal=? and painel=?";
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setInt(1, terminal);

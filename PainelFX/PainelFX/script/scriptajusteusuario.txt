@@ -1,0 +1,1 @@
+GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'rootpainel' WITH GRANT OPTION

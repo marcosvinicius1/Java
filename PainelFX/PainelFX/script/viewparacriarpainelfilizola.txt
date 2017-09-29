@@ -1,0 +1,4 @@
+nome: vw_prod_painel
+
+SQL:
+SELECT codigo,descricao,'KG' AS unid,preco as valor1, 0 AS valor2, 0 AS oferta from produtos;

@@ -26,13 +26,13 @@ public class CargaController {
         List<Tb_ProdBeans> lpbm = new ArrayList<>();
         try {
             lpbs = new Tb_ProdDao().getProdBalanca();
-            lpbm = new Tb_ProdDao().getProdLocal();
+            lpbm = new Tb_ProdDao().getProdLocal();               
             if (comparaArrayListCarga(lpbs, lpbm)) {
                 if (new Tb_ProdDao().delProdLocal()) {
                     new Tb_ProdDao().setProdLocal(lpbs);
                 }
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             new DBConfig().createArqLog("\nCargaController:Erro ao Atualizar Produtos No Banco Local:\n" + ex + "\n");
             //JOptionPane.showMessageDialog(null, "Erro ao Atualizar Produtos No Banco Local\n" + ex);
         }
@@ -53,26 +53,26 @@ public class CargaController {
 
     private boolean comparaArrayListCarga(List<Tb_ProdBeans> lpbs, List<Tb_ProdBeans> lpbm) {
         if (lpbs != null) {
-            if (lpbs.size() != lpbm.size()) {
+            if (lpbs.size() != lpbm.size()) {                
                 return true;
             } else {
                 for (int i = 0; i < lpbs.size(); i++) {
-                    if (!lpbs.get(i).getCodigo().equals(lpbm.get(i).getCodigo())) {
+                    if (!lpbs.get(i).getCodigo().equals(lpbm.get(i).getCodigo())) {                        
                         return true;
                     }
-                    if (!lpbs.get(i).getDescricao().equals(lpbm.get(i).getDescricao())) {
+                    if (!lpbs.get(i).getDescricao().equals(lpbm.get(i).getDescricao())) {                        
                         return true;
                     }
-                    if (!lpbs.get(i).getUnid().equals(lpbm.get(i).getUnid())) {
+                    if (!lpbs.get(i).getUnid().equals(lpbm.get(i).getUnid())) {                        
                         return true;
                     }
-                    if (!lpbs.get(i).getValor1().equals(lpbm.get(i).getValor1())) {
+                    if (!lpbs.get(i).getValor1().equals(lpbm.get(i).getValor1())) {                        
                         return true;
                     }
-                    if (!lpbs.get(i).getValor2().equals(lpbm.get(i).getValor2())) {
+                    if (!lpbs.get(i).getValor2().equals(lpbm.get(i).getValor2())) {                        
                         return true;
                     }
-                    if (!lpbs.get(i).getOferta().equals(lpbm.get(i).getOferta())) {
+                    if (!lpbs.get(i).getOferta().equals(lpbm.get(i).getOferta())) {                        
                         return true;
                     }
                 }
